@@ -117,7 +117,7 @@ public class DiscordRPC extends Module {
         rpc.setStart(System.currentTimeMillis() / 1000L);
 
         String largeText = "HIG Tools";
-        rpc.setLargeImage("hig-tools", largeText);
+        rpc.setLargeImage("higtools", largeText);
 
         recompileLine1();
         recompileLine2();
