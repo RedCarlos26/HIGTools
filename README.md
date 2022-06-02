@@ -1,6 +1,6 @@
 # HIG Tools
 
-HIG's Highway addon.
+HIG's Highway Tools (Meteor Addon).
 
 ### How to use:  
 - Download the latest release.
