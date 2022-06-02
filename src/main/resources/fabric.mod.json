@@ -1,31 +1,31 @@
 {
   "schemaVersion": 1,
-  "id": "addon-template",
+  "id": "hig-tools",
   "version": "${version}",
-  "name": "Addon Template",
-  "description": "An addon template for the Meteor addons.",
+  "name": "HIG Tools",
+  "description": "HIG's Highway Tools for Meteor Client",
   "authors": [
-    "seasnail8169"
+    "RedCarlos26"
   ],
   "contact": {
-    "repo": "https://github.com/MeteorDevelopment/meteor-addon-template"
+    "repo": "https://github.com/RedCarlos26/HIGTools"
   },
-  "icon": "assets/template/icon.png",
+  "icon": "assets/higtools/icon.png",
   "environment": "client",
   "entrypoints": {
     "meteor": [
-      "dummy.addon.template.TemplateAddon"
+      "higtools.modules.HIGTools"
     ]
   },
   "mixins": [
-    "template.mixins.json"
+    "higtools.mixins.json"
   ],
   "custom": {
-    "meteor-client:color": "225,25,25"
+    "meteor-client:color": "145,61,226"
   },
   "depends": {
     "java": ">=17",
-    "minecraft": ">=${mc_version}",
-    "meteor-client": "*"
+    "minecraft": ">=1.18",
+    "meteor-client": "0.4.7"
   }
 }
