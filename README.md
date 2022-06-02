@@ -1,8 +1,7 @@
-# Meteor Addon Template
+# HIG Tools
 
-A template to allow easy usage of the Meteor Addon API.
+HIG's Highway addon.
 
 ### How to use:  
-- Clone this project
-- Use this template to create new modules/commands
-- Run the mod with Meteor.
+- Download the latest release.
+- Run the mod with the latest Meteor devbuild.
