@@ -1,6 +1,6 @@
 # HIG Tools
 
-HIG's Highway Tools for Meteor Client
+HIG's Highway Tools (Meteor Addon).
 
 ### How to use:  
 - Download the latest release.
