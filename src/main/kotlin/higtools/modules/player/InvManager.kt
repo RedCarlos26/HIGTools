@@ -116,6 +116,9 @@ class InvManager:MeteorModule(HIGTools.HIG, "InvManager", "Automatically organiz
     }
 
     private fun save() {
+        if (mc.player == null) {
+            return
+        }
         slot0 = Registry.ITEM.getId(mc.player!!.inventory.getStack(0).item).toString()
         slot1 = Registry.ITEM.getId(mc.player!!.inventory.getStack(1).item).toString()
         slot2 = Registry.ITEM.getId(mc.player!!.inventory.getStack(2).item).toString()
