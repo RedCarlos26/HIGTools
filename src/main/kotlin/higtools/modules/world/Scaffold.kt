@@ -17,6 +17,7 @@ import net.minecraft.util.math.BlockPos
 import net.minecraft.util.math.Direction
 import net.minecraft.util.math.MathHelper
 import higtools.setValue
+import net.minecraft.network.packet.c2s.play.UpdateSelectedSlotC2SPacket
 
 object Scaffold:MeteorModule(HIGTools.HIG, "Scaffold", "Scaffolds blocks under you.") {
 
@@ -80,7 +81,7 @@ object Scaffold:MeteorModule(HIGTools.HIG, "Scaffold", "Scaffolds blocks under y
                     }
                     if (slot == -1) return
                     mc.player!!.inventory.selectedSlot = slot
-                    mc.interactionManager!!.syncSelectedSlot()
+                    mc.networkHandler!!.sendPacket(UpdateSelectedSlotC2SPacket(slot))
                 }
             }
             if (tower && mc.options.jumpKey.isPressed && mc.player!!.velocity.x == 0.0 && mc.player!!.velocity.z == 0.0) {
