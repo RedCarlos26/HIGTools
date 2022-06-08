@@ -38,7 +38,8 @@ public class HIGTools extends MeteorAddon {
         PacketFlyUtils.init();
         setCs2Ps();
 
-		// Modules
+        // Modules
+		// Java
         Modules modules = Modules.get();
         modules.add(new AfkLogout());
         modules.add(new ArmorNotify());
@@ -51,6 +52,7 @@ public class HIGTools extends MeteorAddon {
         modules.add(new PacketFly());
         modules.add(new Strafe());
         modules.add(new TPSSync());
+        // Kotlin
         modules.add(new NetherrackDiggingMontageMaker());
         modules.add(new NoCaveCulling());
         modules.add(Scaffold.INSTANCE);

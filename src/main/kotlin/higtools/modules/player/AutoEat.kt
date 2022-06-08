@@ -16,9 +16,9 @@ import net.minecraft.util.math.Direction.DOWN
 
 object AutoEat:MeteorModule(HIGTools.HIG, "AutoEat", "Automatically eat.") {
 
-    private var hunger by mainGroup.add(IValue("Hunger", 16, "Hunger to eat at", 1..19, 1))
-    private val autoGap by mainGroup.add(BValue("AutoGap", true, "Gap when no fire res"))
-    private val offhand by mainGroup.add(BValue("Offhand", true, "Eat if food is in offhand"))
+    private var hunger by mainGroup.add(IValue("Hunger", 16, "Hunger to eat at.", 1..19, 1))
+    private val autoGap by mainGroup.add(BValue("AutoGap", true, "Gap when no fire res."))
+    private val offhand by mainGroup.add(BValue("Offhand", true, "Eat if food is in offhand."))
     var eating = false
     private var slot = 0
     private var prevSlot = 0
