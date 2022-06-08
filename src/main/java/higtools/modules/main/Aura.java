@@ -34,11 +34,12 @@ import net.minecraft.world.GameMode;
 import java.util.ArrayList;
 import java.util.List;
 
-public class KillAuraPlus extends Module {
+public class Aura extends Module {
     public enum Weapon {
         Sword,
+        Pick,
         Axe,
-        Both,
+        All,
         Any
     }
 
@@ -70,14 +71,14 @@ public class KillAuraPlus extends Module {
     private final Setting<Weapon> weapon = sgGeneral.add(new EnumSetting.Builder<Weapon>()
             .name("weapons")
             .description("Only attacks an entity when a specified item is in your hand.")
-            .defaultValue(Weapon.Both)
+            .defaultValue(Weapon.Sword)
             .build()
     );
 
     private final Setting<Boolean> autoSwitch = sgGeneral.add(new BoolSetting.Builder()
             .name("auto-switch")
             .description("Switches to your selected weapon when attacking the target.")
-            .defaultValue(false)
+            .defaultValue(true)
             .build()
     );
 
@@ -91,7 +92,7 @@ public class KillAuraPlus extends Module {
     private final Setting<RotationMode> rotation = sgGeneral.add(new EnumSetting.Builder<RotationMode>()
             .name("rotate")
             .description("Determines when you should rotate towards the target.")
-            .defaultValue(RotationMode.Always)
+            .defaultValue(RotationMode.None)
             .build()
     );
 
@@ -148,7 +149,7 @@ public class KillAuraPlus extends Module {
     private final Setting<SortPriority> priority = sgTargeting.add(new EnumSetting.Builder<SortPriority>()
             .name("priority")
             .description("How to filter targets within range.")
-            .defaultValue(SortPriority.LowestHealth)
+            .defaultValue(SortPriority.LowestDistance)
             .build()
     );
 
@@ -171,7 +172,7 @@ public class KillAuraPlus extends Module {
     private final Setting<Boolean> nametagged = sgTargeting.add(new BoolSetting.Builder()
             .name("nametagged")
             .description("Whether or not to attack mobs with a name tag.")
-            .defaultValue(false)
+            .defaultValue(true)
             .build()
     );
 
@@ -187,7 +188,7 @@ public class KillAuraPlus extends Module {
     private final Setting<Integer> hitDelay = sgDelay.add(new IntSetting.Builder()
             .name("hit-delay")
             .description("How fast you hit the entity in ticks.")
-            .defaultValue(0)
+            .defaultValue(11)
             .min(0)
             .sliderMax(60)
             .visible(() -> delayMode.get() == DelayMode.Custom)
@@ -205,17 +206,15 @@ public class KillAuraPlus extends Module {
     private final Setting<Integer> switchDelay = sgDelay.add(new IntSetting.Builder()
             .name("switch-delay")
             .description("How many ticks to wait before hitting an entity after switching hotbar slots.")
-            .defaultValue(0)
+            .defaultValue(3)
             .min(0)
             .sliderMax(10)
             .build()
     );
 
-
-    public KillAuraPlus() {
-        super(HIGTools.HIG, "kill-aura+", "Kill Aura with various improvements.");
+    public Aura() {
+        super(HIGTools.HIG, "aura", "Attacks entites around you.");
     }
-
 
     private final List<Entity> targets = new ArrayList<>();
     private int hitDelayTimer, switchTimer;
@@ -261,7 +260,8 @@ public class KillAuraPlus extends Module {
                 return switch (weapon.get()) {
                     case Axe -> item instanceof AxeItem;
                     case Sword -> item instanceof SwordItem;
-                    case Both -> item instanceof AxeItem || item instanceof SwordItem;
+                    case Pick -> item instanceof PickaxeItem;
+                    case All -> item instanceof AxeItem || item instanceof SwordItem || item instanceof PickaxeItem;
                     default -> true;
                 };
             });

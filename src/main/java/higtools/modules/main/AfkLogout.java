@@ -20,7 +20,8 @@ public class AfkLogout extends Module {
             .name("dimension")
             .description("Dimension for the coords.")
             .defaultValue(Dimension.Nether)
-            .build());
+            .build()
+    );
 
     private final Setting<Integer> xCoords = sgGeneral.add(new IntSetting.Builder()
             .name("x-coords")
@@ -28,7 +29,8 @@ public class AfkLogout extends Module {
             .defaultValue(1000)
             .range(-2147483648, 2147483647)
             .sliderRange(-2147483648, 2147483647)
-            .build());
+            .build()
+    );
 
     private final Setting<Integer> zCoords = sgGeneral.add(new IntSetting.Builder()
             .name("z-coords")
@@ -36,7 +38,8 @@ public class AfkLogout extends Module {
             .defaultValue(1000)
             .range(-2147483648, 2147483647)
             .sliderRange(-2147483648, 2147483647)
-            .build());
+            .build()
+    );
 
     private final Setting<Integer> radius = sgGeneral.add(new IntSetting.Builder()
             .name("radius")
@@ -44,19 +47,22 @@ public class AfkLogout extends Module {
             .defaultValue(64)
             .min(0)
             .sliderRange(0, 256)
-            .build());
+            .build()
+    );
 
     private final Setting<Boolean> toggleAutoReconnect = sgGeneral.add(new BoolSetting.Builder()
             .name("toggle-auto-reconnect")
             .description("Turns off auto reconnect when disconnecting.")
             .defaultValue(true)
-            .build());
+            .build()
+    );
 
     private final Setting<Boolean> autoToggle = sgGeneral.add(new BoolSetting.Builder()
             .name("auto-toggle")
             .description("Turns itself off when disconnecting.")
             .defaultValue(true)
-            .build());
+            .build()
+    );
 
     public AfkLogout() {
         super(HIGTools.HIG, "afk-logout", "Logs out when you are at a certain coords for afk travelling.");

@@ -267,6 +267,10 @@ public class PacketFly extends Module {
         .build()
     );
 
+    public PacketFly() {
+        super(HIGTools.HIG, "packet-fly", "Fly with packets (ported from Konas).");
+    }
+
     public enum Type {
         FACTOR,
         SETBACK,
@@ -341,10 +345,6 @@ public class PacketFly extends Module {
     private int factorCounter;
     private SystemTimer intervalTimer = new SystemTimer();
     private static final Random random = new Random();
-
-    public PacketFly() {
-        super(HIGTools.HIG, "packet-fly", "Fly with packets (ported from Konas).");
-    }
 
     @Override
     public void onActivate() {

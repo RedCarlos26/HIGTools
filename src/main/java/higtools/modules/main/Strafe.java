@@ -54,34 +54,39 @@ public class Strafe extends Module {
     private final Setting<Mode> mode = sgGeneral.add(new EnumSetting.Builder<Mode>()
             .name("mode")
             .description("Behaviour of your movements")
-            .defaultValue(Mode.Smart)
-            .build());
+            .defaultValue(Mode.NCP)
+            .build()
+    );
 
     private final Setting<Double> groundTimer = sgGeneral.add(new DoubleSetting.Builder()
             .name("ground-timer")
             .description("Ground timer override.")
             .defaultValue(1)
             .sliderRange(0.001,10)
-            .build());
+            .build()
+    );
 
     private final Setting<Double> airTimer = sgGeneral.add(new DoubleSetting.Builder()
             .name("air-timer")
             .description("Air timer override.")
             .defaultValue(1.088)
             .sliderRange(0.001,10)
-            .build());
+            .build()
+    );
 
     private final Setting<Boolean> autoSprint = sgGeneral.add(new BoolSetting.Builder()
             .name("auto-sprint")
             .description("Makes you sprint if you are moving forward")
             .defaultValue(false)
-            .build());
+            .build()
+    );
 
     private final Setting<Boolean> TPSSync = sgGeneral.add(new BoolSetting.Builder()
             .name("TPS-sync")
             .description("Tries to sync movement with the server's TPS.")
             .defaultValue(false)
-            .build());
+            .build()
+    );
 
     // Vanilla
     private final Setting<Double> vanillaSneakSpeed = sgVanilla.add(new DoubleSetting.Builder()
@@ -91,7 +96,8 @@ public class Strafe extends Module {
             .min(0)
             .sliderMax(20)
             .visible(() -> mode.get() == Mode.Vanilla)
-            .build());
+            .build()
+    );
 
     private final Setting<Double> vanillaGroundSpeed = sgVanilla.add(new DoubleSetting.Builder()
             .name("vanilla-ground-speed")
@@ -100,7 +106,8 @@ public class Strafe extends Module {
             .min(0)
             .sliderMax(20)
             .visible(() -> mode.get() == Mode.Vanilla)
-            .build());
+            .build()
+    );
 
     private final Setting<Double> vanillaAirSpeed = sgVanilla.add(new DoubleSetting.Builder()
             .name("vanilla-air-speed")
@@ -109,14 +116,16 @@ public class Strafe extends Module {
             .min(0)
             .sliderMax(20)
             .visible(() -> mode.get() == Mode.Vanilla)
-            .build());
+            .build()
+    );
 
     private final Setting<Boolean> rubberbandPause = sgVanilla.add(new BoolSetting.Builder()
             .name("pause-on-rubberband")
             .description("Will pause Vanilla mode when you rubberband.")
             .defaultValue(false)
             .visible(() -> mode.get() == Mode.Vanilla)
-            .build());
+            .build()
+    );
 
     private final Setting<Integer> rubberbandTime = sgVanilla.add(new IntSetting.Builder()
             .name("pause-time")
@@ -125,7 +134,8 @@ public class Strafe extends Module {
             .min(0)
             .sliderMax(100)
             .visible(() -> mode.get() == Mode.Vanilla && rubberbandPause.get())
-            .build());
+            .build()
+    );
 
     // NCP
     private final Setting<Double> ncpSpeed = sgNCP.add(new DoubleSetting.Builder()
@@ -135,14 +145,16 @@ public class Strafe extends Module {
             .min(0)
             .sliderMax(3)
             .visible(() -> mode.get() != Mode.Vanilla)
-            .build());
+            .build()
+    );
 
     private final Setting<Boolean> ncpSpeedLimit = sgNCP.add(new BoolSetting.Builder()
             .name("speed-limit")
             .description("Limits your speed on servers with very strict anticheats.")
             .defaultValue(false)
             .visible(() -> mode.get() != Mode.Vanilla)
-            .build());
+            .build()
+    );
 
     private final Setting<Double> startingSpeed = sgNCP.add(new DoubleSetting.Builder()
             .name("starting-speed")
@@ -151,14 +163,16 @@ public class Strafe extends Module {
             .min(0)
             .sliderMax(2)
             .visible(() -> mode.get() != Mode.Vanilla)
-            .build());
+            .build()
+    );
 
     private final Setting<HopMode> hopMode = sgNCP.add(new EnumSetting.Builder<HopMode>()
             .name("hop-mode")
             .description("Mode to use for the hop height.")
             .defaultValue(HopMode.Auto)
             .visible(() -> mode.get() != Mode.Vanilla)
-            .build());
+            .build()
+    );
 
     private final Setting<Double> hopHeight = sgNCP.add(new DoubleSetting.Builder()
             .name("hop-height")
@@ -167,7 +181,8 @@ public class Strafe extends Module {
             .min(0)
             .sliderMax(1)
             .visible(() -> hopMode.get() == HopMode.Custom && mode.get() != Mode.Vanilla)
-            .build());
+            .build()
+    );
 
     private final Setting<Integer> jumpTime = sgNCP.add(new IntSetting.Builder()
             .name("jump-time")
@@ -176,7 +191,8 @@ public class Strafe extends Module {
             .min(0)
             .sliderMax(30)
             .visible(() -> mode.get() == Mode.Smart)
-            .build());
+            .build()
+    );
 
     private final Setting<Double> jumpedSlowDown = sgNCP.add(new DoubleSetting.Builder()
             .name("jumped-slow-down")
@@ -185,7 +201,8 @@ public class Strafe extends Module {
             .min(0)
             .sliderMax(1)
             .visible(() -> mode.get() != Mode.Vanilla)
-            .build());
+            .build()
+    );
 
     private final Setting<Double> resetDivisor = sgNCP.add(new DoubleSetting.Builder()
             .name("reset-divisor")
@@ -194,7 +211,8 @@ public class Strafe extends Module {
             .min(0)
             .sliderMax(200)
             .visible(() -> mode.get() != Mode.Vanilla)
-            .build());
+            .build()
+    );
 
     // Potions
     private final Setting<Boolean> applyJumpBoost = sgPotion.add(new BoolSetting.Builder()
@@ -202,69 +220,80 @@ public class Strafe extends Module {
             .description("Apply jump boost effect if the player has it.")
             .defaultValue(true)
             .visible(() -> mode.get() != Mode.Vanilla)
-            .build());
+            .build()
+    );
 
     private final Setting<Boolean> applySpeed = sgPotion.add(new BoolSetting.Builder()
             .name("speed-effect")
             .description("Apply speed effect if the player has it.")
             .defaultValue(true)
-            .build());
+            .build()
+    );
 
     private final Setting<Boolean> applySlowness = sgPotion.add(new BoolSetting.Builder()
             .name("slowness-effect")
             .description("Apply slowness effect if the player has it.")
             .defaultValue(true)
-            .build());
+            .build()
+    );
 
     // Pauses
     private final Setting<Boolean> longJumpPause = sgPause.add(new BoolSetting.Builder()
             .name("pause-on-long-jump")
             .description("Pauses the module if long jump is active.")
             .defaultValue(false)
-            .build());
+            .build()
+    );
 
     private final Setting<Boolean> flightPause = sgPause.add(new BoolSetting.Builder()
             .name("pause-on-flight")
             .description("Pauses the module if flight is active.")
             .defaultValue(false)
-            .build());
+            .build()
+    );
 
     private final Setting<Boolean> eFlyPause = sgPause.add(new BoolSetting.Builder()
             .name("pause-on-elytra-fly")
             .description("Pauses the module if elytra fly is active.")
             .defaultValue(false)
-            .build());
+            .build()
+    );
 
     // Anti Cheat
     private final Setting<Boolean> inWater = sgAC.add(new BoolSetting.Builder()
             .name("in-water")
             .description("Uses speed when in water.")
             .defaultValue(false)
-            .build());
+            .build()
+    );
 
     private final Setting<Boolean> inLava = sgAC.add(new BoolSetting.Builder()
             .name("in-lava")
             .description("Uses speed when in lava.")
             .defaultValue(false)
-            .build());
+            .build()
+    );
 
     private final Setting<Boolean> whenSneaking = sgAC.add(new BoolSetting.Builder()
             .name("when-sneaking")
             .description("Uses speed when sneaking.")
             .defaultValue(false)
-            .build());
+            .build()
+    );
 
     private final Setting<Boolean> hungerCheck = sgAC.add(new BoolSetting.Builder()
             .name("hunger-check")
             .description("Pauses when hunger reaches 3 or less drumsticks")
             .defaultValue(true)
-            .build());
+            .build()
+    );
 
     private final Setting<WebbedPause> webbedPause = sgAC.add(new EnumSetting.Builder<WebbedPause>()
             .name("pause-on-webbed")
             .description("Pauses when you are webbed.")
             .defaultValue(WebbedPause.OnAir)
-            .build());
+            .build()
+    );
 
     public Strafe() {
         super(HIGTools.HIG, "strafe", "Increase speed and control.");

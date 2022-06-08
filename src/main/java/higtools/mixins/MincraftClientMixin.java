@@ -1,6 +1,6 @@
 package higtools.mixins;
 
-//import higtools.modules.HIGTools;
+import higtools.modules.HIGTools;
 import meteordevelopment.meteorclient.mixininterface.IMinecraftClient;
 import net.minecraft.client.MinecraftClient;
 import org.spongepowered.asm.mixin.Mixin;
@@ -16,7 +16,7 @@ public abstract class MincraftClientMixin implements IMinecraftClient {
 
     @Inject(method = "getWindowTitle", at = @At("HEAD"), cancellable = true)
     public void getWindowTitle(CallbackInfoReturnable<String> ci){
-        String title = "HIG Tools 1.0"; //+ HIG.VERSION;
+        String title = "HIG Tools " + HIGTools.VERSION;
         ci.setReturnValue(title);
     }
 }

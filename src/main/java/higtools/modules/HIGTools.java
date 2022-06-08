@@ -19,6 +19,7 @@ import org.slf4j.LoggerFactory;
 import java.lang.invoke.MethodHandles;
 
 public class HIGTools extends MeteorAddon {
+    public static String VERSION = "1.1";
 	public static final Logger LOG = LoggerFactory.getLogger("HIG Tools");
     public static final Category HIG = new Category("HIG Tools", Items.NETHERITE_PICKAXE.getDefaultStack());
 
@@ -29,17 +30,16 @@ public class HIGTools extends MeteorAddon {
 		MeteorClient.EVENT_BUS.registerLambdaFactory("higtools", (lookupInMethod, klass) -> (MethodHandles.Lookup) lookupInMethod.invoke(null, klass, MethodHandles.lookup()));
 
         HTDamageUtils.init();
+        ServiceLoader.load();
 
 		// Modules
         Modules modules = Modules.get();
 		modules.add(new AfkLogout());
         modules.add(new ArmorNotify());
-        modules.add(new AutoXpPlus());
+        modules.add(new Aura());
 		modules.add(new ChatTweaks());
         modules.add(new DiscordRPC());
-        modules.add(new KillAuraPlus());
-		modules.add(new NewChunks());
-        modules.add(new OffhandPlus());
+        modules.add(new HandManager());
         modules.add(new OldAnimations());
 		modules.add(new OneClickEat());
         modules.add(new PacketFly());
@@ -48,6 +48,8 @@ public class HIGTools extends MeteorAddon {
 
         //Commands
         Commands commands = Commands.get();
+        commands.add(new ClearChat());
+        commands.add(new Ghost());
         commands.add(new Kick());
 
         // HUD
