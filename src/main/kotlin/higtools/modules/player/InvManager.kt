@@ -62,6 +62,7 @@ class InvManager:MeteorModule(HIGTools.HIG, "InvManager", "Automatically organiz
 
     private var delay by mainGroup.add(IValue("Delay", 15, "Delay to use", 1..35, 1))
     private var reset by mainGroup.add(BValue("Reset", false, "Toggle this to reset, too lazy to make proper thing", { true }, { reset() }))
+    private var save by mainGroup.add(BValue("Save", false, "Toggle this to save, too lazy to make proper thing", { true }, { save() }))
 
     private var itemIds:Array<Identifier> = Array(9) { Identifier("") }
 
@@ -124,7 +125,7 @@ class InvManager:MeteorModule(HIGTools.HIG, "InvManager", "Automatically organiz
         slot6 = Registry.ITEM.getId(mc.player!!.inventory.getStack(6).item).toString()
         slot7 = Registry.ITEM.getId(mc.player!!.inventory.getStack(7).item).toString()
         slot8 = Registry.ITEM.getId(mc.player!!.inventory.getStack(8).item).toString()
-        mc.inGameHud.chatHud.addMessage(Text.of("<${Formatting.LIGHT_PURPLE}Llama/InvManager${Formatting.RESET}> Saved inventory -> ${
+        mc.inGameHud.chatHud.addMessage(Text.of("<${Formatting.LIGHT_PURPLE}HIGTools/InvManager${Formatting.RESET}> Saved inventory -> ${
             itemIds.contentToString().replace("minecraft:", "")
         }"))
     }
