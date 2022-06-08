@@ -349,7 +349,8 @@ public class Aura extends Module {
         return switch (weapon.get()) {
             case Axe -> mc.player.getMainHandStack().getItem() instanceof AxeItem;
             case Sword -> mc.player.getMainHandStack().getItem() instanceof SwordItem;
-            case Both -> mc.player.getMainHandStack().getItem() instanceof AxeItem || mc.player.getMainHandStack().getItem() instanceof SwordItem;
+            case Pick -> mc.player.getMainHandStack().getItem() instanceof PickaxeItem;
+            case All -> mc.player.getMainHandStack().getItem() instanceof AxeItem || mc.player.getMainHandStack().getItem() instanceof SwordItem || mc.player.getMainHandStack().getItem() instanceof PickaxeItem;
             default -> true;
         };
     }
