@@ -71,7 +71,7 @@ public class Aura extends Module {
     private final Setting<Weapon> weapon = sgGeneral.add(new EnumSetting.Builder<Weapon>()
             .name("weapons")
             .description("Only attacks an entity when a specified item is in your hand.")
-            .defaultValue(Weapon.Sword)
+            .defaultValue(Weapon.Pick)
             .build()
     );
 
@@ -181,7 +181,7 @@ public class Aura extends Module {
     private final Setting<DelayMode> delayMode = sgDelay.add(new EnumSetting.Builder<DelayMode>()
             .name("delay-mode")
             .description("Mode to use for the delay to attack.")
-            .defaultValue(DelayMode.Fixed)
+            .defaultValue(DelayMode.Vanilla)
             .build()
     );
 
@@ -206,7 +206,7 @@ public class Aura extends Module {
     private final Setting<Integer> switchDelay = sgDelay.add(new IntSetting.Builder()
             .name("switch-delay")
             .description("How many ticks to wait before hitting an entity after switching hotbar slots.")
-            .defaultValue(3)
+            .defaultValue(4)
             .min(0)
             .sliderMax(10)
             .build()

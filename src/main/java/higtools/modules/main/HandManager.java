@@ -28,13 +28,6 @@ public class HandManager extends Module {
             .build()
     );
 
-    private final Setting<Item> fallbackItem = sgGeneral.add(new EnumSetting.Builder<Item>()
-            .name("fallback-item")
-            .description("Which item to hold if main item is not found.")
-            .defaultValue(Item.Totem)
-            .build()
-    );
-
     private final Setting<Boolean> hotbar = sgGeneral.add(new BoolSetting.Builder()
             .name("hotbar")
             .description("Whether to use items from your hotbar.")
@@ -76,7 +69,7 @@ public class HandManager extends Module {
             FindItemResult item = InvUtils.find(itemStack -> itemStack.getItem() == currentItem.item, hotbar.get() ? 0 : 9, 35);
 
             // No offhand item
-            if (!item.found()) item = InvUtils.find(itemStack -> itemStack.getItem() == fallbackItem.get().item, hotbar.get() ? 0 : 9, 35);
+            if (!item.found()) item = InvUtils.find(itemStack -> itemStack.getItem()== Items.TOTEM_OF_UNDYING, hotbar.get() ? 0 : 9, 35);
 
             if (!item.found()) {
                 if (!sentMessage) {
@@ -133,8 +126,7 @@ public class HandManager extends Module {
         Porkchop(Items.COOKED_PORKCHOP),
         Rabbit(Items.COOKED_RABBIT),
         Salmon(Items.COOKED_SALMON),
-        Steak(Items.COOKED_BEEF),
-        Totem(Items.TOTEM_OF_UNDYING);
+        Steak(Items.COOKED_BEEF);
 
         net.minecraft.item.Item item;
 

@@ -40,6 +40,7 @@ public class HIGTools extends MeteorAddon {
 		modules.add(new ChatTweaks());
         modules.add(new DiscordRPC());
         modules.add(new HandManager());
+        //modules.add(new HighwayBuilder());
         modules.add(new OldAnimations());
 		modules.add(new OneClickEat());
         modules.add(new PacketFly());
