@@ -110,7 +110,6 @@ public class SpotifyHud extends HudElement {
 
         RAINBOW.setSpeed(chromaSpeed.get() / 100);
         Color next = RAINBOW.getNext(renderer.delta); // store so the sides and back are synced
-        if (AuraSyncService.isEnabled()) next = AuraSyncService.RGB_COLOR;
         Color sideC = sideColor.get();
         Color textColor = hud.secondaryColor.get();
         if (chroma.get()) sideC = next;
