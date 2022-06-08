@@ -33,23 +33,22 @@ public class HIGTools extends MeteorAddon {
 		MeteorClient.EVENT_BUS.registerLambdaFactory("higtools", (lookupInMethod, klass) -> (MethodHandles.Lookup) lookupInMethod.invoke(null, klass, MethodHandles.lookup()));
 
         HTDamageUtils.init();
+        ServiceLoader.load();
         setCs2Ps();
 
 		// Modules
         Modules modules = Modules.get();
-		modules.add(new AfkLogout());
+        modules.add(new AfkLogout());
         modules.add(new ArmorNotify());
-        modules.add(new AutoXpPlus());
-		modules.add(new ChatTweaks());
+        modules.add(new Aura());
+        modules.add(new ChatTweaks());
         modules.add(new DiscordRPC());
-        modules.add(new KillAuraPlus());
-		modules.add(new NewChunks());
-        modules.add(new OffhandPlus());
+        modules.add(new HandManager());
         modules.add(new OldAnimations());
-		modules.add(new OneClickEat());
+        modules.add(new OneClickEat());
         modules.add(new PacketFly());
         modules.add(new Strafe());
-		modules.add(new TPSSync());
+        modules.add(new TPSSync());
         modules.add(new NetherrackDiggingMontageMaker());
         modules.add(new NoCaveCulling());
         modules.add(Scaffold.INSTANCE);
