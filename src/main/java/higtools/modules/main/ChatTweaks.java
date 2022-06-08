@@ -64,7 +64,7 @@ public class ChatTweaks extends Module {
 
     @Override
     public void onActivate() {
-        ChatUtils.registerCustomPrefix("venus.modules", this::getPrefix);
+        ChatUtils.registerCustomPrefix("higtools.modules", this::getPrefix);
     }
 
     public LiteralText getPrefix() {

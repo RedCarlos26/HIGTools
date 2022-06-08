@@ -27,8 +27,8 @@ public class AfkLogout extends Module {
             .name("x-coords")
             .description("The X coords it should log you out.")
             .defaultValue(1000)
-            .range(-2147483648, 2147483647)
-            .sliderRange(-2147483648, 2147483647)
+            .range(-29999983, 29999983)
+            .sliderRange(-29999983, 29999983)
             .build()
     );
 
@@ -36,8 +36,8 @@ public class AfkLogout extends Module {
             .name("z-coords")
             .description("The z coords it should log you out.")
             .defaultValue(1000)
-            .range(-2147483648, 2147483647)
-            .sliderRange(-2147483648, 2147483647)
+            .range(-29999983, 29999983)
+            .sliderRange(-29999983, 29999983)
             .build()
     );
 
@@ -46,7 +46,7 @@ public class AfkLogout extends Module {
             .description("The radius of coords from the exact coords it will log you out.")
             .defaultValue(64)
             .min(0)
-            .sliderRange(0, 256)
+            .sliderRange(0, 320)
             .build()
     );
 
