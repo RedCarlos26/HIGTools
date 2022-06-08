@@ -10,7 +10,6 @@ class AutoCenter:MeteorModule(HIGTools.HIG, "AutoCenter", "Automatically centers
 
     // x+ x- z+ z- x+z+ x-z+ x+z- x-z-
     private var highway = -1
-    private var zCompX = 0.0
     private var comp by mainGroup.add(DValue("Compensation",
                                              1.0,
                                              "How much to compensate for the player's position",
@@ -18,12 +17,9 @@ class AutoCenter:MeteorModule(HIGTools.HIG, "AutoCenter", "Automatically centers
                                              0.1))
 
     override fun onActivate() {
-        if (mc.player == null) return
         super.onActivate()
+        if (mc.player == null) return
         this.highway = higtools.highway
-        if (highway in 5..8) {
-            zCompX = abs(mc.player!!.z) - abs(mc.player!!.x)
-        }
     }
 
     @EventHandler

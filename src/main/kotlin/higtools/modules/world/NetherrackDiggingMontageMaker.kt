@@ -1,12 +1,7 @@
 package higtools.modules.world
 
-import higtools.MeteorModule
-import higtools.backward
-import higtools.forward
-import higtools.getValue
-import higtools.highway
+import higtools.*
 import higtools.modules.HIGTools
-import higtools.left
 import meteordevelopment.meteorclient.events.world.TickEvent
 import meteordevelopment.meteorclient.settings.BoolSetting
 import meteordevelopment.meteorclient.settings.EnumSetting
@@ -17,8 +12,6 @@ import net.minecraft.util.Util
 import net.minecraft.util.math.BlockPos
 import net.minecraft.util.math.Direction
 import net.minecraft.util.math.MathHelper
-import higtools.right
-import higtools.setValue
 import kotlin.math.floor
 
 // Current nuker bypass implementation, works on ecme @ 13 bps
@@ -26,56 +19,14 @@ class NetherrackDiggingMontageMaker:MeteorModule(HIGTools.HIG, "NetherBorer", "B
 
     private val general = settings.defaultGroup
 
-    private var mode by general.add(EnumSetting.Builder()
-                                        .name("Mode")
-                                        .description("Mode to use")
-                                        .defaultValue(Mode.HIGHWAY)
-                                        .build())
-    private var extForward by general.add(IntSetting.Builder()
-                                              .name("ExtForward")
-                                              .description("How many blocks to extend higtools.forward")
-                                              .defaultValue(1)
-                                              .min(1)
-                                              .max(6)
-                                              .build())
-    private var extBackward by general.add(IntSetting.Builder()
-                                               .name("ExtBackward")
-                                               .description("How many blocks to extend backwards.")
-                                               .defaultValue(2)
-                                               .min(1)
-                                               .max(6)
-                                               .build())
-    private var xOffset by general.add(IntSetting.Builder()
-                                           .name("XOffset")
-                                           .description("How many blocks to offset the x axis.")
-                                           .defaultValue(2)
-                                           .min(-2)
-                                           .max(2)
-                                           .build())
-    private var zOffset by general.add(IntSetting.Builder()
-                                           .name("ZOffset")
-                                           .description("How many blocks to offset the z axis.")
-                                           .defaultValue(2)
-                                           .min(-2)
-                                           .max(2)
-                                           .build())
-    private var keepY by general.add(IntSetting.Builder()
-                                         .name("KeepY")
-                                         .description("How many blocks to keep on the y axis.")
-                                         .defaultValue(-1)
-                                         .min(-1)
-                                         .max(255)
-                                         .build())
-    private var disable by general.add(BoolSetting.Builder()
-                                           .name("Disable")
-                                           .description("Disable the feature.")
-                                           .defaultValue(false)
-                                           .build())
-    private var jumping by general.add(BoolSetting.Builder()
-                                           .name("Jumping")
-                                           .description("Send more or less packs.")
-                                           .defaultValue(false)
-                                           .build())
+    private var mode by general.add(EValue("Mode", Mode.THIN, "Mode to use"))
+    private var extForward by general.add(IValue("ExtForward", 3, "How many blocks to extend forward", 1..6, 1))
+    private var extBackward by general.add(IValue("ExtBackward", 3, "How many blocks to extend backward", 1..6, 1))
+    private var xOffset by general.add(IValue("XOffset", 0, "How many blocks to offset the y axis", -2..2, 1))
+    private var zOffset by general.add(IValue("ZOffset", 0, "How many blocks to offset the z axis", -2..2, 1))
+    private var keepY by general.add(IValue("KeepY", -1, "asdf", -1..255, 1))
+    private var disable by general.add(BValue("Disable", false, "Disable the feature"))
+    private var jumping by general.add(BValue("Jumping", false, "Send more or less packs"))
 
     // preserve 2 block tall tunnel for speed bypass
     private var blacklist:MutableList<BlockPos> = ArrayList()

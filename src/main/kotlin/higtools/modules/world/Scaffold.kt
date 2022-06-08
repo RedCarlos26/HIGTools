@@ -1,13 +1,9 @@
 package higtools.modules.world
 
-import higtools.MeteorModule
-import higtools.getValue
+import higtools.*
 import higtools.modules.HIGTools
 import meteordevelopment.meteorclient.events.world.TickEvent
 import meteordevelopment.meteorclient.mixininterface.IVec3d
-import meteordevelopment.meteorclient.settings.BoolSetting
-import meteordevelopment.meteorclient.settings.DoubleSetting
-import meteordevelopment.meteorclient.settings.IntSetting
 import meteordevelopment.orbit.EventHandler
 import net.minecraft.item.BlockItem
 import net.minecraft.network.packet.c2s.play.PlayerInteractBlockC2SPacket
@@ -16,39 +12,16 @@ import net.minecraft.util.hit.BlockHitResult
 import net.minecraft.util.math.BlockPos
 import net.minecraft.util.math.Direction
 import net.minecraft.util.math.MathHelper
-import higtools.setValue
 import net.minecraft.network.packet.c2s.play.UpdateSelectedSlotC2SPacket
 
 object Scaffold:MeteorModule(HIGTools.HIG, "Scaffold", "Scaffolds blocks under you.") {
 
     private var slot = -1
 
-    private val general = settings.defaultGroup
-    private var ext by general.add(IntSetting.Builder()
-                                       .name("Extend")
-                                       .description("How much to place in front of you.")
-                                       .min(0)
-                                       .max(5)
-                                       .defaultValue(1)
-                                       .build())
-    private var tower by general.add(BoolSetting.Builder()
-                                         .name("Tower")
-                                         .defaultValue(false)
-                                         .description("Makes towering easier.")
-                                         .build())
-    private var towerMult by general.add(DoubleSetting.Builder()
-                                             .name("TowerMult")
-                                             .defaultValue(0.7454)
-                                             .description("Makes the stuff bypass potentially.")
-                                             .min(0.0)
-                                             .max(2.0)
-                                             .build())
-    private var keepY by general.add(IntSetting.Builder()
-                                         .name("KeepY")
-                                         .defaultValue(-1)
-                                         .description("Keeps the Y value at the specified value. -1 = current Y value.")
-                                         .range(-1, 255)
-                                         .build())
+    private var ext by mainGroup.add(IValue("Extend", 1, "How much to place in front of you", 0..5, 1))
+    private var tower by mainGroup.add(BValue("Tower", false, "Makes towering easier"))
+    private var towerMult by mainGroup.add(DValue("Mult", 0.7454, "Makes the stuff bypass potentially.", 0.0..2.0, 0.0001))
+    private var keepY by mainGroup.add(IValue("KeepY", -1, "Keeps the Y value of the block", -1..255, 1))
 
     var worked:Boolean = false
 
