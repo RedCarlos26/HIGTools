@@ -20,33 +20,39 @@ public class ChatTweaks extends Module {
             .name("emotes")
             .description("Enables the HIG emote system.")
             .defaultValue(false)
-            .build());
+            .build()
+    );
 
     private final Setting<String> prefix = sgGeneral.add(new StringSetting.Builder()
             .name("prefix")
             .description("What to be displayed as HIG Tools Prefix")
             .defaultValue("HIG Tools")
-            .build());
+            .build()
+    );
 
     private final Setting<SettingColor> prefixColors = sgGeneral.add(new ColorSetting.Builder()
             .name("prefix-color")
             .description("Color display for the prefix")
             .defaultValue(new SettingColor(145, 61, 226, 255))
-            .build());
+            .build()
+    );
 
     private final Setting<String> leftBracket = sgGeneral.add(new StringSetting.Builder()
             .name("left-bracket")
             .description("What to be displayed as left bracket for the prefix")
             .defaultValue("[")
-            .build());
+            .build()
+    );
 
     private final Setting<String> rightBracket = sgGeneral.add(new StringSetting.Builder()
             .name("right-bracket")
             .description("What to be displayed as right bracket for the prefix")
             .defaultValue("]")
-            .build());
+            .build()
+    );
 
-    public ChatTweaks() { super(HIGTools.HIG, "chat-tweaks", "Various chat tweaks.");
+    public ChatTweaks() {
+        super(HIGTools.HIG, "chat-tweaks", "Various chat tweaks.");
     }
 
     @EventHandler

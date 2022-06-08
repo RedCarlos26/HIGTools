@@ -73,7 +73,7 @@ public class DiscordRPC extends Module {
     private final Setting<List<String>> line2Strings = sgLine2.add(new StringListSetting.Builder()
             .name("line-2-messages")
             .description("Messages used for the second line.")
-            .defaultValue("{player}", "{round({server.tps}, 1)} TPS", "{server.player_count} Players online")
+            .defaultValue("{player}", "Building highways", "{server.player_count} Players online")
             .onChanged(strings -> recompileLine2())
             .build()
     );
@@ -106,7 +106,6 @@ public class DiscordRPC extends Module {
 
     public DiscordRPC() {
         super(HIGTools.HIG, "discord-RPC", "Displays HIG Tools as your presence on Discord. You can use starscript {} see doc down below");
-
         runInMainMenu = true;
     }
 
@@ -219,7 +218,7 @@ public class DiscordRPC extends Module {
         }
         else {
             if (!lastWasInMainMenu) {
-                rpc.setDetails("HIG Tools 1.0");
+                rpc.setDetails("HIG Tools " + HIGTools.VERSION);
 
                 if (mc.currentScreen instanceof TitleScreen) rpc.setState("Looking at title screen");
                 else if (mc.currentScreen instanceof SelectWorldScreen) rpc.setState("Selecting world");

@@ -6,7 +6,7 @@ import net.minecraft.item.Items;
 
 import static meteordevelopment.meteorclient.MeteorClient.mc;
 
-public class HTArmorUtils {
+public class ArmorNotifyUtils {
 
 public static boolean checkThreshold(ItemStack i, double threshold) {
     return getDamage(i) <= threshold;

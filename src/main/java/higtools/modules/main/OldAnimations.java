@@ -16,7 +16,12 @@ import java.util.Objects;
 public class OldAnimations extends Module {
     private final SettingGroup sgGeneral = settings.getDefaultGroup();
 
-    private final Setting<Boolean> showSwapping = sgGeneral.add(new BoolSetting.Builder().name("show-swapping").description("Whether or not to show the item swapping animation.").defaultValue(true).build());
+    private final Setting<Boolean> showSwapping = sgGeneral.add(new BoolSetting.Builder()
+        .name("show-swapping")
+        .description("Whether or not to show the item swapping animation.")
+        .defaultValue(true)
+        .build()
+    );
 
     private static int slotMainHand = 0;
 

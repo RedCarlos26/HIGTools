@@ -5,7 +5,8 @@
   "name": "HIG Tools",
   "description": "HIG's Highway Tools for Meteor Client",
   "authors": [
-    "RedCarlos26"
+    "RedCarlos26",
+    "Ethius"
   ],
   "contact": {
     "repo": "https://github.com/RedCarlos26/HIGTools"
