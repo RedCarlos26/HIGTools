@@ -33,7 +33,7 @@ public class OneClickEat extends Module {
     private final SettingGroup sgGeneral = settings.getDefaultGroup();
 
     private final Setting<List<Item>> foodList = sgGeneral.add(new ItemListSetting.Builder()
-            .name("white-list")
+            .name("whitelist")
             .description("Which items you can one click eat.")
             .filter(Item::isFood)
             .build()

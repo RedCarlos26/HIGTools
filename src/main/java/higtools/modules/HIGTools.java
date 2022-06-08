@@ -60,6 +60,7 @@ public class HIGTools extends MeteorAddon {
         hud.elements.add(new GapHud(hud));
         hud.elements.add(new ObbyHud(hud));
         hud.elements.add(new PickHud(hud));
+        hud.elements.add(new SpotifyHud(hud));
         hud.elements.add(new XpHud(hud));
 	}
 
