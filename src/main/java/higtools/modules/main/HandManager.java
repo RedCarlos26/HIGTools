@@ -69,7 +69,10 @@ public class HandManager extends Module {
             FindItemResult item = InvUtils.find(itemStack -> itemStack.getItem() == currentItem.item, hotbar.get() ? 0 : 9, 35);
 
             // No offhand item
+            FindItemResult fallbacktotem = InvUtils.find(itemStack -> itemStack.getItem() == Items.TOTEM_OF_UNDYING, hotbar.get() ? 0 : 9, 35);
             if (!item.found()) item = InvUtils.find(itemStack -> itemStack.getItem()== Items.TOTEM_OF_UNDYING, hotbar.get() ? 0 : 9, 35);
+            if (fallbacktotem.found() && !fallbacktotem.isOffhand())
+                return;
 
             if (!item.found()) {
                 if (!sentMessage) {
