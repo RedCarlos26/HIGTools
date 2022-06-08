@@ -107,7 +107,7 @@ object Scaffold:MeteorModule(HIGTools.HIG, "Scaffold", "Scaffolds blocks under y
         }
         if (mc.player!!.inventory.selectedSlot != prevSlot) {
             mc.player!!.inventory.selectedSlot = prevSlot
-            mc.interactionManager!!.syncSelectedSlot()
+            mc.networkHandler!!.sendPacket(UpdateSelectedSlotC2SPacket(prevSlot))
         }
     }
 
