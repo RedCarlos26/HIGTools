@@ -1,6 +1,6 @@
 package higtools
 
-import higtools.utils.PacketFlyUtils.mc
+import meteordevelopment.meteorclient.MeteorClient.mc
 import meteordevelopment.meteorclient.settings.*
 import net.minecraft.util.math.BlockPos
 import net.minecraft.util.math.Direction
@@ -49,7 +49,7 @@ fun DValue(
     range:ClosedFloatingPointRange<Double>,
     step:Double,
     visibility:() -> Boolean = { true },
-    consumer:(input:Double) -> Unit = {  },
+    consumer:(input:Double) -> Unit = { },
 ):DoubleSetting {
     return DoubleSetting.Builder()
         .name(name)
@@ -66,7 +66,7 @@ fun BValue(
     value:Boolean,
     description:String = "",
     visibility:() -> Boolean = { true },
-    consumer:(input:Boolean) -> Unit = {  },
+    consumer:(input:Boolean) -> Unit = { },
 ):BoolSetting {
     return BoolSetting.Builder()
         .name(name)
@@ -82,7 +82,7 @@ fun <T:Enum<T>> EValue(
     value:T,
     description:String = "",
     visibility:() -> Boolean = { true },
-    consumer:(input:T) -> Unit = {  },
+    consumer:(input:T) -> Unit = { },
 ):EnumSetting<T> {
     return EnumSetting.Builder<T>()
         .name(name)
@@ -98,7 +98,7 @@ fun SValue(
     value:String,
     description:String = "",
     visibility:() -> Boolean = { true },
-    consumer:(input:String) -> Unit = {  },
+    consumer:(input:String) -> Unit = { },
 ):StringSetting {
     return StringSetting.Builder()
         .name(name)
@@ -109,10 +109,8 @@ fun SValue(
         .build()
 }
 
-fun BlockPos.left(int:Int):BlockPos
-{
-    return when (mc.player!!.horizontalFacing)
-    {
+fun BlockPos.left(int:Int):BlockPos {
+    return when (mc.player!!.horizontalFacing) {
         Direction.SOUTH -> this.east(int)
         Direction.NORTH -> this.west(int)
         Direction.WEST -> this.south(int)
@@ -120,10 +118,8 @@ fun BlockPos.left(int:Int):BlockPos
     }
 }
 
-fun BlockPos.right(int:Int):BlockPos
-{
-    return when (mc.player!!.horizontalFacing)
-    {
+fun BlockPos.right(int:Int):BlockPos {
+    return when (mc.player!!.horizontalFacing) {
         Direction.SOUTH -> this.west(int)
         Direction.NORTH -> this.east(int)
         Direction.WEST -> this.north(int)
@@ -131,10 +127,8 @@ fun BlockPos.right(int:Int):BlockPos
     }
 }
 
-fun BlockPos.forward(int:Int):BlockPos
-{
-    return when (mc.player!!.horizontalFacing)
-    {
+fun BlockPos.forward(int:Int):BlockPos {
+    return when (mc.player!!.horizontalFacing) {
         Direction.SOUTH -> this.south(int)
         Direction.NORTH -> this.north(int)
         Direction.WEST -> this.west(int)
@@ -142,10 +136,8 @@ fun BlockPos.forward(int:Int):BlockPos
     }
 }
 
-fun BlockPos.backward(int:Int):BlockPos
-{
-    return when (mc.player!!.horizontalFacing)
-    {
+fun BlockPos.backward(int:Int):BlockPos {
+    return when (mc.player!!.horizontalFacing) {
         Direction.SOUTH -> this.north(int)
         Direction.NORTH -> this.south(int)
         Direction.WEST -> this.east(int)
@@ -153,29 +145,24 @@ fun BlockPos.backward(int:Int):BlockPos
     }
 }
 
-fun BlockPos.mutX(x:Int):BlockPos
-{
+fun BlockPos.mutX(x:Int):BlockPos {
     return BlockPos(this.x + x, this.y, this.z)
 }
 
-fun BlockPos.mutY(y:Int):BlockPos
-{
+fun BlockPos.mutY(y:Int):BlockPos {
     return BlockPos(this.x, this.y + y, this.z)
 }
 
-fun BlockPos.mutZ(z:Int):BlockPos
-{
+fun BlockPos.mutZ(z:Int):BlockPos {
     return BlockPos(this.x, this.y, this.z + z)
 }
 
-fun BlockPos.mutXZ(x:Int, z:Int):BlockPos
-{
+fun BlockPos.mutXZ(x:Int, z:Int):BlockPos {
     return BlockPos(this.x + x, this.y, this.z + z)
 }
 
 val highway:Int
-    get()
-    {
+    get() {
         val x = abs(mc.player!!.z) < 5
         val z = abs(mc.player!!.x) < 5
         val xp = sign(mc.player!!.x) == 1.0
@@ -187,13 +174,11 @@ val highway:Int
 private val packetToClient = HashMap<Int, Int>()
 private val clientToPacket = HashMap<Int, Int>()
 
-fun csToPs(clientSlot:Int):Int
-{
+fun csToPs(clientSlot:Int):Int {
     return clientToPacket.getOrDefault(clientSlot, -1)
 }
 
-fun psToCs(packetSlot:Int):Int
-{
+fun psToCs(packetSlot:Int):Int {
     return packetToClient.getOrDefault(packetSlot, -1)
 }
 
@@ -208,11 +193,12 @@ fun setCs2Ps() {
     clientToPacket[36] = 8
     packetToClient[45] = 40
     clientToPacket[40] = 45
-    for (i in 9..35)
-    {
-        packetToClient[i] = i; clientToPacket[i] = i; }
-    for (i in 0..8)
-    {
-        packetToClient[i + 36] = i; clientToPacket[i] = i + 36;
+    for (i in 9..35) {
+        packetToClient[i] = i
+        clientToPacket[i] = i
+    }
+    for (i in 0..8) {
+        packetToClient[i + 36] = i
+        clientToPacket[i] = i + 36
     }
 }

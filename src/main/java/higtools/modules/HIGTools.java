@@ -35,6 +35,7 @@ public class HIGTools extends MeteorAddon {
 
         HTDamageUtils.init();
         ServiceLoader.load();
+        PacketFlyUtils.init();
         setCs2Ps();
 
 		// Modules
