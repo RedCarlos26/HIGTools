@@ -3,6 +3,8 @@ package higtools.modules;
 import higtools.commands.*;
 import higtools.modules.main.*;
 import higtools.modules.hud.*;
+import higtools.modules.player.*;
+import higtools.modules.world.*;
 import higtools.utils.*;
 import meteordevelopment.meteorclient.MeteorClient;
 import meteordevelopment.meteorclient.addons.MeteorAddon;
@@ -18,6 +20,8 @@ import org.slf4j.LoggerFactory;
 
 import java.lang.invoke.MethodHandles;
 
+import static higtools.AdapterKt.*;
+
 public class HIGTools extends MeteorAddon {
 	public static final Logger LOG = LoggerFactory.getLogger("HIG Tools");
     public static final Category HIG = new Category("HIG Tools", Items.NETHERITE_PICKAXE.getDefaultStack());
@@ -29,6 +33,7 @@ public class HIGTools extends MeteorAddon {
 		MeteorClient.EVENT_BUS.registerLambdaFactory("higtools", (lookupInMethod, klass) -> (MethodHandles.Lookup) lookupInMethod.invoke(null, klass, MethodHandles.lookup()));
 
         HTDamageUtils.init();
+        setCs2Ps();
 
 		// Modules
         Modules modules = Modules.get();
@@ -45,6 +50,13 @@ public class HIGTools extends MeteorAddon {
         modules.add(new PacketFly());
         modules.add(new Strafe());
 		modules.add(new TPSSync());
+        modules.add(new NetherrackDiggingMontageMaker());
+        modules.add(new NoCaveCulling());
+        modules.add(Scaffold.INSTANCE);
+        modules.add(AutoEat.INSTANCE);
+        modules.add(new AutoReconnect());
+        modules.add(new InvManager());
+        modules.add(new AutoCenter());
 
         //Commands
         Commands commands = Commands.get();
