@@ -9,6 +9,7 @@ import meteordevelopment.meteorclient.settings.*;
 import meteordevelopment.meteorclient.systems.modules.Module;
 import meteordevelopment.meteorclient.systems.modules.Modules;
 import meteordevelopment.meteorclient.systems.modules.player.AutoEat;
+import meteordevelopment.meteorclient.systems.modules.player.AutoGap;
 import meteordevelopment.meteorclient.systems.modules.player.AutoTool;
 import meteordevelopment.meteorclient.utils.misc.HorizontalDirection;
 import meteordevelopment.meteorclient.utils.misc.MBlockPos;
@@ -198,13 +199,6 @@ public class HighwayBuilder extends Module {
         .build()
     );
 
-    private final Setting<Boolean> drinkPause = sgPause.add(new BoolSetting.Builder()
-        .name("pause-on-drink")
-        .description("Pauses Highway Builder when drinking.")
-        .defaultValue(false)
-        .build()
-    );
-
     // Render Place
 
     private final Setting<Boolean> renderPlace = sgRenderPlace.add(new BoolSetting.Builder()
@@ -312,14 +306,9 @@ public class HighwayBuilder extends Module {
         }
 
         if (Modules.get().get(AutoEat.class).eating) return;
+        if (Modules.get().get(AutoGap.class).isEating()) return;
 
         state.tick(this);
-    }
-
-    // Check pause settings
-    @EventHandler(priority = EventPriority.HIGH)
-    private void onPreTick(TickEvent.Pre event) {
-        if (HTPlayerUtils.HIGPause(eatPause.get(), drinkPause.get())) return;
     }
 
     @EventHandler
