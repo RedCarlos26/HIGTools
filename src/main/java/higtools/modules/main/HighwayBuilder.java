@@ -1,6 +1,7 @@
 package higtools.modules.main;
 
 import higtools.modules.HIGTools;
+import higtools.utils.HTPlayerUtils;
 import meteordevelopment.meteorclient.events.render.Render3DEvent;
 import meteordevelopment.meteorclient.events.world.TickEvent;
 import meteordevelopment.meteorclient.renderer.ShapeMode;
@@ -19,6 +20,7 @@ import meteordevelopment.meteorclient.utils.render.color.SettingColor;
 import meteordevelopment.meteorclient.utils.world.BlockUtils;
 import meteordevelopment.meteorclient.utils.world.Dir;
 import meteordevelopment.orbit.EventHandler;
+import meteordevelopment.orbit.EventPriority;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
@@ -68,6 +70,7 @@ public class HighwayBuilder extends Module {
     private static final BlockPos ZERO = new BlockPos(0, 0, 0);
 
     private final SettingGroup sgGeneral = settings.getDefaultGroup();
+    private final SettingGroup sgPause = settings.createGroup("Pause");
     private final SettingGroup sgRenderMine = settings.createGroup("Render Mine");
     private final SettingGroup sgRenderPlace = settings.createGroup("Render Place");
 
@@ -78,7 +81,7 @@ public class HighwayBuilder extends Module {
         .description("Width of the highway.")
         .defaultValue(4)
         .range(1, 5)
-        .sliderRange(1, 5)
+        .sliderRange(1, 4)
         .build()
     );
 
@@ -116,7 +119,7 @@ public class HighwayBuilder extends Module {
     private final Setting<Rotation> rotation = sgGeneral.add(new EnumSetting.Builder<Rotation>()
         .name("rotation")
         .description("Mode of rotation.")
-        .defaultValue(Rotation.Both)
+        .defaultValue(Rotation.None)
         .build()
     );
 
@@ -137,7 +140,7 @@ public class HighwayBuilder extends Module {
 
     private final Setting<Boolean> dontBreakTools = sgGeneral.add(new BoolSetting.Builder()
         .name("dont-break-tools")
-        .description("Don't break tools.")
+        .description("Prevents highway builder from breaking tools.")
         .defaultValue(false)
         .build()
     );
@@ -183,6 +186,22 @@ public class HighwayBuilder extends Module {
         .name("blocks-to-mine-line-color")
         .description("Color of blocks to be mined.")
         .defaultValue(new SettingColor(225, 25, 25))
+        .build()
+    );
+
+    // Pause
+
+    private final Setting<Boolean> eatPause = sgPause.add(new BoolSetting.Builder()
+        .name("pause-on-eat")
+        .description("Pauses Highway Builder when eating.")
+        .defaultValue(true)
+        .build()
+    );
+
+    private final Setting<Boolean> drinkPause = sgPause.add(new BoolSetting.Builder()
+        .name("pause-on-drink")
+        .description("Pauses Highway Builder when drinking.")
+        .defaultValue(false)
         .build()
     );
 
@@ -262,7 +281,7 @@ public class HighwayBuilder extends Module {
         mc.player.setYaw(dir.yaw);
 
         if (displayInfo) {
-            info("Distance: (highlight)%.0f", mc.player.getPos().distanceTo(start));
+            info("Distance traveled: (highlight)%.0f", mc.player.getPos().distanceTo(start));
             info("Blocks broken: (highlight)%d", blocksBroken);
             info("Blocks placed: (highlight)%d", blocksPlaced);
         }
@@ -288,13 +307,19 @@ public class HighwayBuilder extends Module {
     @EventHandler
     private void onTick(TickEvent.Pre event) {
         if (width.get() < 3 && dir.diagonal) {
-            errorEarly("Diagonal highways with width less than 3 are not supported.");
+            errorEarly("Diagonal highways less than 3 blocks wide are not supported.");
             return;
         }
 
         if (Modules.get().get(AutoEat.class).eating) return;
 
         state.tick(this);
+    }
+
+    // Check pause settings
+    @EventHandler(priority = EventPriority.HIGH)
+    private void onPreTick(TickEvent.Pre event) {
+        if (HTPlayerUtils.HIGPause(eatPause.get(), drinkPause.get())) return;
     }
 
     @EventHandler
@@ -807,7 +832,7 @@ public class HighwayBuilder extends Module {
             if (slotsWithBlocks > 1) return slotWithLeastBlocks;
 
             // No space found in hotbar
-            b.error("No empty space in hotbar.");
+            b.error("No empty space found in hotbar.");
             return -1;
         }
 

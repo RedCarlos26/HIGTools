@@ -1,6 +1,7 @@
 package higtools.utils;
 
 import net.minecraft.entity.Entity;
+import net.minecraft.item.PotionItem;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Vec3d;
 
@@ -15,6 +16,11 @@ public class HTPlayerUtils {
         double feet = distanceFromEye(entity.getX(), entity.getY(), entity.getZ());
         double head = distanceFromEye(entity.getX(), entity.getY() + entity.getHeight(), entity.getZ());
         return Math.min(head, feet);
+    }
+
+    public static boolean HIGPause(boolean ifEating, boolean ifDrinking) {
+        if (ifEating && (mc.player.isUsingItem() && (mc.player.getMainHandStack().getItem().isFood() || mc.player.getOffHandStack().getItem().isFood()))) return true;
+        return ifDrinking && (mc.player.isUsingItem() && (mc.player.getMainHandStack().getItem() instanceof PotionItem || mc.player.getOffHandStack().getItem() instanceof PotionItem));
     }
 
     public static double distanceFromEye(BlockPos blockPos) {
