@@ -20,7 +20,7 @@ public class AutoDisable extends Module {
         Modules modules = Modules.get();
         FindItemResult pickaxe = InvUtils.find(itemStack -> itemStack.getItem() == Items.DIAMOND_PICKAXE || itemStack.getItem() == Items.NETHERITE_PICKAXE);
 
-        if (!pickaxe.isHotbar()) {
+        if (!pickaxe.found()) {
             error("No pickaxe found... disabling auto walk.");
             modules.get(AutoWalk.class).toggle();
             modules.get(AutoDisable.class).toggle();
