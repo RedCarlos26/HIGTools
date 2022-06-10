@@ -23,6 +23,8 @@ public class AutoDisable extends Module {
         if (!pickaxe.isHotbar()) {
             error("No pickaxe found... disabling auto walk.");
             modules.get(AutoWalk.class).toggle();
+            modules.get(AutoDisable.class).toggle();
+            // IK this is retarded but IDK how to do it with an actual method lmao
         }
     }
 }
