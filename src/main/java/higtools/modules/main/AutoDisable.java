@@ -16,13 +16,13 @@ public class AutoDisable extends Module {
 
     @EventHandler
     private void onTick(TickEvent.Pre event) {
-        if (!isActive()) return;
 
         Modules modules = Modules.get();
         FindItemResult pickaxe = InvUtils.find(itemStack -> itemStack.getItem() == Items.DIAMOND_PICKAXE || itemStack.getItem() == Items.NETHERITE_PICKAXE);
 
-        if (!pickaxe.isHotbar())
+        if (!pickaxe.isHotbar()) {
             error("No pickaxe found... disabling auto walk.");
-        modules.get(AutoWalk.class).toggle();
+            modules.get(AutoWalk.class).toggle();
+        }
     }
 }
