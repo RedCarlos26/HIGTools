@@ -2,7 +2,7 @@ package higtools.modules.player
 
 import higtools.*
 import higtools.modules.HIGTools
-import higtools.modules.world.Scaffold
+import higtools.modules.world.ScaffoldPlus
 import meteordevelopment.meteorclient.events.packets.PacketEvent
 import meteordevelopment.meteorclient.events.world.TickEvent
 import meteordevelopment.meteorclient.utils.player.InvUtils
@@ -25,7 +25,7 @@ object AutoEat:MeteorModule(HIGTools.HIG, "AutoEat", "Automatically eat.") {
 
     @EventHandler
     fun tick(event:TickEvent.Pre) {
-        if (Scaffold.worked) {
+        if (ScaffoldPlus.worked) {
             return
         }
         if (offhand && mc.player!!.offHandStack.item.isFood) {
@@ -105,7 +105,7 @@ object AutoEat:MeteorModule(HIGTools.HIG, "AutoEat", "Automatically eat.") {
     }
 
     private fun shouldEat():Boolean {
-        return mc.player!!.hungerManager.foodLevel <= hunger && !Scaffold.worked
+        return mc.player!!.hungerManager.foodLevel <= hunger && !ScaffoldPlus.worked
     }
 
     private fun findSlot():Int {

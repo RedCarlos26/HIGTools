@@ -14,7 +14,7 @@ import net.minecraft.util.math.Direction
 import net.minecraft.util.math.MathHelper
 import net.minecraft.network.packet.c2s.play.UpdateSelectedSlotC2SPacket
 
-object Scaffold:MeteorModule(HIGTools.HIG, "Scaffold", "Scaffolds blocks under you.") {
+object ScaffoldPlus:MeteorModule(HIGTools.HIG, "Scaffold+", "Scaffolds blocks under you.") {
 
     private var slot = -1
 
