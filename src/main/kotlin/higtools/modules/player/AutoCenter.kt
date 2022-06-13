@@ -15,6 +15,7 @@ class AutoCenter:MeteorModule(HIGTools.HIG, "AutoCenter", "Automatically centers
                                              "How much to compensate for the player's position",
                                              -2.5..2.5,
                                              0.1))
+    private var maxSpeed by mainGroup.add(DValue("MaxSpeed", 0.1, "How fast to try to get you on axis", 0.01..0.5, 0.1))
 
     override fun onActivate() {
         super.onActivate()
@@ -37,20 +38,20 @@ class AutoCenter:MeteorModule(HIGTools.HIG, "AutoCenter", "Automatically centers
         when (highway) {
             5 -> {
                 val addZ = mc.player!!.z - mc.player!!.x
-                mc.player!!.addVelocity(0.0, 0.0, (comp - addZ).coerceIn(-0.1..0.1))
+                mc.player!!.addVelocity(0.0, 0.0, (comp - addZ).coerceIn(-maxSpeed..maxSpeed))
             }
             6 -> {
                 val addX = abs(mc.player!!.x) - mc.player!!.z
-                mc.player!!.addVelocity((addX - comp).coerceIn(-0.1..0.1), 0.0, 0.0)
+                mc.player!!.addVelocity((addX - comp).coerceIn(-maxSpeed..maxSpeed), 0.0, 0.0)
             }
             7 -> {
                 val addX = mc.player!!.x - abs(mc.player!!.z)
                 val wantedAddX = comp
-                mc.player!!.addVelocity((wantedAddX - addX).coerceIn(-0.1..0.1), 0.0, 0.0)
+                mc.player!!.addVelocity((wantedAddX - addX).coerceIn(-maxSpeed..maxSpeed), 0.0, 0.0)
             }
             8 -> {
                 val addZ = abs(mc.player!!.z) - abs(mc.player!!.x)
-                mc.player!!.addVelocity(0.0, 0.0, (addZ - comp).coerceIn(-0.1..0.1))
+                mc.player!!.addVelocity(0.0, 0.0, (addZ - comp).coerceIn(-maxSpeed..maxSpeed))
             }
         }
     }
