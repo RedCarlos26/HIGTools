@@ -18,7 +18,7 @@ public class AfkLogout extends Module {
 
     private final Setting<Dimension> dimension = sgGeneral.add(new EnumSetting.Builder<Dimension>()
             .name("dimension")
-            .description("Dimension for the coords.")
+            .description("Dimension for the coordinates.")
             .defaultValue(Dimension.Nether)
             .build()
     );
@@ -34,7 +34,7 @@ public class AfkLogout extends Module {
 
     private final Setting<Integer> zCoords = sgGeneral.add(new IntSetting.Builder()
             .name("z-coords")
-            .description("The z coords it should log you out.")
+            .description("The Z coords it should log you out.")
             .defaultValue(1000)
             .range(-29999983, 29999983)
             .sliderRange(-29999983, 29999983)
@@ -43,10 +43,10 @@ public class AfkLogout extends Module {
 
     private final Setting<Integer> radius = sgGeneral.add(new IntSetting.Builder()
             .name("radius")
-            .description("The radius of coords from the exact coords it will log you out.")
+            .description("The radius from the exact coordinates it will log you out.")
             .defaultValue(64)
             .min(0)
-            .sliderRange(0, 320)
+            .sliderRange(0, 384)
             .build()
     );
 
@@ -65,7 +65,7 @@ public class AfkLogout extends Module {
     );
 
     public AfkLogout() {
-        super(HIGTools.HIG, "afk-logout", "Logs out when you are at a certain coords for afk travelling.");
+        super(HIGTools.HIG, "afk-logout", "Logs out when you are at a certain coords. Useful for afk travelling.");
     }
 
     @EventHandler
@@ -74,7 +74,7 @@ public class AfkLogout extends Module {
             if (toggleAutoReconnect.get() && Modules.get().isActive(AutoReconnect.class)) Modules.get().get(AutoReconnect.class).toggle();
             if (autoToggle.get()) toggle();
 
-            mc.player.networkHandler.onDisconnect(new DisconnectS2CPacket(new LiteralText("[AfkLog] Arrived at destination.")));
+            mc.player.networkHandler.onDisconnect(new DisconnectS2CPacket(new LiteralText("[AfkLogout] Arrived at destination.")));
         }
 
     }

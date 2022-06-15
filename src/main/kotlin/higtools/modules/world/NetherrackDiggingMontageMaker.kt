@@ -14,7 +14,6 @@ import net.minecraft.util.math.Direction
 import net.minecraft.util.math.MathHelper
 import kotlin.math.floor
 
-// Current nuker bypass implementation, works on ecme @ 13 bps
 class NetherrackDiggingMontageMaker:MeteorModule(HIGTools.HIG, "NetherBorer", "Bores the nether. 'Tis a boring job.") {
 
     private val general = settings.defaultGroup
