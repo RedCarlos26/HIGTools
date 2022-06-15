@@ -18,7 +18,6 @@ repositories {
         name = "meteor-maven-snapshots"
         url = "https://maven.meteordev.org/snapshots"
     }
-    jcenter()
 }
 
 loom {
