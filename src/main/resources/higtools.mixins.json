@@ -5,7 +5,7 @@
   "client": [
     "HeldItemRendererAccessor",
     "HeldItemRendererMixin",
-    "MincraftClientMixin"
+    "MinecraftClientMixin2"
   ],
   "injectors": {
     "defaultRequire": 1
