@@ -27,7 +27,8 @@ public class Toggles extends Module {
         NegNegDigging,
         NegPosDigging,
         PosNegDigging,
-        PosPosDigging
+        PosPosDigging,
+        RingRoadDigging
     }
 
     private final SettingGroup sgGeneral = settings.getDefaultGroup();
@@ -143,6 +144,24 @@ public class Toggles extends Module {
 
             modules.get(AutoEat.class).toggle();
             modules.get(AutoCenter.class).toggle();
+            modules.get(AutoLog.class).toggle();
+            modules.get(FreeLook.class).toggle();
+            modules.get(HandManager.class).toggle();
+            modules.get(InvManager.class).toggle();
+            modules.get(LiquidFiller.class).toggle();
+            modules.get(Rotation.class).toggle();
+            modules.get(SafeWalk.class).toggle();
+            modules.get(ScaffoldPlus.class).toggle();
+            modules.get(TPSSync.class).toggle();
+
+            modules.get(Toggles.class).toggle();
+        }
+
+
+        if (mode.get() == Mode.RingRoadDigging) {
+            modules.get(RingRoadBorer.class).toggle();
+
+            modules.get(AutoEat.class).toggle();
             modules.get(AutoLog.class).toggle();
             modules.get(FreeLook.class).toggle();
             modules.get(HandManager.class).toggle();

@@ -91,7 +91,6 @@ class RingRoadBorer:MeteorModule(HIGTools.BORERS, "RingRoadBorer", "Automaticall
             this.breakBlock(plyerPos.forward(i).up())
             this.breakBlock(plyerPos.forward(i).up(2))
             this.breakBlock(plyerPos.forward(i).up(3))
-
             this.breakBlock(plyerPos.forward(i).right(1))
             this.breakBlock(plyerPos.forward(i).right(1).up())
             this.breakBlock(plyerPos.forward(i).right(1).up(2))
@@ -99,7 +98,6 @@ class RingRoadBorer:MeteorModule(HIGTools.BORERS, "RingRoadBorer", "Automaticall
             this.breakBlock(plyerPos.forward(i).right(2).up())
             this.breakBlock(plyerPos.forward(i).right(2).up(2))
             this.breakBlock(plyerPos.forward(i).right(2).up(3))
-
             this.breakBlock(plyerPos.forward(i).left(1))
             this.breakBlock(plyerPos.forward(i).left(1).up())
             this.breakBlock(plyerPos.forward(i).left(1).up(2))
