@@ -11,7 +11,7 @@ import net.minecraft.util.math.Direction
 import net.minecraft.util.math.MathHelper
 import kotlin.math.floor
 
-class RingRoadBorer:MeteorModule(HIGTools.BORERS, "AxisBorer", "Automatically digs axis highways.") {
+class RingRoadBorer:MeteorModule(HIGTools.BORERS, "RingRoadBorer", "Automatically digs ring road highways.") {
 
     private val general = settings.defaultGroup
 
