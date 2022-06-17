@@ -52,7 +52,7 @@ public class ChatTweaks extends Module {
     );
 
     public ChatTweaks() {
-        super(HIGTools.HIG, "chat-tweaks", "Various chat tweaks.");
+        super(HIGTools.MAIN, "chat-tweaks", "Various chat tweaks.");
     }
 
     @EventHandler

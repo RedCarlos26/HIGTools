@@ -1,11 +1,8 @@
-package higtools.modules.world
+package higtools.modules.borers
 
 import higtools.*
 import higtools.modules.HIGTools
 import meteordevelopment.meteorclient.events.world.TickEvent
-import meteordevelopment.meteorclient.settings.BoolSetting
-import meteordevelopment.meteorclient.settings.EnumSetting
-import meteordevelopment.meteorclient.settings.IntSetting
 import meteordevelopment.orbit.EventHandler
 import net.minecraft.network.packet.c2s.play.PlayerActionC2SPacket
 import net.minecraft.util.Util
@@ -14,17 +11,17 @@ import net.minecraft.util.math.Direction
 import net.minecraft.util.math.MathHelper
 import kotlin.math.floor
 
-class NetherrackDiggingMontageMaker:MeteorModule(HIGTools.HIG, "NetherBorer", "Bores the nether. 'Tis a boring job.") {
+class AxisBorer:MeteorModule(HIGTools.BORERS, "AxisBorer", "Automatically digs axis highways.") {
 
     private val general = settings.defaultGroup
 
-    private var mode by general.add(EValue("Mode", Mode.THIN, "Mode to use"))
-    private var extForward by general.add(IValue("ExtForward", 3, "How many blocks to extend forward", 1..6, 1))
-    private var extBackward by general.add(IValue("ExtBackward", 3, "How many blocks to extend backward", 1..6, 1))
+    private var mode by general.add(EValue("Mode", Mode.HIGHWAY, "Mode to use"))
+    private var extForward by general.add(IValue("ExtForward", 4, "How many blocks to extend forward", 1..6, 1))
+    private var extBackward by general.add(IValue("ExtBackward", 4, "How many blocks to extend backward", 1..6, 1))
     private var xOffset by general.add(IValue("XOffset", 0, "How many blocks to offset the y axis", -2..2, 1))
     private var zOffset by general.add(IValue("ZOffset", 0, "How many blocks to offset the z axis", -2..2, 1))
-    private var keepY by general.add(IValue("KeepY", -1, "asdf", -1..255, 1))
-    private var disable by general.add(BValue("Disable", false, "Disable the feature"))
+    private var keepY by general.add(IValue("KeepY", 119, "Keeps a specific Y level when digging", -1..255, 1))
+    private var disable by general.add(BValue("Disable", false, "Disable the jumping block feature"))
     private var jumping by general.add(BValue("Jumping", false, "Send more or less packs"))
 
     // preserve 2 block tall tunnel for speed bypass

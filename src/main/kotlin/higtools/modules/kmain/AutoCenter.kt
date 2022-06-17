@@ -1,4 +1,4 @@
-package higtools.modules.player
+package higtools.modules.kmain
 
 import higtools.*
 import higtools.modules.HIGTools
@@ -6,7 +6,7 @@ import meteordevelopment.meteorclient.events.world.TickEvent
 import meteordevelopment.orbit.EventHandler
 import kotlin.math.abs
 
-class AutoCenter:MeteorModule(HIGTools.HIG, "AutoCenter", "Automatically centers the player so that NetherBorer mines on axis.") {
+class AutoCenter:MeteorModule(HIGTools.MAIN, "AutoCenter", "Automatically centers the player so that NetherBorer mines on axis.") {
 
     // x+ x- z+ z- x+z+ x-z+ x+z- x-z-
     private var highway = -1

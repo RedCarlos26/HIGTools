@@ -213,7 +213,7 @@ public class Aura extends Module {
     );
 
     public Aura() {
-        super(HIGTools.HIG, "aura", "Attacks entites around you.");
+        super(HIGTools.MAIN, "aura", "Attacks entites around you.");
     }
 
     private final List<Entity> targets = new ArrayList<>();

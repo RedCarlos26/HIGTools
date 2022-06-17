@@ -25,7 +25,7 @@ public class ArmorNotify extends Module {
     );
 
     public ArmorNotify() {
-        super(HIGTools.HIG, "armor-notify", "Notifies you when your armor pieces are low.");
+        super(HIGTools.MAIN, "armor-notify", "Notifies you when your armor pieces are low.");
     }
 
     private boolean alertedHelm;

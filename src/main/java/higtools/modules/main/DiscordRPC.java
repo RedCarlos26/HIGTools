@@ -105,7 +105,7 @@ public class DiscordRPC extends Module {
     private int line2Ticks, line2I;
 
     public DiscordRPC() {
-        super(HIGTools.HIG, "discord-RPC", "Displays HIG Tools as your presence on Discord. You can use starscript {} see doc down below");
+        super(HIGTools.MAIN, "discord-RPC", "Displays HIG Tools as your presence on Discord. You can use starscript {} see doc down below");
         runInMainMenu = true;
     }
 

@@ -1,9 +1,9 @@
-package higtools.modules.world
+package higtools.modules.kmain
 
 import higtools.MeteorModule
 import higtools.modules.HIGTools
 
-class NoCaveCulling:MeteorModule(HIGTools.HIG, "NoCaveCulling", "No culling of caves.") {
+class NoCaveCulling:MeteorModule(HIGTools.MAIN, "NoCaveCulling", "Disables Minecraft's cave culling algorithm.") {
 
     override fun onActivate() {
         super.onActivate()

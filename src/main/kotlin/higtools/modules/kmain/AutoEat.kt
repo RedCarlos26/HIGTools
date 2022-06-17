@@ -1,8 +1,8 @@
-package higtools.modules.player
+package higtools.modules.kmain
 
 import higtools.*
 import higtools.modules.HIGTools
-import higtools.modules.world.ScaffoldPlus
+import higtools.modules.kmain.ScaffoldPlus;
 import meteordevelopment.meteorclient.events.packets.PacketEvent
 import meteordevelopment.meteorclient.events.world.TickEvent
 import meteordevelopment.meteorclient.utils.player.InvUtils
@@ -14,10 +14,10 @@ import net.minecraft.network.packet.c2s.play.PlayerInteractBlockC2SPacket
 import net.minecraft.util.Hand
 import net.minecraft.util.math.Direction.DOWN
 
-object AutoEat:MeteorModule(HIGTools.HIG, "AutoEat", "Automatically eat.") {
+object AutoEat:MeteorModule(HIGTools.MAIN, "AutoEat", "Automatically eats the chosen food.") {
 
     private var hunger by mainGroup.add(IValue("Hunger", 16, "Hunger to eat at.", 1..19, 1))
-    private val autoGap by mainGroup.add(BValue("AutoGap", true, "Gap when no fire res."))
+    private val autoGap by mainGroup.add(BValue("AutoGap", true, "Gap when no fire resistance effect."))
     private val offhand by mainGroup.add(BValue("Offhand", true, "Eat if food is in offhand."))
     var eating = false
     private var slot = 0

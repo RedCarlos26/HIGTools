@@ -12,7 +12,7 @@ import net.minecraft.item.Items;
 
 public class AutoDisable extends Module {
 
-    public AutoDisable() { super(HIGTools.HIG, "auto-disable", "Automatically disable AutoWalk when running out of pickaxes"); }
+    public AutoDisable() { super(HIGTools.MAIN, "auto-disable", "Automatically disable AutoWalk when running out of pickaxes"); }
 
     @EventHandler
     private void onTick(TickEvent.Pre event) {

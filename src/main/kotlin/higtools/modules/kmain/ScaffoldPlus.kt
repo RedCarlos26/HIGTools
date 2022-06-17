@@ -1,4 +1,4 @@
-package higtools.modules.world
+package higtools.modules.kmain
 
 import higtools.*
 import higtools.modules.HIGTools
@@ -14,13 +14,13 @@ import net.minecraft.util.math.Direction
 import net.minecraft.util.math.MathHelper
 import net.minecraft.network.packet.c2s.play.UpdateSelectedSlotC2SPacket
 
-object ScaffoldPlus:MeteorModule(HIGTools.HIG, "Scaffold+", "Scaffolds blocks under you.") {
+object ScaffoldPlus:MeteorModule(HIGTools.MAIN, "Scaffold+", "Scaffolds blocks under you.") {
 
     private var slot = -1
 
     private var ext by mainGroup.add(IValue("Extend", 1, "How much to place in front of you", 0..5, 1))
     private var tower by mainGroup.add(BValue("Tower", false, "Makes towering easier"))
-    private var towerMult by mainGroup.add(DValue("Mult", 0.7454, "Makes the stuff bypass potentially.", 0.0..2.0, 0.0001))
+    private var towerMult by mainGroup.add(DValue("Multi", 0.7454, "Makes tower potentially bypass stricter anti-cheats.", 0.0..2.0, 0.0001))
     private var keepY by mainGroup.add(IValue("KeepY", -1, "Keeps the Y value of the block", -1..255, 1))
 
     var worked:Boolean = false

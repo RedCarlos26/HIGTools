@@ -1,4 +1,4 @@
-package higtools.modules.player
+package higtools.modules.kmain
 
 import higtools.*
 import higtools.modules.HIGTools
@@ -10,7 +10,7 @@ import net.minecraft.util.Formatting
 import net.minecraft.util.Identifier
 import net.minecraft.util.registry.Registry
 
-class InvManager:MeteorModule(HIGTools.HIG, "InvManager", "Automatically organize your inventory") {
+class InvManager:MeteorModule(HIGTools.MAIN, "InvManager", "Automatically organize your inventory") {
 
     private val slotsGroup = settings.createGroup("Slots", false)
 

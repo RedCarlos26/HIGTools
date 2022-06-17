@@ -296,7 +296,7 @@ public class Strafe extends Module {
     );
 
     public Strafe() {
-        super(HIGTools.HIG, "strafe", "Increase speed and control.");
+        super(HIGTools.MAIN, "strafe", "Increase speed and control.");
     }
 
     // Fields

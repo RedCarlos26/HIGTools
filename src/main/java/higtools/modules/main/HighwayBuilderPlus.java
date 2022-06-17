@@ -301,7 +301,7 @@ public class HighwayBuilderPlus extends Module {
 
         if (Modules.get().get(AutoEat.class).eating) return;
         if (Modules.get().get(AutoGap.class).isEating()) return;
-        if (Modules.get().get(higtools.modules.player.AutoEat.class).getEating()) return;
+        if (Modules.get().get(higtools.modules.kmain.AutoEat.class).getEating()) return;
 
         state.tick(this);
     }

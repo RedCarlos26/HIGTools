@@ -59,7 +59,7 @@ public class HandManager extends Module {
     private Item currentItem;
 
     public HandManager() {
-        super(HIGTools.HIG, "hand-manager", "Allows you to hold specified items in your offhand.");
+        super(HIGTools.MAIN, "hand-manager", "Allows you to hold specified items in your offhand.");
     }
 
     @Override
