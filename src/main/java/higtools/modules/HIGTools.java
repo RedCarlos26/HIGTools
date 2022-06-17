@@ -66,11 +66,13 @@ public class HIGTools extends MeteorAddon {
         modules.add(new NegPosBorer());
         modules.add(new PosNegBorer());
         modules.add(new PosPosBorer());
+        modules.add(new RingRoadBorer());
 
         // Commands
         Commands commands = Commands.get();
         commands.add(new ClearChat());
-        commands.add(new Kick());
+        commands.add(new DisableAll());
+        commands.add(new Disconnect());
 
         // HUD
         HUD hud = Systems.get(HUD.class);

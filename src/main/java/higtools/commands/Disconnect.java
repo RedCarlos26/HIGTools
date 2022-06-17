@@ -8,16 +8,16 @@ import net.minecraft.text.LiteralText;
 
 import static com.mojang.brigadier.Command.SINGLE_SUCCESS;
 
-public class Kick extends Command {
+public class Disconnect extends Command {
 
-    public Kick() {
-        super("kick", "Kicks or disconnects you from the server.", "disconnect", "quit");
+    public Disconnect() {
+        super("disconnect", "Disconnects you from the server.", "kick");
     }
 
     @Override
     public void build(LiteralArgumentBuilder<CommandSource> builder) {
         builder.executes(ctx -> {
-			mc.player.networkHandler.onDisconnect(new DisconnectS2CPacket(new LiteralText("Disconnected via .kick command.")));
+			mc.player.networkHandler.onDisconnect(new DisconnectS2CPacket(new LiteralText("Disconnected via .disconnect command.")));
             return SINGLE_SUCCESS;
         });
     }
