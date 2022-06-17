@@ -3,7 +3,6 @@ package higtools.modules;
 import higtools.commands.*;
 import higtools.modules.hud.*;
 import higtools.modules.main.*;
-import higtools.modules.toggles.*;
 import higtools.utils.*;
 import higtools.modules.borers.*;
 import higtools.modules.kmain.*;
@@ -25,10 +24,9 @@ import static higtools.AdapterKt.*;
 
 public class HIGTools extends MeteorAddon {
 	public static final Logger LOG = LoggerFactory.getLogger("HIG Tools");
-    public static final String VERSION = "1.3";
+    public static final String VERSION = "1.4";
     public static final Category MAIN = new Category("HIG Tools", Items.NETHERITE_PICKAXE.getDefaultStack());
-    public static final Category TOGGLES = new Category("  Toggles  ", Items.NETHERITE_PICKAXE.getDefaultStack());
-    public static final Category BORERS = new Category("  Borers  ", Items.NETHERITE_PICKAXE.getDefaultStack());
+    public static final Category BORERS = new Category(" Borers ", Items.NETHERITE_PICKAXE.getDefaultStack());
 	@Override
 	public void onInitialize() {
 	    LOG.info("Initializing HIG Tools");
@@ -53,6 +51,7 @@ public class HIGTools extends MeteorAddon {
         modules.add(new HandManager());
         modules.add(new HighwayBuilderPlus());
         modules.add(new Strafe());
+        modules.add(new Toggles());
         modules.add(new TPSSync());
         // Main (Kotlin)
         modules.add(new AutoCenter());
@@ -61,13 +60,6 @@ public class HIGTools extends MeteorAddon {
         modules.add(new NoCaveCulling());
         modules.add(ScaffoldPlus.INSTANCE);
 
-        // Toggles (Java)
-        modules.add(new AxisDigging());
-        modules.add(new HighwayBuilding());
-        modules.add(new NegNegDigging());
-        modules.add(new NegPosDigging());
-        modules.add(new PosNegDigging());
-        modules.add(new PosPosDigging());
         // Borers (Kotlin)
         modules.add(new AxisBorer());
         modules.add(new NegNegBorer());
@@ -96,7 +88,6 @@ public class HIGTools extends MeteorAddon {
     @Override
     public void onRegisterCategories() {
         Modules.registerCategory(MAIN);
-        Modules.registerCategory(TOGGLES);
         Modules.registerCategory(BORERS);
     }
 
