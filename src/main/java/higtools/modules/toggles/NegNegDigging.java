@@ -41,5 +41,6 @@ public class NegNegDigging extends Module {
         modules.get(ScaffoldPlus.class).toggle();
         modules.get(TPSSync.class).toggle();
 
+        modules.get(NegNegDigging.class).toggle();
     }
 }

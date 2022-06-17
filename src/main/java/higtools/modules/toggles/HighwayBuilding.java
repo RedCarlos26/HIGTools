@@ -39,5 +39,6 @@ public class HighwayBuilding extends Module {
         modules.get(ScaffoldPlus.class).toggle();
         modules.get(TPSSync.class).toggle();
 
+        modules.get(HighwayBuilding.class).toggle();
     }
 }

@@ -39,5 +39,6 @@ public class AxisDigging extends Module {
         modules.get(ScaffoldPlus.class).toggle();
         modules.get(TPSSync.class).toggle();
 
+        modules.get(AxisDigging.class).toggle();
     }
 }

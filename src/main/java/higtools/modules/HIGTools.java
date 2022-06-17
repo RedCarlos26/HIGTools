@@ -27,8 +27,8 @@ public class HIGTools extends MeteorAddon {
 	public static final Logger LOG = LoggerFactory.getLogger("HIG Tools");
     public static final String VERSION = "1.3";
     public static final Category MAIN = new Category("HIG Tools", Items.NETHERITE_PICKAXE.getDefaultStack());
-    public static final Category TOGGLES = new Category("Toggles", Items.NETHERITE_PICKAXE.getDefaultStack());
-    public static final Category BORERS = new Category("Borers", Items.NETHERITE_PICKAXE.getDefaultStack());
+    public static final Category TOGGLES = new Category("  Toggles  ", Items.NETHERITE_PICKAXE.getDefaultStack());
+    public static final Category BORERS = new Category("  Borers  ", Items.NETHERITE_PICKAXE.getDefaultStack());
 	@Override
 	public void onInitialize() {
 	    LOG.info("Initializing HIG Tools");
