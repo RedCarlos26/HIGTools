@@ -50,8 +50,8 @@ public class HIGTools extends MeteorAddon {
         modules.add(new DiscordRPC());
         modules.add(new HandManager());
         modules.add(new HighwayBuilderPlus());
+        modules.add(new HighwayTools());
         modules.add(new Strafe());
-        modules.add(new Toggles());
         modules.add(new TPSSync());
         // Main (Kotlin)
         modules.add(new AutoCenter());

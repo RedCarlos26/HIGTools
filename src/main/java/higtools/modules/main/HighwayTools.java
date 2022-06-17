@@ -19,7 +19,7 @@ import meteordevelopment.meteorclient.systems.modules.render.FreeLook;
 import meteordevelopment.meteorclient.systems.modules.world.LiquidFiller;
 import meteordevelopment.orbit.EventHandler;
 
-public class Toggles extends Module {
+public class HighwayTools extends Module {
 
     public enum Mode {
         HighwayBuilding,
@@ -40,7 +40,7 @@ public class Toggles extends Module {
         .build()
     );
 
-    public Toggles() { super(HIGTools.MAIN, "toggles", "Automatically toggles the necessary modules for digging / building highways."); }
+    public HighwayTools() { super(HIGTools.MAIN, "highway-tools", "Digs, builds and repairs highways automatically."); }
 
     @EventHandler
     private void onTick(TickEvent.Pre event) {
@@ -60,7 +60,7 @@ public class Toggles extends Module {
             modules.get(ScaffoldPlus.class).toggle();
             modules.get(TPSSync.class).toggle();
 
-            modules.get(Toggles.class).toggle();
+            modules.get(HighwayTools.class).toggle();
         }
 
 
@@ -78,7 +78,7 @@ public class Toggles extends Module {
             modules.get(ScaffoldPlus.class).toggle();
             modules.get(TPSSync.class).toggle();
 
-            modules.get(Toggles.class).toggle();
+            modules.get(HighwayTools.class).toggle();
         }
 
 
@@ -97,7 +97,7 @@ public class Toggles extends Module {
             modules.get(ScaffoldPlus.class).toggle();
             modules.get(TPSSync.class).toggle();
 
-            modules.get(Toggles.class).toggle();
+            modules.get(HighwayTools.class).toggle();
         }
 
 
@@ -116,7 +116,7 @@ public class Toggles extends Module {
             modules.get(ScaffoldPlus.class).toggle();
             modules.get(TPSSync.class).toggle();
 
-            modules.get(Toggles.class).toggle();
+            modules.get(HighwayTools.class).toggle();
         }
 
 
@@ -135,7 +135,7 @@ public class Toggles extends Module {
             modules.get(ScaffoldPlus.class).toggle();
             modules.get(TPSSync.class).toggle();
 
-            modules.get(Toggles.class).toggle();
+            modules.get(HighwayTools.class).toggle();
         }
 
 
@@ -154,7 +154,7 @@ public class Toggles extends Module {
             modules.get(ScaffoldPlus.class).toggle();
             modules.get(TPSSync.class).toggle();
 
-            modules.get(Toggles.class).toggle();
+            modules.get(HighwayTools.class).toggle();
         }
 
 
@@ -172,7 +172,7 @@ public class Toggles extends Module {
             modules.get(ScaffoldPlus.class).toggle();
             modules.get(TPSSync.class).toggle();
 
-            modules.get(Toggles.class).toggle();
+            modules.get(HighwayTools.class).toggle();
         }
     }
 }
