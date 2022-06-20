@@ -6,7 +6,6 @@ import higtools.modules.kmain.AutoCenter;
 import higtools.modules.kmain.AutoEat;
 import higtools.modules.kmain.InvManager;
 import higtools.modules.kmain.ScaffoldPlus;
-import meteordevelopment.meteorclient.events.world.TickEvent;
 import meteordevelopment.meteorclient.settings.EnumSetting;
 import meteordevelopment.meteorclient.settings.Setting;
 import meteordevelopment.meteorclient.settings.SettingGroup;
@@ -17,7 +16,6 @@ import meteordevelopment.meteorclient.systems.modules.movement.SafeWalk;
 import meteordevelopment.meteorclient.systems.modules.player.Rotation;
 import meteordevelopment.meteorclient.systems.modules.render.FreeLook;
 import meteordevelopment.meteorclient.systems.modules.world.LiquidFiller;
-import meteordevelopment.orbit.EventHandler;
 
 public class HighwayTools extends Module {
 
@@ -42,8 +40,8 @@ public class HighwayTools extends Module {
 
     public HighwayTools() { super(HIGTools.MAIN, "highway-tools", "Digs, builds and repairs highways automatically."); }
 
-    @EventHandler
-    private void onTick(TickEvent.Pre event) {
+    @Override
+    public void onActivate() {
         Modules modules = Modules.get();
 
         if (mode.get() == Mode.HighwayBuilding) {
@@ -59,8 +57,6 @@ public class HighwayTools extends Module {
             modules.get(SafeWalk.class).toggle();
             modules.get(ScaffoldPlus.class).toggle();
             modules.get(TPSSync.class).toggle();
-
-            modules.get(HighwayTools.class).toggle();
         }
 
 
@@ -77,8 +73,6 @@ public class HighwayTools extends Module {
             modules.get(SafeWalk.class).toggle();
             modules.get(ScaffoldPlus.class).toggle();
             modules.get(TPSSync.class).toggle();
-
-            modules.get(HighwayTools.class).toggle();
         }
 
 
@@ -96,8 +90,6 @@ public class HighwayTools extends Module {
             modules.get(SafeWalk.class).toggle();
             modules.get(ScaffoldPlus.class).toggle();
             modules.get(TPSSync.class).toggle();
-
-            modules.get(HighwayTools.class).toggle();
         }
 
 
@@ -115,8 +107,6 @@ public class HighwayTools extends Module {
             modules.get(SafeWalk.class).toggle();
             modules.get(ScaffoldPlus.class).toggle();
             modules.get(TPSSync.class).toggle();
-
-            modules.get(HighwayTools.class).toggle();
         }
 
 
@@ -134,8 +124,6 @@ public class HighwayTools extends Module {
             modules.get(SafeWalk.class).toggle();
             modules.get(ScaffoldPlus.class).toggle();
             modules.get(TPSSync.class).toggle();
-
-            modules.get(HighwayTools.class).toggle();
         }
 
 
@@ -153,8 +141,6 @@ public class HighwayTools extends Module {
             modules.get(SafeWalk.class).toggle();
             modules.get(ScaffoldPlus.class).toggle();
             modules.get(TPSSync.class).toggle();
-
-            modules.get(HighwayTools.class).toggle();
         }
 
 
@@ -171,8 +157,126 @@ public class HighwayTools extends Module {
             modules.get(SafeWalk.class).toggle();
             modules.get(ScaffoldPlus.class).toggle();
             modules.get(TPSSync.class).toggle();
+        }
+    }
 
-            modules.get(HighwayTools.class).toggle();
+    @Override
+    public void onDeactivate() {
+        Modules modules = Modules.get();
+
+        if (mode.get() == Mode.HighwayBuilding) {
+            modules.get(HighwayBuilderPlus.class).toggle();
+
+            modules.get(AutoEat.class).toggle();
+            modules.get(AutoLog.class).toggle();
+            modules.get(FreeLook.class).toggle();
+            modules.get(HandManager.class).toggle();
+            modules.get(InvManager.class).toggle();
+            modules.get(LiquidFiller.class).toggle();
+            modules.get(Rotation.class).toggle();
+            modules.get(SafeWalk.class).toggle();
+            modules.get(ScaffoldPlus.class).toggle();
+            modules.get(TPSSync.class).toggle();
+        }
+
+
+        if (mode.get() == Mode.AxisDigging) {
+            modules.get(AxisBorer.class).toggle();
+
+            modules.get(AutoEat.class).toggle();
+            modules.get(AutoLog.class).toggle();
+            modules.get(FreeLook.class).toggle();
+            modules.get(HandManager.class).toggle();
+            modules.get(InvManager.class).toggle();
+            modules.get(LiquidFiller.class).toggle();
+            modules.get(Rotation.class).toggle();
+            modules.get(SafeWalk.class).toggle();
+            modules.get(ScaffoldPlus.class).toggle();
+            modules.get(TPSSync.class).toggle();
+        }
+
+
+        if (mode.get() == Mode.NegNegDigging) {
+            modules.get(NegNegBorer.class).toggle();
+
+            modules.get(AutoEat.class).toggle();
+            modules.get(AutoCenter.class).toggle();
+            modules.get(AutoLog.class).toggle();
+            modules.get(FreeLook.class).toggle();
+            modules.get(HandManager.class).toggle();
+            modules.get(InvManager.class).toggle();
+            modules.get(LiquidFiller.class).toggle();
+            modules.get(Rotation.class).toggle();
+            modules.get(SafeWalk.class).toggle();
+            modules.get(ScaffoldPlus.class).toggle();
+            modules.get(TPSSync.class).toggle();
+        }
+
+
+        if (mode.get() == Mode.NegPosDigging) {
+            modules.get(NegPosBorer.class).toggle();
+
+            modules.get(AutoEat.class).toggle();
+            modules.get(AutoCenter.class).toggle();
+            modules.get(AutoLog.class).toggle();
+            modules.get(FreeLook.class).toggle();
+            modules.get(HandManager.class).toggle();
+            modules.get(InvManager.class).toggle();
+            modules.get(LiquidFiller.class).toggle();
+            modules.get(Rotation.class).toggle();
+            modules.get(SafeWalk.class).toggle();
+            modules.get(ScaffoldPlus.class).toggle();
+            modules.get(TPSSync.class).toggle();
+        }
+
+
+        if (mode.get() == Mode.PosNegDigging) {
+            modules.get(PosNegBorer.class).toggle();
+
+            modules.get(AutoEat.class).toggle();
+            modules.get(AutoCenter.class).toggle();
+            modules.get(AutoLog.class).toggle();
+            modules.get(FreeLook.class).toggle();
+            modules.get(HandManager.class).toggle();
+            modules.get(InvManager.class).toggle();
+            modules.get(LiquidFiller.class).toggle();
+            modules.get(Rotation.class).toggle();
+            modules.get(SafeWalk.class).toggle();
+            modules.get(ScaffoldPlus.class).toggle();
+            modules.get(TPSSync.class).toggle();
+        }
+
+
+        if (mode.get() == Mode.PosPosDigging) {
+            modules.get(PosPosBorer.class).toggle();
+
+            modules.get(AutoEat.class).toggle();
+            modules.get(AutoCenter.class).toggle();
+            modules.get(AutoLog.class).toggle();
+            modules.get(FreeLook.class).toggle();
+            modules.get(HandManager.class).toggle();
+            modules.get(InvManager.class).toggle();
+            modules.get(LiquidFiller.class).toggle();
+            modules.get(Rotation.class).toggle();
+            modules.get(SafeWalk.class).toggle();
+            modules.get(ScaffoldPlus.class).toggle();
+            modules.get(TPSSync.class).toggle();
+        }
+
+
+        if (mode.get() == Mode.RingRoadDigging) {
+            modules.get(RingRoadBorer.class).toggle();
+
+            modules.get(AutoEat.class).toggle();
+            modules.get(AutoLog.class).toggle();
+            modules.get(FreeLook.class).toggle();
+            modules.get(HandManager.class).toggle();
+            modules.get(InvManager.class).toggle();
+            modules.get(LiquidFiller.class).toggle();
+            modules.get(Rotation.class).toggle();
+            modules.get(SafeWalk.class).toggle();
+            modules.get(ScaffoldPlus.class).toggle();
+            modules.get(TPSSync.class).toggle();
         }
     }
 }
