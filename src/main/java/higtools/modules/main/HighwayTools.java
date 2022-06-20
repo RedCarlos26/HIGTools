@@ -56,7 +56,6 @@ public class HighwayTools extends Module {
             modules.get(Rotation.class).toggle();
             modules.get(SafeWalk.class).toggle();
             modules.get(ScaffoldPlus.class).toggle();
-            modules.get(TPSSync.class).toggle();
         }
 
 
@@ -72,7 +71,6 @@ public class HighwayTools extends Module {
             modules.get(Rotation.class).toggle();
             modules.get(SafeWalk.class).toggle();
             modules.get(ScaffoldPlus.class).toggle();
-            modules.get(TPSSync.class).toggle();
         }
 
 
@@ -89,7 +87,6 @@ public class HighwayTools extends Module {
             modules.get(Rotation.class).toggle();
             modules.get(SafeWalk.class).toggle();
             modules.get(ScaffoldPlus.class).toggle();
-            modules.get(TPSSync.class).toggle();
         }
 
 
@@ -106,7 +103,6 @@ public class HighwayTools extends Module {
             modules.get(Rotation.class).toggle();
             modules.get(SafeWalk.class).toggle();
             modules.get(ScaffoldPlus.class).toggle();
-            modules.get(TPSSync.class).toggle();
         }
 
 
@@ -123,7 +119,6 @@ public class HighwayTools extends Module {
             modules.get(Rotation.class).toggle();
             modules.get(SafeWalk.class).toggle();
             modules.get(ScaffoldPlus.class).toggle();
-            modules.get(TPSSync.class).toggle();
         }
 
 
@@ -140,7 +135,6 @@ public class HighwayTools extends Module {
             modules.get(Rotation.class).toggle();
             modules.get(SafeWalk.class).toggle();
             modules.get(ScaffoldPlus.class).toggle();
-            modules.get(TPSSync.class).toggle();
         }
 
 
@@ -156,7 +150,6 @@ public class HighwayTools extends Module {
             modules.get(Rotation.class).toggle();
             modules.get(SafeWalk.class).toggle();
             modules.get(ScaffoldPlus.class).toggle();
-            modules.get(TPSSync.class).toggle();
         }
     }
 
@@ -176,7 +169,6 @@ public class HighwayTools extends Module {
             modules.get(Rotation.class).toggle();
             modules.get(SafeWalk.class).toggle();
             modules.get(ScaffoldPlus.class).toggle();
-            modules.get(TPSSync.class).toggle();
         }
 
 
@@ -192,7 +184,6 @@ public class HighwayTools extends Module {
             modules.get(Rotation.class).toggle();
             modules.get(SafeWalk.class).toggle();
             modules.get(ScaffoldPlus.class).toggle();
-            modules.get(TPSSync.class).toggle();
         }
 
 
@@ -209,7 +200,6 @@ public class HighwayTools extends Module {
             modules.get(Rotation.class).toggle();
             modules.get(SafeWalk.class).toggle();
             modules.get(ScaffoldPlus.class).toggle();
-            modules.get(TPSSync.class).toggle();
         }
 
 
@@ -226,7 +216,6 @@ public class HighwayTools extends Module {
             modules.get(Rotation.class).toggle();
             modules.get(SafeWalk.class).toggle();
             modules.get(ScaffoldPlus.class).toggle();
-            modules.get(TPSSync.class).toggle();
         }
 
 
@@ -243,7 +232,6 @@ public class HighwayTools extends Module {
             modules.get(Rotation.class).toggle();
             modules.get(SafeWalk.class).toggle();
             modules.get(ScaffoldPlus.class).toggle();
-            modules.get(TPSSync.class).toggle();
         }
 
 
@@ -260,7 +248,6 @@ public class HighwayTools extends Module {
             modules.get(Rotation.class).toggle();
             modules.get(SafeWalk.class).toggle();
             modules.get(ScaffoldPlus.class).toggle();
-            modules.get(TPSSync.class).toggle();
         }
 
 
@@ -276,7 +263,6 @@ public class HighwayTools extends Module {
             modules.get(Rotation.class).toggle();
             modules.get(SafeWalk.class).toggle();
             modules.get(ScaffoldPlus.class).toggle();
-            modules.get(TPSSync.class).toggle();
         }
     }
 }

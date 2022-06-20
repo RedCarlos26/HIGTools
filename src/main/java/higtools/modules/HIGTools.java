@@ -24,7 +24,7 @@ import static higtools.AdapterKt.*;
 
 public class HIGTools extends MeteorAddon {
 	public static final Logger LOG = LoggerFactory.getLogger("HIG Tools");
-    public static final String VERSION = "1.4";
+    public static final String VERSION = "1.5";
     public static final Category MAIN = new Category("HIG Tools", Items.NETHERITE_PICKAXE.getDefaultStack());
     public static final Category BORERS = new Category(" Borers ", Items.NETHERITE_PICKAXE.getDefaultStack());
 	@Override
