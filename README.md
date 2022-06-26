@@ -10,8 +10,6 @@
   <img src="https://img.shields.io/badge/Minecraft%20Version-1.18.2-blueviolet" alt="Minecraft Version">
 </div>
 
-<hr />
-
 <div align="center">
   <a href="https://discord.gg/T7j3HxeKD7"><img src="https://invidget.switchblade.xyz/T7j3HxeKD7"></a>
 </div>
