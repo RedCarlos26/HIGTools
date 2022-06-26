@@ -25,7 +25,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import static org.lwjgl.glfw.GLFW.GLFW_RELEASE;
 
 @Mixin(Mouse.class)
-public class MouseMixin2 {
+public abstract class MouseMixin2 {
     @Shadow @Final private MinecraftClient client;
 
     @Inject(method = "onMouseButton", at = @At("HEAD"), cancellable = true)
