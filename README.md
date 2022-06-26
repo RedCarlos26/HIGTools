@@ -8,21 +8,14 @@
   <a href="https://anticope.ml/pages/MeteorAddons.html"><img src="https://img.shields.io/badge/Verified%20Addon-Yes-blueviolet" alt="Verified Addon"></a>
   <a href="https://github.com/RedCarlos26/higtools/releases"><img src="https://img.shields.io/badge/Version-v1.5-blueviolet" alt="Version"></a>
   <img src="https://img.shields.io/badge/Minecraft%20Version-1.18.2-blueviolet" alt="Minecraft Version">
-  <a href="https://github.com/RedCarlos26/higtools/commits/master"><img src="https://img.shields.io/github/last-commit/RedCarlos26/higtools?logo=git" alt="Last commit"></a>
-  <img src="https://img.shields.io/github/languages/code-size/RedCarlos26/higtools" alt="Code Size">
-  <img src="https://img.shields.io/github/repo-size/RedCarlos26/higtools" alt="Repo Size">
-  <img src="https://img.shields.io/github/issues/RedCarlos26/higtools" alt="Issues">
-  <img src="https://img.shields.io/github/stars/RedCarlos26/higtools" alt="Stars">
 </div>
-
-<hr />
 
 <div align="center">
   <a href="https://discord.gg/T7j3HxeKD7"><img src="https://invidget.switchblade.xyz/T7j3HxeKD7"></a>
 </div>
 
 # How to use
-- Download the last 1.18.2 Meteor Client Jar.
+- Download the lastest 1.18.2 Meteor Client Jar.
 - Put HIG Tools in your `.minecraft/mods` folder where you have installed Meteor.
 
 # Features
