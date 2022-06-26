@@ -28,7 +28,7 @@
     "java": ">=17",
     "minecraft": ">=1.18",
     "meteor-client": ">=0.4.7",
-    "fabric-api": ">=0.55.1",
-    "fabric-language-kotlin": ">=1.8.0"
+    "fabric-api": ">=0.55.1+1.18.2",
+    "fabric-language-kotlin": ">=1.8.0+kotlin.1.7.0"
   }
 }
