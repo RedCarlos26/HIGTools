@@ -8,7 +8,7 @@
 - Minecraft: 1.18.2
 - Fabric loader: 0.14.8
    - Fabric Api: 0.55.1
-   - Fabric Language Kotlin: 1.7.0
+   - Fabric Language Kotlin: 1.8.0
    - Meteor Client: 0.4.9-1475
 
 ### Developers:
