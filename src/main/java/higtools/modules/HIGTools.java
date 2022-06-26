@@ -55,9 +55,9 @@ public class HIGTools extends MeteorAddon {
         modules.add(new TPSSync());
         // Main (Kotlin)
         modules.add(new AutoCenter());
-        modules.add(AutoEat.INSTANCE);
         modules.add(new InvManager());
         modules.add(new NoCaveCulling());
+        modules.add(AutoEat.INSTANCE);
         modules.add(ScaffoldPlus.INSTANCE);
 
         // Borers (Kotlin)
@@ -71,8 +71,8 @@ public class HIGTools extends MeteorAddon {
         // Commands
         Commands commands = Commands.get();
         commands.add(new ClearChat());
-        commands.add(new DisableAll());
         commands.add(new Disconnect());
+        commands.add(new ToggleAll());
 
         // HUD
         HUD hud = Systems.get(HUD.class);

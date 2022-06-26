@@ -49,7 +49,6 @@ public class HighwayTools extends Module {
 
             modules.get(AutoEat.class).toggle();
             modules.get(AutoLog.class).toggle();
-            modules.get(FreeLook.class).toggle();
             modules.get(HandManager.class).toggle();
             modules.get(InvManager.class).toggle();
             modules.get(LiquidFiller.class).toggle();
@@ -162,7 +161,6 @@ public class HighwayTools extends Module {
 
             modules.get(AutoEat.class).toggle();
             modules.get(AutoLog.class).toggle();
-            modules.get(FreeLook.class).toggle();
             modules.get(HandManager.class).toggle();
             modules.get(InvManager.class).toggle();
             modules.get(LiquidFiller.class).toggle();

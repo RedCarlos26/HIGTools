@@ -10,9 +10,9 @@ import java.util.ArrayList;
 
 import static com.mojang.brigadier.Command.SINGLE_SUCCESS;
 
-public class DisableAll extends Command {
-    public DisableAll() {
-        super("disable-all", "Disables all modules.");
+public class ToggleAll extends Command {
+    public ToggleAll() {
+        super("toggle-all", "Disables all modules.");
     }
 
     @Override
