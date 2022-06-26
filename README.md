@@ -10,8 +10,8 @@
   <img src="https://img.shields.io/badge/Minecraft%20Version-1.18.2-blue" alt="Minecraft Version">
   <a href="https://github.com/RedCarlos26/higtools/commits/master"><img src="https://img.shields.io/github/last-commit/RedCarlos26/higtools?logo=git" alt="Last commit"></a>
   <img src="https://img.shields.io/github/languages/code-size/RedCarlos26/higtools" alt="Code Size">
-  <img src="https://img.shields.io/github/repo-size/RedCarlos26/meteor-rejects" alt="Repo Size">
-  <img src="https://img.shields.io/github/issues/RedCarlos26/meteor-rejects" alt="Issues">
+  <img src="https://img.shields.io/github/repo-size/RedCarlos26/higtools" alt="Repo Size">
+  <img src="https://img.shields.io/github/issues/RedCarlos26/higtools" alt="Issues">
   <img src="https://img.shields.io/github/stars/RedCarlos26/higtools" alt="Stars">
 </div>
 
