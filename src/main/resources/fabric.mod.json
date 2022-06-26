@@ -3,7 +3,7 @@
   "id": "hig-tools",
   "version": "${version}",
   "name": "HIG Tools",
-  "description": "HIG's Highway Tools for Meteor Client",
+  "description": "HIG's Highway Tools for Meteor Client.",
   "authors": [
     "RedCarlos26",
     "Ethius"
@@ -27,6 +27,8 @@
   "depends": {
     "java": ">=17",
     "minecraft": ">=1.18",
-    "meteor-client": ">=0.4.7"
+    "meteor-client": ">=0.4.7",
+    "fabric-api": ">=0.55.1",
+    "fabric-language-kotlin": ">=1.8.0"
   }
 }
