@@ -15,7 +15,7 @@
 </div>
 
 # How to use
-- Download the last 1.18.2 Meteor Client Jar.
+- Download the lastest 1.18.2 Meteor Client Jar.
 - Put HIG Tools in your `.minecraft/mods` folder where you have installed Meteor.
 
 # Features
