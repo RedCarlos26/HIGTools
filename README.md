@@ -1,20 +1,57 @@
-# HIGTools 1.5
+<div align="center">
+  <!-- Logo and Title -->
+  <img src="/src/main/resources/assets/higtools/icon.png" alt="logo" width="20%"/>
+  <h1>HIG Tools</h1>
+  <p>HIG Tools is specifically designed to build highways for the HIG group on endcrystal.me</p>
 
-### More info on how to use HIG Tools:
-- https://discord.gg/T7j3HxeKD7
+  <!-- Fancy badges -->
+  <a href="https://anticope.ml/pages/MeteorAddons.html"><img src="https://img.shields.io/badge/Verified%20Addon-Yes-blueviolet" alt="Verified Addon"></a>
+  <a href="https://github.com/RedCarlos26/higtools/releases"><img src="https://img.shields.io/badge/Version-v0.1-orange" alt="Version"></a>
+  <img src="https://img.shields.io/badge/Minecraft%20Version-1.18.2-blue" alt="Minecraft Version">
+  <a href="https://github.com/RedCarlos26/higtools/commits/master"><img src="https://img.shields.io/github/last-commit/RedCarlos26/higtools?logo=git" alt="Last commit"></a>
+  <img src="https://img.shields.io/github/languages/code-size/RedCarlos26/higtools" alt="Code Size">
+  <img src="https://img.shields.io/github/repo-size/RedCarlos26/meteor-rejects" alt="Repo Size">
+  <img src="https://img.shields.io/github/issues/RedCarlos26/meteor-rejects" alt="Issues">
+  <img src="https://img.shields.io/github/stars/RedCarlos26/higtools" alt="Stars">
+</div>
 
-### Dependencies Versions:
+<hr />
 
-- Minecraft: 1.18.2
-- Fabric loader: 0.14.8
-   - Fabric Api: 0.55.1
-   - Fabric Language Kotlin: 1.8.0
-   - Meteor Client: 0.4.9-1475
+<div align="center">
+  <a href="https://discord.gg/T7j3HxeKD7"><img src="https://invidget.switchblade.xyz/9mrRPGKYU3"></a>
+</div>
 
-### Developers:
-- RedCarlos26 (https://github.com/RedCarlos26)
-- Ethius (https://github.com/pleasegivesource)
+# How to use
+- Download the last 1.18.2 Meteor Client Jar.
+- Put HIG Tools in your `.minecraft/mods` folder where you have installed Meteor.
 
-### Allocated Memory (RAM) specs:
-- Minimum : 2048 MiB / 2 GB allocated
-- Recommended: 3072 MiB / 3 GB allocated
+# Features
+## Modules
+- AfkLogout
+- ArmorNotify
+- Aura
+- AutoDisable
+- AutoCenter
+- AutoEat
+- ChatTweaks
+- DiscordRPC
+- HandManager
+- HighwayBuilder+
+- HighwayTools
+- InvManager
+- NoCaveCulling
+- Scaffold+
+- Strafe
+- TpsSync
+
+## HUD
+- Baritone process HUD
+- Binds HUD
+- Item Counters
+- Spotify HUD
+- Welcome HUD
+
+## Commands
+- `.clear-chat`
+- `.disconnect`
+- `.toggle-all`
