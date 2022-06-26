@@ -9,7 +9,11 @@
     "Ethius"
   ],
   "contact": {
-    "repo": "https://github.com/RedCarlos26/HIGTools"
+    "homepage": "https://discord.gg/T7j3HxeKD7",
+    "repo": "https://github.com/RedCarlos26/HIGTools",
+    "issues": "https://github.com/RedCarlos26/HIGTools/issues",
+    "sources": "https://github.com/RedCarlos26/HIGTools",
+    "discord": "https://discord.gg/T7j3HxeKD7"
   },
   "icon": "assets/higtools/icon.png",
   "environment": "client",
@@ -28,7 +32,6 @@
     "java": ">=17",
     "minecraft": ">=1.18",
     "meteor-client": ">=0.4.7",
-    "fabric-api": ">=0.55.1+1.18.2",
     "fabric-language-kotlin": ">=1.8.0+kotlin.1.7.0"
   }
 }
