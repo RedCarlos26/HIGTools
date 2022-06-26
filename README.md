@@ -8,7 +8,7 @@
   <a href="https://anticope.ml/pages/MeteorAddons.html"><img src="https://img.shields.io/badge/Verified%20Addon-Yes-blueviolet" alt="Verified Addon"></a>
   <a href="https://github.com/RedCarlos26/higtools/releases"><img src="https://img.shields.io/badge/Version-v1.5-blueviolet" alt="Version"></a>
   <img src="https://img.shields.io/badge/Minecraft%20Version-1.18.2-blueviolet" alt="Minecraft Version">
-  <img src="https://img.shields.io/github/issues/RedCarlos26/higtools" alt="Issues">
+  <img src="https://img.shields.io/github/issues/RedCarlos26/higtools &blueviolet" alt="Issues">
   <img src="https://img.shields.io/github/stars/RedCarlos26/higtools" alt="Stars">
 </div>
 
