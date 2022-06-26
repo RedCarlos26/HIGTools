@@ -2,7 +2,7 @@
   <!-- Logo and Title -->
   <img src="/src/main/resources/assets/higtools/icon.png" alt="logo" width="20%"/>
   <h1>HIG Tools</h1>
-  <p>HIG Tools is specifically designed to build highways for the HIG group on endcrystal.me</p>
+  <p>HIG Tools is specifically designed to build highways for the highway infrastructure group on endcrystal.me</p>
 
   <!-- Fancy badges -->
   <a href="https://anticope.ml/pages/MeteorAddons.html"><img src="https://img.shields.io/badge/Verified%20Addon-Yes-blueviolet" alt="Verified Addon"></a>
