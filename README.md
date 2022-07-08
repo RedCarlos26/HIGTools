@@ -25,9 +25,9 @@
 - AfkLogout
 - ArmorNotify
 - Aura
-- AutoDisable
 - AutoCenter
 - AutoEat
+- AutoWalk+
 - ChatTweaks
 - DiscordRPC
 - HandManager
