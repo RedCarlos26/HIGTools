@@ -10,7 +10,7 @@ import meteordevelopment.meteorclient.utils.player.PlayerUtils;
 import meteordevelopment.meteorclient.utils.world.Dimension;
 import meteordevelopment.orbit.EventHandler;
 import net.minecraft.network.packet.s2c.play.DisconnectS2CPacket;
-import net.minecraft.text.LiteralText;
+import net.minecraft.text.Text;
 
 public class AfkLogout extends Module {
 
@@ -74,7 +74,7 @@ public class AfkLogout extends Module {
             if (toggleAutoReconnect.get() && Modules.get().isActive(AutoReconnect.class)) Modules.get().get(AutoReconnect.class).toggle();
             if (autoToggle.get()) toggle();
 
-            mc.player.networkHandler.onDisconnect(new DisconnectS2CPacket(new LiteralText("[AfkLogout] Arrived at destination.")));
+            mc.player.networkHandler.onDisconnect(new DisconnectS2CPacket(Text.literal("[AfkLogout] Arrived at destination.")));
         }
 
     }

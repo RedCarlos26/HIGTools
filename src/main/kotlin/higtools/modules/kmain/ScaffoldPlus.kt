@@ -70,11 +70,7 @@ object ScaffoldPlus:MeteorModule(HIGTools.MAIN, "Scaffold+", "Scaffolds blocks u
             mc.networkHandler!!.sendPacket(
                 PlayerInteractBlockC2SPacket(
                     if (offHand) Hand.OFF_HAND else Hand.MAIN_HAND,
-                    BlockHitResult(
-                        pos,
-                        Direction.DOWN,
-                        bpos,
-                        false)))
+                    BlockHitResult(pos, Direction.DOWN, bpos, false), 0))
             runs++
             slot = -1
         }

@@ -84,8 +84,8 @@ public class HTWorldUtils {
         if (switchMode != SwitchMode.Client) mc.player.networkHandler.sendPacket(new UpdateSelectedSlotC2SPacket(targetSlot));
         if (switchMode != SwitchMode.Packet) InvUtils.swap(targetSlot, swapBack);
 
-        if (placeMode != PlaceMode.Client) mc.player.networkHandler.sendPacket(new PlayerInteractBlockC2SPacket(hand, blockHitResult));
-        if (placeMode != PlaceMode.Packet) mc.interactionManager.interactBlock(mc.player, mc.world, hand, blockHitResult);
+        if (placeMode != PlaceMode.Client) mc.player.networkHandler.sendPacket(new PlayerInteractBlockC2SPacket(hand, blockHitResult, 0));
+        if (placeMode != PlaceMode.Packet) mc.interactionManager.interactBlock(mc.player, hand, blockHitResult);
 
         if (swing) mc.player.swingHand(hand);
         else mc.getNetworkHandler().sendPacket(new HandSwingC2SPacket(hand));

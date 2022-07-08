@@ -8,10 +8,8 @@ import meteordevelopment.meteorclient.systems.modules.Module;
 import meteordevelopment.meteorclient.utils.player.ChatUtils;
 import meteordevelopment.meteorclient.utils.render.color.SettingColor;
 import meteordevelopment.orbit.EventHandler;
-import net.minecraft.text.BaseText;
-import net.minecraft.text.LiteralText;
-import net.minecraft.text.TextColor;
 import net.minecraft.util.Formatting;
+import net.minecraft.text.*;
 
 public class ChatTweaks extends Module {
     private final SettingGroup sgGeneral = settings.getDefaultGroup();
@@ -67,9 +65,9 @@ public class ChatTweaks extends Module {
         ChatUtils.registerCustomPrefix("higtools.modules", this::getPrefix);
     }
 
-    public LiteralText getPrefix() {
-        BaseText logo = new LiteralText(prefix.get());
-        LiteralText prefix = new LiteralText("");
+    public Text getPrefix() {
+        MutableText logo = Text.literal(prefix.get());
+        MutableText prefix = Text.literal("");
         logo.setStyle(logo.getStyle().withColor(TextColor.fromRgb(prefixColors.get().getPacked())));
         prefix.setStyle(prefix.getStyle().withFormatting(Formatting.GRAY));
         prefix.append(leftBracket.get());

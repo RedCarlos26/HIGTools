@@ -98,9 +98,7 @@ object AutoEat:MeteorModule(HIGTools.MAIN, "AutoEat", "Automatically eats the ch
 
     private fun doEat(offhand:Boolean) {
         mc.options.useKey.isPressed = true
-        if (!mc.player!!.isUsingItem) mc.interactionManager!!.interactItem(mc.player,
-                                                                           mc.world,
-                                                                           if (offhand) Hand.OFF_HAND else Hand.MAIN_HAND)
+        if (!mc.player!!.isUsingItem) mc.interactionManager!!.interactItem(mc.player, if (offhand) Hand.OFF_HAND else Hand.MAIN_HAND)
         eating = true
     }
 
