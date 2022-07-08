@@ -45,7 +45,7 @@ public class HIGTools extends MeteorAddon {
         modules.add(new AfkLogout());
         modules.add(new ArmorNotify());
         modules.add(new Aura());
-        modules.add(new AutoDisable());
+        modules.add(new AutoWalkPlus());
         modules.add(new ChatTweaks());
         modules.add(new DiscordRPC());
         modules.add(new HandManager());
