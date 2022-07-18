@@ -6,7 +6,7 @@
 
   <!-- Fancy badges -->
   <a href="https://anticope.ml/pages/MeteorAddons.html"><img src="https://img.shields.io/badge/Verified%20Addon-Yes-blueviolet" alt="Verified Addon"></a>
-  <a href="https://github.com/RedCarlos26/higtools/releases"><img src="https://img.shields.io/badge/Version-v1.6-blueviolet" alt="Version"></a>
+  <a href="https://github.com/RedCarlos26/higtools/releases"><img src="https://img.shields.io/badge/Version-v1.7-blueviolet" alt="Version"></a>
   <img src="https://img.shields.io/badge/Minecraft%20Version-1.19-blueviolet" alt="Minecraft Version">
   <img src="https://img.shields.io/github/downloads/RedCarlos26/higtools/total?color=blueviolet&label=Downloads">
 </div>
