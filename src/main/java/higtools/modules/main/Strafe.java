@@ -1,8 +1,8 @@
 package higtools.modules.main;
 
 import higtools.modules.HIGTools;
-import higtools.utils.server.HTServerUtils;
-import higtools.utils.HTEntityUtils;
+import higtools.utils.HTServerUtils;
+import higtools.utils.HTPlayerUtils;
 import higtools.utils.HTWorldUtils;
 import meteordevelopment.meteorclient.events.entity.player.PlayerMoveEvent;
 import meteordevelopment.meteorclient.events.packets.PacketEvent;
@@ -300,7 +300,6 @@ public class Strafe extends Module {
     }
 
     // Fields
-
     private int stage;
     private double distance, speed;
     private long timer = 0L;
@@ -334,8 +333,8 @@ public class Strafe extends Module {
         if (flightPause.get() && flight.isActive()) return;
         if (eFlyPause.get() && efly.isActive()) return;
 
-        if (HTEntityUtils.isWebbed(mc.player) && webbedPause.get() == WebbedPause.Always) return;
-        if (HTEntityUtils.isWebbed(mc.player) && !mc.player.isOnGround() && webbedPause.get() == WebbedPause.OnAir) return;
+        if (HTPlayerUtils.isWebbed(mc.player) && webbedPause.get() == WebbedPause.Always) return;
+        if (HTPlayerUtils.isWebbed(mc.player) && !mc.player.isOnGround() && webbedPause.get() == WebbedPause.OnAir) return;
 
         if (mc.player.isOnGround()) {
            timerClass.setOverride(PlayerUtils.isMoving() ? (groundTimer.get() * HTServerUtils.getTPSMatch(TPSSync.get())) : Timer.OFF);
@@ -490,8 +489,8 @@ public class Strafe extends Module {
             case 2:
                 speed = distance - jumpedSlowDown.get() * (distance - getDefaultSpeed());
                 stage++;
-                break; //Slowdown after jump
-            case 3: //Reset on collision or predict and update speed
+                break; // Slowdown after jump
+            case 3: // Reset on collision or predict and update speed
                 if (!mc.world.isSpaceEmpty(mc.player.getBoundingBox().offset(0.0, mc.player.getVelocity().y, 0.0)) || mc.player.verticalCollision && stage > 0) {
                     stage = 0;
                 }

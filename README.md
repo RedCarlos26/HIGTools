@@ -25,14 +25,14 @@
 - AfkLogout
 - ArmorNotify
 - Aura
-- AutoDisable
 - AutoCenter
-- AutoEat
-- ChatTweaks
+- AutoEat+
+- AutoWalk+
 - DiscordRPC
 - HandManager
 - HighwayBuilder+
 - HighwayTools
+- HIGPrefix
 - InvManager
 - NoCaveCulling
 - Scaffold+
@@ -42,11 +42,10 @@
 ## HUD
 - Baritone process HUD
 - Binds HUD
-- Item Counters
+- Item Counters HUD
 - Spotify HUD
 - Welcome HUD
 
 ## Commands
-- `.clear-chat`
 - `.disconnect`
-- `.toggle-all`
+- `.toggle-modules`

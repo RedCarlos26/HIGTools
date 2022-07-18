@@ -13,13 +13,12 @@ import meteordevelopment.meteorclient.systems.modules.misc.NameProtect;
 import java.util.Calendar;
 
 public class HIGWelcomeHud extends HudElement {
-    private final SettingGroup sgGeneral = settings.getDefaultGroup();
-
-
     public enum Mode {
         Normal,
         Custom
     }
+
+    private final SettingGroup sgGeneral = settings.getDefaultGroup();
 
     // General
     private final Setting<Mode> mode = sgGeneral.add(new EnumSetting.Builder<Mode>()

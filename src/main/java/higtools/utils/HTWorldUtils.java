@@ -163,30 +163,6 @@ public class HTWorldUtils {
         mc.player.setPitch((float) rotations[1]);
     }
 
-    public static void snapPlayer() {
-        BlockPos lastPos = mc.player.isOnGround() ? roundBlockPos(mc.player.getPos()) : mc.player.getBlockPos();
-        snapPlayer(lastPos);
-    }
-
-    public static void snapPlayer(BlockPos lastPos) {
-        double xPos = mc.player.getPos().x;
-        double zPos = mc.player.getPos().z;
-
-        if(Math.abs((lastPos.getX() + 0.5) - mc.player.getPos().x) >= 0.2) {
-            int xDir = (lastPos.getX() + 0.5) - mc.player.getPos().x > 0 ? 1 : -1;
-            xPos += 0.3 * xDir;
-        }
-
-        if(Math.abs((lastPos.getZ() + 0.5) - mc.player.getPos().z) >= 0.2) {
-            int zDir = (lastPos.getZ() + 0.5) - mc.player.getPos().z > 0 ? 1 : -1;
-            zPos += 0.3 * zDir;
-        }
-
-        mc.player.setVelocity(0, 0, 0);
-        mc.player.setPosition(xPos, mc.player.getY(), zPos);
-        mc.player.networkHandler.sendPacket(new PlayerMoveC2SPacket.PositionAndOnGround(mc.player.getX(), mc.player.getY(), mc.player.getZ(), mc.player.isOnGround()));
-    }
-
     // World Utils
 
     public static BlockPos roundBlockPos(Vec3d vec) {
@@ -232,13 +208,5 @@ public class HTWorldUtils {
         }
 
         return false;
-    }
-
-    public static void spawnLightning(double x, double y, double z) {
-        LightningEntity lightning = new LightningEntity(EntityType.LIGHTNING_BOLT, mc.world);
-
-        lightning.updatePosition(x, y, z);
-        lightning.refreshPositionAfterTeleport(x, y, z);
-        mc.world.addEntity(lightning.getId(), lightning);
     }
 }

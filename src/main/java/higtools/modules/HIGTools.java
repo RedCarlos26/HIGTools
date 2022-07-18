@@ -27,15 +27,14 @@ public class HIGTools extends MeteorAddon {
     public static final String VERSION = "1.7";
     public static final Category MAIN = new Category("HIG Tools", Items.NETHERITE_PICKAXE.getDefaultStack());
     public static final Category BORERS = new Category(" Borers ", Items.NETHERITE_PICKAXE.getDefaultStack());
+
 	@Override
 	public void onInitialize() {
 	    LOG.info("Initializing HIG Tools");
 
 		MeteorClient.EVENT_BUS.registerLambdaFactory("higtools", (lookupInMethod, klass) -> (MethodHandles.Lookup) lookupInMethod.invoke(null, klass, MethodHandles.lookup()));
 
-        HTDamageUtils.init();
         ServiceLoader.load();
-        PacketFlyUtils.init();
         setCs2Ps();
 
         // Modules
@@ -46,7 +45,7 @@ public class HIGTools extends MeteorAddon {
         modules.add(new ArmorNotify());
         modules.add(new Aura());
         modules.add(new AutoWalkPlus());
-        modules.add(new ChatTweaks());
+        modules.add(new HIGPrefix());
         modules.add(new DiscordRPC());
         modules.add(new HandManager());
         modules.add(new HighwayBuilderPlus());
@@ -57,7 +56,7 @@ public class HIGTools extends MeteorAddon {
         modules.add(new AutoCenter());
         modules.add(new InvManager());
         modules.add(new NoCaveCulling());
-        modules.add(AutoEat.INSTANCE);
+        modules.add(AutoEatPlus.INSTANCE);
         modules.add(ScaffoldPlus.INSTANCE);
 
         // Borers (Kotlin)
@@ -70,9 +69,8 @@ public class HIGTools extends MeteorAddon {
 
         // Commands
         Commands commands = Commands.get();
-        commands.add(new ClearChat());
         commands.add(new Disconnect());
-        commands.add(new ToggleAll());
+        commands.add(new ToggleModules());
 
         // HUD
         HUD hud = Systems.get(HUD.class);
@@ -92,5 +90,4 @@ public class HIGTools extends MeteorAddon {
         Modules.registerCategory(MAIN);
         Modules.registerCategory(BORERS);
     }
-
 }

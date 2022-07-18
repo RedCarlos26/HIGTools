@@ -12,11 +12,6 @@ import meteordevelopment.meteorclient.utils.render.color.RainbowColor;
 import meteordevelopment.meteorclient.utils.render.color.SettingColor;
 
 public class SpotifyHud extends HudElement {
-
-    public SpotifyHud(HUD hud) {
-        super(hud, "spotify-hud", "Display the current song playing in spotify.", false);
-    }
-
     private final SettingGroup sgGeneral = settings.getDefaultGroup();
 
     private final Setting<String> format = sgGeneral.add(new StringSetting.Builder()
@@ -75,6 +70,10 @@ public class SpotifyHud extends HudElement {
         .defaultValue(new SettingColor(255, 0, 0))
         .build()
     );
+
+    public SpotifyHud(HUD hud) {
+        super(hud, "spotify-hud", "Display the current song playing in spotify.", false);
+    }
 
     private static final RainbowColor RAINBOW = new RainbowColor();
 

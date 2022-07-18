@@ -1,7 +1,7 @@
 package higtools.modules.main;
 
 import higtools.modules.HIGTools;
-import higtools.utils.server.HTServerUtils;
+import higtools.utils.HTServerUtils;
 import higtools.utils.TimerUtils;
 import higtools.utils.HTPlayerUtils;
 import baritone.api.BaritoneAPI;
@@ -61,11 +61,9 @@ public class Aura extends Module {
         Custom
     }
 
-
     private final SettingGroup sgGeneral = settings.getDefaultGroup();
     private final SettingGroup sgTargeting = settings.createGroup("Targeting");
     private final SettingGroup sgDelay = settings.createGroup("Delay");
-
 
     // General
     private final Setting<Weapon> weapon = sgGeneral.add(new EnumSetting.Builder<Weapon>()

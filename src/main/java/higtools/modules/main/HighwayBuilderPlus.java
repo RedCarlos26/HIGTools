@@ -79,7 +79,6 @@ public class HighwayBuilderPlus extends Module {
     private final SettingGroup sgRenderPlace = settings.createGroup("Render Place");
 
     // General
-
     private final Setting<Integer> width = sgGeneral.add(new IntSetting.Builder()
         .name("width")
         .description("Width of the highway.")
@@ -164,7 +163,6 @@ public class HighwayBuilderPlus extends Module {
     );
 
     // Render Mine
-
     private final Setting<Boolean> renderMine = sgRenderMine.add(new BoolSetting.Builder()
         .name("render-blocks-to-mine")
         .description("Render blocks to be mined.")
@@ -194,7 +192,6 @@ public class HighwayBuilderPlus extends Module {
     );
 
     // Render Place
-
     private final Setting<Boolean> renderPlace = sgRenderPlace.add(new BoolSetting.Builder()
         .name("render-blocks-to-place")
         .description("Render blocks to be placed.")
@@ -301,7 +298,7 @@ public class HighwayBuilderPlus extends Module {
 
         if (Modules.get().get(AutoEat.class).eating) return;
         if (Modules.get().get(AutoGap.class).isEating()) return;
-        if (Modules.get().get(higtools.modules.kmain.AutoEat.class).getEating()) return;
+        if (Modules.get().get(higtools.modules.kmain.AutoEatPlus.class).getEating()) return;
 
         state.tick(this);
     }

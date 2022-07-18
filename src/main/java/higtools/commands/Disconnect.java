@@ -11,7 +11,7 @@ import static com.mojang.brigadier.Command.SINGLE_SUCCESS;
 public class Disconnect extends Command {
 
     public Disconnect() {
-        super("disconnect", "Disconnects you from the server.", "kick");
+        super("disconnect", "Disconnects you from the server.");
     }
 
     @Override

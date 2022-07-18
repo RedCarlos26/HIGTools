@@ -14,7 +14,7 @@ import net.minecraft.network.packet.c2s.play.PlayerInteractBlockC2SPacket
 import net.minecraft.util.Hand
 import net.minecraft.util.math.Direction.DOWN
 
-object AutoEat:MeteorModule(HIGTools.MAIN, "AutoEat", "Automatically eats the chosen food.") {
+object AutoEatPlus:MeteorModule(HIGTools.MAIN, "AutoEat+", "Automatically eats the chosen food.") {
 
     private var hunger by mainGroup.add(IValue("Hunger", 16, "Hunger to eat at.", 1..19, 1))
     private val autoGap by mainGroup.add(BValue("AutoGap", true, "Gap when no fire resistance effect."))

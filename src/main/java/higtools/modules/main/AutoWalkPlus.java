@@ -35,7 +35,7 @@ public class AutoWalkPlus extends Module {
     private final Setting<Mode> mode = sgGeneral.add(new EnumSetting.Builder<Mode>()
             .name("mode")
             .description("Walking mode.")
-            .defaultValue(Mode.Smart)
+            .defaultValue(Mode.Simple)
             .onChanged(mode1 -> {
                 if (isActive()) {
                     if (mode1 == Mode.Simple) {

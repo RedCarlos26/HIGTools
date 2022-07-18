@@ -17,7 +17,5 @@ public class BaritoneHud extends DoubleTextHudElement {
 		if (process == null) return "-";
 
 		return process.displayName();
-
-
 	}
 }

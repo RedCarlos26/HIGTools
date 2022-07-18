@@ -1,25 +1,15 @@
 package higtools.modules.main;
 
 import higtools.modules.HIGTools;
-import higtools.utils.EmoteUtils;
-import meteordevelopment.meteorclient.events.game.SendMessageEvent;
 import meteordevelopment.meteorclient.settings.*;
 import meteordevelopment.meteorclient.systems.modules.Module;
 import meteordevelopment.meteorclient.utils.player.ChatUtils;
 import meteordevelopment.meteorclient.utils.render.color.SettingColor;
-import meteordevelopment.orbit.EventHandler;
 import net.minecraft.util.Formatting;
 import net.minecraft.text.*;
 
-public class ChatTweaks extends Module {
+public class HIGPrefix extends Module {
     private final SettingGroup sgGeneral = settings.getDefaultGroup();
-
-    public final Setting<Boolean> emotes = sgGeneral.add(new BoolSetting.Builder()
-            .name("emotes")
-            .description("Enables the HIG emote system.")
-            .defaultValue(false)
-            .build()
-    );
 
     private final Setting<String> prefix = sgGeneral.add(new StringSetting.Builder()
             .name("prefix")
@@ -35,29 +25,8 @@ public class ChatTweaks extends Module {
             .build()
     );
 
-    private final Setting<String> leftBracket = sgGeneral.add(new StringSetting.Builder()
-            .name("left-bracket")
-            .description("What to be displayed as left bracket for the prefix")
-            .defaultValue("[")
-            .build()
-    );
-
-    private final Setting<String> rightBracket = sgGeneral.add(new StringSetting.Builder()
-            .name("right-bracket")
-            .description("What to be displayed as right bracket for the prefix")
-            .defaultValue("]")
-            .build()
-    );
-
-    public ChatTweaks() {
-        super(HIGTools.MAIN, "chat-tweaks", "Various chat tweaks.");
-    }
-
-    @EventHandler
-    private void onMessageSend(SendMessageEvent event) {
-        String message = event.message;
-        if (emotes.get()) message = EmoteUtils.applyEmotes(message);
-        event.message = message;
+    public HIGPrefix() {
+        super(HIGTools.MAIN, "HIG-prefix", "Set a prefix for HIG modules toggles.");
     }
 
     @Override
@@ -70,9 +39,9 @@ public class ChatTweaks extends Module {
         MutableText prefix = Text.literal("");
         logo.setStyle(logo.getStyle().withColor(TextColor.fromRgb(prefixColors.get().getPacked())));
         prefix.setStyle(prefix.getStyle().withFormatting(Formatting.GRAY));
-        prefix.append(leftBracket.get());
+        prefix.append(Text.literal("["));
         prefix.append(logo);
-        prefix.append(rightBracket.get() + " ");
+        prefix.append(Text.literal("] "));
         return prefix;
     }
 }

@@ -60,9 +60,9 @@ class InvManager:MeteorModule(HIGTools.MAIN, "InvManager", "Automatically organi
                                                { false },
                                                { cur -> itemIds[8] = Identifier(cur).also { println("<Llama/InvManager> Loaded $it into slot8") } }))
 
-    private var delay by mainGroup.add(IValue("Delay", 15, "Delay to use", 1..35, 1))
-    private var reset by mainGroup.add(BValue("Reset", false, "Toggle this to reset, too lazy to make proper thing", { true }, { reset() }))
-    private var save by mainGroup.add(BValue("Save", false, "Toggle this to save, too lazy to make proper thing", { true }, { save() }))
+    private var delay by mainGroup.add(IValue("Delay", 15, "Delay in ticks between moving items.", 0..35, 0))
+    private var reset by mainGroup.add(BValue("Reset", false, "Toggle this to reset, too lazy to make proper thing.", { true }, { reset() }))
+    private var save by mainGroup.add(BValue("Save", false, "Toggle this to save, too lazy to make proper thing.", { true }, { save() }))
 
     private var itemIds:Array<Identifier> = Array(9) { Identifier("") }
 

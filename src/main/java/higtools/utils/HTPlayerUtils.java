@@ -1,6 +1,8 @@
 package higtools.utils;
 
+import net.minecraft.block.Blocks;
 import net.minecraft.entity.Entity;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Vec3d;
 
@@ -30,5 +32,9 @@ public class HTPlayerUtils {
         double g = (mc.player.getY() + mc.player.getEyeHeight(mc.player.getPose()) - y);
         double h = (mc.player.getZ() - z);
         return Math.sqrt(f * f + g * g + h * h);
+    }
+
+    public static boolean isWebbed(PlayerEntity targetEntity) {
+        return HTWorldUtils.doesBoxTouchBlock(targetEntity.getBoundingBox(), Blocks.COBWEB);
     }
 }

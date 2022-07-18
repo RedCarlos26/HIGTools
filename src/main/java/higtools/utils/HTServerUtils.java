@@ -1,4 +1,4 @@
-package higtools.utils.server;
+package higtools.utils;
 
 import higtools.utils.TimerUtils;
 import meteordevelopment.meteorclient.utils.world.TickRate;
@@ -8,12 +8,6 @@ import static meteordevelopment.meteorclient.MeteorClient.mc;
 public class HTServerUtils {
     public static double getTPSMatch(boolean TPSSync) {
         return TPSSync ? (TickRate.INSTANCE.getTickRate() / 20) : 1;
-    }
-
-    public enum PingSync {
-        Auto,
-        Custom,
-        None
     }
 
     public static int getPingMatch(boolean PingSync, boolean auto, int latency) {

@@ -43,7 +43,6 @@ public class DiscordRPC extends Module {
     private final SettingGroup sgLine2 = settings.createGroup("Line 2");
 
     // Line 1
-
     private final Setting<List<String>> line1Strings = sgLine1.add(new StringListSetting.Builder()
             .name("line-1-messages")
             .description("Messages used for the first line.")
@@ -220,7 +219,7 @@ public class DiscordRPC extends Module {
             if (!lastWasInMainMenu) {
                 rpc.setDetails("HIG Tools " + HIGTools.VERSION);
 
-                if (mc.currentScreen instanceof TitleScreen) rpc.setState("Looking at title screen");
+                if (mc.currentScreen instanceof TitleScreen) rpc.setState("In main menu");
                 else if (mc.currentScreen instanceof SelectWorldScreen) rpc.setState("Selecting world");
                 else if (mc.currentScreen instanceof CreateWorldScreen || mc.currentScreen instanceof EditGameRulesScreen) rpc.setState("Creating world");
                 else if (mc.currentScreen instanceof EditWorldScreen) rpc.setState("Editing world");
