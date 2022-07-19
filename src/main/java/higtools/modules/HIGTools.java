@@ -10,7 +10,8 @@ import meteordevelopment.meteorclient.MeteorClient;
 import meteordevelopment.meteorclient.addons.MeteorAddon;
 import meteordevelopment.meteorclient.systems.Systems;
 import meteordevelopment.meteorclient.systems.commands.Commands;
-import meteordevelopment.meteorclient.systems.hud.HUD;
+import meteordevelopment.meteorclient.systems.hud.Hud;
+import meteordevelopment.meteorclient.systems.hud.HudGroup;
 import meteordevelopment.meteorclient.systems.modules.Category;
 import meteordevelopment.meteorclient.systems.modules.Modules;
 
@@ -23,14 +24,15 @@ import java.lang.invoke.MethodHandles;
 import static higtools.AdapterKt.*;
 
 public class HIGTools extends MeteorAddon {
+    public static String VERSION = "1.8";
 	public static final Logger LOG = LoggerFactory.getLogger("HIG Tools");
-    public static final String VERSION = "1.7";
     public static final Category MAIN = new Category("HIG Tools", Items.NETHERITE_PICKAXE.getDefaultStack());
     public static final Category BORERS = new Category(" Borers ", Items.NETHERITE_PICKAXE.getDefaultStack());
+    public static final HudGroup HUD = new HudGroup("HIG Tools");
 
 	@Override
 	public void onInitialize() {
-	    LOG.info("Initializing HIG Tools");
+	    LOG.info("Initializing HIG Tools " + HIGTools.VERSION);
 
 		MeteorClient.EVENT_BUS.registerLambdaFactory("higtools", (lookupInMethod, klass) -> (MethodHandles.Lookup) lookupInMethod.invoke(null, klass, MethodHandles.lookup()));
 
@@ -50,7 +52,6 @@ public class HIGTools extends MeteorAddon {
         modules.add(new HandManager());
         modules.add(new HighwayBuilderPlus());
         modules.add(new HighwayTools());
-        modules.add(new Strafe());
         modules.add(new TPSSync());
         // Main (Kotlin)
         modules.add(new AutoCenter());
@@ -73,16 +74,10 @@ public class HIGTools extends MeteorAddon {
         commands.add(new ToggleModules());
 
         // HUD
-        HUD hud = Systems.get(HUD.class);
-        hud.elements.add(new BaritoneHud(hud));
-        hud.elements.add(new BindsHud(hud));
-        hud.elements.add(new EchestHud(hud));
-        hud.elements.add(new GapHud(hud));
-        hud.elements.add(new HIGWelcomeHud(hud));
-        hud.elements.add(new ObbyHud(hud));
-        hud.elements.add(new PickHud(hud));
-        hud.elements.add(new SpotifyHud(hud));
-        hud.elements.add(new XpHud(hud));
+        Hud hud = Systems.get(Hud.class);
+        hud.register(BindsHud.INFO);
+        hud.register(HIGWelcomeHud.INFO);
+        hud.register(SpotifyHud.INFO);
 	}
 
     @Override

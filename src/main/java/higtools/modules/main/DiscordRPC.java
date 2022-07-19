@@ -8,9 +8,12 @@ import meteordevelopment.meteorclient.events.world.TickEvent;
 import meteordevelopment.meteorclient.gui.GuiTheme;
 import meteordevelopment.meteorclient.gui.WidgetScreen;
 import meteordevelopment.meteorclient.gui.widgets.WWidget;
+import meteordevelopment.meteorclient.gui.widgets.containers.WHorizontalList;
 import meteordevelopment.meteorclient.gui.widgets.pressable.WButton;
 import meteordevelopment.meteorclient.settings.*;
 import meteordevelopment.meteorclient.systems.modules.Module;
+import meteordevelopment.meteorclient.systems.modules.Modules;
+import meteordevelopment.meteorclient.systems.modules.misc.DiscordPresence;
 import meteordevelopment.meteorclient.utils.Utils;
 import meteordevelopment.meteorclient.utils.misc.MeteorStarscript;
 import meteordevelopment.meteorclient.utils.player.ChatUtils;
@@ -93,6 +96,12 @@ public class DiscordRPC extends Module {
             .build()
     );
 
+    public DiscordRPC() {
+        super(HIGTools.MAIN, "discord-RPC", "Displays HIG Tools as your presence on Discord.");
+
+        runInMainMenu = true;
+    }
+
     private static final RichPresence rpc = new RichPresence();
     private int ticks;
     private boolean forceUpdate, lastWasInMainMenu;
@@ -103,18 +112,16 @@ public class DiscordRPC extends Module {
     private final List<Script> line2Scripts = new ArrayList<>();
     private int line2Ticks, line2I;
 
-    public DiscordRPC() {
-        super(HIGTools.MAIN, "discord-RPC", "Displays HIG Tools as your presence on Discord. You can use starscript {} see doc down below");
-        runInMainMenu = true;
-    }
 
     @Override
     public void onActivate() {
+        checkRPC();
+
         DiscordIPC.start(981649207263903804L, null);
 
         rpc.setStart(System.currentTimeMillis() / 1000L);
 
-        String largeText = "HIG Tools";
+        String largeText = "HIGTools";
         rpc.setLargeImage("higtools", largeText);
 
         recompileLine1();
@@ -127,6 +134,12 @@ public class DiscordRPC extends Module {
 
         line1I = 0;
         line2I = 0;
+    }
+
+    public void checkRPC() {
+        DiscordPresence presence = Modules.get().get(DiscordPresence.class);
+        if (presence == null) return;
+        if (presence.isActive()) presence.toggle();
     }
 
     @Override
@@ -185,7 +198,7 @@ public class DiscordRPC extends Module {
                     }
 
                     try {
-                        rpc.setDetails(MeteorStarscript.ss.run(line1Scripts.get(i)));
+                        rpc.setDetails(MeteorStarscript.ss.run(line1Scripts.get(i)).toString());
                     } catch (StarscriptError e) {
                         ChatUtils.error("Starscript", e.getMessage());
                     }
@@ -205,7 +218,7 @@ public class DiscordRPC extends Module {
                     }
 
                     try {
-                        rpc.setState(MeteorStarscript.ss.run(line2Scripts.get(i)));
+                        rpc.setState(MeteorStarscript.ss.run(line2Scripts.get(i)).toString());
                     } catch (StarscriptError e) {
                         ChatUtils.error("Starscript", e.getMessage());
                     }
@@ -256,9 +269,10 @@ public class DiscordRPC extends Module {
 
     @Override
     public WWidget getWidget(GuiTheme theme) {
-        WButton help = theme.button("Open documentation.");
-        help.action = () -> Util.getOperatingSystem().open("https://github.com/MeteorDevelopment/meteor-client/wiki/Starscript");
+        WHorizontalList buttons = theme.horizontalList();
+        WButton meteor = buttons.add(theme.button("Meteor Placeholders")).widget();
 
-        return help;
+        meteor.action = () -> Util.getOperatingSystem().open("https://github.com/MeteorDevelopment/meteor-client/wiki/Starscript");
+        return buttons;
     }
 }

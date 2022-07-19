@@ -33,8 +33,4 @@ public class HTPlayerUtils {
         double h = (mc.player.getZ() - z);
         return Math.sqrt(f * f + g * g + h * h);
     }
-
-    public static boolean isWebbed(PlayerEntity targetEntity) {
-        return HTWorldUtils.doesBoxTouchBlock(targetEntity.getBoundingBox(), Blocks.COBWEB);
-    }
 }

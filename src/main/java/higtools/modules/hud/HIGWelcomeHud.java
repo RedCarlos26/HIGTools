@@ -1,68 +1,77 @@
 package higtools.modules.hud;
 
+import higtools.modules.HIGTools;
 import meteordevelopment.meteorclient.settings.EnumSetting;
 import meteordevelopment.meteorclient.settings.Setting;
 import meteordevelopment.meteorclient.settings.SettingGroup;
 import meteordevelopment.meteorclient.settings.StringSetting;
-import meteordevelopment.meteorclient.systems.hud.HUD;
+import meteordevelopment.meteorclient.systems.hud.HudElement;
+import meteordevelopment.meteorclient.systems.hud.HudElementInfo;
 import meteordevelopment.meteorclient.systems.hud.HudRenderer;
-import meteordevelopment.meteorclient.systems.hud.modules.HudElement;
+import meteordevelopment.meteorclient.systems.hud.elements.TextHud;
 import meteordevelopment.meteorclient.systems.modules.Modules;
 import meteordevelopment.meteorclient.systems.modules.misc.NameProtect;
 
 import java.util.Calendar;
 
+import static meteordevelopment.meteorclient.MeteorClient.mc;
+
 public class HIGWelcomeHud extends HudElement {
+    public static final HudElementInfo<HIGWelcomeHud> INFO = new HudElementInfo<>(HIGTools.HUD, "hig-welcome", "Display a friendly welcome to HIG Tools.", HIGWelcomeHud::new);
+
+
     public enum Mode {
         Normal,
         Custom
     }
 
+
     private final SettingGroup sgGeneral = settings.getDefaultGroup();
+
 
     // General
     private final Setting<Mode> mode = sgGeneral.add(new EnumSetting.Builder<Mode>()
-            .name("mode")
-            .description("What text to show for the greeting.")
-            .defaultValue(Mode.Normal)
-            .build()
+        .name("mode")
+        .description("What text to show for the greeting.")
+        .defaultValue(Mode.Normal)
+        .build()
     );
 
     private final Setting<String> morningGreeting = sgGeneral.add(new StringSetting.Builder()
-            .name("morning-greeting")
-            .description("What to display as a greeting during morning hours.")
-            .defaultValue("Good Morning")
-            .visible(() -> mode.get() == Mode.Normal)
-            .build()
+        .name("morning-greeting")
+        .description("What to display as a greeting during morning hours.")
+        .defaultValue("Good Morning")
+        .visible(() -> mode.get() == Mode.Normal)
+        .build()
     );
 
     private final Setting<String> afternoonGreeting = sgGeneral.add(new StringSetting.Builder()
-            .name("afternoon-greeting")
-            .description("What to display as a greeting during afternoon hours.")
-            .defaultValue("Good Afternoon")
-            .visible(() -> mode.get() == Mode.Normal)
-            .build()
+        .name("afternoon-greeting")
+        .description("What to display as a greeting during afternoon hours.")
+        .defaultValue("Good Afternoon")
+        .visible(() -> mode.get() == Mode.Normal)
+        .build()
     );
 
     private final Setting<String> eveningGreeting = sgGeneral.add(new StringSetting.Builder()
-            .name("evening-greeting")
-            .description("What to display as a greeting during evening hours.")
-            .defaultValue("Good Evening")
-            .visible(() -> mode.get() == Mode.Normal)
-            .build()
+        .name("evening-greeting")
+        .description("What to display as a greeting during evening hours.")
+        .defaultValue("Good Evening")
+        .visible(() -> mode.get() == Mode.Normal)
+        .build()
     );
 
     private final Setting<String> customGreeting = sgGeneral.add(new StringSetting.Builder()
-            .name("custom-greeting")
-            .description("What the greeting should say.")
-            .defaultValue("Welcome to HIG Tools")
-            .visible(() -> mode.get() == Mode.Custom)
-            .build()
+        .name("custom-greeting")
+        .description("What the greeting should say.")
+        .defaultValue("Welcome to HIG Tools")
+        .visible(() -> mode.get() == Mode.Custom)
+        .build()
     );
 
 
-    public HIGWelcomeHud(HUD hud) {
-        super(hud, "HIG-welcome", "Display a customizable welcome message.", false);
+    public HIGWelcomeHud () {
+        super(INFO);
     }
 
 
@@ -73,7 +82,7 @@ public class HIGWelcomeHud extends HudElement {
 
 
     @Override
-    public void update(HudRenderer renderer) {
+    public void tick(HudRenderer renderer) {
         Calendar calendar = Calendar.getInstance();
         int localTime = calendar.get(Calendar.HOUR_OF_DAY);
 
@@ -96,10 +105,10 @@ public class HIGWelcomeHud extends HudElement {
 
     @Override
     public void render(HudRenderer renderer) {
-        double x = box.getX();
-        double y = box.getY();
+        double x = this.x;
+        double y = this.y;
 
-        renderer.text(leftText, x, y, hud.primaryColor.get());
-        renderer.text(rightText, x + leftWidth, y, hud.secondaryColor.get());
+        renderer.text(leftText, x, y, TextHud.getSectionColor(0), true);
+        renderer.text(rightText, x + leftWidth, y, TextHud.getSectionColor(1), true);
     }
 }

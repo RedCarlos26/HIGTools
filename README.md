@@ -6,9 +6,8 @@
 
   <!-- Fancy badges -->
   <a href="https://anticope.ml/pages/MeteorAddons.html"><img src="https://img.shields.io/badge/Verified%20Addon-Yes-blueviolet" alt="Verified Addon"></a>
-  <a href="https://github.com/RedCarlos26/higtools/releases"><img src="https://img.shields.io/badge/Version-v1.7-blueviolet" alt="Version"></a>
+  <a href="https://github.com/RedCarlos26/higtools/releases"><img src="https://img.shields.io/badge/Version-v1.8-blueviolet" alt="Version"></a>
   <img src="https://img.shields.io/badge/Minecraft%20Version-1.19-blueviolet" alt="Minecraft Version">
-  <img src="https://img.shields.io/github/downloads/RedCarlos26/higtools/total?color=blueviolet&label=Downloads">
 </div>
 
 <div align="center">
@@ -16,7 +15,7 @@
 </div>
 
 # How to use
-- Download the lastest 1.19 Meteor Client Jar. (do not use 0.5.0 #1519 or later for now since hud elements haven't been updated yet)
+- Download the lastest 1.19 Meteor Client Jar.
 - Put HIG Tools in your `.minecraft/mods` folder where you have installed Meteor.
 - Keep in mind that you need Fabric Kotlin API to load HIGTools. Download it here: [Fabric Kotlin Page](https://www.curseforge.com/minecraft/mc-mods/fabric-language-kotlin/files/all?filter-game-version=2020709689%3A9008
 )
@@ -36,7 +35,6 @@
 - InvManager
 - NoCaveCulling
 - Scaffold+
-- Strafe
 - TpsSync
 
 ## HUD

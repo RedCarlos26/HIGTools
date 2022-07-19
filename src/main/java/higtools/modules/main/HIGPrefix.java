@@ -30,9 +30,10 @@ public class HIGPrefix extends Module {
     }
 
     @Override
-    public void onActivate() {
-        ChatUtils.registerCustomPrefix("higtools.modules", this::getPrefix);
-    }
+    public void onActivate() {ChatUtils.registerCustomPrefix("higtools.modules", this::getPrefix);}
+
+    @Override
+    public void onDeactivate() {ChatUtils.unregisterCustomPrefix("higtools.modules");}
 
     public Text getPrefix() {
         MutableText logo = Text.literal(prefix.get());
