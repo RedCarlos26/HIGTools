@@ -38,9 +38,7 @@
 - TpsSync
 
 ## HUD
-- Baritone process HUD
 - Binds HUD
-- Item Counters HUD
 - Spotify HUD
 - Welcome HUD
 
