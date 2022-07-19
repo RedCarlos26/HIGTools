@@ -76,7 +76,7 @@ public class HIGTools extends MeteorAddon {
         // HUD
         Hud hud = Systems.get(Hud.class);
         hud.register(BindsHud.INFO);
-        hud.register(HIGWelcomeHud.INFO);
+        //hud.register(HIGWelcomeHud.INFO);
         hud.register(SpotifyHud.INFO);
 	}
 
