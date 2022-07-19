@@ -30,7 +30,7 @@
   },
   "depends": {
     "java": ">=17",
-    "minecraft": ">=1.18",
+    "minecraft": ">=1.19",
     "meteor-client": ">=0.4.9",
     "fabric-language-kotlin": ">=1.8.0+kotlin.1.7.0"
   }
