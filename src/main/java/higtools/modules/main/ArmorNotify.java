@@ -1,7 +1,7 @@
 package higtools.modules.main;
 
 import higtools.modules.HIGTools;
-import higtools.utils.ArmorNotifyUtils;
+import higtools.utils.HIGUtils;
 import meteordevelopment.meteorclient.events.world.TickEvent;
 import meteordevelopment.meteorclient.settings.DoubleSetting;
 import meteordevelopment.meteorclient.settings.Setting;
@@ -14,29 +14,28 @@ public class ArmorNotify extends Module {
     private final SettingGroup sgGeneral = settings.getDefaultGroup();
 
     private final Setting<Double> threshold = sgGeneral.add(new DoubleSetting.Builder()
-        .name("durability").description("How low an armor piece needs to be to alert you (in %).")
-        .defaultValue(10)
-        .min(1)
-        .sliderMin(1)
-        .sliderMax(100)
-        .max(100)
-        .build()
+            .name("durability")
+            .description("How low an armor piece needs to be to alert you (in %).")
+            .defaultValue(10)
+            .range(1, 100)
+            .sliderRange(1, 100)
+            .build()
     );
 
     public ArmorNotify() {
         super(HIGTools.MAIN, "armor-notify", "Notifies you when your armor pieces are low.");
     }
 
-    private boolean alertedHelm;
-    private boolean alertedChest;
-    private boolean alertedLegs;
+    private boolean alertedHelmet;
+    private boolean alertedChestplate;
+    private boolean alertedLeggings;
     private boolean alertedBoots;
 
     @Override
     public void onActivate() {
-        alertedHelm = false;
-        alertedChest = false;
-        alertedLegs = false;
+        alertedHelmet = false;
+        alertedChestplate = false;
+        alertedLeggings = false;
         alertedBoots = false;
     }
 
@@ -45,29 +44,29 @@ public class ArmorNotify extends Module {
         Iterable<ItemStack> armorPieces = mc.player.getArmorItems();
         for (ItemStack armorPiece : armorPieces) {
 
-            if (ArmorNotifyUtils.checkThreshold(armorPiece, threshold.get())) {
-                if (ArmorNotifyUtils.isHelm(armorPiece) && !alertedHelm) {
+            if (HIGUtils.checkNotifyThreshold(armorPiece, threshold.get())) {
+                if (HIGUtils.isHelmetArmor(armorPiece) && !alertedHelmet) {
                     warning("Your helmet dura is low!");
-                    alertedHelm = true;
+                    alertedHelmet = true;
                 }
-                if (ArmorNotifyUtils.isChest(armorPiece) && !alertedChest) {
+                if (HIGUtils.isChestplateArmor(armorPiece) && !alertedChestplate) {
                     warning("Your chestplate dura is low!");
-                    alertedChest = true;
+                    alertedChestplate = true;
                 }
-                if (ArmorNotifyUtils.isLegs(armorPiece) && !alertedLegs) {
+                if (HIGUtils.isLeggingsArmor(armorPiece) && !alertedLeggings) {
                     warning("Your leggings dura is low!");
-                    alertedLegs = true;
+                    alertedLeggings = true;
                 }
-                if (ArmorNotifyUtils.isBoots(armorPiece) && !alertedBoots) {
+                if (HIGUtils.isBootsArmor(armorPiece) && !alertedBoots) {
                     warning("Your boots dura is low!");
                     alertedBoots = true;
                 }
             }
-            if (!ArmorNotifyUtils.checkThreshold(armorPiece, threshold.get())) {
-                if (ArmorNotifyUtils.isHelm(armorPiece) && alertedHelm) alertedHelm = false;
-                if (ArmorNotifyUtils.isChest(armorPiece) && alertedChest) alertedChest = false;
-                if (ArmorNotifyUtils.isLegs(armorPiece) && alertedLegs) alertedLegs = false;
-                if (ArmorNotifyUtils.isBoots(armorPiece) && alertedBoots) alertedBoots = false;
+            if (!HIGUtils.checkNotifyThreshold(armorPiece, threshold.get())) {
+                if (HIGUtils.isHelmetArmor(armorPiece) && alertedHelmet) alertedHelmet = false;
+                if (HIGUtils.isChestplateArmor(armorPiece) && alertedChestplate) alertedChestplate = false;
+                if (HIGUtils.isLeggingsArmor(armorPiece) && alertedLeggings) alertedLeggings = false;
+                if (HIGUtils.isBootsArmor(armorPiece) && alertedBoots) alertedBoots = false;
             }
         }
     }

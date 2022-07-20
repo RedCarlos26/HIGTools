@@ -31,10 +31,10 @@ public class HighwayTools extends Module {
     private final SettingGroup sgGeneral = settings.getDefaultGroup();
 
     private final Setting<Mode> mode = sgGeneral.add(new EnumSetting.Builder<Mode>()
-        .name("profile")
-        .description("Which highway profile to use.")
-        .defaultValue(Mode.HighwayBuilding)
-        .build()
+            .name("profile")
+            .description("Which highway profile to use.")
+            .defaultValue(Mode.HighwayBuilding)
+            .build()
     );
 
     public HighwayTools() { super(HIGTools.MAIN, "highway-tools", "Digs, builds and repairs highways automatically."); }

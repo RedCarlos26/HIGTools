@@ -1,3 +1,9 @@
+/*
+ * This file is part of the Meteor Client distribution (https://github.com/MeteorDevelopment/meteor-client/).
+ * Copyright (c) 2022 Meteor Development.
+ * Modified by RedCarlos#0001
+ */
+
 package higtools.modules.main;
 
 import higtools.modules.HIGTools;
@@ -64,10 +70,10 @@ public class AutoWalkPlus extends Module {
     );
 
     public final Setting<Boolean> picktoggle = sgGeneral.add(new BoolSetting.Builder()
-        .name("pickaxe-toggle")
-        .description("Automatically disables AutoWalk+ when you run out of pickaxes.")
-        .defaultValue(true)
-        .build()
+            .name("pickaxe-toggle")
+            .description("Automatically disables AutoWalk+ when you run out of pickaxes.")
+            .defaultValue(true)
+            .build()
     );
 
     private int timer = 0;

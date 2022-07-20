@@ -1,7 +1,7 @@
 package higtools.modules.main;
 
 import higtools.modules.HIGTools;
-import higtools.utils.HTServerUtils;
+import higtools.utils.HIGUtils;
 import meteordevelopment.meteorclient.events.world.TickEvent;
 import meteordevelopment.meteorclient.systems.modules.Module;
 import meteordevelopment.meteorclient.systems.modules.Modules;
@@ -18,6 +18,6 @@ public class TPSSync extends Module {
     private void onTick(TickEvent.Post event) {
         if (!isActive()) return;
 
-        Modules.get().get(Timer.class).setOverride(HTServerUtils.getTPSMatch(true));
+        Modules.get().get(Timer.class).setOverride(HIGUtils.getServerTPSMatch(true));
     }
 }

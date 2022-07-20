@@ -1,9 +1,7 @@
 package higtools.modules.main;
 
 import higtools.modules.HIGTools;
-import higtools.utils.HTServerUtils;
-import higtools.utils.TimerUtils;
-import higtools.utils.HTPlayerUtils;
+import higtools.utils.HIGUtils;
 import baritone.api.BaritoneAPI;
 import it.unimi.dsi.fastutil.objects.Object2BooleanMap;
 import it.unimi.dsi.fastutil.objects.Object2BooleanOpenHashMap;
@@ -57,7 +55,6 @@ public class Aura extends Module {
 
     public enum DelayMode {
         Vanilla,
-        Fixed,
         Custom
     }
 
@@ -216,7 +213,6 @@ public class Aura extends Module {
 
     private final List<Entity> targets = new ArrayList<>();
     private int hitDelayTimer, switchTimer;
-    private final TimerUtils fixedHitTimer = new TimerUtils();
     private boolean wasPathing;
 
 
@@ -284,10 +280,10 @@ public class Aura extends Module {
     private boolean entityCheck(Entity entity) {
         if (entity.equals(mc.player) || entity.equals(mc.cameraEntity)) return false;
         if ((entity instanceof LivingEntity && ((LivingEntity) entity).isDead()) || !entity.isAlive()) return false;
-        if (HTPlayerUtils.distanceFromEye(entity) > range.get()) return false;
+        if (HIGUtils.distanceFromPlayerEye(entity) > range.get()) return false;
         if (!entities.get().getBoolean(entity.getType())) return false;
         if (!nametagged.get() && entity.hasCustomName()) return false;
-        if (!PlayerUtils.canSeeEntity(entity) && HTPlayerUtils.distanceFromEye(entity) > wallsRange.get()) return false;
+        if (!PlayerUtils.canSeeEntity(entity) && HIGUtils.distanceFromPlayerEye(entity) > wallsRange.get()) return false;
         if (entity instanceof PlayerEntity) {
             if (((PlayerEntity) entity).isCreative()) return false;
             if (!Friends.get().shouldAttack((PlayerEntity) entity)) return false;
@@ -311,13 +307,9 @@ public class Aura extends Module {
                     hitDelayTimer--;
                     return false;
                 } else {
-                    hitDelayTimer = (int) (hitDelay.get() / HTServerUtils.getTPSMatch(TPSSync.get()));
+                    hitDelayTimer = (int) (hitDelay.get() / HIGUtils.getServerTPSMatch(TPSSync.get()));
                     return true;
                 }
-            }
-
-            case Fixed -> {
-                if (fixedHitTimer.passedMillis((long) (fixedDelay() / HTServerUtils.getTPSMatch(TPSSync.get())))) return true;
             }
         }
 
@@ -332,7 +324,6 @@ public class Aura extends Module {
     private void hitEntity(Entity target) {
         mc.interactionManager.attackEntity(mc.player, target);
         mc.player.swingHand(Hand.MAIN_HAND);
-        fixedHitTimer.reset();
     }
 
     private void rotate(Entity target, Runnable callback) {
@@ -351,22 +342,6 @@ public class Aura extends Module {
             case All -> mc.player.getMainHandStack().getItem() instanceof AxeItem || mc.player.getMainHandStack().getItem() instanceof SwordItem || mc.player.getMainHandStack().getItem() instanceof PickaxeItem;
             default -> true;
         };
-    }
-
-    private long fixedDelay() {
-        Item activeItem = mc.player.getMainHandStack().getItem();
-
-        if (activeItem instanceof SwordItem) return 625;
-        else if (activeItem instanceof TridentItem) return (long) (1000 / 1.1);
-        else if (activeItem instanceof PickaxeItem) return (long) (1000 / 1.2);
-        else if (activeItem instanceof ShovelItem
-                || activeItem == Items.GOLDEN_AXE || activeItem == Items.DIAMOND_AXE || activeItem == Items.NETHERITE_AXE
-                || activeItem == Items.WOODEN_HOE || activeItem == Items.GOLDEN_HOE) return 1000;
-        else if (activeItem == Items.WOODEN_AXE || activeItem == Items.STONE_AXE) return 1250;
-        else if (activeItem == Items.IRON_AXE) return (long) (1000 / 0.9);
-        else if (activeItem == Items.STONE_HOE) return 500;
-        else if (activeItem == Items.IRON_HOE) return 1000 / 3;
-        return 250;
     }
 
     public Entity getTarget() {

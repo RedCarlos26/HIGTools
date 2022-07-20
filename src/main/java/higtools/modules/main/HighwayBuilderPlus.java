@@ -1,6 +1,6 @@
 /*
  * This file is part of the Meteor Client distribution (https://github.com/MeteorDevelopment/meteor-client/).
- * Copyright (c) 2021 Meteor Development.
+ * Copyright (c) 2022 Meteor Development.
  * Modified by RedCarlos#0001
  */
 
@@ -83,8 +83,8 @@ public class HighwayBuilderPlus extends Module {
         .name("width")
         .description("Width of the highway.")
         .defaultValue(4)
-        .range(1, 5)
-        .sliderRange(1, 5)
+        .range(2, 6)
+        .sliderRange(2, 6)
         .build()
     );
 
@@ -92,8 +92,8 @@ public class HighwayBuilderPlus extends Module {
         .name("height")
         .description("Height of the highway.")
         .defaultValue(3)
-        .range(2, 5)
-        .sliderRange(2, 5)
+        .range(2, 3)
+        .sliderRange(2, 3)
         .build()
     );
 
@@ -292,7 +292,18 @@ public class HighwayBuilderPlus extends Module {
     @EventHandler
     private void onTick(TickEvent.Pre event) {
         if (width.get() < 3 && dir.diagonal) {
-            errorEarly("Diagonal highways less than 3 blocks wide are not supported.");
+            errorEarly("Diagonal highways less than 3 blocks wide are not supported, disabling HighwayTools and HighwayBuilder.");
+            if (Modules.get().get(HighwayTools.class).isActive()) {
+                Modules.get().get(HighwayTools.class).toggle();
+            }
+            return;
+        }
+
+        if (width.get() == 5) {
+            errorEarly("5 blocks large highways are not supported, disabling HighwayTools and HighwayBuilder.");
+            if (Modules.get().get(HighwayTools.class).isActive()) {
+                Modules.get().get(HighwayTools.class).toggle();
+            }
             return;
         }
 
@@ -359,6 +370,7 @@ public class HighwayBuilderPlus extends Module {
             default -> 0;
             case 2, 3 -> 1;
             case 4, 5 -> 2;
+            case 6 -> 3;
         };
     }
 
@@ -367,6 +379,7 @@ public class HighwayBuilderPlus extends Module {
             default -> 0;
             case 3, 4 -> 1;
             case 5 -> 2;
+            case 6 -> 2;
         };
     }
 
