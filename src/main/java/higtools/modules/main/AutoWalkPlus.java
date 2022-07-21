@@ -14,6 +14,7 @@ import meteordevelopment.meteorclient.settings.EnumSetting;
 import meteordevelopment.meteorclient.settings.Setting;
 import meteordevelopment.meteorclient.settings.SettingGroup;
 import meteordevelopment.meteorclient.systems.modules.Module;
+//import meteordevelopment.meteorclient.systems.modules.Modules;
 import meteordevelopment.meteorclient.utils.misc.input.Input;
 import meteordevelopment.meteorclient.utils.player.FindItemResult;
 import meteordevelopment.meteorclient.utils.player.InvUtils;
@@ -76,6 +77,15 @@ public class AutoWalkPlus extends Module {
             .build()
     );
 
+    /*
+    public final Setting<Boolean> highwaytools = sgGeneral.add(new BoolSetting.Builder()
+            .name("highway-tools-toggle")
+            .description("Automatically disables HighwayTools when you run out of pickaxes.")
+            .defaultValue(false)
+            .visible(picktoggle::get)
+            .build()
+    ); */
+
     private int timer = 0;
     private GoalDirection goal;
 
@@ -117,10 +127,20 @@ public class AutoWalkPlus extends Module {
         if (picktoggle.get()) {
             FindItemResult pickaxe = InvUtils.find(itemStack -> itemStack.getItem() == Items.DIAMOND_PICKAXE || itemStack.getItem() == Items.NETHERITE_PICKAXE);
             if (!pickaxe.found()) {
-                error("No pickaxe found... disabling auto walk.");
+                error("No pickaxe found... disabling AutoWalk+.");
                 toggle();
             }
         }
+
+        /*
+        if (highwaytools.get()) {
+            FindItemResult pickaxe = InvUtils.find(itemStack -> itemStack.getItem() == Items.DIAMOND_PICKAXE || itemStack.getItem() == Items.NETHERITE_PICKAXE);
+            if (!pickaxe.found()) {
+                Modules.get().get(HighwayTools.class).toggle();
+                error("No pickaxe found... disabling HighwayTools.");
+                toggle();
+            }
+        } */
     }
 
     private void unpress() {
