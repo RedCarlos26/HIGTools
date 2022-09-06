@@ -16,7 +16,7 @@
 </div>
 
 # How to use
-- Download the lastest [Meteor Client](https://meteorclient.com/) Jar.
+- Download the lastest [Meteor Client](https://meteorclient.com/) jar.
 - Put HIG Tools in your `.minecraft/mods` folder where you have installed Meteor.
 - Keep in mind that you need Fabric Kotlin API to load HIGTools. Download it here: [Fabric Kotlin Page](https://www.curseforge.com/minecraft/mc-mods/fabric-language-kotlin/files/all?filter-game-version=2020709689%3A9008
 )
