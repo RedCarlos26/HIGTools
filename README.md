@@ -2,7 +2,7 @@
   <!-- Logo and Title -->
   <img src="/src/main/resources/assets/higtools/icon.png" alt="logo" width="20%"/>
   <h1>HIG Tools</h1>
-  <p>HIGTools is a utility addon for MeteorClient™️, specifically designed to build highways for the various highway infrastructure groups on anarchy servers.</p>
+  <p>HIGTools is a utility addon for [MeteorClient](https://meteorclient.com/), specifically designed to build highways for the various highway infrastructure groups on anarchy servers.</p>
 
   <!-- Fancy badges -->
   <a href="https://anticope.ml/pages/MeteorAddons.html"><img src="https://img.shields.io/badge/Verified%20Addon-Yes-blueviolet" alt="Verified Addon"></a>
