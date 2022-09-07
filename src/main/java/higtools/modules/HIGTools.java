@@ -3,7 +3,6 @@ package higtools.modules;
 import higtools.commands.*;
 import higtools.modules.hud.*;
 import higtools.modules.main.*;
-import higtools.utils.*;
 import higtools.modules.borers.*;
 import higtools.modules.kmain.*;
 import meteordevelopment.meteorclient.MeteorClient;
@@ -25,18 +24,16 @@ import static higtools.AdapterKt.*;
 
 public class HIGTools extends MeteorAddon {
     public static String VERSION = "2.0-dev";
-	public static final Logger LOG = LoggerFactory.getLogger("HIG Tools");
-    public static final Category MAIN = new Category("HIG Tools", Items.NETHERITE_PICKAXE.getDefaultStack());
+	public static final Logger LOG = LoggerFactory.getLogger("HIGTools");
+    public static final Category MAIN = new Category("HIGTools", Items.NETHERITE_PICKAXE.getDefaultStack());
     public static final Category BORERS = new Category(" Borers ", Items.NETHERITE_PICKAXE.getDefaultStack());
-    public static final HudGroup HUD = new HudGroup("HIG Tools");
+    public static final HudGroup HUD = new HudGroup("HIGTools");
 
 	@Override
 	public void onInitialize() {
-	    LOG.info("Initializing HIG Tools " + HIGTools.VERSION);
+	    LOG.info("Initializing HIGTools " + HIGTools.VERSION);
 
 		MeteorClient.EVENT_BUS.registerLambdaFactory("higtools", (lookupInMethod, klass) -> (MethodHandles.Lookup) lookupInMethod.invoke(null, klass, MethodHandles.lookup()));
-
-        ServiceLoader.load();
         setCs2Ps();
 
         // Modules
@@ -76,9 +73,13 @@ public class HIGTools extends MeteorAddon {
         // HUD
         Hud hud = Systems.get(Hud.class);
         hud.register(BindsHud.INFO);
-        hud.register(HIGWelcomeHud.INFO);
-        hud.register(SpotifyHud.INFO);
+        hud.register(WelcomeHud.INFO);
 	}
+
+    @Override
+    public String getPackage() {
+        return "higtools";
+    }
 
     @Override
     public void onRegisterCategories() {

@@ -18,9 +18,7 @@ import java.util.List;
 public class BindsHud extends HudElement {
     public static final HudElementInfo<BindsHud> INFO = new HudElementInfo<>(HIGTools.HUD, "binds-hud", "Displays modules you've binded keys to.", BindsHud::new);
 
-
     private final SettingGroup sgGeneral = settings.getDefaultGroup();
-
 
     // General
     private final Setting<Sort> sortMode = sgGeneral.add(new EnumSetting.Builder<Sort>()

@@ -16,9 +16,9 @@ public class ArmorNotify extends Module {
     private final Setting<Double> threshold = sgGeneral.add(new DoubleSetting.Builder()
             .name("durability")
             .description("How low an armor piece needs to be to alert you (in %).")
-            .defaultValue(10)
-            .range(1, 100)
-            .sliderRange(1, 100)
+            .defaultValue(20)
+            .range(1,100)
+            .sliderRange(1,100)
             .build()
     );
 

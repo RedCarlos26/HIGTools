@@ -16,18 +16,15 @@ import java.util.Calendar;
 
 import static meteordevelopment.meteorclient.MeteorClient.mc;
 
-public class HIGWelcomeHud extends HudElement {
-    public static final HudElementInfo<HIGWelcomeHud> INFO = new HudElementInfo<>(HIGTools.HUD, "hig-welcome", "Display a friendly welcome to HIG Tools.", HIGWelcomeHud::new);
-
+public class WelcomeHud extends HudElement {
+    public static final HudElementInfo<WelcomeHud> INFO = new HudElementInfo<>(HIGTools.HUD, "hig-welcome", "Display a friendly welcome to HIG Tools.", WelcomeHud::new);
 
     public enum Mode {
         Normal,
         Custom
     }
 
-
     private final SettingGroup sgGeneral = settings.getDefaultGroup();
-
 
     // General
     private final Setting<Mode> mode = sgGeneral.add(new EnumSetting.Builder<Mode>()
@@ -70,7 +67,7 @@ public class HIGWelcomeHud extends HudElement {
     );
 
 
-    public HIGWelcomeHud () {
+    public WelcomeHud() {
         super(INFO);
     }
 

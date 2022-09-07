@@ -25,18 +25,18 @@ public class AfkLogout extends Module {
     private final Setting<Integer> xCoords = sgGeneral.add(new IntSetting.Builder()
             .name("x-coords")
             .description("The X coords it should log you out.")
-            .defaultValue(1000)
-            .range(-29999983, 29999983)
-            .sliderRange(-29999983, 29999983)
+            .defaultValue(500)
+            .range(-30000000, 30000000)
+            .sliderRange(-1000, 1000)
             .build()
     );
 
     private final Setting<Integer> zCoords = sgGeneral.add(new IntSetting.Builder()
             .name("z-coords")
             .description("The Z coords it should log you out.")
-            .defaultValue(1000)
-            .range(-29999983, 29999983)
-            .sliderRange(-29999983, 29999983)
+            .defaultValue(500)
+            .range(-30000000, 30000000)
+            .sliderRange(-1000, 1000)
             .build()
     );
 
@@ -45,7 +45,7 @@ public class AfkLogout extends Module {
             .description("The radius from the exact coordinates it will log you out.")
             .defaultValue(64)
             .min(0)
-            .sliderRange(0, 384)
+            .sliderRange(0,100)
             .build()
     );
 
