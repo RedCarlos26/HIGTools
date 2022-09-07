@@ -67,13 +67,14 @@ public class HIGTools extends MeteorAddon {
 
         // Commands
         Commands commands = Commands.get();
+        commands.add(new Coordinates());
         commands.add(new Disconnect());
         commands.add(new ToggleModules());
 
         // HUD
         Hud hud = Systems.get(Hud.class);
         hud.register(BindsHud.INFO);
-        hud.register(WelcomeHud.INFO);
+        hud.register(GreetingsHud.INFO);
 	}
 
     @Override

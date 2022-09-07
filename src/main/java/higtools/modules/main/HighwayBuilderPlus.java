@@ -1,6 +1,6 @@
 /*
- * This file is part of the Meteor Client distribution (https://github.com/MeteorDevelopment/meteor-client/).
- * Copyright (c) 2022 Meteor Development.
+ * This file is part of the Meteor Client distribution (https://github.com/MeteorDevelopment/meteor-client).
+ * Copyright (c) Meteor Development.
  * Modified by RedCarlos#0001
  */
 
@@ -292,7 +292,7 @@ public class HighwayBuilderPlus extends Module {
     @EventHandler
     private void onTick(TickEvent.Pre event) {
         if (width.get() < 3 && dir.diagonal) {
-            errorEarly("Diagonal highways less than 3 blocks wide are not supported, disabling HighwayTools and HighwayBuilder.");
+            errorEarly("Diagonal highways less than 3 blocks wide are not supported, disabling HighwayTools & HighwayBuilder.");
             if (Modules.get().get(HighwayTools.class).isActive()) {
                 Modules.get().get(HighwayTools.class).toggle();
             }
@@ -300,7 +300,7 @@ public class HighwayBuilderPlus extends Module {
         }
 
         if (width.get() == 5) {
-            errorEarly("5 blocks large highways are not supported, disabling HighwayTools and HighwayBuilder.");
+            errorEarly("5 blocks large highways are not supported, disabling HighwayTools & HighwayBuilder.");
             if (Modules.get().get(HighwayTools.class).isActive()) {
                 Modules.get().get(HighwayTools.class).toggle();
             }
