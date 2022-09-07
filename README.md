@@ -40,7 +40,6 @@
 
 ## HUD
 - Binds HUD
-- Spotify HUD
 - Welcome HUD
 
 ## Commands
