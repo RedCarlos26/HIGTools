@@ -7,12 +7,12 @@
   <!-- Fancy badges -->
   <a href="https://anticope.ml/pages/MeteorAddons.html"><img src="https://img.shields.io/badge/Verified%20Addon-Yes-blueviolet" alt="Verified Addon"></a>
   <a href="https://github.com/RedCarlos26/higtools/releases"><img src="https://img.shields.io/badge/Version-v1.9.1-blueviolet" alt="Version"></a>
-  <img src="https://img.shields.io/badge/Minecraft%20Version-1.19-blueviolet" alt="Minecraft Version">
+  <img src="https://img.shields.io/badge/Minecraft%20Version-1.19.2-blueviolet" alt="Minecraft Version">
   <img src="https://img.shields.io/github/downloads/RedCarlos26/higtools/total?color=blueviolet&label=Downloads">
 </div>
 
 <div align="center">
-  <a href="https://discord.gg/T7j3HxeKD7"><img src="https://invidget.switchblade.xyz/T7j3HxeKD7"></a>
+  <a href=" https://discord.gg/a4jkKGJNdJ"><img src="https://invidget.switchblade.xyz/a4jkKGJNdJ"></a>
 </div>
 
 # How to use
