@@ -6,7 +6,6 @@ import higtools.modules.kmain.AutoCenter;
 import higtools.modules.kmain.AutoEatPlus;
 import higtools.modules.kmain.InvManager;
 import higtools.modules.kmain.ScaffoldPlus;
-//import meteordevelopment.meteorclient.settings.BoolSetting;
 import meteordevelopment.meteorclient.settings.EnumSetting;
 import meteordevelopment.meteorclient.settings.Setting;
 import meteordevelopment.meteorclient.settings.SettingGroup;
@@ -37,15 +36,6 @@ public class HighwayTools extends Module {
             .defaultValue(Mode.HighwayBuilding)
             .build()
     );
-
-    /*
-    private final Setting<Boolean> cheap = sgGeneral.add(new BoolSetting.Builder()
-            .name("cheap")
-            .description("Builds the highways in a cheaper way. Useful for no dupes servers.")
-            .defaultValue(true)
-            .build()
-    );
-    */
 
     public HighwayTools() { super(HIGTools.MAIN, "highway-tools", "Digs, builds and repairs highways automatically."); }
 
