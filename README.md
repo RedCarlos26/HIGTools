@@ -1,8 +1,8 @@
 <div align="center">
   <!-- Logo and Title -->
   <img src="/src/main/resources/assets/higtools/icon.png" alt="logo" width="20%"/>
-  <h1>HIGTools</h1>
-  <p>HIGTools is a utility addon for Meteor Client, specifically designed to build highways for the various highway infrastructure groups on anarchy servers.</p>
+  <h1>HIG Tools</h1>
+  <p>HIG Tools is a utility addon for Meteor Client, specifically designed to build highways for the various highway infrastructure groups on anarchy servers.</p>
 
   <!-- Fancy badges -->
   <a href="https://anticope.ml/pages/MeteorAddons.html"><img src="https://img.shields.io/badge/Verified%20Addon-Yes-blueviolet" alt="Verified Addon"></a>
@@ -17,8 +17,8 @@
 
 # How to use
 - Download the lastest [Meteor Client](https://meteorclient.com/) jar.
-- Paste HIGTools in your `.minecraft/mods` folder where you have installed Meteor.
-- Keep in mind that you need Fabric Kotlin API to load HIGTools. Download it here: [Fabric Kotlin Page](https://www.curseforge.com/minecraft/mc-mods/fabric-language-kotlin/files/all?filter-game-version=2020709689%3A9008)
+- Paste HIG Tools in your `.minecraft/mods` folder where you have installed Meteor.
+- Keep in mind that you need Fabric Kotlin API to load HIG Tools. Download it here: [Fabric Kotlin Page](https://www.curseforge.com/minecraft/mc-mods/fabric-language-kotlin/files/all?filter-game-version=2020709689%3A9008)
 - Join the discord for more information on how to use.
 
 # Features
