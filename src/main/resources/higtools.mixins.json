@@ -2,7 +2,9 @@
   "required": true,
   "package": "higtools.mixins",
   "compatibilityLevel": "JAVA_17",
-  "client": [],
+  "client": [
+    "MinecraftClientMixin2"
+  ],
   "injectors": {
     "defaultRequire": 1
   }
