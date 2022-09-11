@@ -17,7 +17,7 @@ import java.util.Calendar;
 import static meteordevelopment.meteorclient.MeteorClient.mc;
 
 public class GreetingsHud extends HudElement {
-    public static final HudElementInfo<GreetingsHud> INFO = new HudElementInfo<>(HIGTools.HUD, "greetings-hud", "Display a friendly welcome to HIGTools.", GreetingsHud::new);
+    public static final HudElementInfo<GreetingsHud> INFO = new HudElementInfo<>(HIGTools.HUD, "greetings-hud", "Displays a friendly welcome.", GreetingsHud::new);
 
     public enum Mode {
         Normal,
@@ -61,7 +61,7 @@ public class GreetingsHud extends HudElement {
     private final Setting<String> customGreeting = sgGeneral.add(new StringSetting.Builder()
         .name("custom-greeting")
         .description("What the greeting should say.")
-        .defaultValue("Welcome to HIGTools")
+        .defaultValue("Welcome to HIG Tools")
         .visible(() -> mode.get() == Mode.Custom)
         .build()
     );

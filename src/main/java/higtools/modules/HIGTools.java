@@ -23,15 +23,15 @@ import java.lang.invoke.MethodHandles;
 import static higtools.AdapterKt.*;
 
 public class HIGTools extends MeteorAddon {
-    public static String VERSION = "2.0-dev";
+    public static String VERSION = "2.0";
 	public static final Logger LOG = LoggerFactory.getLogger("HIGTools");
-    public static final Category MAIN = new Category("HIGTools", Items.NETHERITE_PICKAXE.getDefaultStack());
+    public static final Category MAIN = new Category("HIG Tools", Items.NETHERITE_PICKAXE.getDefaultStack());
     public static final Category BORERS = new Category(" Borers ", Items.NETHERITE_PICKAXE.getDefaultStack());
-    public static final HudGroup HUD = new HudGroup("HIGTools");
+    public static final HudGroup HUD = new HudGroup("HIG Tools");
 
 	@Override
 	public void onInitialize() {
-	    LOG.info("Initializing HIGTools " + HIGTools.VERSION);
+	    LOG.info("Initializing HIG Tools " + HIGTools.VERSION);
 
 		MeteorClient.EVENT_BUS.registerLambdaFactory("higtools", (lookupInMethod, klass) -> (MethodHandles.Lookup) lookupInMethod.invoke(null, klass, MethodHandles.lookup()));
         setCs2Ps();
