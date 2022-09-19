@@ -35,6 +35,7 @@
 - HighwayTools
 - HIGPrefix
 - InvManager
+- Nether Borers
 - NoCaveCulling
 - Scaffold+
 - TpsSync
