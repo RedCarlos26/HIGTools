@@ -46,19 +46,19 @@ public class ArmorNotify extends Module {
 
             if (HIGUtils.checkNotifyThreshold(armorPiece, threshold.get())) {
                 if (HIGUtils.isHelmetArmor(armorPiece) && !alertedHelmet) {
-                    warning("Your helmet dura is low!");
+                    warning("Your helmet durability is low.");
                     alertedHelmet = true;
                 }
                 if (HIGUtils.isChestplateArmor(armorPiece) && !alertedChestplate) {
-                    warning("Your chestplate dura is low!");
+                    warning("Your chestplate durability is low.");
                     alertedChestplate = true;
                 }
                 if (HIGUtils.isLeggingsArmor(armorPiece) && !alertedLeggings) {
-                    warning("Your leggings dura is low!");
+                    warning("Your leggings durability is low.");
                     alertedLeggings = true;
                 }
                 if (HIGUtils.isBootsArmor(armorPiece) && !alertedBoots) {
-                    warning("Your boots dura is low!");
+                    warning("Your boots durability is low.");
                     alertedBoots = true;
                 }
             }

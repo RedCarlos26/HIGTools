@@ -11,7 +11,7 @@ import meteordevelopment.orbit.EventHandler;
 public class TPSSync extends Module {
 
     public TPSSync() {
-        super(HIGTools.MAIN, "tps-sync", "Adds a general TPS Sync module.");
+        super(HIGTools.MAIN, "tps-sync", "Adds a general TPS Sync module (breaks timer, working on a fix).");
     }
 
     @EventHandler

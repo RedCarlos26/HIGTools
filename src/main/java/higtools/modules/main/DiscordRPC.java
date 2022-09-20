@@ -71,7 +71,6 @@ public class DiscordRPC extends Module {
     );
 
     // Line 2
-
     private final Setting<List<String>> line2Strings = sgLine2.add(new StringListSetting.Builder()
             .name("line-2-messages")
             .description("Messages used for the second line.")
@@ -98,7 +97,6 @@ public class DiscordRPC extends Module {
 
     public DiscordRPC() {
         super(HIGTools.MAIN, "discord-RPC", "Displays HIG Tools as your presence on Discord.");
-
         runInMainMenu = true;
     }
 
@@ -111,7 +109,6 @@ public class DiscordRPC extends Module {
 
     private final List<Script> line2Scripts = new ArrayList<>();
     private int line2Ticks, line2I;
-
 
     @Override
     public void onActivate() {

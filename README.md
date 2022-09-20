@@ -25,7 +25,6 @@
 ## Modules
 - AfkLogout
 - ArmorNotify
-- Aura
 - AutoCenter
 - AutoEat+
 - AutoWalk+

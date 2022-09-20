@@ -37,7 +37,9 @@ public class HighwayTools extends Module {
             .build()
     );
 
-    public HighwayTools() { super(HIGTools.MAIN, "highway-tools", "Digs, builds and repairs highways automatically."); }
+    public HighwayTools() {
+        super(HIGTools.MAIN, "highway-tools", "Digs, builds and repairs highways automatically.");
+    }
 
     @Override
     public void onActivate() {

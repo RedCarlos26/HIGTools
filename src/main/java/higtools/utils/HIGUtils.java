@@ -43,7 +43,6 @@ public class HIGUtils {
         return i == Items.NETHERITE_BOOTS || i == Items.DIAMOND_BOOTS || i == Items.GOLDEN_BOOTS || i == Items.IRON_BOOTS || i == Items.CHAINMAIL_BOOTS || i == Items.LEATHER_BOOTS;
     }
 
-
     // Player
     public static double distanceFromPlayerEye(Entity entity) {
         double feet = distanceFromPlayerEye(entity.getX(), entity.getY(), entity.getZ());
@@ -57,7 +56,6 @@ public class HIGUtils {
         double h = (mc.player.getZ() - z);
         return Math.sqrt(f * f + g * g + h * h);
     }
-
 
     // Server
     public static double getServerTPSMatch(boolean TPSSync) {

@@ -36,12 +36,12 @@ public class HIGPrefix extends Module {
     public void onDeactivate() {ChatUtils.unregisterCustomPrefix("higtools.modules");}
 
     public Text getPrefix() {
-        MutableText logo = Text.literal(prefix.get());
+        MutableText value = Text.literal(prefix.get());
         MutableText prefix = Text.literal("");
-        logo.setStyle(logo.getStyle().withColor(TextColor.fromRgb(prefixColors.get().getPacked())));
+        value.setStyle(value.getStyle().withColor(TextColor.fromRgb(prefixColors.get().getPacked())));
         prefix.setStyle(prefix.getStyle().withFormatting(Formatting.GRAY));
         prefix.append(Text.literal("["));
-        prefix.append(logo);
+        prefix.append(value);
         prefix.append(Text.literal("] "));
         return prefix;
     }

@@ -51,14 +51,14 @@ public class AfkLogout extends Module {
 
     private final Setting<Boolean> toggleAutoReconnect = sgGeneral.add(new BoolSetting.Builder()
             .name("toggle-auto-reconnect")
-            .description("Turns off auto reconnect when disconnecting.")
+            .description("Turns off AutoReconnect when logging out.")
             .defaultValue(true)
             .build()
     );
 
     private final Setting<Boolean> autoToggle = sgGeneral.add(new BoolSetting.Builder()
             .name("auto-toggle")
-            .description("Turns itself off when disconnecting.")
+            .description("Turns itself off when logging out.")
             .defaultValue(true)
             .build()
     );
