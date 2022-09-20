@@ -23,7 +23,7 @@ import java.lang.invoke.MethodHandles;
 import static higtools.AdapterKt.*;
 
 public class HIGTools extends MeteorAddon {
-    public static String VERSION = "2.0";
+    public static String VERSION = "2.1";
 	public static final Logger LOG = LoggerFactory.getLogger("HIGTools");
     public static final Category MAIN = new Category("HIG Tools", Items.NETHERITE_PICKAXE.getDefaultStack());
     public static final Category BORERS = new Category(" Borers ", Items.NETHERITE_PICKAXE.getDefaultStack());
