@@ -22,9 +22,7 @@
       "higtools.modules.HIGTools"
     ]
   },
-  "mixins": [
-    "higtools.mixins.json"
-  ],
+  "mixins": [],
   "custom": {
     "meteor-client:color": "145,61,226"
   },
