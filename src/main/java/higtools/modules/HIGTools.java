@@ -66,6 +66,7 @@ public class HIGTools extends MeteorAddon {
 
         // Commands
         Commands commands = Commands.get();
+        commands.add(new Center());
         commands.add(new Coordinates());
         commands.add(new Disconnect());
         commands.add(new ToggleModules());
