@@ -1,10 +1,7 @@
 package higtools.modules.hud;
 
 import higtools.modules.HIGTools;
-import meteordevelopment.meteorclient.settings.EnumSetting;
-import meteordevelopment.meteorclient.settings.Setting;
-import meteordevelopment.meteorclient.settings.SettingGroup;
-import meteordevelopment.meteorclient.settings.StringSetting;
+import meteordevelopment.meteorclient.settings.*;
 import meteordevelopment.meteorclient.systems.hud.HudElement;
 import meteordevelopment.meteorclient.systems.hud.HudElementInfo;
 import meteordevelopment.meteorclient.systems.hud.HudRenderer;
@@ -20,49 +17,16 @@ public class GreetingsHud extends HudElement {
     public static final HudElementInfo<GreetingsHud> INFO = new HudElementInfo<>(HIGTools.HUD, "greetings-hud", "Displays a friendly welcome.", GreetingsHud::new);
 
     public enum Mode {
-        Normal,
-        Custom
+        HIGTools,
+        Time
     }
 
     private final SettingGroup sgGeneral = settings.getDefaultGroup();
 
-    // General
     private final Setting<Mode> mode = sgGeneral.add(new EnumSetting.Builder<Mode>()
         .name("mode")
         .description("What text to show for the greeting.")
-        .defaultValue(Mode.Normal)
-        .build()
-    );
-
-    private final Setting<String> morningGreeting = sgGeneral.add(new StringSetting.Builder()
-        .name("morning-greeting")
-        .description("What to display as a greeting during morning hours.")
-        .defaultValue("Good Morning")
-        .visible(() -> mode.get() == Mode.Normal)
-        .build()
-    );
-
-    private final Setting<String> afternoonGreeting = sgGeneral.add(new StringSetting.Builder()
-        .name("afternoon-greeting")
-        .description("What to display as a greeting during afternoon hours.")
-        .defaultValue("Good Afternoon")
-        .visible(() -> mode.get() == Mode.Normal)
-        .build()
-    );
-
-    private final Setting<String> eveningGreeting = sgGeneral.add(new StringSetting.Builder()
-        .name("evening-greeting")
-        .description("What to display as a greeting during evening hours.")
-        .defaultValue("Good Evening")
-        .visible(() -> mode.get() == Mode.Normal)
-        .build()
-    );
-
-    private final Setting<String> customGreeting = sgGeneral.add(new StringSetting.Builder()
-        .name("custom-greeting")
-        .description("What the greeting should say.")
-        .defaultValue("Welcome to HIG Tools")
-        .visible(() -> mode.get() == Mode.Custom)
+        .defaultValue(Mode.Time)
         .build()
     );
 
@@ -83,12 +47,12 @@ public class GreetingsHud extends HudElement {
         Calendar calendar = Calendar.getInstance();
         int localTime = calendar.get(Calendar.HOUR_OF_DAY);
 
-        if (mode.get() == Mode.Custom) {
-            leftText = customGreeting.get();
+        if (mode.get() == Mode.HIGTools) {
+            leftText = "Welcome to HIG Tools";
         } else {
-            if (localTime <= 12) leftText = morningGreeting.get();
-            if (localTime >= 13 && localTime <= 16) leftText = afternoonGreeting.get();
-            if (localTime >= 17) leftText = eveningGreeting.get();
+            if (localTime <= 12) leftText = "Good Morning";
+            if (localTime >= 13 && localTime <= 16) leftText = "Good Afternoon";
+            if (localTime >= 17) leftText = "Good Evening";
         }
 
         leftText = leftText + ", ";

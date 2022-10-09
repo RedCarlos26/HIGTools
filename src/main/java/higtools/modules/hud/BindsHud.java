@@ -20,7 +20,6 @@ public class BindsHud extends HudElement {
 
     private final SettingGroup sgGeneral = settings.getDefaultGroup();
 
-    // General
     private final Setting<Sort> sortMode = sgGeneral.add(new EnumSetting.Builder<Sort>()
             .name("sort-mode")
             .description("How to sort active modules.")
