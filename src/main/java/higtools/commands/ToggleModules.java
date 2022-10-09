@@ -21,7 +21,7 @@ import static com.mojang.brigadier.Command.SINGLE_SUCCESS;
 
 public class ToggleModules extends Command {
     public ToggleModules() {
-        super("toggle-modules", "Disables all modules.");
+        super("toggle-modules", "Disables active modules.");
     }
 
     @Override
