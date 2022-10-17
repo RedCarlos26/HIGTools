@@ -1,7 +1,7 @@
 /*
  * This file is part of the Meteor Client distribution (https://github.com/MeteorDevelopment/meteor-client).
  * Copyright (c) Meteor Development.
- * Modified by RedCarlos#0001
+ * Enhanced by RedCarlos#0001
  */
 
 package higtools.modules.main;
@@ -72,10 +72,10 @@ public class AutoWalkPlus extends Module {
     );
 
     private final Setting<Boolean> lagPause = sgGeneral.add(new BoolSetting.Builder()
-        .name("lag-pause")
-        .description("Whether to pause if the server is not responding.")
-        .defaultValue(true)
-        .build()
+            .name("lag-pause")
+            .description("Whether to pause if the server is not responding.")
+            .defaultValue(true)
+            .build()
     );
 
     public final Setting<Boolean> picktoggle = sgGeneral.add(new BoolSetting.Builder()

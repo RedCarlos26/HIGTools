@@ -1,7 +1,7 @@
 /*
  * This file is part of the Meteor Client distribution (https://github.com/MeteorDevelopment/meteor-client).
  * Copyright (c) Meteor Development.
- * Modified by RedCarlos#0001
+ * Enhanced by RedCarlos#0001
  */
 
 package higtools.modules.main;
