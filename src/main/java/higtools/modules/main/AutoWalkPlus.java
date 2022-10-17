@@ -19,6 +19,7 @@ import meteordevelopment.meteorclient.utils.misc.input.Input;
 import meteordevelopment.meteorclient.utils.player.FindItemResult;
 import meteordevelopment.meteorclient.utils.player.InvUtils;
 import meteordevelopment.meteorclient.utils.world.GoalDirection;
+import meteordevelopment.meteorclient.utils.world.TickRate;
 import meteordevelopment.orbit.EventHandler;
 import meteordevelopment.orbit.EventPriority;
 import net.minecraft.client.option.KeyBinding;
@@ -70,6 +71,13 @@ public class AutoWalkPlus extends Module {
             .build()
     );
 
+    private final Setting<Boolean> lagPause = sgGeneral.add(new BoolSetting.Builder()
+        .name("lag-pause")
+        .description("Whether to pause if the server is not responding.")
+        .defaultValue(true)
+        .build()
+    );
+
     public final Setting<Boolean> picktoggle = sgGeneral.add(new BoolSetting.Builder()
             .name("pickaxe-toggle")
             .description("Automatically disables AutoWalk+ when you run out of pickaxes.")
@@ -87,6 +95,7 @@ public class AutoWalkPlus extends Module {
 
     private int timer = 0;
     private GoalDirection goal;
+    private boolean sentMessage;
 
     public AutoWalkPlus() {
         super(HIGTools.MAIN, "auto-walk+", "Automatically walks forward.");
@@ -95,6 +104,7 @@ public class AutoWalkPlus extends Module {
     @Override
     public void onActivate() {
         if (mode.get() == Mode.Smart) createGoal();
+        sentMessage = false;
     }
 
     @Override
@@ -107,6 +117,14 @@ public class AutoWalkPlus extends Module {
 
     @EventHandler(priority = EventPriority.HIGH)
     private void onTick(TickEvent.Pre event) {
+        float timeSinceLastTick = TickRate.INSTANCE.getTimeSinceLastTick();
+        if (timeSinceLastTick >= 2f && lagPause.get()) {
+            if (!sentMessage) error("Server is lagging, pausing AutoWalk+.");
+            sentMessage = true;
+            unpress();
+            return;
+        }
+
         if (mode.get() == Mode.Simple) {
             switch (direction.get()) {
                 case Forwards -> setPressed(mc.options.forwardKey, true);
@@ -122,6 +140,7 @@ public class AutoWalkPlus extends Module {
 
             timer++;
         }
+        sentMessage = false;
 
         if (picktoggle.get()) {
             FindItemResult pickaxe = InvUtils.find(itemStack -> itemStack.getItem() == Items.DIAMOND_PICKAXE || itemStack.getItem() == Items.NETHERITE_PICKAXE);
