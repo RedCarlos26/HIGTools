@@ -1,6 +1,6 @@
 package higtools.modules.hud;
 
-import higtools.modules.HIGTools;
+import higtools.HIGTools;
 import meteordevelopment.meteorclient.settings.*;
 import meteordevelopment.meteorclient.systems.hud.HudElement;
 import meteordevelopment.meteorclient.systems.hud.HudElementInfo;

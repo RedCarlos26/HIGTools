@@ -19,7 +19,7 @@
   "environment": "client",
   "entrypoints": {
     "meteor": [
-      "higtools.modules.HIGTools"
+      "higtools.HIGTools"
     ]
   },
   "mixins": [

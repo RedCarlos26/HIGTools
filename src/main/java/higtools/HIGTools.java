@@ -1,4 +1,4 @@
-package higtools.modules;
+package higtools;
 
 import higtools.commands.*;
 import higtools.modules.hud.*;

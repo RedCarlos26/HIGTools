@@ -1,6 +1,6 @@
 package higtools.modules.main;
 
-import higtools.modules.HIGTools;
+import higtools.HIGTools;
 import meteordevelopment.discordipc.DiscordIPC;
 import meteordevelopment.discordipc.RichPresence;
 import meteordevelopment.meteorclient.events.game.OpenScreenEvent;

@@ -1,7 +1,7 @@
 package higtools.modules.kmain
 
 import higtools.*
-import higtools.modules.HIGTools
+import higtools.HIGTools
 import meteordevelopment.meteorclient.events.world.TickEvent
 import meteordevelopment.orbit.EventHandler
 import kotlin.math.abs

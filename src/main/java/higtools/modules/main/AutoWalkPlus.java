@@ -6,7 +6,7 @@
 
 package higtools.modules.main;
 
-import higtools.modules.HIGTools;
+import higtools.HIGTools;
 import baritone.api.BaritoneAPI;
 import meteordevelopment.meteorclient.events.world.TickEvent;
 import meteordevelopment.meteorclient.settings.BoolSetting;

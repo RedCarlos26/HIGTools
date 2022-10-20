@@ -1,6 +1,6 @@
 package higtools.modules.main;
 
-import higtools.modules.HIGTools;
+import higtools.HIGTools;
 import higtools.modules.borers.*;
 import higtools.modules.kmain.AutoCenter;
 import higtools.modules.kmain.AutoEatPlus;

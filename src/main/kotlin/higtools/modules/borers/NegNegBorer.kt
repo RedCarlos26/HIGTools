@@ -1,7 +1,7 @@
 package higtools.modules.borers
 
 import higtools.*
-import higtools.modules.HIGTools
+import higtools.HIGTools
 import meteordevelopment.meteorclient.events.world.TickEvent
 import meteordevelopment.orbit.EventHandler
 import net.minecraft.network.packet.c2s.play.PlayerActionC2SPacket

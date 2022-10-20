@@ -1,6 +1,6 @@
 package higtools.modules.main;
 
-import higtools.modules.HIGTools;
+import higtools.HIGTools;
 import meteordevelopment.meteorclient.settings.*;
 import meteordevelopment.meteorclient.systems.modules.Module;
 import meteordevelopment.meteorclient.utils.player.ChatUtils;

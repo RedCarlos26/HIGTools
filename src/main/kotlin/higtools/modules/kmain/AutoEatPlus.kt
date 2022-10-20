@@ -1,8 +1,7 @@
 package higtools.modules.kmain
 
 import higtools.*
-import higtools.modules.HIGTools
-import higtools.modules.kmain.ScaffoldPlus;
+import higtools.HIGTools
 import meteordevelopment.meteorclient.events.packets.PacketEvent
 import meteordevelopment.meteorclient.events.world.TickEvent
 import meteordevelopment.meteorclient.utils.player.InvUtils

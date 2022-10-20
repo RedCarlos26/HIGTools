@@ -1,6 +1,6 @@
 package higtools.mixins;
 
-import higtools.modules.HIGTools;
+import higtools.HIGTools;
 import meteordevelopment.meteorclient.mixininterface.IMinecraftClient;
 import net.minecraft.client.MinecraftClient;
 import org.spongepowered.asm.mixin.Mixin;

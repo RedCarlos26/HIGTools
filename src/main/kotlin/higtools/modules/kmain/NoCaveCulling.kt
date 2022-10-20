@@ -1,7 +1,7 @@
 package higtools.modules.kmain
 
 import higtools.MeteorModule
-import higtools.modules.HIGTools
+import higtools.HIGTools
 
 class NoCaveCulling:MeteorModule(HIGTools.MAIN, "NoCaveCulling", "Disables Minecraft's cave culling algorithm.") {
 
