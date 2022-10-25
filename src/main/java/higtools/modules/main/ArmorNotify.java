@@ -14,12 +14,12 @@ public class ArmorNotify extends Module {
     private final SettingGroup sgGeneral = settings.getDefaultGroup();
 
     private final Setting<Double> threshold = sgGeneral.add(new DoubleSetting.Builder()
-            .name("durability")
-            .description("How low an armor piece needs to be to alert you (in %).")
-            .defaultValue(20)
-            .range(1,100)
-            .sliderRange(1,100)
-            .build()
+        .name("durability")
+        .description("How low an armor piece needs to be to alert you (in %).")
+        .defaultValue(20)
+        .range(1,100)
+        .sliderRange(1,100)
+        .build()
     );
 
     public ArmorNotify() {
@@ -48,25 +48,21 @@ public class ArmorNotify extends Module {
                 if (HIGUtils.isHelmetArmor(armorPiece) && !alertedHelmet) {
                     warning("Your helmet durability is low.");
                     alertedHelmet = true;
-                }
-                if (HIGUtils.isChestplateArmor(armorPiece) && !alertedChestplate) {
+                } else if (HIGUtils.isChestplateArmor(armorPiece) && !alertedChestplate) {
                     warning("Your chestplate durability is low.");
                     alertedChestplate = true;
-                }
-                if (HIGUtils.isLeggingsArmor(armorPiece) && !alertedLeggings) {
+                } else if (HIGUtils.isLeggingsArmor(armorPiece) && !alertedLeggings) {
                     warning("Your leggings durability is low.");
                     alertedLeggings = true;
-                }
-                if (HIGUtils.isBootsArmor(armorPiece) && !alertedBoots) {
+                } else if (HIGUtils.isBootsArmor(armorPiece) && !alertedBoots) {
                     warning("Your boots durability is low.");
                     alertedBoots = true;
                 }
-            }
-            if (!HIGUtils.checkNotifyThreshold(armorPiece, threshold.get())) {
+            } else if (!HIGUtils.checkNotifyThreshold(armorPiece, threshold.get())) {
                 if (HIGUtils.isHelmetArmor(armorPiece) && alertedHelmet) alertedHelmet = false;
-                if (HIGUtils.isChestplateArmor(armorPiece) && alertedChestplate) alertedChestplate = false;
-                if (HIGUtils.isLeggingsArmor(armorPiece) && alertedLeggings) alertedLeggings = false;
-                if (HIGUtils.isBootsArmor(armorPiece) && alertedBoots) alertedBoots = false;
+                else if (HIGUtils.isChestplateArmor(armorPiece) && alertedChestplate) alertedChestplate = false;
+                else if (HIGUtils.isLeggingsArmor(armorPiece) && alertedLeggings) alertedLeggings = false;
+                else if (HIGUtils.isBootsArmor(armorPiece) && alertedBoots) alertedBoots = false;
             }
         }
     }
