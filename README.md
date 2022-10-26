@@ -46,4 +46,3 @@
 ## Commands
 - `.coords`
 - `.disconnect`
-- `.toggle-modules`

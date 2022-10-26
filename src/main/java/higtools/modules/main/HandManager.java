@@ -1,3 +1,9 @@
+/*
+ * This file is part of the Meteor Client distribution (https://github.com/MeteorDevelopment/meteor-client).
+ * Copyright (c) Meteor Development.
+ * Enhanced by RedCarlos#0001
+ */
+
 package higtools.modules.main;
 
 import higtools.HIGTools;
@@ -7,10 +13,12 @@ import meteordevelopment.meteorclient.settings.EnumSetting;
 import meteordevelopment.meteorclient.settings.Setting;
 import meteordevelopment.meteorclient.settings.SettingGroup;
 import meteordevelopment.meteorclient.systems.modules.Module;
+import meteordevelopment.meteorclient.systems.modules.Modules;
+import meteordevelopment.meteorclient.systems.modules.combat.AutoTotem;
 import meteordevelopment.meteorclient.utils.player.FindItemResult;
 import meteordevelopment.meteorclient.utils.player.InvUtils;
 import meteordevelopment.orbit.EventHandler;
-import net.minecraft.item.Items;
+import net.minecraft.item.*;
 
 public class HandManager extends Module {
     private final SettingGroup sgGeneral = settings.getDefaultGroup();
@@ -44,16 +52,26 @@ public class HandManager extends Module {
 
     @EventHandler
     private void onTick(TickEvent.Pre event) {
+        AutoTotem autoTotem = Modules.get().get(AutoTotem.class);
+
         currentItem = item.get();
 
+        // Checking offhand item
         if (mc.player.getOffHandStack().getItem() != currentItem.item) {
             FindItemResult item = InvUtils.find(itemStack -> itemStack.getItem() == currentItem.item, hotbar.get() ? 0 : 9, 35);
 
+            // No offhand item
             if (!item.found()) {
                 if (!sentMessage) {
                     warning("Chosen item not found.");
                     sentMessage = true;
                 }
+            }
+
+            // Swap to offhand
+            else if (!autoTotem.isLocked() && !item.isOffhand()) {
+                InvUtils.move().from(item.slot()).toOffhand();
+                sentMessage = false;
             }
         }
     }
@@ -64,10 +82,11 @@ public class HandManager extends Module {
     }
 
     public enum Item {
+        Totem(Items.TOTEM_OF_UNDYING),
         EGap(Items.ENCHANTED_GOLDEN_APPLE),
         GoldenCarrot(Items.GOLDEN_CARROT),
-        Steak(Items.COOKED_BEEF),
-        Porkchop(Items.COOKED_PORKCHOP);
+        Porkchop(Items.COOKED_PORKCHOP),
+        Steak(Items.COOKED_BEEF);
 
         net.minecraft.item.Item item;
 
