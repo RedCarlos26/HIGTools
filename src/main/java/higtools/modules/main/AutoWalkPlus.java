@@ -118,7 +118,7 @@ public class AutoWalkPlus extends Module {
     @EventHandler(priority = EventPriority.HIGH)
     private void onTick(TickEvent.Pre event) {
         float timeSinceLastTick = TickRate.INSTANCE.getTimeSinceLastTick();
-        if (timeSinceLastTick >= 2f && lagPause.get()) {
+        if (timeSinceLastTick >= 1.5f && lagPause.get()) {
             if (!sentMessage) error("Server is lagging, pausing AutoWalk+.");
             sentMessage = true;
             unpress();
