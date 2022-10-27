@@ -11,8 +11,6 @@
   <img src="https://img.shields.io/github/downloads/RedCarlos26/highwaytools-meteor/total?color=blueviolet&label=Downloads">
 </div>
 
-<br />
-
 <div align="center">
   <p href="https://discord.gg/a4jkKGJNdJ"><img src="https://invidget.switchblade.xyz/a4jkKGJNdJ"></p>
 </div>
