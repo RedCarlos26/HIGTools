@@ -17,7 +17,7 @@
 - [Fabric Language Kotlin](https://www.curseforge.com/minecraft/mc-mods/fabric-language-kotlin/files/all?filter-game-version=2020709689%3A9366) for __1.19.2__
 - Join the discord for more information on how to use.
 
-# Modules
+## Modules
 - AfkLogout
 - ArmorNotify
 - AutoCenter
@@ -34,10 +34,10 @@
 - Scaffold+
 - TpsSync
 
-# HUD
+## HUD
 - Binds HUD
 - Greetings HUD
 
-# Commands
+## Commands
 - `.coords`
 - `.disconnect`
