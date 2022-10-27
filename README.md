@@ -43,3 +43,4 @@
 ## Commands
 - `.coords`
 - `.disconnect`
+- `.toggle higtools`
