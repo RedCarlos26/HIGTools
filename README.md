@@ -9,10 +9,9 @@
   <img src="https://img.shields.io/badge/Minecraft%20Version-1.19.2-blueviolet" alt="Minecraft Version">
   <img src="https://img.shields.io/github/downloads/RedCarlos26/higtools/total?color=blueviolet&label=Downloads">
   <br />
-  <p>HIG Tools is a utility addon for Meteor Client, specifically designed to build highways for the various highway infrastructure groups on anarchy servers.</p>
-  <br />
-  <a href="https://discord.gg/a4jkKGJNdJ"><img src="https://invidget.switchblade.xyz/a4jkKGJNdJ"></a>
+  <p href="https://discord.gg/a4jkKGJNdJ"><img src="https://invidget.switchblade.xyz/a4jkKGJNdJ"></p>
 </div>
+<p>HIG Tools is a utility addon for Meteor Client, specifically designed to build highways for the various highway infrastructure groups on anarchy servers.</p>
 
 ## Needed mods
 - Download the lastest [Meteor Client](https://meteorclient.com/) jar.
