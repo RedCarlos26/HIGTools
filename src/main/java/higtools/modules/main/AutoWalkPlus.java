@@ -15,6 +15,7 @@ import meteordevelopment.meteorclient.settings.Setting;
 import meteordevelopment.meteorclient.settings.SettingGroup;
 import meteordevelopment.meteorclient.systems.modules.Module;
 import meteordevelopment.meteorclient.systems.modules.Modules;
+import meteordevelopment.meteorclient.utils.misc.Keybind;
 import meteordevelopment.meteorclient.utils.misc.input.Input;
 import meteordevelopment.meteorclient.utils.player.FindItemResult;
 import meteordevelopment.meteorclient.utils.player.InvUtils;
@@ -24,6 +25,8 @@ import meteordevelopment.orbit.EventHandler;
 import meteordevelopment.orbit.EventPriority;
 import net.minecraft.client.option.KeyBinding;
 import net.minecraft.item.Items;
+import net.minecraft.nbt.NbtCompound;
+import org.lwjgl.glfw.GLFW;
 
 public class AutoWalkPlus extends Module {
     public enum Mode {
@@ -99,6 +102,13 @@ public class AutoWalkPlus extends Module {
 
     public AutoWalkPlus() {
         super(HIGTools.MAIN, "auto-walk+", "Automatically walks forward.");
+    }
+
+    @Override
+    public AutoWalkPlus fromTag(NbtCompound tag) {
+        super.fromTag(tag);
+        if (!this.keybind.isValid()) this.keybind.set(Keybind.fromKey(GLFW.GLFW_KEY_I));
+        return this;
     }
 
     @Override

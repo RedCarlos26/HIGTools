@@ -16,6 +16,9 @@ import meteordevelopment.meteorclient.systems.modules.movement.SafeWalk;
 import meteordevelopment.meteorclient.systems.modules.player.Rotation;
 import meteordevelopment.meteorclient.systems.modules.render.FreeLook;
 import meteordevelopment.meteorclient.systems.modules.world.LiquidFiller;
+import meteordevelopment.meteorclient.utils.misc.Keybind;
+import net.minecraft.nbt.NbtCompound;
+import org.lwjgl.glfw.GLFW;
 
 public class HighwayTools extends Module {
     public enum Mode {
@@ -39,6 +42,13 @@ public class HighwayTools extends Module {
 
     public HighwayTools() {
         super(HIGTools.MAIN, "highway-tools", "Digs, builds and repairs highways automatically.");
+    }
+
+    @Override
+    public HighwayTools fromTag(NbtCompound tag) {
+        super.fromTag(tag);
+        if (!this.keybind.isValid()) this.keybind.set(Keybind.fromKey(GLFW.GLFW_KEY_H));
+        return this;
     }
 
     @Override
