@@ -13,9 +13,11 @@
 </div>
 
 ## Needed mods
-- [Meteor Client](https://meteorclient.com/) latest __devbuild 0.5.1 [1.19.2]__
-- [Fabric Language Kotlin](https://www.curseforge.com/minecraft/mc-mods/fabric-language-kotlin/files/all?filter-game-version=2020709689%3A9366) for __1.19.2__
+- [Meteor Client](https://meteorclient.com/)
+- [Fabric Language Kotlin](https://www.curseforge.com/minecraft/mc-mods/fabric-language-kotlin)
 - Join the discord for more information on how to use.
+
+*Note: It is recommended to use the [latest devbuild](https://meteorclient.com/download?devBuild=latest) of meteor while using HIGTools*
 
 ## Modules
 - AfkLogout
