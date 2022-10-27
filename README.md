@@ -11,10 +11,10 @@
   <img src="https://img.shields.io/github/downloads/RedCarlos26/higtools/total?color=blueviolet&label=Downloads">
 </div>
 
-<div align="center">
+</div align="center">
   <a href="https://discord.gg/a4jkKGJNdJ"><img src="https://invidget.switchblade.xyz/a4jkKGJNdJ"></a>
 
-### Needed mods
+## Needed mods
 </div>
 
 - Download the lastest [Meteor Client](https://meteorclient.com/) jar.
