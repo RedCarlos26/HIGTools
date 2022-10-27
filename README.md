@@ -27,7 +27,7 @@
 # Features
 </div>
 
-## Modules
+# Modules
 - AfkLogout
 - ArmorNotify
 - AutoCenter
@@ -44,10 +44,10 @@
 - Scaffold+
 - TpsSync
 
-## HUD
+# HUD
 - Binds HUD
 - Greetings HUD
 
-## Commands
+# Commands
 - `.coords`
 - `.disconnect`
