@@ -23,8 +23,8 @@
 - Join the discord for more information on how to use.
 
 <div align="center">
-    # Features
 
+# Features
 </div>
 
 ## Modules
