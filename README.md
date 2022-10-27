@@ -12,7 +12,7 @@
 </div>
 
 <div align="center">
-  <p href="https://discord.gg/a4jkKGJNdJ"><img src="https://invidget.switchblade.xyz/a4jkKGJNdJ"></p>
+  <a href="https://discord.gg/a4jkKGJNdJ"><img src="https://invidget.switchblade.xyz/a4jkKGJNdJ"></a>
 </div>
 
 ## Needed mods
