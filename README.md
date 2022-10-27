@@ -10,10 +10,7 @@
   <img src="https://img.shields.io/badge/Minecraft%20Version-1.19.2-blueviolet" alt="Minecraft Version">
   <img src="https://img.shields.io/github/downloads/RedCarlos26/higtools/total?color=blueviolet&label=Downloads">
   <br />
-  <a href="https://discord.gg/a4jkKGJNdJ"><img src="https://invidget.switchblade.xyz/a4jkKGJNdJ"></a>
-</div>
-
-</div align="center">
+  <br />
   <a href="https://discord.gg/a4jkKGJNdJ"><img src="https://invidget.switchblade.xyz/a4jkKGJNdJ"></a>
 </div>
 
