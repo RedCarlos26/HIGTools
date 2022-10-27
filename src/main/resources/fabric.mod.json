@@ -1,8 +1,8 @@
 {
   "schemaVersion": 1,
-  "id": "hig-tools",
+  "id": "highwaytools",
   "version": "2.2",
-  "name": "HIG Tools",
+  "name": "HighwayTools Meteor",
   "description": "Highway Tools for Meteor Client.",
   "authors": [
     "RedCarlos26",
@@ -10,20 +10,20 @@
   ],
   "contact": {
     "homepage": "https://discord.gg/a4jkKGJNdJ",
-    "repo": "https://github.com/RedCarlos26/HIGTools",
-    "issues": "https://github.com/RedCarlos26/HIGTools/issues",
-    "sources": "https://github.com/RedCarlos26/HIGTools",
+    "repo": "https://github.com/RedCarlos26/HighwayTools-Meteor",
+    "issues": "https://github.com/RedCarlos26/HighwayTools-Meteor",
+    "sources": "https://github.com/RedCarlos26/HighwayTools-Meteor",
     "discord": "https://discord.gg/a4jkKGJNdJ"
   },
-  "icon": "assets/higtools/icon.png",
+  "icon": "assets/highwaytools/icon.png",
   "environment": "client",
   "entrypoints": {
     "meteor": [
-      "higtools.HIGTools"
+      "highwaytools.HighwayTools"
     ]
   },
   "mixins": [
-    "higtools.mixins.json"
+    "highwaytools.mixins.json"
   ],
   "custom": {
     "meteor-client:color": "145,61,226"
