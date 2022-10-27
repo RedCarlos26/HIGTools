@@ -1,6 +1,6 @@
 <div align="center">
   <!-- Logo and Title -->
-  <img src="/src/main/resources/assets/highwaytools/icon.png" alt="logo" width="20%"/>
+  <img src="/src/main/resources/assets/higtools/icon.png" alt="logo" width="20%"/>
   <h1>HIG Tools</h1>
   <p>HIGTools is a utility addon for Meteor Client, specifically designed to build highways on anarchy servers.</p>
   
