@@ -15,11 +15,11 @@
   <a href="https://discord.gg/a4jkKGJNdJ"><img src="https://invidget.switchblade.xyz/a4jkKGJNdJ"></a>
 
 # Needed mods
+</div>
 - Download the lastest [Meteor Client](https://meteorclient.com/) jar.
 - Paste HIG Tools in your `.minecraft/mods` folder where you have installed Meteor.
 - Keep in mind that you need Fabric Kotlin API to load HIG Tools. Download it here: [Fabric Kotlin Page](https://www.curseforge.com/minecraft/mc-mods/fabric-language-kotlin/files/all?filter-game-version=2020709689%3A9366)
 - Join the discord for more information on how to use.
-</div>
 
 # Features
 ## Modules
