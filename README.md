@@ -21,8 +21,6 @@
 - Keep in mind that you need Fabric Kotlin API to load HIG Tools. Download it here: [Fabric Kotlin Page](https://www.curseforge.com/minecraft/mc-mods/fabric-language-kotlin/files/all?filter-game-version=2020709689%3A9366)
 - Join the discord for more information on how to use.
 
-<div align="center">
-
 # Modules
 - AfkLogout
 - ArmorNotify
