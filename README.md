@@ -13,7 +13,7 @@
 </div>
 
 ## Needed mods
-- [Meteor Client](https://meteorclient.com/) devbuilds for 0.5.1.
+- [Meteor Client](https://meteorclient.com/) __Dev Build 0.5.1 [1.19.2]__.
 - [Fabric Language Kotlin](https://www.curseforge.com/minecraft/mc-mods/fabric-language-kotlin/files/all?filter-game-version=2020709689%3A9366)
 - Join the discord for more information on how to use.
 
