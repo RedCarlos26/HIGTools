@@ -14,7 +14,7 @@
 
 ## Needed mods
 - [Meteor Client](https://meteorclient.com/) Latest __DevBuild 0.5.1 [1.19.2]__
-- [Fabric Language Kotlin](https://www.curseforge.com/minecraft/mc-mods/fabric-language-kotlin/files/all?filter-game-version=2020709689%3A9366) For __1.19.2__
+- [Fabric Language Kotlin](https://www.curseforge.com/minecraft/mc-mods/fabric-language-kotlin/files/all?filter-game-version=2020709689%3A9366) for __1.19.2__
 - Join the discord for more information on how to use.
 
 # Modules
