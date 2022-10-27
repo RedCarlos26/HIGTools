@@ -9,6 +9,7 @@
   <a href="https://github.com/RedCarlos26/higtools/releases"><img src="https://img.shields.io/badge/Version-v2.1-blueviolet" alt="Version"></a>
   <img src="https://img.shields.io/badge/Minecraft%20Version-1.19.2-blueviolet" alt="Minecraft Version">
   <img src="https://img.shields.io/github/downloads/RedCarlos26/higtools/total?color=blueviolet&label=Downloads">
+  <a href="https://discord.gg/a4jkKGJNdJ"><img src="https://invidget.switchblade.xyz/a4jkKGJNdJ"></a>
 </div>
 
 </div align="center">
