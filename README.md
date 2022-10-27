@@ -23,9 +23,6 @@
 
 <div align="center">
 
-# Features
-</div>
-
 # Modules
 - AfkLogout
 - ArmorNotify
