@@ -19,6 +19,7 @@ import meteordevelopment.meteorclient.utils.misc.Keybind;
 import meteordevelopment.meteorclient.utils.misc.input.Input;
 import meteordevelopment.meteorclient.utils.player.FindItemResult;
 import meteordevelopment.meteorclient.utils.player.InvUtils;
+import meteordevelopment.meteorclient.utils.render.MeteorToast;
 import meteordevelopment.meteorclient.utils.world.GoalDirection;
 import meteordevelopment.meteorclient.utils.world.TickRate;
 import meteordevelopment.orbit.EventHandler;
@@ -156,6 +157,7 @@ public class AutoWalkPlus extends Module {
             FindItemResult pickaxe = InvUtils.find(itemStack -> itemStack.getItem() == Items.DIAMOND_PICKAXE || itemStack.getItem() == Items.NETHERITE_PICKAXE);
             if (!pickaxe.found()) {
                 error("No pickaxe found, disabling AutoWalk+.");
+                //mc.getToastManager().add(new MeteorToast(Items.NETHERITE_PICKAXE, "AutoWalk+", "Out of pickaxes!"));
                 toggle();
             }
         }

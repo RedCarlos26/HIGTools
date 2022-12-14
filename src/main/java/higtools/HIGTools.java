@@ -51,6 +51,7 @@ public class HIGTools extends MeteorAddon {
         modules.add(new HandManager());
         modules.add(new HighwayBuilderPlus());
         modules.add(new HighwayTools());
+        modules.add(new HighwayViewer());
         modules.add(new TPSSync());
 
         // Main (Kotlin)
