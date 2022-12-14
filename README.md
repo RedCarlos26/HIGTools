@@ -37,7 +37,6 @@
 - NetherBorers
 - NoCaveCulling
 - Scaffold+
-- TpsSync
 
 ## HUD
 - Binds HUD
