@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
   "id": "higtools",
-  "version": "2.2",
+  "version": "2.3",
   "name": "HIG Tools",
   "description": "Highway Tools for Meteor Client.",
   "authors": [
@@ -30,8 +30,8 @@
   },
   "depends": {
     "java": ">=17",
-    "minecraft": ">=1.19.2",
-    "meteor-client": ">=0.5.0",
+    "minecraft": ">=1.19.3",
+    "meteor-client": ">=0.5.1",
     "fabric-language-kotlin": ">=1.8.0+kotlin.1.7.0"
   }
 }

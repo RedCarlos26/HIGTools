@@ -16,8 +16,10 @@ import meteordevelopment.meteorclient.systems.hud.Hud;
 import meteordevelopment.meteorclient.systems.hud.HudGroup;
 import meteordevelopment.meteorclient.systems.modules.Category;
 import meteordevelopment.meteorclient.systems.modules.Modules;
-
+import net.fabricmc.loader.api.metadata.ModMetadata;
+import net.fabricmc.loader.api.FabricLoader;
 import net.minecraft.item.Items;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -26,7 +28,8 @@ import java.lang.invoke.MethodHandles;
 import static higtools.AdapterKt.*;
 
 public class HIGTools extends MeteorAddon {
-    public static String VERSION = "2.2";
+    static ModMetadata metadata = FabricLoader.getInstance().getModContainer("higtools").get().getMetadata();
+    public static String VERSION = metadata.getVersion().toString();
 	public static final Logger LOG = LoggerFactory.getLogger("HIGTools");
     public static final Category MAIN = new Category("HIG Tools", Items.NETHERITE_PICKAXE.getDefaultStack());
     public static final Category BORERS = new Category(" Borers ", Items.NETHERITE_PICKAXE.getDefaultStack());

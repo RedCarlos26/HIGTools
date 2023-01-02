@@ -8,7 +8,7 @@ import net.minecraft.screen.slot.SlotActionType
 import net.minecraft.text.Text
 import net.minecraft.util.Formatting
 import net.minecraft.util.Identifier
-import net.minecraft.util.registry.Registry
+import net.minecraft.registry.Registries
 
 class InvManager:MeteorModule(HIGTools.MAIN, "InvManager", "Automatically organize your inventory.") {
 
@@ -76,9 +76,9 @@ class InvManager:MeteorModule(HIGTools.MAIN, "InvManager", "Automatically organi
         if (mc.player!!.age % delay == 0) {
             for (i in 1..8) {
                 if (itemIds[i].toString().replace("minecraft:", "") == "") continue
-                if (Registry.ITEM.getId(mc.player!!.inventory.getStack(i).item) != itemIds[i]) {
+                if (Registries.ITEM.getId(mc.player!!.inventory.getStack(i).item) != itemIds[i]) {
                     for (j in 9..35) {
-                        if (Registry.ITEM.getId(mc.player!!.inventory.getStack(j).item) == itemIds[i]) {
+                        if (Registries.ITEM.getId(mc.player!!.inventory.getStack(j).item) == itemIds[i]) {
                             mc.interactionManager!!.clickSlot(mc.player!!.currentScreenHandler.syncId,
                                                               csToPs(j),
                                                               0,
@@ -119,15 +119,15 @@ class InvManager:MeteorModule(HIGTools.MAIN, "InvManager", "Automatically organi
         if (mc.player == null) {
             return
         }
-        slot0 = Registry.ITEM.getId(mc.player!!.inventory.getStack(0).item).toString()
-        slot1 = Registry.ITEM.getId(mc.player!!.inventory.getStack(1).item).toString()
-        slot2 = Registry.ITEM.getId(mc.player!!.inventory.getStack(2).item).toString()
-        slot3 = Registry.ITEM.getId(mc.player!!.inventory.getStack(3).item).toString()
-        slot4 = Registry.ITEM.getId(mc.player!!.inventory.getStack(4).item).toString()
-        slot5 = Registry.ITEM.getId(mc.player!!.inventory.getStack(5).item).toString()
-        slot6 = Registry.ITEM.getId(mc.player!!.inventory.getStack(6).item).toString()
-        slot7 = Registry.ITEM.getId(mc.player!!.inventory.getStack(7).item).toString()
-        slot8 = Registry.ITEM.getId(mc.player!!.inventory.getStack(8).item).toString()
+        slot0 = Registries.ITEM.getId(mc.player!!.inventory.getStack(0).item).toString()
+        slot1 = Registries.ITEM.getId(mc.player!!.inventory.getStack(1).item).toString()
+        slot2 = Registries.ITEM.getId(mc.player!!.inventory.getStack(2).item).toString()
+        slot3 = Registries.ITEM.getId(mc.player!!.inventory.getStack(3).item).toString()
+        slot4 = Registries.ITEM.getId(mc.player!!.inventory.getStack(4).item).toString()
+        slot5 = Registries.ITEM.getId(mc.player!!.inventory.getStack(5).item).toString()
+        slot6 = Registries.ITEM.getId(mc.player!!.inventory.getStack(6).item).toString()
+        slot7 = Registries.ITEM.getId(mc.player!!.inventory.getStack(7).item).toString()
+        slot8 = Registries.ITEM.getId(mc.player!!.inventory.getStack(8).item).toString()
         mc.inGameHud.chatHud.addMessage(Text.of("<${Formatting.LIGHT_PURPLE}HighwayTools/InvManager${Formatting.RESET}> Saved inventory -> ${
             itemIds.contentToString().replace("minecraft:", "")
         }"))
