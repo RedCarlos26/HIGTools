@@ -160,10 +160,10 @@ public class AxisViewer extends Module {
                     }
 
                     if (overDiag.get()) {
-                        event.renderer.line(0, overY.get(), 0, length, overY.get(), length, overColor.get());
-                        event.renderer.line(0, overY.get(), 0, length, overY.get(), -length, overColor.get());
-                        event.renderer.line(0, overY.get(), 0, -length, overY.get(), length, overColor.get());
-                        event.renderer.line(0, overY.get(), 0, -length, overY.get(), -length, overColor.get());
+                        event.renderer.line(0, overY.get(), 0, length, overY.get(), length, overColor.get()); // ++
+                        event.renderer.line(0, overY.get(), 0, length, overY.get(), -length, overColor.get()); // +-
+                        event.renderer.line(0, overY.get(), 0, -length, overY.get(), length, overColor.get()); // -+
+                        event.renderer.line(0, overY.get(), 0, -length, overY.get(), -length, overColor.get()); // --
                     }
                 }
             }
