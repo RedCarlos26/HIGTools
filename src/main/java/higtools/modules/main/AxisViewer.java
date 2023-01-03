@@ -153,10 +153,10 @@ public class AxisViewer extends Module {
             case Overworld -> {
                 if (overworld.get()) {
                     if (overAxis.get()) {
-                        event.renderer.line(0, overY.get(), 0, 0, overY.get(), length, overColor.get());
-                        event.renderer.line(0, overY.get(), 0, length, overY.get(), 0, overColor.get());
-                        event.renderer.line(0, overY.get(), 0, 0, overY.get(), -length, overColor.get());
-                        event.renderer.line(0, overY.get(), 0, -length, overY.get(), 0, overColor.get());
+                        event.renderer.line(0, overY.get(), 0, 0, overY.get(), length, overColor.get()); // Z+
+                        event.renderer.line(0, overY.get(), 0, length, overY.get(), 0, overColor.get()); // X+
+                        event.renderer.line(0, overY.get(), 0, 0, overY.get(), -length, overColor.get()); // -Z
+                        event.renderer.line(0, overY.get(), 0, -length, overY.get(), 0, overColor.get()); // -X
                     }
 
                     if (overDiag.get()) {
