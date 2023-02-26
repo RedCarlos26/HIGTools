@@ -15,9 +15,7 @@ import net.minecraft.util.math.Direction;
 
 import java.util.stream.IntStream;
 
-import static higtools.utils.HIGUtils.forward;
-import static higtools.utils.HIGUtils.left;
-import static higtools.utils.HIGUtils.right;
+import static higtools.utils.HIGUtils.*;
 
 
 public class AxisBorer extends Module {

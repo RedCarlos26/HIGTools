@@ -15,11 +15,7 @@ import net.minecraft.util.math.Vec3d;
 import java.util.ArrayList;
 import java.util.stream.IntStream;
 
-import static higtools.utils.HIGUtils.backward;
-import static higtools.utils.HIGUtils.forward;
-import static higtools.utils.HIGUtils.getHighway;
-import static higtools.utils.HIGUtils.left;
-import static higtools.utils.HIGUtils.right;
+import static higtools.utils.HIGUtils.*;
 
 public class PosNegBorer extends Module {
     // preserve 2 block tall tunnel for speed bypass
@@ -214,9 +210,7 @@ public class PosNegBorer extends Module {
     }
 
     private void breakBlock(BlockPos blockPos) {
-        if (packets >= 130) return;
-        if (mc.world.getBlockState(blockPos).getMaterial().isReplaceable() || (blackList.contains(blockPos) && disable.get()))
-            return;
+        if (packets >= 130 || mc.world.getBlockState(blockPos).getMaterial().isReplaceable() || (blackList.contains(blockPos) && disable.get())) return;
 
         mc.getNetworkHandler().sendPacket(new PlayerActionC2SPacket(PlayerActionC2SPacket.Action.START_DESTROY_BLOCK, blockPos, Direction.UP));
         mc.getNetworkHandler().sendPacket(new PlayerActionC2SPacket(PlayerActionC2SPacket.Action.STOP_DESTROY_BLOCK, blockPos, Direction.UP));
