@@ -181,13 +181,12 @@ public class DiscordRPC extends Module {
             update = true;
 
             ticks = 0;
-        }
-        else ticks++;
+        } else ticks++;
 
         if (Utils.canUpdate()) {
             // Line 1
             if (line1Ticks >= line1UpdateDelay.get() || forceUpdate) {
-                if (line1Scripts.size() > 0) {
+                if (!line1Scripts.isEmpty()) {
                     int i = Utils.random(0, line1Scripts.size());
                     if (line1SelectMode.get() == SelectMode.Sequential) {
                         if (line1I >= line1Scripts.size()) line1I = 0;
@@ -207,7 +206,7 @@ public class DiscordRPC extends Module {
 
             // Line 2
             if (line2Ticks >= line2UpdateDelay.get() || forceUpdate) {
-                if (line2Scripts.size() > 0) {
+                if (!line2Scripts.isEmpty()) {
                     int i = Utils.random(0, line2Scripts.size());
                     if (line2SelectMode.get() == SelectMode.Sequential) {
                         if (line2I >= line2Scripts.size()) line2I = 0;
@@ -224,33 +223,33 @@ public class DiscordRPC extends Module {
 
                 line2Ticks = 0;
             } else line2Ticks++;
-        }
-        else {
-            if (!lastWasInMainMenu) {
-                rpc.setDetails("HIGTools " + HIGTools.VERSION);
+        } else if (!lastWasInMainMenu) {
+            rpc.setDetails("HIGTools " + HIGTools.VERSION);
 
-                if (mc.currentScreen instanceof TitleScreen) rpc.setState("In main menu");
-                else if (mc.currentScreen instanceof SelectWorldScreen) rpc.setState("Selecting world");
-                else if (mc.currentScreen instanceof CreateWorldScreen || mc.currentScreen instanceof EditGameRulesScreen) rpc.setState("Creating world");
-                else if (mc.currentScreen instanceof EditWorldScreen) rpc.setState("Editing world");
-                else if (mc.currentScreen instanceof LevelLoadingScreen) rpc.setState("Loading world");
-                else if (mc.currentScreen instanceof MultiplayerScreen) rpc.setState("Selecting server");
-                else if (mc.currentScreen instanceof AddServerScreen) rpc.setState("Adding server");
-                else if (mc.currentScreen instanceof ConnectScreen || mc.currentScreen instanceof DirectConnectScreen) rpc.setState("Connecting to server");
-                else if (mc.currentScreen instanceof WidgetScreen) rpc.setState("Browsing the GUI");
-                else if (mc.currentScreen instanceof OptionsScreen || mc.currentScreen instanceof SkinOptionsScreen || mc.currentScreen instanceof SoundOptionsScreen || mc.currentScreen instanceof VideoOptionsScreen || mc.currentScreen instanceof ControlsOptionsScreen || mc.currentScreen instanceof LanguageOptionsScreen || mc.currentScreen instanceof ChatOptionsScreen || mc.currentScreen instanceof PackScreen || mc.currentScreen instanceof AccessibilityOptionsScreen) rpc.setState("Changing options");
-                else if (mc.currentScreen instanceof CreditsScreen) rpc.setState("Reading credits");
-                else if (mc.currentScreen instanceof RealmsScreen) rpc.setState("Browsing Realms");
-                else {
-                    String className = mc.currentScreen.getClass().getName();
+            if (mc.currentScreen instanceof TitleScreen) rpc.setState("In main menu");
+            else if (mc.currentScreen instanceof SelectWorldScreen) rpc.setState("Selecting world");
+            else if (mc.currentScreen instanceof CreateWorldScreen || mc.currentScreen instanceof EditGameRulesScreen)
+                rpc.setState("Creating world");
+            else if (mc.currentScreen instanceof EditWorldScreen) rpc.setState("Editing world");
+            else if (mc.currentScreen instanceof LevelLoadingScreen) rpc.setState("Loading world");
+            else if (mc.currentScreen instanceof MultiplayerScreen) rpc.setState("Selecting server");
+            else if (mc.currentScreen instanceof AddServerScreen) rpc.setState("Adding server");
+            else if (mc.currentScreen instanceof ConnectScreen || mc.currentScreen instanceof DirectConnectScreen)
+                rpc.setState("Connecting to server");
+            else if (mc.currentScreen instanceof WidgetScreen) rpc.setState("Browsing the GUI");
+            else if (mc.currentScreen instanceof OptionsScreen || mc.currentScreen instanceof SkinOptionsScreen || mc.currentScreen instanceof SoundOptionsScreen || mc.currentScreen instanceof VideoOptionsScreen || mc.currentScreen instanceof ControlsOptionsScreen || mc.currentScreen instanceof LanguageOptionsScreen || mc.currentScreen instanceof ChatOptionsScreen || mc.currentScreen instanceof PackScreen || mc.currentScreen instanceof AccessibilityOptionsScreen)
+                rpc.setState("Changing options");
+            else if (mc.currentScreen instanceof CreditsScreen) rpc.setState("Reading credits");
+            else if (mc.currentScreen instanceof RealmsScreen) rpc.setState("Browsing Realms");
+            else {
+                String className = mc.currentScreen.getClass().getName();
 
-                    if (className.startsWith("com.terraformersmc.modmenu.gui")) rpc.setState("Browsing mods");
-                    else if (className.startsWith("me.jellysquid.mods.sodium.client")) rpc.setState("Changing options");
-                    else rpc.setState("In main menu");
-                }
-
-                update = true;
+                if (className.startsWith("com.terraformersmc.modmenu.gui")) rpc.setState("Browsing mods");
+                else if (className.startsWith("me.jellysquid.mods.sodium.client")) rpc.setState("Changing options");
+                else rpc.setState("In main menu");
             }
+
+            update = true;
         }
 
         // Update

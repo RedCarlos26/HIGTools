@@ -17,7 +17,6 @@
 
 ## Needed mods
 - [Meteor Client](https://meteorclient.com/)
-- [Fabric Language Kotlin](https://www.curseforge.com/minecraft/mc-mods/fabric-language-kotlin)
 - Join the discord for more information on how to use.
 
 *Note: Please use the [latest devbuild](https://meteorclient.com/download?devBuild=latest) of meteor while using HIGTools to avoid any issues.*

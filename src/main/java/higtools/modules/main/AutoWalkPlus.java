@@ -153,13 +153,10 @@ public class AutoWalkPlus extends Module {
 
         if (highwaytools.get()) {
             FindItemResult pickaxe = InvUtils.find(itemStack -> itemStack.getItem() == Items.DIAMOND_PICKAXE || itemStack.getItem() == Items.NETHERITE_PICKAXE);
-            if (!pickaxe.found()) {
-                if (Modules.get().isActive(higtools.modules.main.HighwayTools.class)) {
-                    Modules.get().get(higtools.modules.main.HighwayTools.class).toggle();
-                    error("No pickaxe found, disabling HighwayTools.");
-                    toggle();
-                }
-            }
+            if (pickaxe.found() || !Modules.get().isActive(HighwayTools.class)) return;
+            Modules.get().get(HighwayTools.class).toggle();
+            error("No pickaxe found, disabling HighwayTools.");
+            toggle();
         }
     }
 

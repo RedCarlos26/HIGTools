@@ -148,59 +148,28 @@ public class AxisViewer extends Module {
     @EventHandler
     private void onRender(Render3DEvent event) {
         if (mc.options.hudHidden) return;
-        double length = 30_000_000;
         switch (PlayerUtils.getDimension()) {
-            case Overworld -> {
-                if (overworld.get()) {
-                    if (overAxis.get()) {
-                        event.renderer.line(0, overY.get(), 0, 0, overY.get(), length, overColor.get()); // Z+
-                        event.renderer.line(0, overY.get(), 0, length, overY.get(), 0, overColor.get()); // X+
-                        event.renderer.line(0, overY.get(), 0, 0, overY.get(), -length, overColor.get()); // -Z
-                        event.renderer.line(0, overY.get(), 0, -length, overY.get(), 0, overColor.get()); // -X
-                    }
+            case Overworld -> drawLines(event, overworld.get(), overAxis.get(), overDiag.get(), overY.get(),  overColor.get());
+            case Nether -> drawLines(event, nether.get(), netherAxis.get(), netherDiag.get(), netherY.get(),  netherColor.get());
+            case End -> drawLines(event, end.get(), endAxis.get(), endDiag.get(), endY.get(),  endColor.get());
+        }
+    }
 
-                    if (overDiag.get()) {
-                        event.renderer.line(0, overY.get(), 0, length, overY.get(), length, overColor.get()); // ++
-                        event.renderer.line(0, overY.get(), 0, length, overY.get(), -length, overColor.get()); // +-
-                        event.renderer.line(0, overY.get(), 0, -length, overY.get(), length, overColor.get()); // -+
-                        event.renderer.line(0, overY.get(), 0, -length, overY.get(), -length, overColor.get()); // --
-                    }
-                }
-            }
-            case Nether -> {
-                if (nether.get()) {
-                    if (netherAxis.get()) {
-                        event.renderer.line(0, netherY.get(), 0, 0, netherY.get(), length, netherColor.get());
-                        event.renderer.line(0, netherY.get(), 0, length, netherY.get(), 0, netherColor.get());
-                        event.renderer.line(0, netherY.get(), 0, 0, netherY.get(), -length, netherColor.get());
-                        event.renderer.line(0, netherY.get(), 0, -length, netherY.get(), 0, netherColor.get());
-                    }
+    private void drawLines(Render3DEvent event, boolean dimension, boolean axis, boolean diag, int y,  SettingColor color) {
+        if (!dimension) return;
 
-                    if (netherDiag.get()) {
-                        event.renderer.line(0, netherY.get(), 0, length, netherY.get(), length, netherColor.get());
-                        event.renderer.line(0, netherY.get(), 0, length, netherY.get(), -length, netherColor.get());
-                        event.renderer.line(0, netherY.get(), 0, -length, netherY.get(), length, netherColor.get());
-                        event.renderer.line(0, netherY.get(), 0, -length, netherY.get(), -length, netherColor.get());
-                    }
-                }
-            }
-            case End -> {
-                if (end.get()) {
-                    if (endAxis.get()) {
-                        event.renderer.line(0, endY.get(), 0, 0, endY.get(), length, netherColor.get());
-                        event.renderer.line(0, endY.get(), 0, length, endY.get(), 0, netherColor.get());
-                        event.renderer.line(0, endY.get(), 0, 0, endY.get(), -length, netherColor.get());
-                        event.renderer.line(0, endY.get(), 0, -length, endY.get(), 0, netherColor.get());
-                    }
+        if (axis) {
+            event.renderer.line(0, y, 0, 0, y, 30_000_000, color); // Z+
+            event.renderer.line(0, y, 0, 30_000_000, y, 0, color); // X+
+            event.renderer.line(0, y, 0, 0, y, -30_000_000, color); // -Z
+            event.renderer.line(0, y, 0, -30_000_000, y, 0, color); // -X
+        }
 
-                    if (endDiag.get()) {
-                        event.renderer.line(0, endY.get(), 0, length, endY.get(), length, endColor.get());
-                        event.renderer.line(0, endY.get(), 0, length, endY.get(), -length, endColor.get());
-                        event.renderer.line(0, endY.get(), 0, -length, endY.get(), length, endColor.get());
-                        event.renderer.line(0, endY.get(), 0, -length, endY.get(), -length, endColor.get());
-                    }
-                }
-            }
+        if (diag) {
+            event.renderer.line(0, y, 0, 30_000_000, y, 30_000_000, color); // ++
+            event.renderer.line(0, y, 0, 30_000_000, y, -30_000_000, color); // +-
+            event.renderer.line(0, y, 0, -30_000_000, y, 30_000_000, color); // -+
+            event.renderer.line(0, y, 0, -30_000_000, y, -30_000_000, color); // --
         }
     }
 }
