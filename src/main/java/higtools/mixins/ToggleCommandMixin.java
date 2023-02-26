@@ -1,21 +1,24 @@
 package higtools.mixins;
 
-import higtools.modules.main.*;
+import com.mojang.brigadier.builder.LiteralArgumentBuilder;
 import higtools.modules.borers.*;
+import higtools.modules.main.*;
+import meteordevelopment.meteorclient.systems.commands.Command;
+import meteordevelopment.meteorclient.systems.commands.commands.ToggleCommand;
+import meteordevelopment.meteorclient.systems.modules.Module;
 import meteordevelopment.meteorclient.systems.modules.Modules;
 import meteordevelopment.meteorclient.systems.modules.misc.AutoLog;
 import meteordevelopment.meteorclient.systems.modules.movement.SafeWalk;
 import meteordevelopment.meteorclient.systems.modules.player.Rotation;
 import meteordevelopment.meteorclient.systems.modules.render.FreeLook;
 import meteordevelopment.meteorclient.systems.modules.world.LiquidFiller;
+import net.minecraft.command.CommandSource;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
-import meteordevelopment.meteorclient.systems.commands.Command;
-import meteordevelopment.meteorclient.systems.commands.commands.ToggleCommand;
-import com.mojang.brigadier.builder.LiteralArgumentBuilder;
-import net.minecraft.command.CommandSource;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
+
+import java.util.List;
 
 import static com.mojang.brigadier.Command.SINGLE_SUCCESS;
 
@@ -25,10 +28,37 @@ public abstract class ToggleCommandMixin extends Command {
         super("toggle", "Toggles a module.", "t");
     }
 
+    /**
+     * Borers & HighwayBuilder
+     */
+    private final List<Class<? extends Module>> borerClasses = List.of(
+        HighwayBuilderPlus.class,
+        AxisBorer.class,
+        NegNegBorer.class,
+        NegPosBorer.class,
+        PosNegBorer.class,
+        PosPosBorer.class,
+        RingRoadBorer.class
+    );
+
+    /**
+     * HighwayTools Modules
+     */
+    private final List<Class<? extends Module>> higToolsClasses = List.of(
+        AutoEatPlus.class,
+        AutoLog.class,
+        FreeLook.class,
+        HandManager.class,
+        InvManager.class,
+        LiquidFiller.class,
+        Rotation.class,
+        SafeWalk.class,
+        ScaffoldPlus.class
+    );
+
     @Inject(method = "build", at = @At("HEAD"))
     private void inject(LiteralArgumentBuilder<CommandSource> builder, CallbackInfo ci) {
-        builder
-            .then(literal("higtools")
+        builder.then(literal("higtools")
                 .executes(context -> {
                     Modules modules = Modules.get();
 
@@ -36,24 +66,10 @@ public abstract class ToggleCommandMixin extends Command {
                     modules.get(HighwayTools.class).toggle();
 
                     // Borers & HighwayBuilder
-                    modules.get(HighwayBuilderPlus.class).toggle();
-                    modules.get(AxisBorer.class).toggle();
-                    modules.get(NegNegBorer.class).toggle();
-                    modules.get(NegPosBorer.class).toggle();
-                    modules.get(PosNegBorer.class).toggle();
-                    modules.get(PosPosBorer.class).toggle();
-                    modules.get(RingRoadBorer.class).toggle();
+                    borerClasses.forEach(borer -> modules.get(borer).toggle());
 
                     // HighwayTools Modules
-                    modules.get(AutoEatPlus.class).toggle();
-                    modules.get(AutoLog.class).toggle();
-                    modules.get(FreeLook.class).toggle();
-                    modules.get(HandManager.class).toggle();
-                    modules.get(InvManager.class).toggle();
-                    modules.get(LiquidFiller.class).toggle();
-                    modules.get(Rotation.class).toggle();
-                    modules.get(SafeWalk.class).toggle();
-                    modules.get(ScaffoldPlus.class).toggle();
+                    higToolsClasses.forEach(higTool -> modules.get(higTool).toggle());
 
                     return SINGLE_SUCCESS;
                 })
@@ -65,24 +81,14 @@ public abstract class ToggleCommandMixin extends Command {
                         if (!modules.get(HighwayTools.class).isActive()) modules.get(HighwayTools.class).toggle();
 
                         // Borers & HighwayBuilder
-                        if (!modules.get(HighwayBuilderPlus.class).isActive()) modules.get(HighwayBuilderPlus.class).toggle();
-                        if (!modules.get(AxisBorer.class).isActive()) modules.get(AxisBorer.class).toggle();
-                        if (!modules.get(NegNegBorer.class).isActive()) modules.get(NegNegBorer.class).toggle();
-                        if (!modules.get(NegPosBorer.class).isActive()) modules.get(NegPosBorer.class).toggle();
-                        if (!modules.get(PosNegBorer.class).isActive()) modules.get(PosNegBorer.class).toggle();
-                        if (!modules.get(PosPosBorer.class).isActive()) modules.get(PosPosBorer.class).toggle();
-                        if (!modules.get(RingRoadBorer.class).isActive()) modules.get(RingRoadBorer.class).toggle();
+                        borerClasses.stream()
+                            .filter(borer -> !modules.get(borer).isActive())
+                            .forEach(borer -> modules.get(borer).toggle());
 
                         // HighwayTools Modules
-                        if (!modules.get(AutoEatPlus.class).isActive()) modules.get(AutoEatPlus.class).toggle();
-                        if (!modules.get(AutoLog.class).isActive()) modules.get(AutoLog.class).toggle();
-                        if (!modules.get(FreeLook.class).isActive()) modules.get(FreeLook.class).toggle();
-                        if (!modules.get(HandManager.class).isActive()) modules.get(HandManager.class).toggle();
-                        if (!modules.get(InvManager.class).isActive()) modules.get(InvManager.class).toggle();
-                        if (!modules.get(LiquidFiller.class).isActive()) modules.get(LiquidFiller.class).toggle();
-                        if (!modules.get(Rotation.class).isActive()) modules.get(Rotation.class).toggle();
-                        if (!modules.get(SafeWalk.class).isActive()) modules.get(SafeWalk.class).toggle();
-                        if (!modules.get(ScaffoldPlus.class).isActive()) modules.get(ScaffoldPlus.class).toggle();
+                        higToolsClasses.stream()
+                            .filter(higTool -> !modules.get(higTool).isActive())
+                            .forEach(higTool -> modules.get(higTool).toggle());
 
                         return SINGLE_SUCCESS;
                     })
@@ -94,24 +100,14 @@ public abstract class ToggleCommandMixin extends Command {
                         if (modules.get(HighwayTools.class).isActive()) modules.get(HighwayTools.class).toggle();
 
                         // Borers & HighwayBuilder
-                        if (modules.get(HighwayBuilderPlus.class).isActive()) modules.get(HighwayBuilderPlus.class).toggle();
-                        if (modules.get(AxisBorer.class).isActive()) modules.get(AxisBorer.class).toggle();
-                        if (modules.get(NegNegBorer.class).isActive()) modules.get(NegNegBorer.class).toggle();
-                        if (modules.get(NegPosBorer.class).isActive()) modules.get(NegPosBorer.class).toggle();
-                        if (modules.get(PosNegBorer.class).isActive()) modules.get(PosNegBorer.class).toggle();
-                        if (modules.get(PosPosBorer.class).isActive()) modules.get(PosPosBorer.class).toggle();
-                        if (modules.get(RingRoadBorer.class).isActive()) modules.get(RingRoadBorer.class).toggle();
+                        borerClasses.stream()
+                            .filter(borer -> modules.get(borer).isActive())
+                            .forEach(borer -> modules.get(borer).toggle());
 
                         // HighwayTools Modules
-                        if (modules.get(AutoEatPlus.class).isActive()) modules.get(AutoEatPlus.class).toggle();
-                        if (modules.get(AutoLog.class).isActive()) modules.get(AutoLog.class).toggle();
-                        if (modules.get(FreeLook.class).isActive()) modules.get(FreeLook.class).toggle();
-                        if (modules.get(HandManager.class).isActive()) modules.get(HandManager.class).toggle();
-                        if (modules.get(InvManager.class).isActive()) modules.get(InvManager.class).toggle();
-                        if (modules.get(LiquidFiller.class).isActive()) modules.get(LiquidFiller.class).toggle();
-                        if (modules.get(Rotation.class).isActive()) modules.get(Rotation.class).toggle();
-                        if (modules.get(SafeWalk.class).isActive()) modules.get(SafeWalk.class).toggle();
-                        if (modules.get(ScaffoldPlus.class).isActive()) modules.get(ScaffoldPlus.class).toggle();
+                        higToolsClasses.stream()
+                            .filter(higTool -> modules.get(higTool).isActive())
+                            .forEach(higTool -> modules.get(higTool).toggle());
 
                         return SINGLE_SUCCESS;
                     })
