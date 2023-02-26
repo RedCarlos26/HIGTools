@@ -229,8 +229,8 @@ public class HighwayBuilderPlus extends Module {
     private State state, lastState;
     private IBlockPosProvider blockPosProvider;
 
-    public Vec3d start;
-    public int blocksBroken, blocksPlaced;
+    private Vec3d start;
+    private int blocksBroken, blocksPlaced;
     private final MBlockPos lastBreakingPos = new MBlockPos();
     private boolean displayInfo;
 
@@ -278,9 +278,7 @@ public class HighwayBuilderPlus extends Module {
         super.error(message, args);
         toggle();
 
-        if (disconnectOnToggle.get()) {
-            disconnect(message, args);
-        }
+        if (disconnectOnToggle.get()) disconnect(message, args);
     }
 
     private void errorEarly(String message, Object... args) {
@@ -393,8 +391,6 @@ public class HighwayBuilderPlus extends Module {
     }
 
     private void disconnect(String message, Object... args) {
-
-        //TODO: try with a single formatted
         MutableText text = Text.literal("%s[%s%s%s] %s".formatted(Formatting.GRAY, Formatting.BLUE, title, Formatting.GRAY, Formatting.RED) + String.format(message, args)).append("\n");
         text.append(getStatsText());
 

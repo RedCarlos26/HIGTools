@@ -55,50 +55,39 @@ public class HighwayTools extends Module {
     public void onActivate() {
         Modules modules = Modules.get();
 
-        if (mode.get() == Mode.HighwayBuilding) {
-            modules.get(HighwayBuilderPlus.class).toggle();
-
-            commonClasses.forEach(moduleClass -> modules.get(moduleClass).toggle());
-        }
-
-        if (mode.get() == Mode.AxisDigging) {
-            modules.get(AxisBorer.class).toggle();
-
-            commonClasses.forEach(moduleClass -> modules.get(moduleClass).toggle());
-        }
-
-        if (mode.get() == Mode.NegNegDigging) {
-            modules.get(NegNegBorer.class).toggle();
-
-            modules.get(AutoCenter.class).toggle();
-            commonClasses.forEach(moduleClass -> modules.get(moduleClass).toggle());
-        }
-
-        if (mode.get() == Mode.NegPosDigging) {
-            modules.get(NegPosBorer.class).toggle();
-
-            modules.get(AutoCenter.class).toggle();
-            commonClasses.forEach(moduleClass -> modules.get(moduleClass).toggle());
-        }
-
-        if (mode.get() == Mode.PosNegDigging) {
-            modules.get(PosNegBorer.class).toggle();
-
-            modules.get(AutoCenter.class).toggle();
-            commonClasses.forEach(moduleClass -> modules.get(moduleClass).toggle());
-        }
-
-        if (mode.get() == Mode.PosPosDigging) {
-            modules.get(PosPosBorer.class).toggle();
-
-            modules.get(AutoCenter.class).toggle();
-            commonClasses.forEach(moduleClass -> modules.get(moduleClass).toggle());
-        }
-
-        if (mode.get() == Mode.RingRoadDigging) {
-            modules.get(RingRoadBorer.class).toggle();
-
-            commonClasses.forEach(moduleClass -> modules.get(moduleClass).toggle());
+        switch (mode.get()) {
+            case HighwayBuilding -> {
+                modules.get(HighwayBuilderPlus.class).toggle();
+                commonClasses.forEach(moduleClass -> modules.get(moduleClass).toggle());
+            }
+            case AxisDigging -> {
+                modules.get(AxisBorer.class).toggle();
+                commonClasses.forEach(moduleClass -> modules.get(moduleClass).toggle());
+            }
+            case NegNegDigging -> {
+                modules.get(NegNegBorer.class).toggle();
+                modules.get(AutoCenter.class).toggle();
+                commonClasses.forEach(moduleClass -> modules.get(moduleClass).toggle());
+            }
+            case NegPosDigging -> {
+                modules.get(NegPosBorer.class).toggle();
+                modules.get(AutoCenter.class).toggle();
+                commonClasses.forEach(moduleClass -> modules.get(moduleClass).toggle());
+            }
+            case PosNegDigging -> {
+                modules.get(PosNegBorer.class).toggle();
+                modules.get(AutoCenter.class).toggle();
+                commonClasses.forEach(moduleClass -> modules.get(moduleClass).toggle());
+            }
+            case PosPosDigging -> {
+                modules.get(PosPosBorer.class).toggle();
+                modules.get(AutoCenter.class).toggle();
+                commonClasses.forEach(moduleClass -> modules.get(moduleClass).toggle());
+            }
+            case RingRoadDigging -> {
+                modules.get(RingRoadBorer.class).toggle();
+                commonClasses.forEach(moduleClass -> modules.get(moduleClass).toggle());
+            }
         }
     }
 
@@ -106,64 +95,53 @@ public class HighwayTools extends Module {
     public void onDeactivate() {
         Modules modules = Modules.get();
 
-        if (mode.get() == Mode.HighwayBuilding) {
-            if (modules.get(HighwayBuilderPlus.class).isActive()) modules.get(HighwayBuilderPlus.class).toggle();
-
-            commonClasses.stream()
-                .filter(moduleClass -> modules.get(moduleClass).isActive())
-                .forEach(moduleClass -> modules.get(moduleClass).toggle());
-        }
-
-        if (mode.get() == Mode.AxisDigging) {
-            if (modules.get(AxisBorer.class).isActive()) modules.get(AxisBorer.class).toggle();
-
-            commonClasses.stream()
-                .filter(moduleClass -> modules.get(moduleClass).isActive())
-                .forEach(moduleClass -> modules.get(moduleClass).toggle());
-        }
-
-        if (mode.get() == Mode.NegNegDigging) {
-            if (modules.get(NegNegBorer.class).isActive()) modules.get(NegNegBorer.class).toggle();
-            if (modules.get(AutoCenter.class).isActive()) modules.get(AutoCenter.class).toggle();
-
-            commonClasses.stream()
-                .filter(moduleClass -> modules.get(moduleClass).isActive())
-                .forEach(moduleClass -> modules.get(moduleClass).toggle());
-        }
-
-        if (mode.get() == Mode.NegPosDigging) {
-            if (modules.get(NegPosBorer.class).isActive()) modules.get(NegPosBorer.class).toggle();
-            if (modules.get(AutoCenter.class).isActive()) modules.get(AutoCenter.class).toggle();
-
-            commonClasses.stream()
-                .filter(moduleClass -> modules.get(moduleClass).isActive())
-                .forEach(moduleClass -> modules.get(moduleClass).toggle());
-        }
-
-        if (mode.get() == Mode.PosNegDigging) {
-            if (modules.get(PosNegBorer.class).isActive()) modules.get(PosNegBorer.class).toggle();
-            if (modules.get(AutoCenter.class).isActive()) modules.get(AutoCenter.class).toggle();
-
-            commonClasses.stream()
-                .filter(moduleClass -> modules.get(moduleClass).isActive())
-                .forEach(moduleClass -> modules.get(moduleClass).toggle());
-        }
-
-        if (mode.get() == Mode.PosPosDigging) {
-            if (modules.get(PosPosBorer.class).isActive()) modules.get(PosPosBorer.class).toggle();
-            if (modules.get(AutoCenter.class).isActive()) modules.get(AutoCenter.class).toggle();
-
-            commonClasses.stream()
-                .filter(moduleClass -> modules.get(moduleClass).isActive())
-                .forEach(moduleClass -> modules.get(moduleClass).toggle());
-        }
-
-        if (mode.get() == Mode.RingRoadDigging) {
-            if (modules.get(RingRoadBorer.class).isActive()) modules.get(RingRoadBorer.class).toggle();
-
-            commonClasses.stream()
-                .filter(moduleClass -> modules.get(moduleClass).isActive())
-                .forEach(moduleClass -> modules.get(moduleClass).toggle());
+        switch (mode.get()) {
+            case HighwayBuilding -> {
+                if (modules.get(HighwayBuilderPlus.class).isActive()) modules.get(HighwayBuilderPlus.class).toggle();
+                commonClasses.stream()
+                    .filter(moduleClass -> modules.get(moduleClass).isActive())
+                    .forEach(moduleClass -> modules.get(moduleClass).toggle());
+            }
+            case AxisDigging -> {
+                if (modules.get(AxisBorer.class).isActive()) modules.get(AxisBorer.class).toggle();
+                commonClasses.stream()
+                    .filter(moduleClass -> modules.get(moduleClass).isActive())
+                    .forEach(moduleClass -> modules.get(moduleClass).toggle());
+            }
+            case NegNegDigging -> {
+                if (modules.get(NegNegBorer.class).isActive()) modules.get(NegNegBorer.class).toggle();
+                if (modules.get(AutoCenter.class).isActive()) modules.get(AutoCenter.class).toggle();
+                commonClasses.stream()
+                    .filter(moduleClass -> modules.get(moduleClass).isActive())
+                    .forEach(moduleClass -> modules.get(moduleClass).toggle());
+            }
+            case NegPosDigging -> {
+                if (modules.get(NegPosBorer.class).isActive()) modules.get(NegPosBorer.class).toggle();
+                if (modules.get(AutoCenter.class).isActive()) modules.get(AutoCenter.class).toggle();
+                commonClasses.stream()
+                    .filter(moduleClass -> modules.get(moduleClass).isActive())
+                    .forEach(moduleClass -> modules.get(moduleClass).toggle());
+            }
+            case PosNegDigging -> {
+                if (modules.get(PosNegBorer.class).isActive()) modules.get(PosNegBorer.class).toggle();
+                if (modules.get(AutoCenter.class).isActive()) modules.get(AutoCenter.class).toggle();
+                commonClasses.stream()
+                    .filter(moduleClass -> modules.get(moduleClass).isActive())
+                    .forEach(moduleClass -> modules.get(moduleClass).toggle());
+            }
+            case PosPosDigging -> {
+                if (modules.get(PosPosBorer.class).isActive()) modules.get(PosPosBorer.class).toggle();
+                if (modules.get(AutoCenter.class).isActive()) modules.get(AutoCenter.class).toggle();
+                commonClasses.stream()
+                    .filter(moduleClass -> modules.get(moduleClass).isActive())
+                    .forEach(moduleClass -> modules.get(moduleClass).toggle());
+            }
+            case RingRoadDigging -> {
+                if (modules.get(RingRoadBorer.class).isActive()) modules.get(RingRoadBorer.class).toggle();
+                commonClasses.stream()
+                    .filter(moduleClass -> modules.get(moduleClass).isActive())
+                    .forEach(moduleClass -> modules.get(moduleClass).toggle());
+            }
         }
     }
 }

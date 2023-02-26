@@ -75,20 +75,18 @@ public class ScaffoldPlus extends Module {
             }
 
             worked = true;
-            boolean offhand = mc.player.getOffHandStack().getItem() instanceof BlockItem;
-            if (!offhand) {
-                if (!(mc.player.getMainHandStack().getItem() instanceof BlockItem)) {
-                    findBlock:
-                    for (int j = 0; j <= 8; j++) {
-                        if (mc.player.getInventory().getStack(j).getItem() instanceof BlockItem) {
-                            slot = j;
-                            break findBlock;
-                        }
+            boolean offHand = mc.player.getOffHandStack().getItem() instanceof BlockItem;
+            boolean mainHand = mc.player.getMainHandStack().getItem() instanceof BlockItem;
+            if (!offHand && !mainHand) {
+                for (int j = 0; j <= 8; j++) {
+                    if (mc.player.getInventory().getStack(j).getItem() instanceof BlockItem) {
+                        slot = j;
+                        break;
                     }
-                    if (slot == -1) return;
-                    mc.player.getInventory().selectedSlot = slot;
-                    mc.getNetworkHandler().sendPacket(new UpdateSelectedSlotC2SPacket(slot));
                 }
+                if (slot == -1) return;
+                mc.player.getInventory().selectedSlot = slot;
+                mc.getNetworkHandler().sendPacket(new UpdateSelectedSlotC2SPacket(slot));
             }
 
             if (tower.get() && mc.options.jumpKey.isPressed() && mc.player.getVelocity().x == 0.0 && mc.player.getVelocity().z == 0.0) {
@@ -103,7 +101,7 @@ public class ScaffoldPlus extends Module {
 
             mc.getNetworkHandler().sendPacket(
                 new PlayerInteractBlockC2SPacket(
-                    offhand ? Hand.OFF_HAND : Hand.MAIN_HAND,
+                    offHand ? Hand.OFF_HAND : Hand.MAIN_HAND,
                     new BlockHitResult(pos, Direction.DOWN, bpos, false),
                     0
                 )
