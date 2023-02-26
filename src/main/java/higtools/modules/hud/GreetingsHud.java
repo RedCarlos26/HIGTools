@@ -1,7 +1,9 @@
 package higtools.modules.hud;
 
 import higtools.HIGTools;
-import meteordevelopment.meteorclient.settings.*;
+import meteordevelopment.meteorclient.settings.EnumSetting;
+import meteordevelopment.meteorclient.settings.Setting;
+import meteordevelopment.meteorclient.settings.SettingGroup;
 import meteordevelopment.meteorclient.systems.hud.HudElement;
 import meteordevelopment.meteorclient.systems.hud.HudElementInfo;
 import meteordevelopment.meteorclient.systems.hud.HudRenderer;
@@ -35,27 +37,19 @@ public class GreetingsHud extends HudElement {
         super(INFO);
     }
 
-
     private String leftText;
     private String rightText;
-
     private double leftWidth;
-
 
     @Override
     public void tick(HudRenderer renderer) {
-        Calendar calendar = Calendar.getInstance();
-        int localTime = calendar.get(Calendar.HOUR_OF_DAY);
+        int localTime = Calendar.getInstance().get(Calendar.HOUR_OF_DAY);
 
-        if (mode.get() == Mode.HIGTools) {
-            leftText = "Welcome to HIG Tools";
-        } else {
-            if (localTime <= 12) leftText = "Good Morning";
-            if (localTime >= 13 && localTime <= 16) leftText = "Good Afternoon";
-            if (localTime >= 17) leftText = "Good Evening";
-        }
+        if (mode.get() == Mode.HIGTools) leftText = "Welcome to HIG Tools, ";
+        else if (localTime <= 12) leftText = "Good Morning, ";
+        else if (localTime <= 16) leftText = "Good Afternoon, ";
+        else leftText = "Good Evening, ";
 
-        leftText = leftText + ", ";
         rightText = Modules.get().get(NameProtect.class).getName(mc.getSession().getUsername());
 
         leftWidth = renderer.textWidth(leftText);

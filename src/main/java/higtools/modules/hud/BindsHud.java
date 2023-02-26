@@ -21,78 +21,78 @@ public class BindsHud extends HudElement {
     private final SettingGroup sgGeneral = settings.getDefaultGroup();
 
     private final Setting<Sort> sortMode = sgGeneral.add(new EnumSetting.Builder<Sort>()
-            .name("sort-mode")
-            .description("How to sort active modules.")
-            .defaultValue(Sort.Biggest)
-            .build()
+        .name("sort-mode")
+        .description("How to sort active modules.")
+        .defaultValue(Sort.Biggest)
+        .build()
     );
 
     private final Setting<ColorMode> colorMode = sgGeneral.add(new EnumSetting.Builder<ColorMode>()
-            .name("color-mode")
-            .description("What color to use for active modules.")
-            .defaultValue(ColorMode.Rainbow)
-            .build()
+        .name("color-mode")
+        .description("What color to use for active modules.")
+        .defaultValue(ColorMode.Rainbow)
+        .build()
     );
 
     private final Setting<Double> rainbowSpeed = sgGeneral.add(new DoubleSetting.Builder()
-            .name("rainbow-speed")
-            .description("Rainbow speed of rainbow color mode.")
-            .defaultValue(0.05)
-            .sliderMin(0.01)
-            .sliderMax(0.2)
-            .decimalPlaces(4)
-            .visible(() -> colorMode.get() == ColorMode.Rainbow)
-            .build()
+        .name("rainbow-speed")
+        .description("Rainbow speed of rainbow color mode.")
+        .defaultValue(0.05)
+        .sliderMin(0.01)
+        .sliderMax(0.2)
+        .decimalPlaces(4)
+        .visible(() -> colorMode.get() == ColorMode.Rainbow)
+        .build()
     );
 
     private final Setting<Double> rainbowSpread = sgGeneral.add(new DoubleSetting.Builder()
-            .name("rainbow-spread")
-            .description("Rainbow spread of rainbow color mode.")
-            .defaultValue(0.01)
-            .sliderMin(0.001)
-            .sliderMax(0.05)
-            .decimalPlaces(4)
-            .visible(() -> colorMode.get() == ColorMode.Rainbow)
-            .build()
+        .name("rainbow-spread")
+        .description("Rainbow spread of rainbow color mode.")
+        .defaultValue(0.01)
+        .sliderMin(0.001)
+        .sliderMax(0.05)
+        .decimalPlaces(4)
+        .visible(() -> colorMode.get() == ColorMode.Rainbow)
+        .build()
     );
 
     private final Setting<SettingColor> flatColor = sgGeneral.add(new ColorSetting.Builder()
-            .name("flat-color")
-            .description("Color for flat color mode.")
-            .defaultValue(new SettingColor(225, 25, 25))
-            .visible(() -> colorMode.get() == ColorMode.Flat)
-            .build()
+        .name("flat-color")
+        .description("Color for flat color mode.")
+        .defaultValue(new SettingColor(225, 25, 25))
+        .visible(() -> colorMode.get() == ColorMode.Flat)
+        .build()
     );
 
     private final Setting<Boolean> outlines = sgGeneral.add(new BoolSetting.Builder()
-            .name("outlines")
-            .description("Whether or not to render outlines")
-            .defaultValue(false)
-            .build()
+        .name("outlines")
+        .description("Whether or not to render outlines")
+        .defaultValue(false)
+        .build()
     );
 
     private final Setting<Integer> outlineWidth = sgGeneral.add(new IntSetting.Builder()
-            .name("outline-width")
-            .description("Outline width")
-            .defaultValue(2)
-            .min(1)
-            .sliderMin(1)
-            .visible(outlines::get)
-            .build()
+        .name("outline-width")
+        .description("Outline width")
+        .defaultValue(2)
+        .min(1)
+        .sliderMin(1)
+        .visible(outlines::get)
+        .build()
     );
 
     private final Setting<Boolean> shadow = sgGeneral.add(new BoolSetting.Builder()
-            .name("shadow")
-            .description("Renders shadow behind text.")
-            .defaultValue(true)
-            .build()
+        .name("shadow")
+        .description("Renders shadow behind text.")
+        .defaultValue(true)
+        .build()
     );
 
     private final Setting<Alignment> alignment = sgGeneral.add(new EnumSetting.Builder<Alignment>()
-            .name("alignment")
-            .description("Horizontal alignment.")
-            .defaultValue(Alignment.Auto)
-            .build()
+        .name("alignment")
+        .description("Horizontal alignment.")
+        .defaultValue(Alignment.Auto)
+        .build()
     );
 
 
@@ -122,19 +122,9 @@ public class BindsHud extends HudElement {
 
         modules.addAll(Modules.get().getAll().stream().filter(module -> module.keybind.isSet()).toList());
 
-        modules.sort((o1, o2) -> {
-            double _1 = getModuleWidth(renderer, o1);
-            double _2 = getModuleWidth(renderer, o2);
-
-            if (sortMode.get() == Sort.Smallest) {
-                double temp = _1;
-                _1 = _2;
-                _2 = temp;
-            }
-
-            int a = Double.compare(_1, _2);
-            if (a == 0) return 0;
-            return a < 0 ? 1 : -1;
+        modules.sort((o1, o2) -> switch (sortMode.get()) {
+            case Biggest -> Double.compare(getModuleWidth(renderer, o2), getModuleWidth(renderer, o1));
+            case Smallest -> Double.compare(getModuleWidth(renderer, o1), getModuleWidth(renderer, o2));
         });
 
         double width = 0;
@@ -226,12 +216,12 @@ public class BindsHud extends HudElement {
                 }
 
                 renderer.quad(Math.min(prevX, x) - 2 - outlineWidth.get(), Math.max(prevX, x) == x ? y : y - outlineWidth.get(),
-                        (Math.max(prevX, x) - 2) - (Math.min(prevX, x) - 2 - outlineWidth.get()), outlineWidth.get(),
-                        prevColor, prevColor, color, color); // Left inbetween quad
+                    (Math.max(prevX, x) - 2) - (Math.min(prevX, x) - 2 - outlineWidth.get()), outlineWidth.get(),
+                    prevColor, prevColor, color, color); // Left inbetween quad
 
                 renderer.quad(Math.min(prevX + prevTextLength, x + textLength) + 2, Math.min(prevX + prevTextLength, x + textLength) == x + textLength ? y : y - outlineWidth.get(),
-                        (Math.max(prevX + prevTextLength, x + textLength) + 2 + outlineWidth.get()) - (Math.min(prevX + prevTextLength, x + textLength) + 2), outlineWidth.get(),
-                        prevColor, prevColor, color, color); // Right inbetween quad
+                    (Math.max(prevX + prevTextLength, x + textLength) + 2 + outlineWidth.get()) - (Math.min(prevX + prevTextLength, x + textLength) + 2), outlineWidth.get(),
+                    prevColor, prevColor, color, color); // Right inbetween quad
             }
         }
 
