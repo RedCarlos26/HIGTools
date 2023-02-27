@@ -3,14 +3,11 @@ package higtools;
 import higtools.commands.Center;
 import higtools.commands.Coordinates;
 import higtools.commands.Disconnect;
-import higtools.utils.HIGUtils;
+import higtools.modules.borers.*;
 import higtools.modules.hud.BindsHud;
 import higtools.modules.hud.GreetingsHud;
 import higtools.modules.main.*;
-import higtools.modules.borers.*;
-import higtools.modules.main.AutoCenter;
-import higtools.modules.main.ScaffoldPlus;
-import meteordevelopment.meteorclient.MeteorClient;
+import higtools.utils.HIGUtils;
 import meteordevelopment.meteorclient.addons.MeteorAddon;
 import meteordevelopment.meteorclient.systems.Systems;
 import meteordevelopment.meteorclient.systems.commands.Commands;
@@ -18,18 +15,15 @@ import meteordevelopment.meteorclient.systems.hud.Hud;
 import meteordevelopment.meteorclient.systems.hud.HudGroup;
 import meteordevelopment.meteorclient.systems.modules.Category;
 import meteordevelopment.meteorclient.systems.modules.Modules;
-import net.fabricmc.loader.api.metadata.ModMetadata;
 import net.fabricmc.loader.api.FabricLoader;
+import net.fabricmc.loader.api.metadata.ModMetadata;
 import net.minecraft.item.Items;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.lang.invoke.MethodHandles;
-
 public class HIGTools extends MeteorAddon {
-    static ModMetadata metadata = FabricLoader.getInstance().getModContainer("higtools").get().getMetadata();
-    public static String VERSION = metadata.getVersion().toString();
+    static ModMetadata metadata = FabricLoader.getInstance().getModContainer("higtools").orElseThrow(() -> new RuntimeException("HIGTools mod container not found!")).getMetadata();
+    public static final String VERSION = metadata.getVersion().toString();
 	public static final Logger LOG = LoggerFactory.getLogger("HIGTools");
     public static final Category MAIN = new Category("HIG Tools", Items.NETHERITE_PICKAXE.getDefaultStack());
     public static final Category BORERS = new Category(" Borers ", Items.NETHERITE_PICKAXE.getDefaultStack());
@@ -39,7 +33,6 @@ public class HIGTools extends MeteorAddon {
 	public void onInitialize() {
         LOG.info("Initializing HIGTools %s".formatted(HIGTools.VERSION));
 
-        MeteorClient.EVENT_BUS.registerLambdaFactory("higtools", (lookupInMethod, klass) -> (MethodHandles.Lookup) lookupInMethod.invoke(null, klass, MethodHandles.lookup()));
         HIGUtils.setCs2Ps();
 
         // Modules

@@ -1,12 +1,17 @@
 package higtools.modules.main;
 
 import higtools.HIGTools;
-import meteordevelopment.meteorclient.settings.*;
+import meteordevelopment.meteorclient.settings.ColorSetting;
+import meteordevelopment.meteorclient.settings.Setting;
+import meteordevelopment.meteorclient.settings.SettingGroup;
+import meteordevelopment.meteorclient.settings.StringSetting;
 import meteordevelopment.meteorclient.systems.modules.Module;
 import meteordevelopment.meteorclient.utils.player.ChatUtils;
 import meteordevelopment.meteorclient.utils.render.color.SettingColor;
+import net.minecraft.text.MutableText;
+import net.minecraft.text.Text;
+import net.minecraft.text.TextColor;
 import net.minecraft.util.Formatting;
-import net.minecraft.text.*;
 
 public class ChatPrefix extends Module {
     private final SettingGroup sgGeneral = settings.getDefaultGroup();
@@ -39,10 +44,10 @@ public class ChatPrefix extends Module {
         MutableText value = Text.literal(prefix.get());
         MutableText prefix = Text.literal("");
         value.setStyle(value.getStyle().withColor(TextColor.fromRgb(prefixColors.get().getPacked())));
-        prefix.setStyle(prefix.getStyle().withFormatting(Formatting.GRAY));
-        prefix.append(Text.literal("["));
-        prefix.append(value);
-        prefix.append(Text.literal("] "));
+        prefix.setStyle(prefix.getStyle().withFormatting(Formatting.GRAY))
+            .append(Text.literal("["))
+            .append(value)
+            .append(Text.literal("] "));
         return prefix;
     }
 }
