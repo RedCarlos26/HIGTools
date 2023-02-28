@@ -338,21 +338,20 @@ public class HighwayBuilderPlus extends Module {
         for (MBlockPos pos : it) {
             posRender2.set(pos);
 
-            if (predicate.test(posRender2)) {
-                int excludeDir = 0;
+            if (!predicate.test(posRender2)) continue;
 
-                for (Direction side : Direction.values()) {
-                    posRender3.set(posRender2).add(side.getOffsetX(), side.getOffsetY(), side.getOffsetZ());
+            int excludeDir = 0;
+            for (Direction side : Direction.values()) {
+                posRender3.set(posRender2).add(side.getOffsetX(), side.getOffsetY(), side.getOffsetZ());
 
-                    it.save();
-                    for (MBlockPos p : it) {
-                        if (p.equals(posRender3) && predicate.test(p)) excludeDir |= Dir.get(side);
-                    }
-                    it.restore();
+                it.save();
+                for (MBlockPos p : it) {
+                    if (p.equals(posRender3) && predicate.test(p)) excludeDir |= Dir.get(side);
                 }
-
-                event.renderer.box(posRender2.getMcPos(), sideColor, lineColor, shapeMode, excludeDir);
+                it.restore();
             }
+
+            event.renderer.box(posRender2.getMcPos(), sideColor, lineColor, shapeMode, excludeDir);
         }
     }
 

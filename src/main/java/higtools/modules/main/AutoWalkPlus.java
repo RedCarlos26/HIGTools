@@ -126,12 +126,12 @@ public class AutoWalkPlus extends Module {
         }
 
         if (mode.get() == Mode.Simple) {
-            switch (direction.get()) {
-                case Forwards -> setPressed(mc.options.forwardKey, true);
-                case Backwards -> setPressed(mc.options.backKey, true);
-                case Left -> setPressed(mc.options.leftKey, true);
-                case Right -> setPressed(mc.options.rightKey, true);
-            }
+            setPressed(switch (direction.get()) {
+                case Forwards -> mc.options.forwardKey;
+                case Backwards -> mc.options.backKey;
+                case Left -> mc.options.leftKey;
+                case Right -> mc.options.rightKey;
+            }, true);
         } else {
             if (timer > 20) {
                 timer = 0;

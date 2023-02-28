@@ -100,8 +100,7 @@ public abstract class BorerModule extends Module {
     }
 
     @EventHandler
-    public void tick(TickEvent.Pre event) {
-    }
+    public abstract void tick(TickEvent.Pre event);
 
     protected void getBlacklistedBlockPoses() {
         blackList.clear();

@@ -172,17 +172,19 @@ public class BindsHud extends HudElement {
         Module module = modules.get(index);
         Color color = flatColor.get();
 
-        ColorMode colorMode = this.colorMode.get();
-        if (colorMode == ColorMode.Random) color = module.color;
-        else if (colorMode == ColorMode.Rainbow) {
-            rainbowHue2 += rainbowSpread.get();
-            int c = java.awt.Color.HSBtoRGB((float) rainbowHue2, 1, 1);
-
-            rainbow.r = Color.toRGBAR(c);
-            rainbow.g = Color.toRGBAG(c);
-            rainbow.b = Color.toRGBAB(c);
-
-            color = rainbow;
+        switch (colorMode.get()) {
+            case Random -> color = module.color;
+            case Rainbow -> {
+                rainbowHue2 += rainbowSpread.get();
+                int c = java.awt.Color.HSBtoRGB((float) rainbowHue2, 1, 1);
+                rainbow.r = Color.toRGBAR(c);
+                rainbow.g = Color.toRGBAG(c);
+                rainbow.b = Color.toRGBAB(c);
+                color = rainbow;
+            }
+            case Flat -> {
+                // No effects must be applied in flat mode
+            }
         }
 
         renderer.text(module.title, x, y, color, shadow.get());
@@ -210,7 +212,6 @@ public class BindsHud extends HudElement {
 
             if (index > 0) {
                 if (index < modules.size() - 1) {
-
                     renderer.quad(x - 2 - outlineWidth.get(), y, outlineWidth.get(), textHeight + 2, prevColor, prevColor, color, color); // Left quad
                     renderer.quad(x + textLength + 2, y, outlineWidth.get(), textHeight + 2, prevColor, prevColor, color, color); // Right quad
                 }
