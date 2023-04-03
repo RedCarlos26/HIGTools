@@ -24,7 +24,7 @@ public class ChatPrefix extends Module {
         .build()
     );
 
-    private final Setting<SettingColor> prefixColors = sgGeneral.add(new ColorSetting.Builder()
+    private final Setting<SettingColor> prefixColor = sgGeneral.add(new ColorSetting.Builder()
         .name("prefix-color")
         .description("Color display for the prefix.")
         .defaultValue(new SettingColor(145, 61, 226, 255))
@@ -54,7 +54,7 @@ public class ChatPrefix extends Module {
     public Text getPrefix() {
         MutableText value = Text.literal(prefix.get());
         MutableText prefix = Text.literal("");
-        value.setStyle(value.getStyle().withColor(TextColor.fromRgb(prefixColors.get().getPacked())));
+        value.setStyle(value.getStyle().withColor(TextColor.fromRgb(prefixColor.get().getPacked())));
         prefix.setStyle(prefix.getStyle().withFormatting(Formatting.GRAY))
             .append(Text.literal("["))
             .append(value)
