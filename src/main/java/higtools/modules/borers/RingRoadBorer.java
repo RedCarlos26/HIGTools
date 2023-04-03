@@ -4,6 +4,7 @@ import meteordevelopment.meteorclient.events.world.TickEvent;
 import meteordevelopment.orbit.EventHandler;
 import net.minecraft.util.Util;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.MathHelper;
 
 import java.util.stream.IntStream;
 
@@ -32,9 +33,9 @@ public class RingRoadBorer extends BorerModule {
         // previous floored block position of player
         BlockPos prevBlockPos = playerPos;
         playerPos = new BlockPos(
-            Math.floor(mc.player.getX()),
-            (int) (keepY.get() != -1 ? keepY.get() : Math.floor(mc.player.getY())),
-            Math.floor(mc.player.getZ()));
+            MathHelper.floor(mc.player.getX()),
+            keepY.get() != -1 ? keepY.get() : MathHelper.floor(mc.player.getY()),
+            MathHelper.floor(mc.player.getZ()));
 
         if (playerPos != prevBlockPos || Util.getMeasuringTimeMs() - this.lastUpdateTime > 800) {
             getBlacklistedBlockPoses();

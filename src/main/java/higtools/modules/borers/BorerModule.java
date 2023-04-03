@@ -119,10 +119,10 @@ public abstract class BorerModule extends Module {
             float g = MathHelper.cos(mc.player.getYaw() * 0.017453292f);
             IntStream.rangeClosed(-2, 5).forEach(i -> {
                 Vec3d pos = mc.player.getPos().add(-f * i, 20., g * i);
-                blackList.add(new BlockPos(pos));
-                blackList.add(left(new BlockPos(pos), 1));
-                blackList.add(left(new BlockPos(pos), 2));
-                blackList.add(right(new BlockPos(pos), 1));
+                blackList.add(BlockPos.ofFloored(pos));
+                blackList.add(left(BlockPos.ofFloored(pos), 1));
+                blackList.add(left(BlockPos.ofFloored(pos), 2));
+                blackList.add(right(BlockPos.ofFloored(pos), 1));
             });
         }
     }
@@ -176,8 +176,8 @@ public abstract class BorerModule extends Module {
             return;
         }
 
-        mc.getNetworkHandler().sendPacket(new PlayerActionC2SPacket(PlayerActionC2SPacket.Action.START_DESTROY_BLOCK, blockPos, Direction.UP));
-        mc.getNetworkHandler().sendPacket(new PlayerActionC2SPacket(PlayerActionC2SPacket.Action.STOP_DESTROY_BLOCK, blockPos, Direction.UP));
+        mc.player.networkHandler.sendPacket(new PlayerActionC2SPacket(PlayerActionC2SPacket.Action.START_DESTROY_BLOCK, blockPos, Direction.UP));
+        mc.player.networkHandler.sendPacket(new PlayerActionC2SPacket(PlayerActionC2SPacket.Action.STOP_DESTROY_BLOCK, blockPos, Direction.UP));
         packets += 2;
     }
 

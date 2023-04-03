@@ -107,7 +107,7 @@ public class AutoEatPlus extends Module {
     private void stopEating() {
         mc.options.useKey.setPressed(false);
         mc.player.stopUsingItem();
-        mc.getNetworkHandler().sendPacket(new PlayerActionC2SPacket(PlayerActionC2SPacket.Action.RELEASE_USE_ITEM, mc.player.getBlockPos(), Direction.DOWN));
+        mc.player.networkHandler.sendPacket(new PlayerActionC2SPacket(PlayerActionC2SPacket.Action.RELEASE_USE_ITEM, mc.player.getBlockPos(), Direction.DOWN));
         eating = false;
     }
 
