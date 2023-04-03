@@ -9,10 +9,7 @@ package higtools.modules.main;
 import baritone.api.BaritoneAPI;
 import higtools.HIGTools;
 import meteordevelopment.meteorclient.events.world.TickEvent;
-import meteordevelopment.meteorclient.settings.BoolSetting;
-import meteordevelopment.meteorclient.settings.EnumSetting;
-import meteordevelopment.meteorclient.settings.Setting;
-import meteordevelopment.meteorclient.settings.SettingGroup;
+import meteordevelopment.meteorclient.settings.*;
 import meteordevelopment.meteorclient.systems.modules.Module;
 import meteordevelopment.meteorclient.systems.modules.Modules;
 import meteordevelopment.meteorclient.utils.misc.input.Input;
@@ -21,7 +18,6 @@ import meteordevelopment.meteorclient.utils.player.InvUtils;
 import meteordevelopment.meteorclient.utils.world.GoalDirection;
 import meteordevelopment.meteorclient.utils.world.TickRate;
 import meteordevelopment.orbit.EventHandler;
-import meteordevelopment.orbit.EventPriority;
 import net.minecraft.client.option.KeyBinding;
 import net.minecraft.item.Items;
 
@@ -71,10 +67,13 @@ public class AutoWalkPlus extends Module {
             .build()
     );
 
-    private final Setting<Boolean> lagPause = sgGeneral.add(new BoolSetting.Builder()
-            .name("lag-pause")
-            .description("Whether to pause if the server is not responding.")
-            .defaultValue(true)
+    private final Setting<Integer> resumeTPS = sgGeneral.add(new IntSetting.Builder()
+            .name("resume-tps")
+            .description("TPS at which to resume walking.")
+            .defaultValue(18)
+            .range(1, 20)
+            .sliderRange(1, 20)
+            .visible(() -> mode.get() == Mode.Simple)
             .build()
     );
 
@@ -115,31 +114,35 @@ public class AutoWalkPlus extends Module {
         goal = null;
     }
 
-    @EventHandler(priority = EventPriority.HIGH)
+    @EventHandler
     private void onTick(TickEvent.Pre event) {
         float timeSinceLastTick = TickRate.INSTANCE.getTimeSinceLastTick();
-        if (timeSinceLastTick >= 1.5f && lagPause.get()) {
-            if (!sentMessage) error("Server is lagging, pausing AutoWalk+.");
+
+        if (timeSinceLastTick >= 1.4f) {
+            if (!sentMessage) error("Server is lagging, pausing.");
             sentMessage = true;
             unpress();
             return;
         }
 
-        if (mode.get() == Mode.Simple) {
+        float TPS = (TickRate.INSTANCE.getTickRate());
+        float i = (resumeTPS.get());
+
+        if (mode.get() == Mode.Simple && (TPS > i )) {
             switch (direction.get()) {
-                case Forwards -> setPressed(mc.options.forwardKey, true);
-                case Backwards -> setPressed(mc.options.backKey, true);
-                case Left -> setPressed(mc.options.leftKey, true);
-                case Right -> setPressed(mc.options.rightKey, true);
+                case Forwards -> { setPressed(mc.options.forwardKey, true); }
+                case Backwards -> { setPressed(mc.options.backKey, true); }
+                case Left -> { setPressed(mc.options.leftKey, true); }
+                case Right -> { setPressed(mc.options.rightKey, true); }
             }
-        } else {
+        } else if (mode.get() == Mode.Smart) {
             if (timer > 20) {
                 timer = 0;
                 goal.recalculate(mc.player.getPos());
             }
 
             timer++;
-        }
+        } else return;
         sentMessage = false;
 
         if (picktoggle.get()) {
