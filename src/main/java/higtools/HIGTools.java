@@ -24,13 +24,13 @@ import org.slf4j.LoggerFactory;
 public class HIGTools extends MeteorAddon {
     static ModMetadata metadata = FabricLoader.getInstance().getModContainer("higtools").orElseThrow(() -> new RuntimeException("HIGTools mod container not found!")).getMetadata();
     public static final String VERSION = metadata.getVersion().toString();
-	public static final Logger LOG = LoggerFactory.getLogger("HIGTools");
+    public static final Logger LOG = LoggerFactory.getLogger("HIGTools");
     public static final Category MAIN = new Category("HIG Tools", Items.NETHERITE_PICKAXE.getDefaultStack());
     public static final Category BORERS = new Category(" Borers ", Items.NETHERITE_PICKAXE.getDefaultStack());
     public static final HudGroup HUD = new HudGroup("HIG Tools");
 
-	@Override
-	public void onInitialize() {
+    @Override
+    public void onInitialize() {
         LOG.info("Initializing HIGTools %s".formatted(HIGTools.VERSION));
 
         HIGUtils.setCs2Ps();
@@ -72,7 +72,7 @@ public class HIGTools extends MeteorAddon {
         Hud hud = Systems.get(Hud.class);
         hud.register(BindsHud.INFO);
         hud.register(GreetingsHud.INFO);
-	}
+    }
 
     @Override
     public String getPackage() {

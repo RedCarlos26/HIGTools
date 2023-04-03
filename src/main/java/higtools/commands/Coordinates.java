@@ -10,7 +10,9 @@ import static com.mojang.brigadier.Command.SINGLE_SUCCESS;
 
 public class Coordinates extends Command {
 
-    public Coordinates() { super("coords", "Copies your coordinates to the clipboard."); }
+    public Coordinates() {
+        super("coords", "Copies your coordinates to the clipboard.");
+    }
 
     @Override
     public void build(LiteralArgumentBuilder<CommandSource> builder) {

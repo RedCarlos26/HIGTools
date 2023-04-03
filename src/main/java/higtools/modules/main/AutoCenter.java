@@ -20,7 +20,7 @@ public class AutoCenter extends Module {
         .defaultValue(1.0)
         .description("How much to compensate for the player's position")
         .range(-2.5, 2.5)
-        .sliderRange(-2.5,2.5)
+        .sliderRange(-2.5, 2.5)
         .build()
     );
 

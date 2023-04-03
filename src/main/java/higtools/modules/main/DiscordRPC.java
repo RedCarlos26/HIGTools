@@ -22,12 +22,7 @@ import meteordevelopment.starscript.Script;
 import meteordevelopment.starscript.compiler.Compiler;
 import meteordevelopment.starscript.compiler.Parser;
 import meteordevelopment.starscript.utils.StarscriptError;
-import net.minecraft.client.gui.screen.AddServerScreen;
-import net.minecraft.client.gui.screen.ConnectScreen;
-import net.minecraft.client.gui.screen.CreditsScreen;
-import net.minecraft.client.gui.screen.DirectConnectScreen;
-import net.minecraft.client.gui.screen.LevelLoadingScreen;
-import net.minecraft.client.gui.screen.TitleScreen;
+import net.minecraft.client.gui.screen.*;
 import net.minecraft.client.gui.screen.multiplayer.MultiplayerScreen;
 import net.minecraft.client.gui.screen.option.OptionsScreen;
 import net.minecraft.client.gui.screen.option.SimpleOptionsScreen;
@@ -53,52 +48,52 @@ public class DiscordRPC extends Module {
 
     // Line 1
     private final Setting<List<String>> line1Strings = sgLine1.add(new StringListSetting.Builder()
-            .name("line-1-messages")
-            .description("Messages used for the first line.")
-            .defaultValue("{server}")
-            .onChanged(strings -> recompileLine1())
-            .build()
+        .name("line-1-messages")
+        .description("Messages used for the first line.")
+        .defaultValue("{server}")
+        .onChanged(strings -> recompileLine1())
+        .build()
     );
 
     private final Setting<Integer> line1UpdateDelay = sgLine1.add(new IntSetting.Builder()
-            .name("line-1-update-delay")
-            .description("How fast to update the first line in ticks.")
-            .defaultValue(200)
-            .min(10)
-            .sliderRange(10, 200)
-            .build()
+        .name("line-1-update-delay")
+        .description("How fast to update the first line in ticks.")
+        .defaultValue(200)
+        .min(10)
+        .sliderRange(10, 200)
+        .build()
     );
 
     private final Setting<SelectMode> line1SelectMode = sgLine1.add(new EnumSetting.Builder<SelectMode>()
-            .name("line-1-select-mode")
-            .description("How to select messages for the first line.")
-            .defaultValue(SelectMode.Sequential)
-            .build()
+        .name("line-1-select-mode")
+        .description("How to select messages for the first line.")
+        .defaultValue(SelectMode.Sequential)
+        .build()
     );
 
     // Line 2
     private final Setting<List<String>> line2Strings = sgLine2.add(new StringListSetting.Builder()
-            .name("line-2-messages")
-            .description("Messages used for the second line.")
-            .defaultValue("{player}", "Working on highways", "{server.player_count} players online")
-            .onChanged(strings -> recompileLine2())
-            .build()
+        .name("line-2-messages")
+        .description("Messages used for the second line.")
+        .defaultValue("{player}", "Working on highways", "{server.player_count} players online")
+        .onChanged(strings -> recompileLine2())
+        .build()
     );
 
     private final Setting<Integer> line2UpdateDelay = sgLine2.add(new IntSetting.Builder()
-            .name("line-2-update-delay")
-            .description("How fast to update the second line in ticks.")
-            .defaultValue(70)
-            .min(10)
-            .sliderRange(10, 200)
-            .build()
+        .name("line-2-update-delay")
+        .description("How fast to update the second line in ticks.")
+        .defaultValue(70)
+        .min(10)
+        .sliderRange(10, 200)
+        .build()
     );
 
     private final Setting<SelectMode> line2SelectMode = sgLine2.add(new EnumSetting.Builder<SelectMode>()
-            .name("line-2-select-mode")
-            .description("How to select messages for the second line.")
-            .defaultValue(SelectMode.Sequential)
-            .build()
+        .name("line-2-select-mode")
+        .description("How to select messages for the second line.")
+        .defaultValue(SelectMode.Sequential)
+        .build()
     );
 
     public DiscordRPC() {

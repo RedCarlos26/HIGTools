@@ -1,11 +1,11 @@
 package higtools.modules.main;
 
 import higtools.HIGTools;
-import meteordevelopment.meteorclient.utils.player.PlayerUtils;
-import meteordevelopment.meteorclient.utils.render.color.SettingColor;
+import meteordevelopment.meteorclient.events.render.Render3DEvent;
 import meteordevelopment.meteorclient.settings.*;
 import meteordevelopment.meteorclient.systems.modules.Module;
-import meteordevelopment.meteorclient.events.render.Render3DEvent;
+import meteordevelopment.meteorclient.utils.player.PlayerUtils;
+import meteordevelopment.meteorclient.utils.render.color.SettingColor;
 import meteordevelopment.orbit.EventHandler;
 
 public class AxisViewer extends Module {
@@ -149,13 +149,13 @@ public class AxisViewer extends Module {
     private void onRender(Render3DEvent event) {
         if (mc.options.hudHidden) return;
         switch (PlayerUtils.getDimension()) {
-            case Overworld -> drawLines(event, overworld.get(), overAxis.get(), overDiag.get(), overY.get(),  overColor.get());
-            case Nether -> drawLines(event, nether.get(), netherAxis.get(), netherDiag.get(), netherY.get(),  netherColor.get());
-            case End -> drawLines(event, end.get(), endAxis.get(), endDiag.get(), endY.get(),  endColor.get());
+            case Overworld -> drawLines(event, overworld.get(), overAxis.get(), overDiag.get(), overY.get(), overColor.get());
+            case Nether -> drawLines(event, nether.get(), netherAxis.get(), netherDiag.get(), netherY.get(), netherColor.get());
+            case End -> drawLines(event, end.get(), endAxis.get(), endDiag.get(), endY.get(), endColor.get());
         }
     }
 
-    private void drawLines(Render3DEvent event, boolean dimension, boolean axis, boolean diag, int y,  SettingColor color) {
+    private void drawLines(Render3DEvent event, boolean dimension, boolean axis, boolean diag, int y, SettingColor color) {
         if (!dimension) return;
 
         if (axis) {

@@ -37,59 +37,59 @@ public class AutoWalkPlus extends Module {
     private final SettingGroup sgGeneral = settings.getDefaultGroup();
 
     private final Setting<Mode> mode = sgGeneral.add(new EnumSetting.Builder<Mode>()
-            .name("mode")
-            .description("Walking mode.")
-            .defaultValue(Mode.Simple)
-            .onChanged(mode1 -> {
-                if (isActive()) {
-                    if (mode1 == Mode.Simple) {
-                        BaritoneAPI.getProvider().getPrimaryBaritone().getPathingBehavior().cancelEverything();
-                        goal = null;
-                    } else {
-                        timer = 0;
-                        createGoal();
-                    }
-
-                    unpress();
+        .name("mode")
+        .description("Walking mode.")
+        .defaultValue(Mode.Simple)
+        .onChanged(mode1 -> {
+            if (isActive()) {
+                if (mode1 == Mode.Simple) {
+                    BaritoneAPI.getProvider().getPrimaryBaritone().getPathingBehavior().cancelEverything();
+                    goal = null;
+                } else {
+                    timer = 0;
+                    createGoal();
                 }
-            })
-            .build()
+
+                unpress();
+            }
+        })
+        .build()
     );
 
     private final Setting<Direction> direction = sgGeneral.add(new EnumSetting.Builder<Direction>()
-            .name("simple-direction")
-            .description("The direction to walk in simple mode.")
-            .defaultValue(Direction.Forwards)
-            .onChanged(direction1 -> {
-                if (isActive()) unpress();
-            })
-            .visible(() -> mode.get() == Mode.Simple)
-            .build()
+        .name("simple-direction")
+        .description("The direction to walk in simple mode.")
+        .defaultValue(Direction.Forwards)
+        .onChanged(direction1 -> {
+            if (isActive()) unpress();
+        })
+        .visible(() -> mode.get() == Mode.Simple)
+        .build()
     );
 
     private final Setting<Integer> resumeTPS = sgGeneral.add(new IntSetting.Builder()
-            .name("resume-tps")
-            .description("TPS at which to resume walking.")
-            .defaultValue(18)
-            .range(1, 20)
-            .sliderRange(1, 20)
-            .visible(() -> mode.get() == Mode.Simple)
-            .build()
+        .name("resume-tps")
+        .description("TPS at which to resume walking.")
+        .defaultValue(18)
+        .range(1, 20)
+        .sliderRange(1, 20)
+        .visible(() -> mode.get() == Mode.Simple)
+        .build()
     );
 
     public final Setting<Boolean> picktoggle = sgGeneral.add(new BoolSetting.Builder()
-            .name("pickaxe-toggle")
-            .description("Automatically disables AutoWalk+ when you run out of pickaxes.")
-            .defaultValue(true)
-            .build()
+        .name("pickaxe-toggle")
+        .description("Automatically disables AutoWalk+ when you run out of pickaxes.")
+        .defaultValue(true)
+        .build()
     );
 
     public final Setting<Boolean> highwaytools = sgGeneral.add(new BoolSetting.Builder()
-            .name("highway-tools-toggle")
-            .description("Automatically disables HighwayTools when you run out of pickaxes.")
-            .defaultValue(false)
-            .visible(picktoggle::get)
-            .build()
+        .name("highway-tools-toggle")
+        .description("Automatically disables HighwayTools when you run out of pickaxes.")
+        .defaultValue(false)
+        .visible(picktoggle::get)
+        .build()
     );
 
     private int timer = 0;
@@ -128,12 +128,20 @@ public class AutoWalkPlus extends Module {
         float TPS = (TickRate.INSTANCE.getTickRate());
         float i = (resumeTPS.get());
 
-        if (mode.get() == Mode.Simple && (TPS > i )) {
+        if (mode.get() == Mode.Simple && (TPS > i)) {
             switch (direction.get()) {
-                case Forwards -> { setPressed(mc.options.forwardKey, true); }
-                case Backwards -> { setPressed(mc.options.backKey, true); }
-                case Left -> { setPressed(mc.options.leftKey, true); }
-                case Right -> { setPressed(mc.options.rightKey, true); }
+                case Forwards -> {
+                    setPressed(mc.options.forwardKey, true);
+                }
+                case Backwards -> {
+                    setPressed(mc.options.backKey, true);
+                }
+                case Left -> {
+                    setPressed(mc.options.leftKey, true);
+                }
+                case Right -> {
+                    setPressed(mc.options.rightKey, true);
+                }
             }
         } else if (mode.get() == Mode.Smart) {
             if (timer > 20) {

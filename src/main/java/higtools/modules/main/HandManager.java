@@ -18,7 +18,7 @@ import meteordevelopment.meteorclient.systems.modules.combat.AutoTotem;
 import meteordevelopment.meteorclient.utils.player.FindItemResult;
 import meteordevelopment.meteorclient.utils.player.InvUtils;
 import meteordevelopment.orbit.EventHandler;
-import net.minecraft.item.*;
+import net.minecraft.item.Items;
 
 public class HandManager extends Module {
     private final SettingGroup sgGeneral = settings.getDefaultGroup();

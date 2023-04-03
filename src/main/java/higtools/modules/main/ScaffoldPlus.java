@@ -50,7 +50,7 @@ public class ScaffoldPlus extends Module {
         .description("Keeps the Y value of the block")
         .defaultValue(-1)
         .range(-1, 255)
-        .sliderRange(-1,255)
+        .sliderRange(-1, 255)
         .build()
     );
 

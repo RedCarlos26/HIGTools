@@ -1,7 +1,7 @@
 package higtools.modules.main;
 
-import meteordevelopment.meteorclient.events.packets.PacketEvent;
 import higtools.HIGTools;
+import meteordevelopment.meteorclient.events.packets.PacketEvent;
 import meteordevelopment.meteorclient.events.world.TickEvent;
 import meteordevelopment.meteorclient.settings.BoolSetting;
 import meteordevelopment.meteorclient.settings.IntSetting;
