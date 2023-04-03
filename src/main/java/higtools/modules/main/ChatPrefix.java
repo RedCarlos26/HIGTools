@@ -17,17 +17,18 @@ public class ChatPrefix extends Module {
     private final SettingGroup sgGeneral = settings.getDefaultGroup();
 
     private final Setting<String> prefix = sgGeneral.add(new StringSetting.Builder()
-            .name("prefix")
-            .description("What to be displayed as HighwayTools Prefix.")
-            .defaultValue("HighwayTools")
-            .build()
+        .name("prefix")
+        .description("What to be displayed as HighwayTools Prefix.")
+        .defaultValue("HighwayTools")
+        .onChanged(reload -> setPrefixes())
+        .build()
     );
 
     private final Setting<SettingColor> prefixColors = sgGeneral.add(new ColorSetting.Builder()
-            .name("prefix-color")
-            .description("Color display for the prefix.")
-            .defaultValue(new SettingColor(145, 61, 226, 255))
-            .build()
+        .name("prefix-color")
+        .description("Color display for the prefix.")
+        .defaultValue(new SettingColor(145, 61, 226, 255))
+        .build()
     );
 
     public ChatPrefix() {
@@ -35,10 +36,20 @@ public class ChatPrefix extends Module {
     }
 
     @Override
-    public void onActivate() {ChatUtils.registerCustomPrefix("highwaytools.modules", this::getPrefix);}
+    public void onActivate() {
+        setPrefixes();
+    }
 
     @Override
-    public void onDeactivate() {ChatUtils.unregisterCustomPrefix("highwaytools.modules");}
+    public void onDeactivate() {
+        ChatUtils.unregisterCustomPrefix("higtools.modules");
+    }
+
+    public void setPrefixes() {
+        if (isActive()) {
+            ChatUtils.registerCustomPrefix("higtools.modules", this::getPrefix);
+        }
+    }
 
     public Text getPrefix() {
         MutableText value = Text.literal(prefix.get());
