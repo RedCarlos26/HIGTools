@@ -38,8 +38,8 @@ import net.minecraft.item.BlockItem;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
-import net.minecraft.text.Text;
 import net.minecraft.text.MutableText;
+import net.minecraft.text.Text;
 import net.minecraft.util.Formatting;
 import net.minecraft.util.Hand;
 import net.minecraft.util.math.BlockPos;
@@ -298,14 +298,6 @@ public class HighwayBuilderPlus extends Module {
             return;
         }
 
-        if (width.get() == 5) {
-            errorEarly("5 blocks large highways are not supported, disabling HighwayTools & HighwayBuilder.");
-            if (Modules.get().get(higtools.modules.main.HighwayTools.class).isActive()) {
-                Modules.get().get(higtools.modules.main.HighwayTools.class).toggle();
-            }
-            return;
-        }
-
         if (Modules.get().get(AutoEat.class).eating) return;
         if (Modules.get().get(AutoGap.class).isEating()) return;
         if (Modules.get().get(AutoEatPlus.class).isEating()) return;
@@ -418,8 +410,7 @@ public class HighwayBuilderPlus extends Module {
                 if (isX && isZ) {
                     b.mc.player.setPosition((int) b.mc.player.getX() + (b.mc.player.getX() < 0 ? -0.5 : 0.5), b.mc.player.getY(), (int) b.mc.player.getZ() + (b.mc.player.getZ() < 0 ? -0.5 : 0.5));
                     b.setState(b.lastState);
-                }
-                else {
+                } else {
                     b.mc.player.setYaw(0);
 
                     if (!isZ) {
@@ -533,7 +524,7 @@ public class HighwayBuilderPlus extends Module {
 
         ThrowOutTrash {
             private int skipSlot;
-            private boolean timerEnabled, firstTick;
+            private boolean timerEnabled,firstTick;
             private int timer;
 
             @Override
@@ -621,12 +612,10 @@ public class HighwayBuilderPlus extends Module {
                 if (b.lastState != Center && b.lastState != ThrowOutTrash && b.lastState != PlaceEChestBlockade) {
                     b.setState(Center);
                     return;
-                }
-                else if (b.lastState == Center) {
+                } else if (b.lastState == Center) {
                     b.setState(ThrowOutTrash);
                     return;
-                }
-                else if (b.lastState == ThrowOutTrash) {
+                } else if (b.lastState == ThrowOutTrash) {
                     b.setState(PlaceEChestBlockade);
                     return;
                 }
@@ -703,8 +692,7 @@ public class HighwayBuilderPlus extends Module {
 
                     InvUtils.swap(slot, false);
                     BlockUtils.breakBlock(pos.getMcPos(), true);
-                }
-                else {
+                } else {
                     // Place ender chest
                     int slot = findAndMoveToHotbar(b, itemStack -> itemStack.getItem() == Items.ENDER_CHEST, false);
                     if (slot == -1) {
@@ -761,6 +749,7 @@ public class HighwayBuilderPlus extends Module {
                 b.lastState = lastState;
             }
         }
+
         protected void mine(HighwayBuilderPlus b, MBPIterator it, boolean ignoreBlocksToPlace) {
             mine(b, it, ignoreBlocksToPlace, Forward, b.state);
         }
@@ -910,8 +899,7 @@ public class HighwayBuilderPlus extends Module {
             if (slot == -1) {
                 if (!b.mineEnderChests.get()) {
                     b.error("Out of blocks to place.");
-                }
-                else {
+                } else {
                     if (hasItem(b, Items.ENDER_CHEST)) b.setState(MineEnderChests);
                     else b.error("Out of blocks to place.");
                 }
@@ -1309,8 +1297,11 @@ public class HighwayBuilderPlus extends Module {
                 }
 
                 private void initPos() {
-                    if (i == 0) pos.set(mc.player).add(0, -1, 0).offset(dir.rotateLeft()).offset(leftDir, getWidthLeft() - 1);
-                    else pos.set(mc.player).add(0, -1, 0).offset(dir).offset(leftDir, getWidthLeft());
+                    if (i == 0) {
+                        pos.set(mc.player).add(0, -1, 0).offset(dir.rotateLeft()).offset(leftDir, getWidthLeft() - 1);
+                    } else {
+                        pos.set(mc.player).add(0, -1, 0).offset(dir).offset(leftDir, getWidthLeft());
+                    }
                 }
 
                 @Override
@@ -1399,7 +1390,7 @@ public class HighwayBuilderPlus extends Module {
 
                 @Override
                 public boolean hasNext() {
-                    if (m && i == 1 && y == height.get() &&  w == getWidth() - 1) return false;
+                    if (m && i == 1 && y == height.get() && w == getWidth() - 1) return false;
                     return i < 2 && w < getWidth() && y < height.get() + 1;
                 }
 
