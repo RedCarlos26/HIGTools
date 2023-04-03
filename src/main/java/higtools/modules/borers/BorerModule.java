@@ -70,7 +70,8 @@ public abstract class BorerModule extends Module {
             .description("How many blocks to dig forwards.")
             .defaultValue(extForwards)
             .range(1, 6)
-            .build());
+            .build()
+        );
 
         extBackward = sgGeneral.add(new IntSetting.Builder()
             .name("ExtBackward")
