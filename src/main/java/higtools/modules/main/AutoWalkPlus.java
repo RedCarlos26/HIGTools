@@ -125,6 +125,16 @@ public class AutoWalkPlus extends Module {
             return;
         }
 
+
+        if (mode.get() == Mode.Simple) {
+            setPressed(switch (direction.get()) {
+                case Forwards -> mc.options.forwardKey;
+                case Backwards -> mc.options.backKey;
+                case Left -> mc.options.leftKey;
+                case Right -> mc.options.rightKey;
+            }, true);
+        } else {
+
         float TPS = (TickRate.INSTANCE.getTickRate());
         float i = (resumeTPS.get());
 
@@ -156,13 +166,10 @@ public class AutoWalkPlus extends Module {
 
         if (highwaytools.get()) {
             FindItemResult pickaxe = InvUtils.find(itemStack -> itemStack.getItem() == Items.DIAMOND_PICKAXE || itemStack.getItem() == Items.NETHERITE_PICKAXE);
-            if (!pickaxe.found()) {
-                if (Modules.get().isActive(higtools.modules.main.HighwayTools.class)) {
-                    Modules.get().get(higtools.modules.main.HighwayTools.class).toggle();
-                    error("No pickaxe found, disabling HighwayTools.");
-                    toggle();
-                }
-            }
+            if (pickaxe.found() || !Modules.get().isActive(HighwayTools.class)) return;
+            Modules.get().get(HighwayTools.class).toggle();
+            error("No pickaxe found, disabling HighwayTools.");
+            toggle();
         }
     }
 

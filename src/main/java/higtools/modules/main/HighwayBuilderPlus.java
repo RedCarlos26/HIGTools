@@ -64,7 +64,8 @@ public class HighwayBuilderPlus extends Module {
         Place(false, true),
         Both(true, true);
 
-        public boolean mine, place;
+        public final boolean mine;
+        public final boolean place;
 
         Rotation(boolean mine, boolean place) {
             this.mine = mine;
@@ -228,8 +229,8 @@ public class HighwayBuilderPlus extends Module {
     private State state, lastState;
     private IBlockPosProvider blockPosProvider;
 
-    public Vec3d start;
-    public int blocksBroken, blocksPlaced;
+    private Vec3d start;
+    private int blocksBroken, blocksPlaced;
     private final MBlockPos lastBreakingPos = new MBlockPos();
     private boolean displayInfo;
 
@@ -277,9 +278,7 @@ public class HighwayBuilderPlus extends Module {
         super.error(message, args);
         toggle();
 
-        if (disconnectOnToggle.get()) {
-            disconnect(message, args);
-        }
+        if (disconnectOnToggle.get()) disconnect(message, args);
     }
 
     private void errorEarly(String message, Object... args) {
@@ -309,7 +308,7 @@ public class HighwayBuilderPlus extends Module {
 
         if (Modules.get().get(AutoEat.class).eating) return;
         if (Modules.get().get(AutoGap.class).isEating()) return;
-        if (Modules.get().get(higtools.modules.kmain.AutoEatPlus.class).getEating()) return;
+        if (Modules.get().get(AutoEatPlus.class).isEating()) return;
 
         state.tick(this);
     }
@@ -339,21 +338,20 @@ public class HighwayBuilderPlus extends Module {
         for (MBlockPos pos : it) {
             posRender2.set(pos);
 
-            if (predicate.test(posRender2)) {
-                int excludeDir = 0;
+            if (!predicate.test(posRender2)) continue;
 
-                for (Direction side : Direction.values()) {
-                    posRender3.set(posRender2).add(side.getOffsetX(), side.getOffsetY(), side.getOffsetZ());
+            int excludeDir = 0;
+            for (Direction side : Direction.values()) {
+                posRender3.set(posRender2).add(side.getOffsetX(), side.getOffsetY(), side.getOffsetZ());
 
-                    it.save();
-                    for (MBlockPos p : it) {
-                        if (p.equals(posRender3) && predicate.test(p)) excludeDir |= Dir.get(side);
-                    }
-                    it.restore();
+                it.save();
+                for (MBlockPos p : it) {
+                    if (p.equals(posRender3) && predicate.test(p)) excludeDir |= Dir.get(side);
                 }
-
-                event.renderer.box(posRender2.getMcPos(), sideColor, lineColor, shapeMode, excludeDir);
+                it.restore();
             }
+
+            event.renderer.box(posRender2.getMcPos(), sideColor, lineColor, shapeMode, excludeDir);
         }
     }
 
@@ -367,19 +365,18 @@ public class HighwayBuilderPlus extends Module {
 
     private int getWidthLeft() {
         return switch (width.get()) {
-            default -> 0;
             case 2, 3 -> 1;
             case 4, 5 -> 2;
             case 6 -> 3;
+            default -> 0;
         };
     }
 
     private int getWidthRight() {
         return switch (width.get()) {
-            default -> 0;
             case 3, 4 -> 1;
-            case 5 -> 2;
-            case 6 -> 2;
+            case 5, 6 -> 2;
+            default -> 0;
         };
     }
 
@@ -393,16 +390,16 @@ public class HighwayBuilderPlus extends Module {
     }
 
     private void disconnect(String message, Object... args) {
-        MutableText text = Text.literal(String.format("%s[%s%s%s] %s", Formatting.GRAY, Formatting.BLUE, title, Formatting.GRAY, Formatting.RED) + String.format(message, args)).append("\n");
+        MutableText text = Text.literal("%s[%s%s%s] %s".formatted(Formatting.GRAY, Formatting.BLUE, title, Formatting.GRAY, Formatting.RED) + String.format(message, args)).append("\n");
         text.append(getStatsText());
 
         mc.getNetworkHandler().getConnection().disconnect(text);
     }
 
     public MutableText getStatsText() {
-        MutableText text = Text.literal(String.format("%sDistance: %s%.0f\n", Formatting.GRAY, Formatting.WHITE, mc.player.getPos().distanceTo(start)));
-        text.append(String.format("%sBlocks broken: %s%d\n", Formatting.GRAY, Formatting.WHITE, blocksBroken));
-        text.append(String.format("%sBlocks placed: %s%d", Formatting.GRAY, Formatting.WHITE, blocksPlaced));
+        MutableText text = Text.literal("%sDistance: %s%.0f\n".formatted(Formatting.GRAY, Formatting.WHITE, mc.player.getPos().distanceTo(start)));
+        text.append("%sBlocks broken: %s%d\n".formatted(Formatting.GRAY, Formatting.WHITE, blocksBroken));
+        text.append("%sBlocks placed: %s%d".formatted(Formatting.GRAY, Formatting.WHITE, blocksPlaced));
 
         return text;
     }
@@ -735,7 +732,8 @@ public class HighwayBuilderPlus extends Module {
 
             for (MBlockPos pos : it) {
                 BlockState state = pos.getState();
-                if (state.isAir() || (!ignoreBlocksToPlace && b.blocksToPlace.get().contains(state.getBlock()))) continue;
+                if (state.isAir() || (!ignoreBlocksToPlace && b.blocksToPlace.get().contains(state.getBlock())))
+                    continue;
 
                 int slot = findAndMoveBestToolToHotbar(b, state, false, true);
                 if (slot == -1) return;
@@ -743,19 +741,19 @@ public class HighwayBuilderPlus extends Module {
                 InvUtils.swap(slot, false);
 
                 BlockPos mcPos = pos.getMcPos();
-                if (BlockUtils.canBreak(mcPos)) {
-                    if (b.rotation.get().mine) Rotations.rotate(Rotations.getYaw(mcPos), Rotations.getPitch(mcPos), () -> BlockUtils.breakBlock(pos.getMcPos(), true));
-                    else BlockUtils.breakBlock(mcPos, true);
+                if (!BlockUtils.canBreak(mcPos)) continue;
+                if (b.rotation.get().mine)
+                    Rotations.rotate(Rotations.getYaw(mcPos), Rotations.getPitch(mcPos), () -> BlockUtils.breakBlock(pos.getMcPos(), true));
+                else BlockUtils.breakBlock(mcPos, true);
 
-                    breaking = true;
+                breaking = true;
 
-                    if (!b.lastBreakingPos.equals(pos)) {
-                        b.lastBreakingPos.set(pos);
-                        b.blocksBroken++;
-                    }
-
-                    break;
+                if (!b.lastBreakingPos.equals(pos)) {
+                    b.lastBreakingPos.set(pos);
+                    b.blocksBroken++;
                 }
+
+                break;
             }
 
             if (!breaking) {
@@ -1179,9 +1177,9 @@ public class HighwayBuilderPlus extends Module {
 
                     return switch (i) {
                         case -1 -> pos;
-                        default -> pos.offset(dir.opposite());
                         case 1 -> pos.offset(leftDir);
                         case 2 -> pos.offset(rightDir);
+                        default -> pos.offset(dir.opposite());
                     };
                 }
 
@@ -1472,9 +1470,9 @@ public class HighwayBuilderPlus extends Module {
 
                     return switch (i) {
                         case -1 -> pos;
-                        default -> pos.offset(dir2);
                         case 1 -> pos.offset(dir2.rotateLeftSkipOne());
                         case 2 -> pos.offset(dir2.rotateLeftSkipOne().opposite());
+                        default -> pos.offset(dir2);
                     };
                 }
 
