@@ -18,8 +18,8 @@ public class ChatPrefix extends Module {
 
     private final Setting<String> prefix = sgGeneral.add(new StringSetting.Builder()
         .name("prefix")
-        .description("What to be displayed as HighwayTools Prefix.")
-        .defaultValue("HighwayTools")
+        .description("What to be displayed as HIGTools Prefix.")
+        .defaultValue("HIGTools")
         .onChanged(reload -> setPrefixes())
         .build()
     );
