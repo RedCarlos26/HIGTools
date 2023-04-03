@@ -125,16 +125,6 @@ public class AutoWalkPlus extends Module {
             return;
         }
 
-
-        if (mode.get() == Mode.Simple) {
-            setPressed(switch (direction.get()) {
-                case Forwards -> mc.options.forwardKey;
-                case Backwards -> mc.options.backKey;
-                case Left -> mc.options.leftKey;
-                case Right -> mc.options.rightKey;
-            }, true);
-        } else {
-
         float TPS = (TickRate.INSTANCE.getTickRate());
         float i = (resumeTPS.get());
 
