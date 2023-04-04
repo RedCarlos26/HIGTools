@@ -16,9 +16,9 @@ public class AutoCenter extends Module {
     private final SettingGroup sgGeneral = settings.getDefaultGroup();
 
     private final Setting<Double> comp = sgGeneral.add(new DoubleSetting.Builder()
-        .name("compensation")
+        .name("offset")
         .defaultValue(1.0)
-        .description("How much to compensate for the player's position.")
+        .description("How much to offset the player's position.")
         .range(-2.5, 2.5)
         .sliderRange(-2.5, 2.5)
         .build()
