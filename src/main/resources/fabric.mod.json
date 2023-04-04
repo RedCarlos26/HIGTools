@@ -2,7 +2,7 @@
   "schemaVersion": 1,
   "id": "higtools",
   "version": "2.3",
-  "name": "HIG Tools",
+  "name": "HIGTools",
   "description": "Highway Tools for Meteor Client.",
   "authors": [
     "RedCarlos26",
