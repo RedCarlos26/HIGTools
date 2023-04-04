@@ -45,7 +45,7 @@ public class HIGTools extends MeteorAddon {
         modules.add(new AutoEatPlus());
         modules.add(new AutoWalkPlus());
         modules.add(new AxisViewer());
-        modules.add(new ChatPrefix());
+        modules.add(new HIGPrefix());
         modules.add(new DiscordRPC());
         modules.add(new HandManager());
         modules.add(new HighwayBuilderPlus());

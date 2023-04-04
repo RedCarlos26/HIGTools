@@ -23,31 +23,32 @@ public class ScaffoldPlus extends Module {
     private final SettingGroup sgGeneral = settings.getDefaultGroup();
 
     private final Setting<Integer> ext = sgGeneral.add(new IntSetting.Builder()
-        .name("Extend")
-        .description("How much to place in front of you")
+        .name("extend")
+        .description("How much to place in front of you.")
         .defaultValue(1)
         .range(0, 5)
         .build()
     );
 
     private final Setting<Boolean> tower = sgGeneral.add(new BoolSetting.Builder()
-        .name("Tower")
-        .description("Makes towering easier")
+        .name("tower")
+        .description("Makes towering easier.")
         .defaultValue(false)
         .build()
     );
 
     private final Setting<Double> towerMult = sgGeneral.add(new DoubleSetting.Builder()
-        .name("Multi")
+        .name("multi")
         .description("Makes tower potentially bypass stricter anti-cheats.")
         .defaultValue(0.7454)
         .range(0.0, 2.0)
+        .visible(tower::get)
         .build()
     );
 
     private final Setting<Integer> keepY = sgGeneral.add(new IntSetting.Builder()
-        .name("KeepY")
-        .description("Keeps the Y value of the block")
+        .name("keepY")
+        .description("Keeps the Y value of the block.")
         .defaultValue(-1)
         .range(-1, 255)
         .sliderRange(-1, 255)
@@ -55,7 +56,7 @@ public class ScaffoldPlus extends Module {
     );
 
     public ScaffoldPlus() {
-        super(HIGTools.MAIN, "Scaffold+", "Scaffolds blocks under you.");
+        super(HIGTools.MAIN, "scaffold+", "Scaffolds blocks under you.");
     }
 
     @EventHandler

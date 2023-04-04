@@ -26,7 +26,7 @@ public class InvManager extends Module {
     private final SettingGroup slotsGroup = settings.createGroup("Slots", false);
 
     private final Setting<String> slot0 = slotsGroup.add(new StringSetting.Builder()
-        .name("Slot0")
+        .name("slot0")
         .defaultValue("")
         .visible(() -> false)
         .onChanged(cur -> {
@@ -37,7 +37,7 @@ public class InvManager extends Module {
     );
 
     private final Setting<String> slot1 = slotsGroup.add(new StringSetting.Builder()
-        .name("Slot1")
+        .name("slot1")
         .defaultValue("")
         .visible(() -> false)
         .onChanged(cur -> {
@@ -48,7 +48,7 @@ public class InvManager extends Module {
     );
 
     private final Setting<String> slot2 = slotsGroup.add(new StringSetting.Builder()
-        .name("Slot2")
+        .name("slot2")
         .defaultValue("")
         .visible(() -> false)
         .onChanged(cur -> {
@@ -58,7 +58,7 @@ public class InvManager extends Module {
         .build()
     );
     private final Setting<String> slot3 = slotsGroup.add(new StringSetting.Builder()
-        .name("Slot3")
+        .name("slot3")
         .defaultValue("")
         .visible(() -> false)
         .onChanged(cur -> {
@@ -68,7 +68,7 @@ public class InvManager extends Module {
         .build()
     );
     private final Setting<String> slot4 = slotsGroup.add(new StringSetting.Builder()
-        .name("Slot4")
+        .name("slot4")
         .defaultValue("")
         .visible(() -> false)
         .onChanged(cur -> {
@@ -78,7 +78,7 @@ public class InvManager extends Module {
         .build()
     );
     private final Setting<String> slot5 = slotsGroup.add(new StringSetting.Builder()
-        .name("Slot5")
+        .name("slot5")
         .defaultValue("")
         .visible(() -> false)
         .onChanged(cur -> {
@@ -88,7 +88,7 @@ public class InvManager extends Module {
         .build()
     );
     private final Setting<String> slot6 = slotsGroup.add(new StringSetting.Builder()
-        .name("Slot6")
+        .name("slot6")
         .defaultValue("")
         .visible(() -> false)
         .onChanged(cur -> {
@@ -98,7 +98,7 @@ public class InvManager extends Module {
         .build()
     );
     private final Setting<String> slot7 = slotsGroup.add(new StringSetting.Builder()
-        .name("Slot7")
+        .name("slot7")
         .defaultValue("")
         .visible(() -> false)
         .onChanged(cur -> {
@@ -108,7 +108,7 @@ public class InvManager extends Module {
         .build()
     );
     private final Setting<String> slot8 = slotsGroup.add(new StringSetting.Builder()
-        .name("Slot8")
+        .name("slot8")
         .defaultValue("")
         .visible(() -> false)
         .onChanged(cur -> {
@@ -119,7 +119,7 @@ public class InvManager extends Module {
     );
 
     private final Setting<Integer> delay = sgGeneral.add(new IntSetting.Builder()
-        .name("Delay")
+        .name("delay")
         .description("Delay in ticks between moving items.")
         .defaultValue(1)
         .range(1, 35)
@@ -128,7 +128,7 @@ public class InvManager extends Module {
     );
 
     private final Setting<Boolean> reset = sgGeneral.add(new BoolSetting.Builder()
-        .name("Reset")
+        .name("reset")
         .description("Toggle this to reset, too lazy to make proper thing.")
         .defaultValue(false)
         .visible(() -> true)
@@ -137,7 +137,7 @@ public class InvManager extends Module {
     );
 
     private final Setting<Boolean> save = sgGeneral.add(new BoolSetting.Builder()
-        .name("Save")
+        .name("save")
         .description("Toggle this to save, too lazy to make proper thing.")
         .defaultValue(true)
         .visible(() -> true)

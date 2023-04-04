@@ -28,7 +28,7 @@ public class AutoEatPlus extends Module {
     private final SettingGroup sgGeneral = settings.getDefaultGroup();
 
     private final Setting<Integer> hunger = sgGeneral.add(new IntSetting.Builder()
-        .name("Hunger")
+        .name("hunger")
         .description("Hunger to eat at.")
         .defaultValue(16)
         .range(1, 19)
@@ -37,21 +37,21 @@ public class AutoEatPlus extends Module {
     );
 
     private final Setting<Boolean> autoGap = sgGeneral.add(new BoolSetting.Builder()
-        .name("AutoGap")
+        .name("auto-gap")
         .description("Gap when no fire resistance effect.")
         .defaultValue(true)
         .build()
     );
 
     private final Setting<Boolean> offhand = sgGeneral.add(new BoolSetting.Builder()
-        .name("Offhand")
+        .name("offhand")
         .description("Eat if food is in offhand.")
         .defaultValue(true)
         .build()
     );
 
     public AutoEatPlus() {
-        super(HIGTools.MAIN, "AutoEat+", "Automatically eats the chosen food.");
+        super(HIGTools.MAIN, "auto-eat+", "Automatically eats the chosen food.");
     }
 
     @EventHandler

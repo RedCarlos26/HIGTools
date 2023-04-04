@@ -5,7 +5,7 @@ import meteordevelopment.meteorclient.systems.modules.Module;
 
 public class NoCaveCulling extends Module {
     public NoCaveCulling() {
-        super(HIGTools.MAIN, "NoCaveCulling", "Disables Minecraft's cave culling algorithm.");
+        super(HIGTools.MAIN, "no-cave-culling", "Disables Minecraft's cave culling algorithm.");
     }
 
     @Override
