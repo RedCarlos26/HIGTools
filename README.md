@@ -27,6 +27,7 @@
 - AutoCenter
 - AutoEat+
 - AutoWalk+
+- AxisViewer
 - DiscordRPC
 - InvManager
 - HIGPrefix
