@@ -385,7 +385,7 @@ public class HighwayBuilderPlus extends Module {
         MutableText text = Text.literal("%s[%s%s%s] %s".formatted(Formatting.GRAY, Formatting.BLUE, title, Formatting.GRAY, Formatting.RED) + String.format(message, args)).append("\n");
         text.append(getStatsText());
 
-        mc.getNetworkHandler().getConnection().disconnect(text);
+        mc.player.networkHandler.getConnection().disconnect(text);
     }
 
     public MutableText getStatsText() {

@@ -69,13 +69,13 @@ public class ScaffoldPlus extends Module {
             // loop body
             Vec3d pos = mc.player.getPos().add(-f * i, -1.0, g * i);
             if (keepY.get() != -1) ((IVec3d) pos).setY(keepY.get() - 1.0);
-            BlockPos bpos = new BlockPos(pos);
+            BlockPos bpos = BlockPos.ofFloored(pos);
             if (!mc.world.getBlockState(bpos).getMaterial().isReplaceable()) {
                 worked = false;
                 continue;
             }
-
             worked = true;
+
             boolean offHand = mc.player.getOffHandStack().getItem() instanceof BlockItem;
             boolean mainHand = mc.player.getMainHandStack().getItem() instanceof BlockItem;
             if (!offHand && !mainHand) {
@@ -87,7 +87,7 @@ public class ScaffoldPlus extends Module {
                 }
                 if (slot == -1) return;
                 mc.player.getInventory().selectedSlot = slot;
-                mc.getNetworkHandler().sendPacket(new UpdateSelectedSlotC2SPacket(slot));
+                mc.player.networkHandler.sendPacket(new UpdateSelectedSlotC2SPacket(slot));
             }
 
             if (tower.get() && mc.options.jumpKey.isPressed() && mc.player.getVelocity().x == 0.0 && mc.player.getVelocity().z == 0.0) {
@@ -100,7 +100,7 @@ public class ScaffoldPlus extends Module {
                 }
             }
 
-            mc.getNetworkHandler().sendPacket(
+            mc.player.networkHandler.sendPacket(
                 new PlayerInteractBlockC2SPacket(
                     offHand ? Hand.OFF_HAND : Hand.MAIN_HAND,
                     new BlockHitResult(pos, Direction.DOWN, bpos, false),
@@ -112,7 +112,7 @@ public class ScaffoldPlus extends Module {
 
         if (mc.player.getInventory().selectedSlot != prevSlot) {
             mc.player.getInventory().selectedSlot = prevSlot;
-            mc.getNetworkHandler().sendPacket(new UpdateSelectedSlotC2SPacket(prevSlot));
+            mc.player.networkHandler.sendPacket(new UpdateSelectedSlotC2SPacket(prevSlot));
         }
     }
 
