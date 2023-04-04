@@ -16,24 +16,24 @@ public class AutoCenter extends Module {
     private final SettingGroup sgGeneral = settings.getDefaultGroup();
 
     private final Setting<Double> comp = sgGeneral.add(new DoubleSetting.Builder()
-        .name("Compensation")
+        .name("offset")
         .defaultValue(1.0)
-        .description("How much to compensate for the player's position")
+        .description("How much to offset the player's position.")
         .range(-2.5, 2.5)
         .sliderRange(-2.5, 2.5)
         .build()
     );
 
     private final Setting<Double> maxSpeed = sgGeneral.add(new DoubleSetting.Builder()
-        .name("MaxSpeed")
+        .name("max-speed")
         .defaultValue(0.1)
-        .description("How fast to try to get you on axis")
+        .description("How fast to try to get you on axis.")
         .range(0.01, 0.5)
         .build()
     );
 
     public AutoCenter() {
-        super(HIGTools.MAIN, "AutoCenter", "Automatically centers the player so that NetherBorer mines on axis.");
+        super(HIGTools.MAIN, "auto-center", "Automatically centers the player so that NetherBorer mines on axis.");
     }
 
     @Override
