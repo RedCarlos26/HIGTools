@@ -10,11 +10,11 @@
   ],
   "contact": {
     "homepage": "https://discord.gg/a4jkKGJNdJ",
-    "repo": "https://github.com/RedCarlos26/HIGTools",
     "issues": "https://github.com/RedCarlos26/HIGTools/issues",
     "sources": "https://github.com/RedCarlos26/HIGTools",
     "discord": "https://discord.gg/a4jkKGJNdJ"
   },
+  "license": "GPL-3.0",
   "icon": "assets/higtools/icon.png",
   "environment": "client",
   "entrypoints": {
@@ -25,8 +25,14 @@
   "mixins": [
     "higtools.mixins.json"
   ],
+  "accessWidener": "higtools.accesswidener",
   "custom": {
-    "meteor-client:color": "145,61,226"
+    "meteor-client:color": "145,61,226",
+    "modmenu": {
+      "links": {
+        "modmenu.discord": "https://discord.gg/a4jkKGJNdJ"
+      }
+    }
   },
   "depends": {
     "java": ">=17",
