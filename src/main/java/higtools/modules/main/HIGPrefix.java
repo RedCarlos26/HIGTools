@@ -18,21 +18,21 @@ public class HIGPrefix extends Module {
 
     private final Setting<String> prefix = sgGeneral.add(new StringSetting.Builder()
         .name("prefix")
-        .description("What to be displayed as HIGTools Prefix.")
+        .description("Which prefix to be displayed for HIGTools modules.")
         .defaultValue("HIGTools")
         .onChanged(reload -> setPrefixes())
         .build()
     );
 
     private final Setting<SettingColor> prefixColor = sgGeneral.add(new ColorSetting.Builder()
-        .name("prefix-color")
-        .description("Color display for the prefix.")
+        .name("color")
+        .description("Which color to use for the prefix.")
         .defaultValue(new SettingColor(145, 61, 226, 255))
         .build()
     );
 
     public HIGPrefix() {
-        super(HIGTools.MAIN, "HIG-prefix", "Set a prefix for the HighwayTools modules toggles.");
+        super(HIGTools.MAIN, "HIG-prefix", "Set a prefix for the HIGTools modules toggles.");
     }
 
     @Override

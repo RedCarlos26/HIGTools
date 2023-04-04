@@ -31,7 +31,7 @@ public class InvManager extends Module {
         .visible(() -> false)
         .onChanged(cur -> {
             itemIds[0] = new Identifier(cur);
-            System.out.printf("<HighwayTools/InvManager> Loaded %s into slot0\n", itemIds[0]);
+            System.out.printf("<HIGTools/InvManager> Loaded %s into slot0\n", itemIds[0]);
         })
         .build()
     );
@@ -42,7 +42,7 @@ public class InvManager extends Module {
         .visible(() -> false)
         .onChanged(cur -> {
             itemIds[1] = new Identifier(cur);
-            System.out.printf("<HighwayTools/InvManager> Loaded %s into slot1\n", itemIds[1]);
+            System.out.printf("<HIGTools/InvManager> Loaded %s into slot1\n", itemIds[1]);
         })
         .build()
     );
@@ -53,7 +53,7 @@ public class InvManager extends Module {
         .visible(() -> false)
         .onChanged(cur -> {
             itemIds[2] = new Identifier(cur);
-            System.out.printf("<HighwayTools/InvManager> Loaded %s into slot2\n", itemIds[2]);
+            System.out.printf("<HIGTools/InvManager> Loaded %s into slot2\n", itemIds[2]);
         })
         .build()
     );
@@ -63,7 +63,7 @@ public class InvManager extends Module {
         .visible(() -> false)
         .onChanged(cur -> {
             itemIds[3] = new Identifier(cur);
-            System.out.printf("<HighwayTools/InvManager> Loaded %s into slot3\n", itemIds[3]);
+            System.out.printf("<HIGTools/InvManager> Loaded %s into slot3\n", itemIds[3]);
         })
         .build()
     );
@@ -73,7 +73,7 @@ public class InvManager extends Module {
         .visible(() -> false)
         .onChanged(cur -> {
             itemIds[4] = new Identifier(cur);
-            System.out.printf("<HighwayTools/InvManager> Loaded %s into slot4\n", itemIds[4]);
+            System.out.printf("<HIGTools/InvManager> Loaded %s into slot4\n", itemIds[4]);
         })
         .build()
     );
@@ -83,7 +83,7 @@ public class InvManager extends Module {
         .visible(() -> false)
         .onChanged(cur -> {
             itemIds[5] = new Identifier(cur);
-            System.out.printf("<HighwayTools/InvManager> Loaded %s into slot5\n", itemIds[5]);
+            System.out.printf("<HIGTools/InvManager> Loaded %s into slot5\n", itemIds[5]);
         })
         .build()
     );
@@ -93,7 +93,7 @@ public class InvManager extends Module {
         .visible(() -> false)
         .onChanged(cur -> {
             itemIds[6] = new Identifier(cur);
-            System.out.printf("<HighwayTools/InvManager> Loaded %s into slot6\n", itemIds[6]);
+            System.out.printf("<HIGTools/InvManager> Loaded %s into slot6\n", itemIds[6]);
         })
         .build()
     );
@@ -103,7 +103,7 @@ public class InvManager extends Module {
         .visible(() -> false)
         .onChanged(cur -> {
             itemIds[7] = new Identifier(cur);
-            System.out.printf("<HighwayTools/InvManager> Loaded %s into slot7\n", itemIds[7]);
+            System.out.printf("<HIGTools/InvManager> Loaded %s into slot7\n", itemIds[7]);
         })
         .build()
     );
@@ -113,7 +113,7 @@ public class InvManager extends Module {
         .visible(() -> false)
         .onChanged(cur -> {
             itemIds[8] = new Identifier(cur);
-            System.out.printf("<HighwayTools/InvManager> Loaded %s into slot8\n", itemIds[8]);
+            System.out.printf("<HIGTools/InvManager> Loaded %s into slot8\n", itemIds[8]);
         })
         .build()
     );
@@ -152,7 +152,7 @@ public class InvManager extends Module {
     @Override
     public void onActivate() {
         super.onActivate();
-        System.out.printf("<HighwayTools/InvManager> %s%n", Arrays.toString(itemIds));
+        System.out.printf("<HIGTools/InvManager> %s%n", Arrays.toString(itemIds));
     }
 
     @EventHandler
@@ -201,7 +201,7 @@ public class InvManager extends Module {
         slot8.set(Registries.ITEM.getId(mc.player.getInventory().getStack(8).getItem()).toString());
 
         mc.inGameHud.getChatHud().addMessage(
-            Text.of("<%sHighwayTools/InvManager%s> Saved inventory -> %s".formatted(
+            Text.of("<%sHIGTools/InvManager%s> Saved inventory -> %s".formatted(
                 Formatting.LIGHT_PURPLE,
                 Formatting.RESET,
                 Arrays.toString(itemIds).replace("minecraft:", ""))
