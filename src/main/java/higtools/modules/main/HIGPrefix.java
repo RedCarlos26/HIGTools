@@ -32,7 +32,7 @@ public class HIGPrefix extends Module {
     );
 
     public HIGPrefix() {
-        super(HIGTools.MAIN, "hig-prefix", "Set a prefix for the HighwayTools modules toggles.");
+        super(HIGTools.MAIN, "HIG-prefix", "Set a prefix for the HighwayTools modules toggles.");
     }
 
     @Override
