@@ -2,13 +2,20 @@ package higtools.modules.main;
 
 import higtools.HIGTools;
 import meteordevelopment.meteorclient.events.world.TickEvent;
-import meteordevelopment.meteorclient.settings.*;
+import meteordevelopment.meteorclient.gui.GuiTheme;
+import meteordevelopment.meteorclient.gui.widgets.WWidget;
+import meteordevelopment.meteorclient.gui.widgets.containers.WTable;
+import meteordevelopment.meteorclient.gui.widgets.pressable.WButton;
+import meteordevelopment.meteorclient.settings.IntSetting;
+import meteordevelopment.meteorclient.settings.Setting;
+import meteordevelopment.meteorclient.settings.SettingGroup;
+import meteordevelopment.meteorclient.settings.StringSetting;
 import meteordevelopment.meteorclient.systems.modules.Module;
+import meteordevelopment.meteorclient.utils.render.MeteorToast;
 import meteordevelopment.orbit.EventHandler;
+import net.minecraft.item.Items;
 import net.minecraft.registry.Registries;
 import net.minecraft.screen.slot.SlotActionType;
-import net.minecraft.text.Text;
-import net.minecraft.util.Formatting;
 import net.minecraft.util.Identifier;
 
 import java.util.Arrays;
@@ -127,24 +134,6 @@ public class InvManager extends Module {
         .build()
     );
 
-    private final Setting<Boolean> reset = sgGeneral.add(new BoolSetting.Builder()
-        .name("reset")
-        .description("Toggle this to reset, too lazy to make proper thing.")
-        .defaultValue(false)
-        .visible(() -> true)
-        .onChanged(val -> reset())
-        .build()
-    );
-
-    private final Setting<Boolean> save = sgGeneral.add(new BoolSetting.Builder()
-        .name("save")
-        .description("Toggle this to save, too lazy to make proper thing.")
-        .defaultValue(true)
-        .visible(() -> true)
-        .onChanged(val -> save())
-        .build()
-    );
-
     public InvManager() {
         super(HIGTools.MAIN, "InvManager", "Automatically organize your inventory.");
     }
@@ -155,11 +144,27 @@ public class InvManager extends Module {
         System.out.printf("<HIGTools/InvManager> %s%n", Arrays.toString(itemIds));
     }
 
+    @Override
+    public WWidget getWidget(GuiTheme theme) {
+        WTable table = theme.table();
+        fillTable(theme, table);
+
+        return table;
+    }
+
+    private void fillTable(GuiTheme theme, WTable table) {
+        WButton save = table.add(theme.button("Save")).expandCellX().right().widget();
+        save.action = this::save;
+
+        WButton reset = table.add(theme.button("Reset")).right().widget();
+        reset.action = this::reset;
+    }
+
     @EventHandler
     public void tick(TickEvent.Pre event) {
         if (mc.player.age % delay.get() != 0) return;
 
-        for (int i = 1; i <= 8; i++) {
+        for (int i = 0; i <= 8; i++) {
             if (itemIds[i].toString().replace("minecraft:", "").equals("")) continue;
             if (!Registries.ITEM.getId(mc.player.getInventory().getStack(i).getItem()).equals(itemIds[i])) {
                 for (int j = 9; j <= 35; j++) {
@@ -185,6 +190,8 @@ public class InvManager extends Module {
         slot6.set("");
         slot7.set("");
         slot8.set("");
+
+        mc.getToastManager().add(new MeteorToast(Items.ENDER_CHEST, "InvManager", "Cleared Saved Hotbar"));
     }
 
     private void save() {
@@ -200,12 +207,6 @@ public class InvManager extends Module {
         slot7.set(Registries.ITEM.getId(mc.player.getInventory().getStack(7).getItem()).toString());
         slot8.set(Registries.ITEM.getId(mc.player.getInventory().getStack(8).getItem()).toString());
 
-        mc.inGameHud.getChatHud().addMessage(
-            Text.of("<%sHIGTools/InvManager%s> Saved inventory -> %s".formatted(
-                Formatting.LIGHT_PURPLE,
-                Formatting.RESET,
-                Arrays.toString(itemIds).replace("minecraft:", ""))
-            )
-        );
+        mc.getToastManager().add(new MeteorToast(Items.ENDER_CHEST, "InvManager", "Saved Hotbar"));
     }
 }
