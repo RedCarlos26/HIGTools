@@ -1,13 +1,13 @@
 package higtools.utils;
 
+import it.unimi.dsi.fastutil.ints.Int2IntMap;
+import it.unimi.dsi.fastutil.ints.Int2IntOpenHashMap;
 import net.minecraft.entity.EquipmentSlot;
 import net.minecraft.item.ArmorItem;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.math.BlockPos;
 
-import java.util.HashMap;
-import java.util.Map;
 import java.util.stream.IntStream;
 
 import static meteordevelopment.meteorclient.MeteorClient.mc;
@@ -50,10 +50,10 @@ public class HIGUtils {
     }
 
     // Packets
-    private static final Map<Integer, Integer> packetToClient = new HashMap<>();
-    private static final Map<Integer, Integer> clientToPacket = new HashMap<>();
+    private static final Int2IntMap packetToClient = new Int2IntOpenHashMap();
+    private static final Int2IntMap clientToPacket = new Int2IntOpenHashMap();
 
-    public static void setCs2Ps() {
+    static {
         packetToClient.put(5, 39);
         clientToPacket.put(39, 5);
         packetToClient.put(6, 38);
