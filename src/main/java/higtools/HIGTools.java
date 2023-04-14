@@ -7,7 +7,6 @@ import higtools.modules.borers.*;
 import higtools.modules.hud.BindsHud;
 import higtools.modules.hud.GreetingsHud;
 import higtools.modules.main.*;
-import higtools.utils.HIGUtils;
 import meteordevelopment.meteorclient.addons.MeteorAddon;
 import meteordevelopment.meteorclient.systems.Systems;
 import meteordevelopment.meteorclient.systems.commands.Commands;
