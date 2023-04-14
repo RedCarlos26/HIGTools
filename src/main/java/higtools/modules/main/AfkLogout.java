@@ -16,51 +16,51 @@ public class AfkLogout extends Module {
     private final SettingGroup sgGeneral = settings.getDefaultGroup();
 
     private final Setting<Dimension> dimension = sgGeneral.add(new EnumSetting.Builder<Dimension>()
-            .name("dimension")
-            .description("Dimension for the coordinates.")
-            .defaultValue(Dimension.Nether)
-            .build()
+        .name("dimension")
+        .description("Dimension for the coordinates.")
+        .defaultValue(Dimension.Nether)
+        .build()
     );
 
     private final Setting<Integer> xCoords = sgGeneral.add(new IntSetting.Builder()
-            .name("x-coords")
-            .description("The X coords it should log you out.")
-            .defaultValue(500)
-            .range(-30000000, 30000000)
-            .sliderRange(-1000, 1000)
-            .build()
+        .name("x-coords")
+        .description("The X coords it should log you out.")
+        .defaultValue(500)
+        .range(-30000000, 30000000)
+        .sliderRange(-1000, 1000)
+        .build()
     );
 
     private final Setting<Integer> zCoords = sgGeneral.add(new IntSetting.Builder()
-            .name("z-coords")
-            .description("The Z coords it should log you out.")
-            .defaultValue(500)
-            .range(-30000000, 30000000)
-            .sliderRange(-1000, 1000)
-            .build()
+        .name("z-coords")
+        .description("The Z coords it should log you out.")
+        .defaultValue(500)
+        .range(-30000000, 30000000)
+        .sliderRange(-1000, 1000)
+        .build()
     );
 
     private final Setting<Integer> radius = sgGeneral.add(new IntSetting.Builder()
-            .name("radius")
-            .description("The radius from the exact coordinates it will log you out.")
-            .defaultValue(64)
-            .min(0)
-            .sliderRange(0,100)
-            .build()
+        .name("radius")
+        .description("The radius from the exact coordinates it will log you out.")
+        .defaultValue(64)
+        .min(0)
+        .sliderRange(0, 100)
+        .build()
     );
 
     private final Setting<Boolean> toggleAutoReconnect = sgGeneral.add(new BoolSetting.Builder()
-            .name("toggle-auto-reconnect")
-            .description("Turns off AutoReconnect when logging out.")
-            .defaultValue(true)
-            .build()
+        .name("toggle-auto-reconnect")
+        .description("Turns off AutoReconnect when logging out.")
+        .defaultValue(true)
+        .build()
     );
 
     private final Setting<Boolean> autoToggle = sgGeneral.add(new BoolSetting.Builder()
-            .name("auto-toggle")
-            .description("Turns itself off when logging out.")
-            .defaultValue(true)
-            .build()
+        .name("auto-toggle")
+        .description("Turns itself off when logging out.")
+        .defaultValue(true)
+        .build()
     );
 
     public AfkLogout() {
