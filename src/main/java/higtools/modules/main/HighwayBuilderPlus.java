@@ -412,6 +412,7 @@ public class HighwayBuilderPlus extends Module {
                     b.setState(b.lastState);
                 } else {
                     b.mc.player.setYaw(0);
+                    b.mc.player.setPitch(0);
 
                     if (!isZ) {
                         b.input.pressingForward = z < 0;
@@ -444,6 +445,7 @@ public class HighwayBuilderPlus extends Module {
             @Override
             protected void tick(HighwayBuilderPlus b) {
                 b.mc.player.setYaw(b.dir.yaw);
+                b.mc.player.setPitch(0);
 
                 if (needsToPlace(b, b.blockPosProvider.getLiquids(), true)) b.setState(FillLiquids); // Fill Liquids
                 else if (needsToMine(b, b.blockPosProvider.getFront(), true)) b.setState(MineFront); // Mine Front
