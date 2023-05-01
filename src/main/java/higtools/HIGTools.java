@@ -8,8 +8,8 @@ import higtools.modules.hud.BindsHud;
 import higtools.modules.hud.GreetingsHud;
 import higtools.modules.main.*;
 import meteordevelopment.meteorclient.addons.MeteorAddon;
+import meteordevelopment.meteorclient.commands.Commands;
 import meteordevelopment.meteorclient.systems.Systems;
-import meteordevelopment.meteorclient.systems.commands.Commands;
 import meteordevelopment.meteorclient.systems.hud.Hud;
 import meteordevelopment.meteorclient.systems.hud.HudGroup;
 import meteordevelopment.meteorclient.systems.modules.Category;
@@ -32,10 +32,19 @@ public class HIGTools extends MeteorAddon {
     public void onInitialize() {
         LOG.info("Initializing HIGTools %s".formatted(HIGTools.VERSION));
 
+        // Commands
+        Commands.add(new Center());
+        Commands.add(new Coordinates());
+        Commands.add(new Disconnect());
+
+        // HUD
+        Hud hud = Systems.get(Hud.class);
+        hud.register(BindsHud.INFO);
+        hud.register(GreetingsHud.INFO);
+
         // Modules
         Modules modules = Modules.get();
 
-        // Main (Java)
         modules.add(new AfkLogout());
         modules.add(new ArmorNotify());
         modules.add(new AutoCenter());
@@ -51,24 +60,12 @@ public class HIGTools extends MeteorAddon {
         modules.add(new NoCaveCulling());
         modules.add(new ScaffoldPlus());
 
-        // Borers (Java)
         modules.add(new AxisBorer());
         modules.add(new NegNegBorer());
         modules.add(new NegPosBorer());
         modules.add(new PosNegBorer());
         modules.add(new PosPosBorer());
         modules.add(new RingRoadBorer());
-
-        // Commands
-        Commands commands = Commands.get();
-        commands.add(new Center());
-        commands.add(new Coordinates());
-        commands.add(new Disconnect());
-
-        // HUD
-        Hud hud = Systems.get(Hud.class);
-        hud.register(BindsHud.INFO);
-        hud.register(GreetingsHud.INFO);
     }
 
     @Override

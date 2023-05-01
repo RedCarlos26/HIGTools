@@ -1,12 +1,13 @@
 package higtools.commands;
 
 import com.mojang.brigadier.builder.LiteralArgumentBuilder;
-import meteordevelopment.meteorclient.systems.commands.Command;
+import meteordevelopment.meteorclient.commands.Command;
 import meteordevelopment.meteorclient.utils.render.MeteorToast;
 import net.minecraft.command.CommandSource;
 import net.minecraft.item.Items;
 
 import static com.mojang.brigadier.Command.SINGLE_SUCCESS;
+import static meteordevelopment.meteorclient.MeteorClient.mc;
 
 public class Coordinates extends Command {
 
