@@ -162,7 +162,7 @@ public class InvManager extends Module {
 
     @EventHandler
     public void tick(TickEvent.Pre event) {
-        if (mc.player.age % delay.get() != 0) return;
+        if (mc.player != null && mc.player.age % delay.get() != 0) return;
 
         for (int i = 0; i <= 8; i++) {
             if (itemIds[i].toString().replace("minecraft:", "").equals("")) continue;
