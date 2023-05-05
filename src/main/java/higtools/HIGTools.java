@@ -57,7 +57,6 @@ public class HIGTools extends MeteorAddon {
         modules.add(new HighwayBuilderPlus());
         modules.add(new HighwayTools());
         modules.add(new InvManager());
-        modules.add(new NoCaveCulling());
         modules.add(new ScaffoldPlus());
 
         modules.add(new AxisBorer());
