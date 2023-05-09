@@ -18,25 +18,25 @@ public class AfkLogout extends Module {
     private final Setting<Dimension> dimension = sgGeneral.add(new EnumSetting.Builder<Dimension>()
         .name("dimension")
         .description("Dimension for the coordinates.")
-        .defaultValue(Dimension.Nether)
+        .defaultValue(Dimension.Overworld)
         .build()
     );
 
     private final Setting<Integer> xCoords = sgGeneral.add(new IntSetting.Builder()
-        .name("x-coords")
-        .description("The X coords it should log you out.")
-        .defaultValue(500)
-        .range(-30000000, 30000000)
-        .sliderRange(-1000, 1000)
+        .name("x-coord")
+        .description("The X coordinate at which to log out.")
+        .defaultValue(1000)
+        .range(-29999983, 29999983)
+        .sliderRange(-29999983, 29999983)
         .build()
     );
 
     private final Setting<Integer> zCoords = sgGeneral.add(new IntSetting.Builder()
-        .name("z-coords")
-        .description("The Z coords it should log you out.")
-        .defaultValue(500)
-        .range(-30000000, 30000000)
-        .sliderRange(-1000, 1000)
+        .name("z-coord")
+        .description("The Z coordinate at which to log out.")
+        .defaultValue(1000)
+        .range(-29999983, 29999983)
+        .sliderRange(-29999983, 29999983)
         .build()
     );
 
