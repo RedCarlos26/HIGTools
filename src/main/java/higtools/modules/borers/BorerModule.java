@@ -48,13 +48,6 @@ public abstract class BorerModule extends Module {
         .build()
     );
 
-    private final Setting<Boolean> disable = sgGeneral.add(new BoolSetting.Builder()
-        .name("Disable")
-        .description("Disable the jumping block feature")
-        .defaultValue(false)
-        .build()
-    );
-
     protected final Setting<Boolean> jumping = sgGeneral.add(new BoolSetting.Builder()
         .name("Jumping")
         .description("Send more or less packs")
@@ -118,7 +111,7 @@ public abstract class BorerModule extends Module {
             float f = MathHelper.sin(mc.player.getYaw() * 0.017453292f);
             float g = MathHelper.cos(mc.player.getYaw() * 0.017453292f);
             IntStream.rangeClosed(-2, 5).forEach(i -> {
-                Vec3d pos = mc.player.getPos().add(-f * i, 20., g * i);
+                Vec3d pos = mc.player.getPos().add(-f * i, 2.0, g * i);
                 blackList.add(BlockPos.ofFloored(pos));
                 blackList.add(left(BlockPos.ofFloored(pos), 1));
                 blackList.add(left(BlockPos.ofFloored(pos), 2));
@@ -172,7 +165,7 @@ public abstract class BorerModule extends Module {
     }
 
     protected void breakBlock(BlockPos blockPos) {
-        if (packets >= 130 || mc.world.getBlockState(blockPos).getMaterial().isReplaceable() || (blackList.contains(blockPos) && disable.get())) {
+        if (packets >= 130 || mc.world.getBlockState(blockPos).getMaterial().isReplaceable() || (blackList.contains(blockPos) && jumping.get())) {
             return;
         }
 
