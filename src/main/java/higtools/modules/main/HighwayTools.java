@@ -162,9 +162,10 @@ public class HighwayTools extends Module {
     private void onTick(TickEvent event) {
         if (picktoggle.get()) {
             FindItemResult pickaxe = InvUtils.find(itemStack -> itemStack.getItem() == Items.DIAMOND_PICKAXE || itemStack.getItem() == Items.NETHERITE_PICKAXE);
-            if (pickaxe.found()) return;
-            error("No pickaxe found, disabling HighwayTools.");
-            toggle();
+            if (!pickaxe.found()) {
+                error("No pickaxe found, disabling HighwayTools.");
+                toggle();
+            }
         }
     }
 }
