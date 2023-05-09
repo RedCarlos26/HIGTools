@@ -2,6 +2,8 @@ package higtools.modules.main;
 
 import higtools.HIGTools;
 import higtools.modules.borers.*;
+import meteordevelopment.meteorclient.events.world.TickEvent;
+import meteordevelopment.meteorclient.settings.BoolSetting;
 import meteordevelopment.meteorclient.settings.EnumSetting;
 import meteordevelopment.meteorclient.settings.Setting;
 import meteordevelopment.meteorclient.settings.SettingGroup;
@@ -12,6 +14,10 @@ import meteordevelopment.meteorclient.systems.modules.movement.SafeWalk;
 import meteordevelopment.meteorclient.systems.modules.player.Rotation;
 import meteordevelopment.meteorclient.systems.modules.render.FreeLook;
 import meteordevelopment.meteorclient.systems.modules.world.LiquidFiller;
+import meteordevelopment.meteorclient.utils.player.FindItemResult;
+import meteordevelopment.meteorclient.utils.player.InvUtils;
+import meteordevelopment.orbit.EventHandler;
+import net.minecraft.item.Items;
 
 import java.util.List;
 
@@ -29,9 +35,16 @@ public class HighwayTools extends Module {
     private final SettingGroup sgGeneral = settings.getDefaultGroup();
 
     private final Setting<Mode> mode = sgGeneral.add(new EnumSetting.Builder<Mode>()
-        .name("Profile")
+        .name("profile")
         .description("Which highway profile to use.")
         .defaultValue(Mode.HighwayBuilding)
+        .build()
+    );
+
+    public final Setting<Boolean> picktoggle = sgGeneral.add(new BoolSetting.Builder()
+        .name("pickaxe-toggle")
+        .description("Automatically disables HighwayTools when you run out of pickaxes.")
+        .defaultValue(true)
         .build()
     );
 
@@ -142,6 +155,16 @@ public class HighwayTools extends Module {
                     .filter(moduleClass -> modules.get(moduleClass).isActive())
                     .forEach(moduleClass -> modules.get(moduleClass).toggle());
             }
+        }
+    }
+
+    @EventHandler
+    private void onTick(TickEvent event) {
+        if (picktoggle.get()) {
+            FindItemResult pickaxe = InvUtils.find(itemStack -> itemStack.getItem() == Items.DIAMOND_PICKAXE || itemStack.getItem() == Items.NETHERITE_PICKAXE);
+            if (pickaxe.found()) return;
+            error("No pickaxe found, disabling HighwayTools.");
+            toggle();
         }
     }
 }

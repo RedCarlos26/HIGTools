@@ -84,14 +84,6 @@ public class AutoWalkPlus extends Module {
         .build()
     );
 
-    public final Setting<Boolean> highwaytools = sgGeneral.add(new BoolSetting.Builder()
-        .name("highway-tools-toggle")
-        .description("Automatically disables HighwayTools when you run out of pickaxes.")
-        .defaultValue(false)
-        .visible(picktoggle::get)
-        .build()
-    );
-
     private int timer = 0;
     private GoalDirection goal;
     private boolean sentMessage;
@@ -157,17 +149,8 @@ public class AutoWalkPlus extends Module {
             FindItemResult pickaxe = InvUtils.find(itemStack -> itemStack.getItem() == Items.DIAMOND_PICKAXE || itemStack.getItem() == Items.NETHERITE_PICKAXE);
             if (!pickaxe.found()) {
                 error("No pickaxe found, disabling AutoWalk+.");
-                //mc.getToastManager().add(new MeteorToast(Items.NETHERITE_PICKAXE, "AutoWalk+", "Out of pickaxes!"));
                 toggle();
             }
-        }
-
-        if (highwaytools.get()) {
-            FindItemResult pickaxe = InvUtils.find(itemStack -> itemStack.getItem() == Items.DIAMOND_PICKAXE || itemStack.getItem() == Items.NETHERITE_PICKAXE);
-            if (pickaxe.found() || !Modules.get().isActive(HighwayTools.class)) return;
-            Modules.get().get(HighwayTools.class).toggle();
-            error("No pickaxe found, disabling HighwayTools.");
-            toggle();
         }
     }
 
