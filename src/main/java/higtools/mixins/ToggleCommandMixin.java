@@ -24,8 +24,8 @@ import static com.mojang.brigadier.Command.SINGLE_SUCCESS;
 
 @Mixin(value = ToggleCommand.class, remap = false)
 public abstract class ToggleCommandMixin extends Command {
-    public ToggleCommandMixin() {
-        super("toggle", "Toggles a module.", "t");
+    public ToggleCommandMixin(String name, String description, String... aliases) {
+        super(name, description, aliases);
     }
 
     /**
@@ -59,20 +59,6 @@ public abstract class ToggleCommandMixin extends Command {
     @Inject(method = "build", at = @At("HEAD"))
     private void inject(LiteralArgumentBuilder<CommandSource> builder, CallbackInfo ci) {
         builder.then(literal("higtools")
-            .executes(context -> {
-                Modules modules = Modules.get();
-
-                // Highway Tools
-                modules.get(HighwayTools.class).toggle();
-
-                // Borers & HighwayBuilder
-                borerClasses.forEach(borer -> modules.get(borer).toggle());
-
-                // HighwayTools Modules
-                higToolsClasses.forEach(higTool -> modules.get(higTool).toggle());
-
-                return SINGLE_SUCCESS;
-            })
             .then(literal("on")
                 .executes(context -> {
                     Modules modules = Modules.get();
@@ -92,7 +78,8 @@ public abstract class ToggleCommandMixin extends Command {
 
                     return SINGLE_SUCCESS;
                 })
-            ).then(literal("off")
+            )
+            .then(literal("off")
                 .executes(context -> {
                     Modules modules = Modules.get();
 

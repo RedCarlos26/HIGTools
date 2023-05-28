@@ -3,6 +3,7 @@
   "package": "higtools.mixins",
   "compatibilityLevel": "JAVA_17",
   "client": [
+    "RotationMixin",
     "ToggleCommandMixin"
   ],
   "injectors": {
