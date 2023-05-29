@@ -38,14 +38,12 @@ import net.minecraft.item.BlockItem;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
+import net.minecraft.network.packet.c2s.play.PlayerMoveC2SPacket;
 import net.minecraft.text.MutableText;
 import net.minecraft.text.Text;
 import net.minecraft.util.Formatting;
 import net.minecraft.util.Hand;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.Box;
-import net.minecraft.util.math.Direction;
-import net.minecraft.util.math.Vec3d;
+import net.minecraft.util.math.*;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.Iterator;
@@ -266,7 +264,7 @@ public class HighwayBuilderPlus extends Module {
 
         mc.player.setYaw(dir.yaw);
 
-        if (displayInfo) {
+        if (displayInfo && mc.world != null) {
             info("Distance travelled: (highlight)%.0f", mc.player.getPos().distanceTo(start));
             info("Blocks broken: (highlight)%d", blocksBroken);
             info("Blocks placed: (highlight)%d", blocksPlaced);
@@ -400,44 +398,12 @@ public class HighwayBuilderPlus extends Module {
         Center {
             @Override
             protected void tick(HighwayBuilderPlus b) {
-                // There is probably a much better way to do this
-                double x = Math.abs(b.mc.player.getX() - (int) b.mc.player.getX()) - 0.5;
-                double z = Math.abs(b.mc.player.getZ() - (int) b.mc.player.getZ()) - 0.5;
+                double x = MathHelper.floor(b.mc.player.getX()) + 0.5;
+                double z = MathHelper.floor(b.mc.player.getZ()) + 0.5;
 
-                boolean isX = Math.abs(x) <= 0.1;
-                boolean isZ = Math.abs(z) <= 0.1;
-
-                if (isX && isZ) {
-                    b.mc.player.setPosition((int) b.mc.player.getX() + (b.mc.player.getX() < 0 ? -0.5 : 0.5), b.mc.player.getY(), (int) b.mc.player.getZ() + (b.mc.player.getZ() < 0 ? -0.5 : 0.5));
-                    b.setState(b.lastState);
-                } else {
-                    b.mc.player.setYaw(0);
-                    b.mc.player.setPitch(0);
-
-                    if (!isZ) {
-                        b.input.pressingForward = z < 0;
-                        b.input.pressingBack = z > 0;
-
-                        if (b.mc.player.getZ() < 0) {
-                            boolean forward = b.input.pressingForward;
-                            b.input.pressingForward = b.input.pressingBack;
-                            b.input.pressingBack = forward;
-                        }
-                    }
-
-                    if (!isX) {
-                        b.input.pressingRight = x > 0;
-                        b.input.pressingLeft = x < 0;
-
-                        if (b.mc.player.getX() < 0) {
-                            boolean right = b.input.pressingRight;
-                            b.input.pressingRight = b.input.pressingLeft;
-                            b.input.pressingLeft = right;
-                        }
-                    }
-
-                    b.input.sneaking = true;
-                }
+                b.mc.player.setPosition(x, b.mc.player.getY(), z);
+                b.mc.player.networkHandler.sendPacket(new PlayerMoveC2SPacket.PositionAndOnGround(b.mc.player.getX(), b.mc.player.getY(), b.mc.player.getZ(), b.mc.player.isOnGround()));
+                b.setState(b.lastState);
             }
         },
 
@@ -688,7 +654,7 @@ public class HighwayBuilderPlus extends Module {
                     // Mine ender chest
                     int slot = findAndMoveBestToolToHotbar(b, blockState, true, false);
                     if (slot == -1) {
-                        b.error("Cannot find pickaxe with silk touch to mine ender chests.");
+                        b.error("Cannot find pickaxe without silk touch to mine ender chests.");
                         return;
                     }
 
