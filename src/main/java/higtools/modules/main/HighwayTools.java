@@ -3,10 +3,7 @@ package higtools.modules.main;
 import higtools.HIGTools;
 import higtools.modules.borers.*;
 import meteordevelopment.meteorclient.events.world.TickEvent;
-import meteordevelopment.meteorclient.settings.BoolSetting;
-import meteordevelopment.meteorclient.settings.EnumSetting;
-import meteordevelopment.meteorclient.settings.Setting;
-import meteordevelopment.meteorclient.settings.SettingGroup;
+import meteordevelopment.meteorclient.settings.*;
 import meteordevelopment.meteorclient.systems.modules.Module;
 import meteordevelopment.meteorclient.systems.modules.Modules;
 import meteordevelopment.meteorclient.systems.modules.misc.AutoLog;
@@ -22,22 +19,29 @@ import net.minecraft.item.Items;
 import java.util.List;
 
 public class HighwayTools extends Module {
-    public enum Mode {
-        HighwayBuilding,
-        AxisDigging,
-        NegNegDigging,
-        NegPosDigging,
-        PosNegDigging,
-        PosPosDigging,
-        RingRoadDigging
-    }
-
     private final SettingGroup sgGeneral = settings.getDefaultGroup();
 
     private final Setting<Mode> mode = sgGeneral.add(new EnumSetting.Builder<Mode>()
         .name("profile")
         .description("Which highway profile to use.")
         .defaultValue(Mode.HighwayBuilding)
+        .build()
+    );
+
+    public final Setting<Boolean> axistoggle = sgGeneral.add(new BoolSetting.Builder()
+        .name("axis-toggle")
+        .description("Automatically disables HighwayTools when you reach an axis. Useful when digging ring roads.")
+        .defaultValue(true)
+        .build()
+    );
+
+    private final Setting<Double> radius = sgGeneral.add(new DoubleSetting.Builder()
+        .name("axis-radius")
+        .description("The radius from the axis to toggle HighwayTools.")
+        .defaultValue(3)
+        .min(0)
+        .sliderRange(0, 15)
+        .visible(axistoggle::get)
         .build()
     );
 
@@ -60,12 +64,21 @@ public class HighwayTools extends Module {
         ScaffoldPlus.class
     );
 
+    private double originX;
+    private double originZ;
+    private double originRatio;
+
     public HighwayTools() {
         super(HIGTools.MAIN, "highway-tools", "Digs, builds and repairs highways automatically.");
     }
 
     @Override
     public void onActivate() {
+        originX = Math.abs(mc.player.getX());
+        originZ = Math.abs(mc.player.getZ());
+        // This is to know if a player is on a diagonal axis
+        originRatio = Math.abs(originX - originZ);
+
         Modules modules = Modules.get();
 
         switch (mode.get()) {
@@ -159,13 +172,36 @@ public class HighwayTools extends Module {
     }
 
     @EventHandler
-    private void onTick(TickEvent event) {
+    private void onTick(TickEvent.Pre event) {
         if (picktoggle.get()) {
             FindItemResult pickaxe = InvUtils.find(itemStack -> itemStack.getItem() == Items.DIAMOND_PICKAXE || itemStack.getItem() == Items.NETHERITE_PICKAXE);
+
             if (!pickaxe.found()) {
                 error("No pickaxe found, disabling HighwayTools.");
                 toggle();
             }
         }
+
+        if (axistoggle.get()) {
+            if (originX >= radius.get() && originZ >= radius.get() && originRatio >= 4) {
+                // Only run expensive checks if requirements above are met
+                if (Math.abs(mc.player.getX()) <= radius.get() || Math.abs(mc.player.getZ()) <= radius.get()
+                    || Math.abs(Math.abs(mc.player.getX()) - Math.abs(mc.player.getZ())) <= radius.get() + 4) {
+
+                    info("Reached axis, disabling HighwayTools.");
+                    toggle();
+                }
+            }
+        }
+    }
+
+    public enum Mode {
+        HighwayBuilding,
+        AxisDigging,
+        NegNegDigging,
+        NegPosDigging,
+        PosNegDigging,
+        PosPosDigging,
+        RingRoadDigging
     }
 }
