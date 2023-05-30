@@ -843,8 +843,7 @@ public class HighwayBuilderPlus extends Module {
 
             // Stop if not found
             if (bestSlot == -1) {
-                if (error) b.error("Failed to find suitable tool for mining.");
-                return -1;
+                bestSlot = b.mc.player.getInventory().selectedSlot;
             }
 
             // Check if the tool is already in hotbar
