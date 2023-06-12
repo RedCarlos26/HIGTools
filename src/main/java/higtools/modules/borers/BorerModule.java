@@ -165,7 +165,7 @@ public abstract class BorerModule extends Module {
     }
 
     protected void breakBlock(BlockPos blockPos) {
-        if (packets >= 130 || mc.world.getBlockState(blockPos).getMaterial().isReplaceable() || (blackList.contains(blockPos) && jumping.get())) {
+        if (packets >= 130 || mc.world.getBlockState(blockPos).isReplaceable() || (blackList.contains(blockPos) && jumping.get())) {
             return;
         }
 
