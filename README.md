@@ -6,8 +6,8 @@
   
   <!-- Fancy badges -->
   <a href="https://anticope.ml/pages/MeteorAddons.html"><img src="https://img.shields.io/badge/Verified%20Addon-Yes-blueviolet" alt="Verified Addon"></a>
-  <a href="https://github.com/RedCarlos26/higtools/releases"><img src="https://img.shields.io/badge/Version-v2.5-blueviolet" alt="Version"></a>
-  <img src="https://img.shields.io/badge/Minecraft%20Version-1.19.4-blueviolet" alt="Minecraft Version">
+  <a href="https://github.com/RedCarlos26/higtools/releases"><img src="https://img.shields.io/badge/Version-v2.6-blueviolet" alt="Version"></a>
+  <img src="https://img.shields.io/badge/Minecraft%20Version-1.20+-blueviolet" alt="Minecraft Version">
   <img src="https://img.shields.io/github/downloads/RedCarlos26/higtools/total?color=blueviolet&label=Downloads">
 </div>
 
@@ -25,7 +25,6 @@
 - AfkLogout
 - ArmorNotify
 - AutoCenter
-- AutoEat+
 - AutoWalk+
 - AxisViewer
 - DiscordRPC
