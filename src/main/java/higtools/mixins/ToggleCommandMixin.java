@@ -45,7 +45,6 @@ public abstract class ToggleCommandMixin extends Command {
      * HighwayTools Modules
      */
     private final List<Class<? extends Module>> higToolsClasses = List.of(
-        AutoEatPlus.class,
         AutoLog.class,
         FreeLook.class,
         HandManager.class,

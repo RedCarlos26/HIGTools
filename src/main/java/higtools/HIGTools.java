@@ -48,7 +48,6 @@ public class HIGTools extends MeteorAddon {
         modules.add(new AfkLogout());
         modules.add(new ArmorNotify());
         modules.add(new AutoCenter());
-        modules.add(new AutoEatPlus());
         modules.add(new AutoWalkPlus());
         modules.add(new AxisViewer());
         modules.add(new HIGPrefix());

@@ -116,7 +116,7 @@ public class ScaffoldPlus extends Module {
         }
     }
 
-    public boolean isWorked() {
+    public boolean hasWorked() {
         return worked;
     }
 }

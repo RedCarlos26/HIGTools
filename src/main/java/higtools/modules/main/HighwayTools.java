@@ -53,7 +53,6 @@ public class HighwayTools extends Module {
     );
 
     private final List<Class<? extends Module>> commonClasses = List.of(
-        AutoEatPlus.class,
         AutoLog.class,
         FreeLook.class,
         HandManager.class,
