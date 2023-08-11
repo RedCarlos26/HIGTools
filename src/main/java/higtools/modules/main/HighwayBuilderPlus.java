@@ -90,9 +90,9 @@ public class HighwayBuilderPlus extends Module {
     private final Setting<Integer> height = sgGeneral.add(new IntSetting.Builder()
         .name("height")
         .description("Height of the highway.")
-        .defaultValue(3)
-        .range(2, 3)
-        .sliderRange(2, 3)
+        .defaultValue(5)
+        .range(2, 5)
+        .sliderRange(2, 5)
         .build()
     );
 
@@ -553,7 +553,6 @@ public class HighwayBuilderPlus extends Module {
             protected void tick(HighwayBuilderPlus b) {
                 int slot = findBlocksToPlacePrioritizeTrash(b);
                 if (slot == -1) return;
-
                 place(b, b.blockPosProvider.getEChestBlockade(false), slot, MineEnderChests);
             }
         },
@@ -670,7 +669,7 @@ public class HighwayBuilderPlus extends Module {
                     }
 
                     if (first) {
-                        moveTimer = 8;
+                        moveTimer = 1;
                         first = false;
                     }
 
