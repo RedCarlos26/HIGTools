@@ -56,7 +56,7 @@ public abstract class BorerModule extends Module {
     );
 
     protected BorerModule(String name, String description, int extForwards, int extBackwards, int xOffset, int zOffset) {
-        super(HIGTools.BORERS, name, description);
+        super(HIGTools.Borers, name, description);
 
         extForward = sgGeneral.add(new IntSetting.Builder()
             .name("ExtForward")

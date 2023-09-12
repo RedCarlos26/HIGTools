@@ -97,7 +97,7 @@ public class DiscordRPC extends Module {
     );
 
     public DiscordRPC() {
-        super(HIGTools.MAIN, "discord-RPC", "Displays HIG Tools as your presence on discord.");
+        super(HIGTools.Main, "discord-RPC", "Displays HIG Tools as your presence on discord.");
         runInMainMenu = true;
     }
 
@@ -225,7 +225,7 @@ public class DiscordRPC extends Module {
                 line2Ticks = 0;
             } else line2Ticks++;
         } else if (!lastWasInMainMenu) {
-            rpc.setDetails("HIGTools " + HIGTools.VERSION);
+            rpc.setDetails("HIGTools " + HIGTools.Version);
             setRpcInfo();
             update = true;
         }

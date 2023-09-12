@@ -78,7 +78,7 @@ public class HandManager extends Module {
     private boolean eating = false;
 
     public HandManager() {
-        super(HIGTools.MAIN, "hand-manager", "Allows you to hold specified items in your offhand.");
+        super(HIGTools.Main, "hand-manager", "Allows you to hold specified items in your offhand.");
     }
 
     @Override

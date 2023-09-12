@@ -32,7 +32,7 @@ public class HIGPrefix extends Module {
     );
 
     public HIGPrefix() {
-        super(HIGTools.MAIN, "HIG-prefix", "Set a prefix for the HIGTools modules toggles.");
+        super(HIGTools.Main, "HIG-prefix", "Set a prefix for the HIGTools modules toggles.");
     }
 
     @Override

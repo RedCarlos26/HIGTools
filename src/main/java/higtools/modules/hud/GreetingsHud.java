@@ -16,7 +16,7 @@ import java.util.Calendar;
 import static meteordevelopment.meteorclient.MeteorClient.mc;
 
 public class GreetingsHud extends HudElement {
-    public static final HudElementInfo<GreetingsHud> INFO = new HudElementInfo<>(HIGTools.HUD, "greetings-hud", "Displays a friendly welcome.", GreetingsHud::new);
+    public static final HudElementInfo<GreetingsHud> INFO = new HudElementInfo<>(HIGTools.Hud, "greetings-hud", "Displays a friendly welcome.", GreetingsHud::new);
 
     public enum Mode {
         HIGTools,

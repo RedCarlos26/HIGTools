@@ -13,8 +13,7 @@ import java.util.stream.IntStream;
 import static meteordevelopment.meteorclient.MeteorClient.mc;
 
 public class HIGUtils {
-    private HIGUtils() {
-    }
+    private HIGUtils() {}
 
     // Armor
     public static boolean checkNotifyThreshold(ItemStack i, double threshold) {

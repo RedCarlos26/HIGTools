@@ -142,7 +142,7 @@ public class AxisViewer extends Module {
     );
 
     public AxisViewer() {
-        super(HIGTools.MAIN, "axis-viewer", "Render culling fucks it up :skull:");
+        super(HIGTools.Main, "axis-viewer", "Render culling fucks it up :skull:");
     }
 
     @EventHandler

@@ -16,7 +16,7 @@ public abstract class WindowTitleMixin implements IMinecraftClient {
 
     @Inject(method = "getWindowTitle", at = @At("HEAD"), cancellable = true)
     public void getWindowTitle(CallbackInfoReturnable<String> ci) {
-        String title = "HIGTools " + HIGTools.VERSION;
+        String title = "HIGTools " + HIGTools.Version;
         ci.setReturnValue(title);
     }
 }

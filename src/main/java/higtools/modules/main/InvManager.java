@@ -124,7 +124,7 @@ public class InvManager extends Module {
     );
 
     public InvManager() {
-        super(HIGTools.MAIN, "InvManager", "Automatically organize your inventory.");
+        super(HIGTools.Main, "InvManager", "Automatically organize your inventory.");
     }
 
     @Override

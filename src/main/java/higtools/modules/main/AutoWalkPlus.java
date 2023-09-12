@@ -89,7 +89,7 @@ public class AutoWalkPlus extends Module {
     private boolean sentMessage;
 
     public AutoWalkPlus() {
-        super(HIGTools.MAIN, "auto-walk+", "Automatically walks forward.");
+        super(HIGTools.Main, "auto-walk+", "Automatically walks forward.");
     }
 
     @Override

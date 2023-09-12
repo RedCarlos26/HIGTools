@@ -11,7 +11,6 @@ import meteordevelopment.meteorclient.events.render.Render3DEvent;
 import meteordevelopment.meteorclient.events.world.TickEvent;
 import meteordevelopment.meteorclient.renderer.ShapeMode;
 import meteordevelopment.meteorclient.settings.*;
-import meteordevelopment.meteorclient.systems.modules.Categories;
 import meteordevelopment.meteorclient.systems.modules.Module;
 import meteordevelopment.meteorclient.systems.modules.Modules;
 import meteordevelopment.meteorclient.systems.modules.player.AutoEat;
@@ -237,7 +236,7 @@ public class HighwayBuilderPlus extends Module {
     private final MBlockPos posRender3 = new MBlockPos();
 
     public HighwayBuilderPlus() {
-        super(HIGTools.MAIN, "highway-builder+", "Automatically builds highways.");
+        super(HIGTools.Main, "highway-builder+", "Automatically builds highways.");
     }
 
     @Override
@@ -410,8 +409,7 @@ public class HighwayBuilderPlus extends Module {
                 b.setState(b.lastState);
 
                 // Todo : test the above to diagnose the bug
-                /*
-                // There is probably a much better way to do this
+                /**
                 double x = Math.abs(b.mc.player.getX() - (int) b.mc.player.getX()) - 0.5;
                 double z = Math.abs(b.mc.player.getZ() - (int) b.mc.player.getZ()) - 0.5;
 
@@ -449,8 +447,7 @@ public class HighwayBuilderPlus extends Module {
 
                     b.input.sneaking = true;
                 }
-
-                 */
+                 **/
             }
         },
 
@@ -797,7 +794,7 @@ public class HighwayBuilderPlus extends Module {
             int thrashSlot = -1;
             int slotsWithBlocks = 0;
             int slotWithLeastBlocks = 65;
-            int slowWithLeastBlocksCount = 0;
+            int slotWithLeastBlocksCount = 0;
 
             // Loop hotbar
             for (int i = 0; i < 9; i++) {
@@ -816,8 +813,8 @@ public class HighwayBuilderPlus extends Module {
                 if (itemStack.getItem() instanceof BlockItem blockItem && b.blocksToPlace.get().contains(blockItem.getBlock())) {
                     slotsWithBlocks++;
 
-                    if (itemStack.getCount() < slowWithLeastBlocksCount) {
-                        slowWithLeastBlocksCount = itemStack.getCount();
+                    if (itemStack.getCount() < slotWithLeastBlocksCount) {
+                        slotWithLeastBlocksCount = itemStack.getCount();
                         slotWithLeastBlocks = i;
                     }
                 }

@@ -33,7 +33,7 @@ public class AutoCenter extends Module {
     );
 
     public AutoCenter() {
-        super(HIGTools.MAIN, "auto-center", "Automatically centers the player so that NetherBorer mines on axis.");
+        super(HIGTools.Main, "auto-center", "Automatically centers the player so that NetherBorer mines on axis.");
     }
 
     @Override
