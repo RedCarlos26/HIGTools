@@ -887,7 +887,7 @@ public class HighwayBuilderPlus extends Module {
                 }
             }
 
-            // Stop if not found
+            // Keep same slot if not found
             if (bestSlot == -1) {
                 bestSlot = b.mc.player.getInventory().selectedSlot;
             }
