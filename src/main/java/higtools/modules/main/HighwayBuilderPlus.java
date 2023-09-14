@@ -18,10 +18,7 @@ import meteordevelopment.meteorclient.systems.modules.player.AutoGap;
 import meteordevelopment.meteorclient.systems.modules.player.AutoTool;
 import meteordevelopment.meteorclient.utils.misc.HorizontalDirection;
 import meteordevelopment.meteorclient.utils.misc.MBlockPos;
-import meteordevelopment.meteorclient.utils.player.CustomPlayerInput;
-import meteordevelopment.meteorclient.utils.player.InvUtils;
-import meteordevelopment.meteorclient.utils.player.PlayerUtils;
-import meteordevelopment.meteorclient.utils.player.Rotations;
+import meteordevelopment.meteorclient.utils.player.*;
 import meteordevelopment.meteorclient.utils.render.color.Color;
 import meteordevelopment.meteorclient.utils.render.color.SettingColor;
 import meteordevelopment.meteorclient.utils.world.BlockUtils;
@@ -249,6 +246,7 @@ public class HighwayBuilderPlus extends Module {
         mc.player.input = input = new CustomPlayerInput();
 
         state = State.Forward;
+        lastState = State.Forward;
         setState(State.Center);
         blockPosProvider = dir.diagonal ? new DiagonalBlockPosProvider() : new StraightBlockPosProvider();
 
@@ -721,7 +719,8 @@ public class HighwayBuilderPlus extends Module {
                         first = false;
                     }
 
-                    BlockUtils.place(pos.getMcPos(), Hand.MAIN_HAND, slot, true, 0, true, true, false);
+                    InvUtils.swap(slot, false);
+                    BlockUtils.place(pos.getMcPos(), Hand.MAIN_HAND, slot, b.rotation.get().place, 0, true, false, false);
                 }
             }
         };
