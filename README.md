@@ -28,13 +28,12 @@
 - AutoWalk+
 - AxisViewer
 - DiscordRPC
-- InvManager
-- HIGPrefix
+- HandManager
 - HighwayBuilder+
 - HighwayTools
+- HIGPrefix
 - InvManager
 - NetherBorers
-- NoCaveCulling
 - Scaffold+
 
 ## HUD
