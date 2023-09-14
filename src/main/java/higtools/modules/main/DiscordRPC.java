@@ -225,7 +225,7 @@ public class DiscordRPC extends Module {
                 line2Ticks = 0;
             } else line2Ticks++;
         } else if (!lastWasInMainMenu) {
-            rpc.setDetails("HIGTools " + HIGTools.Version);
+            rpc.setDetails("HIGTools " + HIGTools.VERSION);
             setRpcInfo();
             update = true;
         }
