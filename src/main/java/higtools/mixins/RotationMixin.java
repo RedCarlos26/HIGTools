@@ -8,6 +8,7 @@ import meteordevelopment.meteorclient.systems.modules.player.Rotation;
 import meteordevelopment.orbit.EventHandler;
 import net.minecraft.client.gui.screen.DisconnectedScreen;
 import org.spongepowered.asm.mixin.Mixin;
+import org.spongepowered.asm.mixin.Unique;
 
 @Mixin(value = Rotation.class, remap = false)
 public abstract class RotationMixin extends Module {
@@ -16,6 +17,7 @@ public abstract class RotationMixin extends Module {
         super(category, name, description);
     }
 
+    @Unique
     @EventHandler
     private void onScreenOpen(OpenScreenEvent event) {
         if (event.screen instanceof DisconnectedScreen) {
@@ -23,6 +25,7 @@ public abstract class RotationMixin extends Module {
         }
     }
 
+    @Unique
     @EventHandler
     private void onGameLeft(GameLeftEvent event) {
         toggle();

@@ -14,6 +14,7 @@ import meteordevelopment.meteorclient.systems.modules.render.FreeLook;
 import meteordevelopment.meteorclient.systems.modules.world.LiquidFiller;
 import net.minecraft.command.CommandSource;
 import org.spongepowered.asm.mixin.Mixin;
+import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
@@ -31,6 +32,7 @@ public abstract class ToggleCommandMixin extends Command {
     /**
      * Borers & HighwayBuilder
      */
+    @Unique
     private final List<Class<? extends Module>> borerClasses = List.of(
         HighwayBuilderPlus.class,
         AxisBorer.class,
@@ -44,6 +46,7 @@ public abstract class ToggleCommandMixin extends Command {
     /**
      * HighwayTools Modules
      */
+    @Unique
     private final List<Class<? extends Module>> higToolsClasses = List.of(
         AutoLog.class,
         FreeLook.class,
