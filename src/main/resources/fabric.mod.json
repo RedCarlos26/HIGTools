@@ -15,7 +15,7 @@
     "discord": "https://discord.gg/a4jkKGJNdJ"
   },
   "license": "GPL-3.0",
-  "icon": "icon.png",
+  "icon": "assets/higtools/chat/icon.png",
   "environment": "client",
   "entrypoints": {
     "meteor": [

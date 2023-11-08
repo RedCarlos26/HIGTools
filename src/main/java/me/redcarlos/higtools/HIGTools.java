@@ -23,7 +23,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 public class HIGTools extends MeteorAddon {
-    private static final ModMetadata METADATA = FabricLoader.getInstance().getModContainer("me.redcarlos.higtools").orElseThrow(() -> new RuntimeException("HIGTools mod container not found!")).getMetadata();
+    private static final ModMetadata METADATA = FabricLoader.getInstance().getModContainer("higtools").orElseThrow(() -> new RuntimeException("HIGTools mod container not found!")).getMetadata();
     public static final String VERSION = METADATA.getVersion().toString();
     public static final Logger LOG = LoggerFactory.getLogger("HIGTools");
     public static final Category Main = new Category("HIG Tools", Items.NETHERITE_PICKAXE.getDefaultStack());
@@ -34,7 +34,7 @@ public class HIGTools extends MeteorAddon {
     public void onInitialize() {
         LOG.info("Initializing HIGTools %s".formatted(HIGTools.VERSION));
 
-        BetterChat.registerCustomHead("[HIGTools]", new Identifier("higtools", "icon.png"));
+        BetterChat.registerCustomHead("[HIGTools]", new Identifier("higtools", "chat/icon.png"));
 
         // Commands
         Commands.add(new Center());
