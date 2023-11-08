@@ -2,7 +2,7 @@
   "schemaVersion": 1,
   "name": "HIGTools",
   "id": "higtools",
-  "version": "2.6.1",
+  "version": "2.7",
   "description": "Highway Tools for Meteor Client.",
   "authors": [
     "RedCarlos26",
@@ -15,11 +15,11 @@
     "discord": "https://discord.gg/a4jkKGJNdJ"
   },
   "license": "GPL-3.0",
-  "icon": "assets/higtools/icon.png",
+  "icon": "icon.png",
   "environment": "client",
   "entrypoints": {
     "meteor": [
-      "higtools.HIGTools"
+      "me.redcarlos.higtools.HIGTools"
     ]
   },
   "mixins": [
