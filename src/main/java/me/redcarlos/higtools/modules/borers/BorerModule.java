@@ -18,22 +18,22 @@ import java.util.stream.IntStream;
 import static me.redcarlos.higtools.utils.HIGUtils.*;
 
 public abstract class BorerModule extends Module {
-    // preserve 2 block tall tunnel for speed bypass
+    // Preserve 2 block tall tunnel for speed bypass
     protected final ArrayList<BlockPos> blackList = new ArrayList<>();
     /**
-     * last time packets were sent
+     * Last time packets were sent
      */
     protected long lastUpdateTime = 0;
     /**
-     * floored block position of player
+     * Floored block position of player
      */
     protected BlockPos playerPos = BlockPos.ORIGIN;
     protected int packets = 0;
     private final SettingGroup sgGeneral = settings.getDefaultGroup();
-    protected final Setting<PosNegBorer.Mode> mode = sgGeneral.add(new EnumSetting.Builder<PosNegBorer.Mode>()
+    protected final Setting<PosNegBorer.Shape> mode = sgGeneral.add(new EnumSetting.Builder<PosNegBorer.Shape>()
         .name("Shape")
         .description("The shape to dig.")
-        .defaultValue(Mode.HIGHWAY)
+        .defaultValue(Shape.HIGHWAY)
         .build()
     );
     protected final Setting<Integer> extForward;
@@ -48,10 +48,9 @@ public abstract class BorerModule extends Module {
         .sliderRange(-1, 255)
         .build()
     );
-
     protected final Setting<Boolean> jumping = sgGeneral.add(new BoolSetting.Builder()
         .name("Jumping")
-        .description("Send more or less packs")
+        .description("Send more or less packs.")
         .defaultValue(false)
         .build()
     );
@@ -129,8 +128,7 @@ public abstract class BorerModule extends Module {
                 breakBlock(left(forward(playerPos, i), 1));
                 breakBlock(left(forward(playerPos, i), 1).up());
                 breakBlock(left(forward(playerPos, i), 1).up(2));
-            }
-        );
+        });
     }
 
     protected void doHighway4(BlockPos playerPos) {
@@ -175,7 +173,7 @@ public abstract class BorerModule extends Module {
         packets += 2;
     }
 
-    public enum Mode {
+    public enum Shape {
         THIN,
         HIGHWAY
     }

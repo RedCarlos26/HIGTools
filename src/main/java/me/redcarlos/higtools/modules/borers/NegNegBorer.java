@@ -26,7 +26,7 @@ public class NegNegBorer extends BorerModule {
     @Override
     @EventHandler
     public void tick(TickEvent.Pre event) {
-        // previous floored block position of player
+        // Previous floored block position of player
         BlockPos prevBlockPos = playerPos;
         playerPos = new BlockPos(
             MathHelper.floor(mc.player.getX()),

@@ -1,7 +1,7 @@
 /*
  * This file is part of the Meteor Client distribution (https://github.com/MeteorDevelopment/meteor-client).
  * Copyright (c) Meteor Development.
- * Enhanced by RedCarlos#0001
+ * Enhanced by RedCarlos26
  */
 
 package me.redcarlos.higtools.modules.main;
@@ -78,6 +78,7 @@ public class HighwayBuilderPlus extends Module {
     private final SettingGroup sgRenderPlace = settings.createGroup("Render Place");
 
     // General
+
     private final Setting<Integer> width = sgGeneral.add(new IntSetting.Builder()
         .name("width")
         .description("Width of the highway.")
@@ -162,6 +163,7 @@ public class HighwayBuilderPlus extends Module {
     );
 
     // Render Mine
+
     private final Setting<Boolean> renderMine = sgRenderMine.add(new BoolSetting.Builder()
         .name("render-blocks-to-mine")
         .description("Render blocks to be mined.")
@@ -191,6 +193,7 @@ public class HighwayBuilderPlus extends Module {
     );
 
     // Render Place
+
     private final Setting<Boolean> renderPlace = sgRenderPlace.add(new BoolSetting.Builder()
         .name("render-blocks-to-place")
         .description("Render blocks to be placed.")

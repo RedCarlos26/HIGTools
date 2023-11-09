@@ -34,7 +34,7 @@ public class ScaffoldPlus extends Module {
         .build()
     );
 
-    private final Setting<Double> towerMult = sgGeneral.add(new DoubleSetting.Builder()
+    private final Setting<Double> towerMulti = sgGeneral.add(new DoubleSetting.Builder()
         .name("multi")
         .description("Makes tower potentially bypass stricter anti-cheats.")
         .defaultValue(0.7454)
@@ -66,7 +66,7 @@ public class ScaffoldPlus extends Module {
         int prevSlot = mc.player.getInventory().selectedSlot;
 
         for (int i = 0; i <= (mc.player.getVelocity().x == 0.0 && mc.player.getVelocity().z == 0.0 ? 0 : ext.get()); i++) {
-            // loop body
+            // Loop body
             Vec3d pos = mc.player.getPos().add(-f * i, -1.0, g * i);
             if (keepY.get() != -1) ((IVec3d) pos).setY(keepY.get() - 1.0);
             BlockPos bpos = BlockPos.ofFloored(pos);
@@ -96,7 +96,7 @@ public class ScaffoldPlus extends Module {
                     mc.player.getVelocity().y > 0) {
                     mc.player.setVelocity(mc.player.getVelocity().x, -0.6, mc.player.getVelocity().z);
                     mc.player.jump();
-                    mc.player.setVelocity(mc.player.getVelocity().x, mc.player.getVelocity().y * towerMult.get(), mc.player.getVelocity().z);
+                    mc.player.setVelocity(mc.player.getVelocity().x, mc.player.getVelocity().y * towerMulti.get(), mc.player.getVelocity().z);
                 }
             }
 

@@ -22,14 +22,14 @@ public class ArmorNotify extends Module {
         .build()
     );
 
-    public ArmorNotify() {
-        super(HIGTools.Main, "armor-notify", "Notifies you when your armor pieces are low.");
-    }
-
     private boolean alertedHelmet;
     private boolean alertedChestplate;
     private boolean alertedLeggings;
     private boolean alertedBoots;
+
+    public ArmorNotify() {
+        super(HIGTools.Main, "armor-notify", "Notifies you when your armor pieces are low.");
+    }
 
     @Override
     public void onActivate() {

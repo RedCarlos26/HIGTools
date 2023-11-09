@@ -26,12 +26,13 @@ public class NegPosBorer extends BorerModule {
     @Override
     @EventHandler
     public void tick(TickEvent.Pre event) {
-        // previous floored block position of player
+        // Previous floored block position of player
         BlockPos prevBlockPos = playerPos;
         playerPos = new BlockPos(
             MathHelper.floor(mc.player.getX()),
             keepY.get() != -1 ? keepY.get() : MathHelper.floor(mc.player.getY()),
-            MathHelper.floor(mc.player.getZ()));
+            MathHelper.floor(mc.player.getZ())
+        );
 
         if (this.playerPos != prevBlockPos || Util.getMeasuringTimeMs() - this.lastUpdateTime > 800) {
             getBlacklistedBlockPoses();

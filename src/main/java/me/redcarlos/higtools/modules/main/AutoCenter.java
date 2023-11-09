@@ -11,8 +11,6 @@ import meteordevelopment.orbit.EventHandler;
 import static me.redcarlos.higtools.utils.HIGUtils.getHighway;
 
 public class AutoCenter extends Module {
-    // x+ x- z+ z- x+z+ x-z+ x+z- x-z-
-    private int highway = -1;
     private final SettingGroup sgGeneral = settings.getDefaultGroup();
 
     private final Setting<Double> comp = sgGeneral.add(new DoubleSetting.Builder()
@@ -31,6 +29,9 @@ public class AutoCenter extends Module {
         .range(0.01, 0.5)
         .build()
     );
+
+    // x+ x- z+ z- x+z+ x-z+ x+z- x-z-
+    private int highway = -1;
 
     public AutoCenter() {
         super(HIGTools.Main, "auto-center", "Automatically centers the player so that NetherBorer mines on axis.");

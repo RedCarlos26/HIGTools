@@ -14,6 +14,7 @@ public class AxisViewer extends Module {
     private final SettingGroup sgEnd = settings.createGroup("End");
 
     // Overworld
+
     private final Setting<Boolean> overworld = sgOw.add(new BoolSetting.Builder()
         .name("overworld")
         .description("Displays a line on overworld axis.")
@@ -32,7 +33,7 @@ public class AxisViewer extends Module {
     );
 
     private final Setting<Boolean> overAxis = sgOw.add(new BoolSetting.Builder()
-        .name("axises")
+        .name("axis")
         .description("Displays lines of axis.")
         .defaultValue(true)
         .visible(overworld::get)
@@ -55,8 +56,8 @@ public class AxisViewer extends Module {
         .build()
     );
 
-
     // Nether
+
     private final Setting<Boolean> nether = sgNether.add(new BoolSetting.Builder()
         .name("nether")
         .description("Displays a line on nether axis.")
@@ -98,8 +99,8 @@ public class AxisViewer extends Module {
         .build()
     );
 
-
     // End
+
     private final Setting<Boolean> end = sgEnd.add(new BoolSetting.Builder()
         .name("end")
         .description("Displays a line on nether axis.")
