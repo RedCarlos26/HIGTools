@@ -9,7 +9,6 @@ import meteordevelopment.meteorclient.systems.modules.Module;
 import meteordevelopment.meteorclient.systems.modules.Modules;
 import meteordevelopment.meteorclient.systems.modules.misc.AutoLog;
 import meteordevelopment.meteorclient.systems.modules.movement.SafeWalk;
-import meteordevelopment.meteorclient.systems.modules.player.Rotation;
 import meteordevelopment.meteorclient.systems.modules.render.FreeLook;
 import meteordevelopment.meteorclient.systems.modules.world.LiquidFiller;
 import net.minecraft.command.CommandSource;
@@ -51,9 +50,9 @@ public abstract class ToggleCommandMixin extends Command {
         AutoLog.class,
         FreeLook.class,
         HandManager.class,
-        InvManager.class,
+        HotbarManager.class,
         LiquidFiller.class,
-        Rotation.class,
+        HIGRotation.class,
         SafeWalk.class,
         ScaffoldPlus.class
     );

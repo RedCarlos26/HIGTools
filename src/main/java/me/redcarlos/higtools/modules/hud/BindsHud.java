@@ -95,12 +95,6 @@ public class BindsHud extends HudElement {
         .build()
     );
 
-
-    public BindsHud() {
-        super(INFO);
-    }
-
-
     private final List<Module> modules = new ArrayList<>();
 
     private final Color rainbow = new Color(255, 255, 255);
@@ -110,6 +104,9 @@ public class BindsHud extends HudElement {
     private double prevTextLength;
     private Color prevColor = new Color();
 
+    public BindsHud() {
+        super(INFO);
+    }
 
     @Override
     public void tick(HudRenderer renderer) {
@@ -218,11 +215,11 @@ public class BindsHud extends HudElement {
 
                 renderer.quad(Math.min(prevX, x) - 2 - outlineWidth.get(), Math.max(prevX, x) == x ? y : y - outlineWidth.get(),
                     (Math.max(prevX, x) - 2) - (Math.min(prevX, x) - 2 - outlineWidth.get()), outlineWidth.get(),
-                    prevColor, prevColor, color, color); // Left inbetween quad
+                    prevColor, prevColor, color, color); // Left in-between quad
 
                 renderer.quad(Math.min(prevX + prevTextLength, x + textLength) + 2, Math.min(prevX + prevTextLength, x + textLength) == x + textLength ? y : y - outlineWidth.get(),
                     (Math.max(prevX + prevTextLength, x + textLength) + 2 + outlineWidth.get()) - (Math.min(prevX + prevTextLength, x + textLength) + 2), outlineWidth.get(),
-                    prevColor, prevColor, color, color); // Right inbetween quad
+                    prevColor, prevColor, color, color); // Right in-between quad
             }
         }
 

@@ -22,7 +22,7 @@ import java.util.stream.IntStream;
 
 import static me.redcarlos.higtools.utils.HIGUtils.csToPs;
 
-public class InvManager extends Module {
+public class HotbarManager extends Module {
     private final Identifier[] itemIds = IntStream.range(0, 9)
         .mapToObj(i -> new Identifier(""))
         .toArray(Identifier[]::new);
@@ -123,8 +123,8 @@ public class InvManager extends Module {
         .build()
     );
 
-    public InvManager() {
-        super(HIGTools.Main, "InvManager", "Automatically organize your inventory.");
+    public HotbarManager() {
+        super(HIGTools.Main, "hotbar-manager", "Automatically sort and replenish your hotbar.");
     }
 
     @Override
@@ -175,7 +175,7 @@ public class InvManager extends Module {
         slot7.set("");
         slot8.set("");
 
-        mc.getToastManager().add(new MeteorToast(Items.ENDER_CHEST, "InvManager", "Cleared Saved Hotbar"));
+        mc.getToastManager().add(new MeteorToast(Items.ENDER_CHEST, "Hotbar Manager", "Cleared Saved Hotbar"));
     }
 
     private void save() {
@@ -191,6 +191,6 @@ public class InvManager extends Module {
         slot7.set(Registries.ITEM.getId(mc.player.getInventory().getStack(7).getItem()).toString());
         slot8.set(Registries.ITEM.getId(mc.player.getInventory().getStack(8).getItem()).toString());
 
-        mc.getToastManager().add(new MeteorToast(Items.ENDER_CHEST, "InvManager", "Saved Hotbar"));
+        mc.getToastManager().add(new MeteorToast(Items.ENDER_CHEST, "Hotbar Manager", "Saved Hotbar"));
     }
 }

@@ -59,7 +59,8 @@ public class HIGTools extends MeteorAddon {
         modules.add(new HighwayTools());
         modules.add(new HIGAutoWalk());
         modules.add(new HIGPrefix());
-        modules.add(new InvManager());
+        modules.add(new HIGRotation());
+        modules.add(new HotbarManager());
         modules.add(new ScaffoldPlus());
 
         modules.add(new AxisBorer());

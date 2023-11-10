@@ -18,11 +18,6 @@ import static meteordevelopment.meteorclient.MeteorClient.mc;
 public class GreetingsHud extends HudElement {
     public static final HudElementInfo<GreetingsHud> INFO = new HudElementInfo<>(HIGTools.Hud, "greetings-hud", "Displays a friendly welcome.", GreetingsHud::new);
 
-    public enum Mode {
-        HIGTools,
-        Time
-    }
-
     private final SettingGroup sgGeneral = settings.getDefaultGroup();
 
     private final Setting<Mode> mode = sgGeneral.add(new EnumSetting.Builder<Mode>()
@@ -32,14 +27,13 @@ public class GreetingsHud extends HudElement {
         .build()
     );
 
+    private String leftText;
+    private String rightText;
+    private double leftWidth;
 
     public GreetingsHud() {
         super(INFO);
     }
-
-    private String leftText;
-    private String rightText;
-    private double leftWidth;
 
     @Override
     public void tick(HudRenderer renderer) {
@@ -70,5 +64,10 @@ public class GreetingsHud extends HudElement {
 
         renderer.text(leftText, x, y, TextHud.getSectionColor(0), true);
         renderer.text(rightText, x + leftWidth, y, TextHud.getSectionColor(1), true);
+    }
+
+    public enum Mode {
+        HIGTools,
+        Time
     }
 }
