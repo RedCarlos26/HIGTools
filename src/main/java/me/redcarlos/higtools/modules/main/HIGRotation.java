@@ -103,6 +103,7 @@ public class HIGRotation extends Module {
 
     private void setYawAngle(float yawAngle) {
         if (mc.player == null || mc.world == null) return;
+
         mc.player.setYaw(yawAngle);
         mc.player.headYaw = yawAngle;
         mc.player.bodyYaw = yawAngle;

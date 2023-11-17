@@ -145,7 +145,7 @@ public class HotbarManager extends Module {
 
     @EventHandler
     public void tick(TickEvent.Pre event) {
-        if (mc.player == null) return;
+        if (mc.player == null || mc.world == null || mc.interactionManager == null) return;
         if (mc.player.age % delay.get() != 0) return;
 
         for (int i = 0; i <= 8; i++) {

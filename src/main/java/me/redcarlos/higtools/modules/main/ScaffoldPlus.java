@@ -61,6 +61,8 @@ public class ScaffoldPlus extends Module {
 
     @EventHandler
     public void tick(TickEvent.Pre event) {
+        if (mc.player == null || mc.world == null) return;
+
         float f = MathHelper.sin(mc.player.getYaw() * 0.017453292f);
         float g = MathHelper.cos(mc.player.getYaw() * 0.017453292f);
         int prevSlot = mc.player.getInventory().selectedSlot;

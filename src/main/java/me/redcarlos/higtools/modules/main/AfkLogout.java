@@ -68,7 +68,9 @@ public class AfkLogout extends Module {
     }
 
     @EventHandler
-    private void onTick(TickEvent.Post event) {
+    private void onTick(TickEvent.Pre event) {
+        if (mc.player == null || mc.world == null) return;
+
         if (xCoordsMatch() && zCoordsMatch() && PlayerUtils.getDimension() == dimension.get()) {
             if (toggleAutoReconnect.get() && Modules.get().isActive(AutoReconnect.class)) Modules.get().get(AutoReconnect.class).toggle();
             if (autoToggle.get()) toggle();

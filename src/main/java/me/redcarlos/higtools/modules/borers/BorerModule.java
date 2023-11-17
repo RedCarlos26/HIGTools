@@ -1,11 +1,11 @@
 package me.redcarlos.higtools.modules.borers;
 
 import me.redcarlos.higtools.HIGTools;
-import me.redcarlos.higtools.utils.HIGUtils;
 import meteordevelopment.meteorclient.events.world.TickEvent;
 import meteordevelopment.meteorclient.settings.*;
 import meteordevelopment.meteorclient.systems.modules.Module;
 import meteordevelopment.orbit.EventHandler;
+import net.minecraft.item.Items;
 import net.minecraft.network.packet.c2s.play.PlayerActionC2SPacket;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
@@ -97,6 +97,7 @@ public abstract class BorerModule extends Module {
     public abstract void tick(TickEvent.Pre event);
 
     protected void getBlacklistedBlockPoses() {
+        if (mc.player == null) return;
         blackList.clear();
         if (getHighway() >= 1 && getHighway() <= 4) {
             blackList.add(playerPos.up(2));
@@ -164,6 +165,7 @@ public abstract class BorerModule extends Module {
     }
 
     protected void breakBlock(BlockPos blockPos) {
+        if (mc.player == null || mc.world == null) return;
         if (packets >= 130 || mc.world.getBlockState(blockPos).isReplaceable() || (blackList.contains(blockPos) && jumping.get())) {
             return;
         }
@@ -171,6 +173,8 @@ public abstract class BorerModule extends Module {
         mc.player.networkHandler.sendPacket(new PlayerActionC2SPacket(PlayerActionC2SPacket.Action.START_DESTROY_BLOCK, blockPos, Direction.UP));
         mc.player.networkHandler.sendPacket(new PlayerActionC2SPacket(PlayerActionC2SPacket.Action.STOP_DESTROY_BLOCK, blockPos, Direction.UP));
         packets += 2;
+
+        mc.player.getInventory().updateItems();
     }
 
     public enum Shape {

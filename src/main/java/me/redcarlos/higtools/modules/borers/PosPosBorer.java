@@ -26,6 +26,7 @@ public class PosPosBorer extends BorerModule {
     @Override
     @EventHandler
     public void tick(TickEvent.Pre event) {
+        if (mc.player == null || mc.world == null) return;
         // Previous floored block position of player
         BlockPos prevBlockPos = playerPos;
         playerPos = new BlockPos(

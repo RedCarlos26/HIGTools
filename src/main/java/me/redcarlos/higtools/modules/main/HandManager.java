@@ -99,6 +99,7 @@ public class HandManager extends Module {
 
     @EventHandler
     public void onRender(Render3DEvent event) {
+        if (mc.player == null || mc.world == null) return;
         if (!Utils.canUpdate()) return;
 
         Modules modules = Modules.get();
@@ -147,6 +148,8 @@ public class HandManager extends Module {
     // Variables
     @EventHandler
     private void onTick(TickEvent.Post event) {
+        if (mc.player == null || mc.world == null) return;
+
         if (mc.player.getHealth() <= healthThreshold.get() || fallDamage.get() && !EntityUtils.isAboveWater(mc.player) && mc.player.fallDistance > 3) currentItem = Item.Totem;
         else if (autoFireRes.get() && !mc.player.getActiveStatusEffects().containsKey(StatusEffects.FIRE_RESISTANCE)) currentItem = Item.EGap;
         else if (mc.player.getHungerManager().getFoodLevel() < hungerThreshold.get() + 1) currentItem = Item.EGap;
@@ -163,6 +166,8 @@ public class HandManager extends Module {
     }
 
     private void startEating() {
+        if (mc.player == null || mc.world == null) return;
+
         mc.options.useKey.setPressed(true);
         if (mc.player.isUsingItem()) return;
         mc.interactionManager.interactItem(mc.player, Hand.OFF_HAND);
@@ -170,6 +175,8 @@ public class HandManager extends Module {
     }
 
     private void stopEating() {
+        if (mc.player == null || mc.world == null) return;
+
         mc.options.useKey.setPressed(false);
         mc.player.stopUsingItem();
         mc.player.networkHandler.sendPacket(new PlayerActionC2SPacket(PlayerActionC2SPacket.Action.RELEASE_USE_ITEM, mc.player.getBlockPos(), Direction.DOWN));

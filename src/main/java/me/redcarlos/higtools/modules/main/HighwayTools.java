@@ -72,6 +72,8 @@ public class HighwayTools extends Module {
 
     @Override
     public void onActivate() {
+        if (mc.player == null || mc.world == null) return;
+
         originX = Math.abs(mc.player.getX());
         originZ = Math.abs(mc.player.getZ());
         // This is to know if a player is on a diagonal axis
@@ -171,6 +173,8 @@ public class HighwayTools extends Module {
 
     @EventHandler
     private void onTick(TickEvent.Pre event) {
+        if (mc.player == null || mc.world == null) return;
+
         if (pickToggle.get()) {
             FindItemResult pickaxe = InvUtils.find(itemStack -> itemStack.getItem() == Items.DIAMOND_PICKAXE || itemStack.getItem() == Items.NETHERITE_PICKAXE);
 

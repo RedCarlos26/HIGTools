@@ -55,6 +55,8 @@ public class AutoCenter extends Module {
     }
 
     private void check() {
+        if (mc.player == null || mc.world == null) return;
+
         if (highway == -1) toggle();
         if (highway == 5) {
             double addZ = mc.player.getZ() - mc.player.getX();
