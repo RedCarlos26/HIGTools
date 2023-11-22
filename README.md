@@ -1,13 +1,13 @@
 <div align="center">
   <!-- Logo and Title -->
-  <img src="/src/main/resources/assets/higtools/icon.png" alt="logo" width="20%"/>
+  <img src="/src/main/resources/assets/higtools/chat/icon.png" alt="logo" width="20%"/>
   <h1>HIG Tools</h1>
   <p>HIGTools is a utility addon for Meteor Client, specifically designed to build highways on anarchy servers.</p>
-  
+
   <!-- Fancy badges -->
-  <a href="https://anticope.ml/addons/?q=higtools"><img src="https://img.shields.io/badge/Verified%20Addon-Yes-blueviolet" alt="Verified Addon"></a>
+  <a href="https://anticope.pages.dev/addons"><img src="https://img.shields.io/badge/Verified%20Addon-Yes-blueviolet" alt="Verified Addon"></a>
   <a href="https://github.com/RedCarlos26/higtools/releases"><img src="https://img.shields.io/badge/Version-v2.6.1-blueviolet" alt="Version"></a>
-  <img src="https://img.shields.io/badge/Minecraft%20Version-1.20+-blueviolet" alt="Minecraft Version">
+  <img src="https://img.shields.io/badge/Minecraft%20Version-1.20.1-blueviolet" alt="Minecraft Version">
   <img src="https://img.shields.io/github/downloads/RedCarlos26/higtools/total?color=blueviolet&label=Downloads">
 </div>
 
@@ -32,7 +32,7 @@
 - HighwayBuilder+
 - HighwayTools
 - HIGPrefix
-- InvManager
+- HotbarManager
 - NetherBorers
 - Scaffold+
 
