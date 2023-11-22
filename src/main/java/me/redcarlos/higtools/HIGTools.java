@@ -1,5 +1,6 @@
 package me.redcarlos.higtools;
 
+import com.mojang.logging.LogUtils;
 import me.redcarlos.higtools.commands.Center;
 import me.redcarlos.higtools.commands.Coordinates;
 import me.redcarlos.higtools.commands.Disconnect;
@@ -20,19 +21,18 @@ import net.fabricmc.loader.api.metadata.ModMetadata;
 import net.minecraft.item.Items;
 import net.minecraft.util.Identifier;
 import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 public class HIGTools extends MeteorAddon {
-    private static final ModMetadata METADATA = FabricLoader.getInstance().getModContainer("higtools").orElseThrow(() -> new RuntimeException("HIGTools mod container not found!")).getMetadata();
+    public static final Logger LOG = LogUtils.getLogger();
+    public static final ModMetadata METADATA = FabricLoader.getInstance().getModContainer("higtools").orElseThrow(() -> new RuntimeException("HIGTools mod container not found!")).getMetadata();
     public static final String VERSION = METADATA.getVersion().toString();
-    public static final Logger LOG = LoggerFactory.getLogger("HIGTools");
     public static final Category Main = new Category("HIG Tools", Items.NETHERITE_PICKAXE.getDefaultStack());
     public static final Category Borers = new Category(" Borers ", Items.NETHERITE_PICKAXE.getDefaultStack());
     public static final HudGroup Hud = new HudGroup("HIG Tools");
 
     @Override
     public void onInitialize() {
-        LOG.info("Initializing HIGTools %s".formatted(HIGTools.VERSION));
+        LOG.info("Initializing HIGTools " + HIGTools.VERSION);
 
         BetterChat.registerCustomHead("[HIGTools]", new Identifier("higtools", "chat/icon.png"));
 
