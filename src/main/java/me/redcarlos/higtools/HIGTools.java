@@ -67,7 +67,6 @@ public class HIGTools extends MeteorAddon {
         modules.add(new NegPosBorer());
         modules.add(new PosNegBorer());
         modules.add(new PosPosBorer());
-        modules.add(new RingRoadBorer());
     }
 
     @Override

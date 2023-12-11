@@ -38,8 +38,7 @@ public abstract class ToggleCommandMixin extends Command {
         NegNegBorer.class,
         NegPosBorer.class,
         PosNegBorer.class,
-        PosPosBorer.class,
-        RingRoadBorer.class
+        PosPosBorer.class
     );
 
     /**

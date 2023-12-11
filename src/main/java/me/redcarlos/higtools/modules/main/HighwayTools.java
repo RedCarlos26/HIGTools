@@ -110,10 +110,6 @@ public class HighwayTools extends Module {
                 modules.get(AutoCenter.class).toggle();
                 commonClasses.forEach(moduleClass -> modules.get(moduleClass).toggle());
             }
-            case RingRoadDigging -> {
-                modules.get(RingRoadBorer.class).toggle();
-                commonClasses.forEach(moduleClass -> modules.get(moduleClass).toggle());
-            }
         }
     }
 
@@ -162,12 +158,6 @@ public class HighwayTools extends Module {
                     .filter(moduleClass -> modules.get(moduleClass).isActive())
                     .forEach(moduleClass -> modules.get(moduleClass).toggle());
             }
-            case RingRoadDigging -> {
-                if (modules.get(RingRoadBorer.class).isActive()) modules.get(RingRoadBorer.class).toggle();
-                commonClasses.stream()
-                    .filter(moduleClass -> modules.get(moduleClass).isActive())
-                    .forEach(moduleClass -> modules.get(moduleClass).toggle());
-            }
         }
     }
 
@@ -203,7 +193,6 @@ public class HighwayTools extends Module {
         NegNegDigging,
         NegPosDigging,
         PosNegDigging,
-        PosPosDigging,
-        RingRoadDigging
+        PosPosDigging
     }
 }
