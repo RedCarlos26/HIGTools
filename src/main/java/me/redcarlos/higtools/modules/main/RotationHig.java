@@ -10,23 +10,15 @@ import me.redcarlos.higtools.HIGTools;
 import meteordevelopment.meteorclient.events.game.GameLeftEvent;
 import meteordevelopment.meteorclient.events.game.OpenScreenEvent;
 import meteordevelopment.meteorclient.events.render.Render3DEvent;
-import meteordevelopment.meteorclient.events.world.TickEvent;
 import meteordevelopment.meteorclient.settings.DoubleSetting;
 import meteordevelopment.meteorclient.settings.EnumSetting;
 import meteordevelopment.meteorclient.settings.Setting;
 import meteordevelopment.meteorclient.settings.SettingGroup;
-import meteordevelopment.meteorclient.systems.modules.Categories;
 import meteordevelopment.meteorclient.systems.modules.Module;
 import meteordevelopment.orbit.EventHandler;
-import meteordevelopment.orbit.ICancellable;
 import net.minecraft.client.gui.screen.DisconnectedScreen;
-import net.minecraft.client.render.Camera;
-import org.spongepowered.asm.mixin.Unique;
 
-import java.awt.event.MouseEvent;
-import java.awt.event.MouseMotionListener;
-
-public class HIGRotation extends Module {
+public class RotationHig extends Module {
     private final SettingGroup sgYaw = settings.createGroup("Yaw");
     private final SettingGroup sgPitch = settings.createGroup("Pitch");
 
@@ -68,7 +60,7 @@ public class HIGRotation extends Module {
         .build()
     );
 
-    public HIGRotation() {
+    public RotationHig() {
         super(HIGTools.Main, "HIG-rotation", "Changes/locks your yaw and pitch.");
     }
 

@@ -46,12 +46,14 @@ public abstract class ToggleCommandMixin extends Command {
      */
     @Unique
     private final List<Class<? extends Module>> higToolsClasses = List.of(
+        AutoCenter.class,
         AutoLog.class,
+        AutoWalkHig.class,
         FreeLook.class,
         HandManager.class,
         HotbarManager.class,
         LiquidFiller.class,
-        HIGRotation.class,
+        RotationHig.class,
         SafeWalk.class,
         ScaffoldPlus.class
     );
@@ -59,26 +61,6 @@ public abstract class ToggleCommandMixin extends Command {
     @Inject(method = "build", at = @At("HEAD"))
     private void inject(LiteralArgumentBuilder<CommandSource> builder, CallbackInfo ci) {
         builder.then(literal("higtools")
-            .then(literal("on")
-                .executes(context -> {
-                    Modules modules = Modules.get();
-
-                    // Highway Tools
-                    if (!modules.get(HighwayTools.class).isActive()) modules.get(HighwayTools.class).toggle();
-
-                    // Borers & HighwayBuilder
-                    borerClasses.stream()
-                        .filter(borer -> !modules.get(borer).isActive())
-                        .forEach(borer -> modules.get(borer).toggle());
-
-                    // HighwayTools Modules
-                    higToolsClasses.stream()
-                        .filter(higTool -> !modules.get(higTool).isActive())
-                        .forEach(higTool -> modules.get(higTool).toggle());
-
-                    return SINGLE_SUCCESS;
-                })
-            )
             .then(literal("off")
                 .executes(context -> {
                     Modules modules = Modules.get();

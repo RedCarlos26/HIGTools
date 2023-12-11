@@ -2,10 +2,6 @@ package me.redcarlos.higtools.utils;
 
 import it.unimi.dsi.fastutil.ints.Int2IntMap;
 import it.unimi.dsi.fastutil.ints.Int2IntOpenHashMap;
-import net.minecraft.entity.EquipmentSlot;
-import net.minecraft.item.ArmorItem;
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemStack;
 import net.minecraft.util.math.BlockPos;
 
 import java.util.stream.IntStream;
@@ -14,39 +10,6 @@ import static meteordevelopment.meteorclient.MeteorClient.mc;
 
 public class HIGUtils {
     private HIGUtils() {}
-
-    // Armor
-    public static boolean checkNotifyThreshold(ItemStack i, double threshold) {
-        return getArmorDamage(i) <= threshold;
-    }
-
-    public static double getArmorDamage(ItemStack i) {
-        return (((double) (i.getMaxDamage() - i.getDamage()) / i.getMaxDamage()) * 100);
-    }
-
-    public static boolean isHelmetArmor(ItemStack itemStack) {
-        if (itemStack == null) return false;
-        Item item = itemStack.getItem();
-        return item instanceof ArmorItem armorItem && armorItem.getSlotType() == EquipmentSlot.HEAD;
-    }
-
-    public static boolean isChestplateArmor(ItemStack itemStack) {
-        if (itemStack == null) return false;
-        Item item = itemStack.getItem();
-        return item instanceof ArmorItem armorItem && armorItem.getSlotType() == EquipmentSlot.CHEST;
-    }
-
-    public static boolean isLeggingsArmor(ItemStack itemStack) {
-        if (itemStack == null) return false;
-        Item item = itemStack.getItem();
-        return item instanceof ArmorItem armorItem && armorItem.getSlotType() == EquipmentSlot.LEGS;
-    }
-
-    public static boolean isBootsArmor(ItemStack itemStack) {
-        if (itemStack == null) return false;
-        Item item = itemStack.getItem();
-        return item instanceof ArmorItem armorItem && armorItem.getSlotType() == EquipmentSlot.FEET;
-    }
 
     // Packets
     private static final Int2IntMap packetToClient = new Int2IntOpenHashMap();
@@ -77,7 +40,7 @@ public class HIGUtils {
         return clientToPacket.getOrDefault(clientSlot, -1);
     }
 
-    // BlockPos
+    // Block pos
     public static BlockPos forward(BlockPos pos, int distance) {
         return switch (mc.player.getHorizontalFacing()) {
             case SOUTH -> pos.south(distance);
@@ -114,6 +77,7 @@ public class HIGUtils {
         };
     }
 
+    // Highway axis
     public static int getHighway() {
         double playerZ = mc.player.getZ();
         double playerX = mc.player.getX();

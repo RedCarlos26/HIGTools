@@ -3,10 +3,9 @@ package me.redcarlos.higtools;
 import com.mojang.logging.LogUtils;
 import me.redcarlos.higtools.commands.Center;
 import me.redcarlos.higtools.commands.Coordinates;
-import me.redcarlos.higtools.commands.Disconnect;
 import me.redcarlos.higtools.modules.borers.*;
 import me.redcarlos.higtools.modules.hud.BindsHud;
-import me.redcarlos.higtools.modules.hud.GreetingsHud;
+import me.redcarlos.higtools.modules.hud.WelcomeHudHig;
 import me.redcarlos.higtools.modules.main.*;
 import meteordevelopment.meteorclient.addons.MeteorAddon;
 import meteordevelopment.meteorclient.commands.Commands;
@@ -29,6 +28,7 @@ public class HIGTools extends MeteorAddon {
     public static final Category Main = new Category("HIG Tools", Items.NETHERITE_PICKAXE.getDefaultStack());
     public static final Category Borers = new Category(" Borers ", Items.NETHERITE_PICKAXE.getDefaultStack());
     public static final HudGroup Hud = new HudGroup("HIG Tools");
+
     @Override
     public void onInitialize() {
         LOG.info("Initializing HIGTools " + HIGTools.VERSION);
@@ -38,28 +38,26 @@ public class HIGTools extends MeteorAddon {
         // Commands
         Commands.add(new Center());
         Commands.add(new Coordinates());
-        Commands.add(new Disconnect());
 
         // HUD
         Hud hud = Systems.get(Hud.class);
         hud.register(BindsHud.INFO);
-        hud.register(GreetingsHud.INFO);
+        hud.register(WelcomeHudHig.INFO);
 
         // Modules
         Modules modules = Modules.get();
 
         modules.add(new AfkLogout());
-        modules.add(new ArmorNotify());
         modules.add(new AutoCenter());
+        modules.add(new AutoWalkHig());
         modules.add(new AxisViewer());
+        modules.add(new ChatPrefixHig());
         modules.add(new DiscordRPC());
         modules.add(new HandManager());
         modules.add(new HighwayBuilderPlus());
         modules.add(new HighwayTools());
-        modules.add(new HIGAutoWalk());
-        modules.add(new HIGPrefix());
-        modules.add(new HIGRotation());
         modules.add(new HotbarManager());
+        modules.add(new RotationHig());
         modules.add(new ScaffoldPlus());
 
         modules.add(new AxisBorer());

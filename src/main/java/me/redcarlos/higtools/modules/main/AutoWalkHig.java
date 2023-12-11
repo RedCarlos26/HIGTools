@@ -8,7 +8,10 @@ package me.redcarlos.higtools.modules.main;
 
 import me.redcarlos.higtools.HIGTools;
 import meteordevelopment.meteorclient.events.world.TickEvent;
-import meteordevelopment.meteorclient.settings.*;
+import meteordevelopment.meteorclient.settings.BoolSetting;
+import meteordevelopment.meteorclient.settings.IntSetting;
+import meteordevelopment.meteorclient.settings.Setting;
+import meteordevelopment.meteorclient.settings.SettingGroup;
 import meteordevelopment.meteorclient.systems.modules.Module;
 import meteordevelopment.meteorclient.utils.misc.input.Input;
 import meteordevelopment.meteorclient.utils.player.FindItemResult;
@@ -18,18 +21,8 @@ import meteordevelopment.orbit.EventHandler;
 import net.minecraft.client.option.KeyBinding;
 import net.minecraft.item.Items;
 
-public class HIGAutoWalk extends Module {
+public class AutoWalkHig extends Module {
     private final SettingGroup sgGeneral = settings.getDefaultGroup();
-
-    private final Setting<Direction> direction = sgGeneral.add(new EnumSetting.Builder<Direction>()
-        .name("direction")
-        .description("The direction to walk in.")
-        .defaultValue(Direction.Forwards)
-        .onChanged(direction1 -> {
-            if (isActive()) unpress();
-        })
-        .build()
-    );
 
     private final Setting<Integer> resumeTPS = sgGeneral.add(new IntSetting.Builder()
         .name("resume-tps")
@@ -42,15 +35,15 @@ public class HIGAutoWalk extends Module {
 
     private final Setting<Boolean> pickToggle = sgGeneral.add(new BoolSetting.Builder()
         .name("pickaxe-toggle")
-        .description("Automatically disables AutoWalk+ when you run out of pickaxes.")
+        .description("Automatically disables AutoWalk-HIG when you run out of pickaxes.")
         .defaultValue(true)
         .build()
     );
 
     private boolean sentMessage;
 
-    public HIGAutoWalk() {
-        super(HIGTools.Main, "HIG-auto-walk", "Automatically walks forward (optimized for highway digging).");
+    public AutoWalkHig() {
+        super(HIGTools.Main, "auto-walk-hig", "Automatically walks forward (optimized for highway digging).");
     }
 
     @Override
@@ -78,20 +71,7 @@ public class HIGAutoWalk extends Module {
         float i = (resumeTPS.get());
 
         if (TPS > i) {
-            switch (direction.get()) {
-                case Forwards -> {
-                    setPressed(mc.options.forwardKey, true);
-                }
-                case Backwards -> {
-                    setPressed(mc.options.backKey, true);
-                }
-                case Left -> {
-                    setPressed(mc.options.leftKey, true);
-                }
-                case Right -> {
-                    setPressed(mc.options.rightKey, true);
-                }
-            }
+            setPressed(mc.options.forwardKey, true);
         } else return;
         sentMessage = false;
 
@@ -106,20 +86,10 @@ public class HIGAutoWalk extends Module {
 
     private void unpress() {
         setPressed(mc.options.forwardKey, false);
-        setPressed(mc.options.backKey, false);
-        setPressed(mc.options.leftKey, false);
-        setPressed(mc.options.rightKey, false);
     }
 
     private void setPressed(KeyBinding key, boolean pressed) {
         key.setPressed(pressed);
         Input.setKeyState(key, pressed);
-    }
-
-    public enum Direction {
-        Forwards,
-        Backwards,
-        Left,
-        Right
     }
 }
