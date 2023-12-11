@@ -124,7 +124,7 @@ public class HotbarManager extends Module {
     );
 
     public HotbarManager() {
-        super(HIGTools.Main, "hotbar-manager", "Automatically sort and replenish your hotbar.");
+        super(HIGTools.MAIN, "hotbar-manager", "Automatically sort and replenish your hotbar.");
     }
 
     @Override

@@ -239,7 +239,7 @@ public class HighwayBuilderPlus extends Module {
     private final MBlockPos posRender3 = new MBlockPos();
 
     public HighwayBuilderPlus() {
-        super(HIGTools.Main, "highway-builder+", "Automatically builds highways.");
+        super(HIGTools.MAIN, "highway-builder+", "Automatically builds highways.");
     }
 
     @Override

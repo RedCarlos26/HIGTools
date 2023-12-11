@@ -25,9 +25,9 @@ public class HIGTools extends MeteorAddon {
     public static final Logger LOG = LogUtils.getLogger();
     public static final ModMetadata METADATA = FabricLoader.getInstance().getModContainer("higtools").orElseThrow(() -> new RuntimeException("HIGTools mod container not found!")).getMetadata();
     public static final String VERSION = METADATA.getVersion().toString();
-    public static final Category Main = new Category("HIG Tools", Items.NETHERITE_PICKAXE.getDefaultStack());
-    public static final Category Borers = new Category(" Borers ", Items.NETHERITE_PICKAXE.getDefaultStack());
-    public static final HudGroup Hud = new HudGroup("HIG Tools");
+    public static final Category MAIN = new Category("HIG Tools", Items.NETHERITE_PICKAXE.getDefaultStack());
+    public static final Category BORERS = new Category(" Borers ", Items.NETHERITE_PICKAXE.getDefaultStack());
+    public static final HudGroup HUD = new HudGroup("HIG Tools");
 
     @Override
     public void onInitialize() {
@@ -74,7 +74,7 @@ public class HIGTools extends MeteorAddon {
 
     @Override
     public void onRegisterCategories() {
-        Modules.registerCategory(Main);
-        Modules.registerCategory(Borers);
+        Modules.registerCategory(MAIN);
+        Modules.registerCategory(BORERS);
     }
 }

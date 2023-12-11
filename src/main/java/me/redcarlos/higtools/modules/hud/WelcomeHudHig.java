@@ -11,7 +11,7 @@ import meteordevelopment.meteorclient.systems.modules.misc.NameProtect;
 import static meteordevelopment.meteorclient.MeteorClient.mc;
 
 public class WelcomeHudHig extends HudElement {
-    public static final HudElementInfo<WelcomeHudHig> INFO = new HudElementInfo<>(HIGTools.Hud, "welcome-hud-hig", "Displays a welcome message.", WelcomeHudHig::new);
+    public static final HudElementInfo<WelcomeHudHig> INFO = new HudElementInfo<>(HIGTools.HUD, "welcome-hud-hig", "Displays a welcome message.", WelcomeHudHig::new);
 
     private String leftText;
     private String rightText;

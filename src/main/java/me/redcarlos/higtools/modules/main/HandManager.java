@@ -86,7 +86,7 @@ public class HandManager extends Module {
     private boolean swapped;
 
     public HandManager() {
-        super(HIGTools.Main, "hand-manager", "Automatically manages your offhand (optimized for highway digging).");
+        super(HIGTools.MAIN, "hand-manager", "Automatically manages your offhand (optimized for highway digging).");
     }
 
     @Override

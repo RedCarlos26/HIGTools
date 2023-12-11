@@ -56,7 +56,7 @@ public class ScaffoldPlus extends Module {
     private boolean worked = false;
 
     public ScaffoldPlus() {
-        super(HIGTools.Main, "scaffold+", "Scaffolds blocks under you.");
+        super(HIGTools.MAIN, "scaffold+", "Scaffolds blocks under you.");
     }
 
     @EventHandler
