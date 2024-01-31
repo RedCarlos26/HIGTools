@@ -166,7 +166,7 @@ public class HandManager extends Module {
     }
 
     private void startEating() {
-        if (mc.player == null || mc.world == null) return;
+        if (mc.player == null || mc.world == null || mc.interactionManager == null) return;
 
         mc.options.useKey.setPressed(true);
         if (mc.player.isUsingItem()) return;

@@ -40,6 +40,13 @@ public class AutoWalkHig extends Module {
         .build()
     );
 
+    private final Setting<Boolean> gapToggle = sgGeneral.add(new BoolSetting.Builder()
+        .name("gap-toggle")
+        .description("Automatically disables AutoWalk-HIG when you run out of enchanted golden apples.")
+        .defaultValue(true)
+        .build()
+    );
+
     private boolean sentMessage;
 
     public AutoWalkHig() {
@@ -79,6 +86,15 @@ public class AutoWalkHig extends Module {
             FindItemResult pickaxe = InvUtils.find(itemStack -> itemStack.getItem() == Items.DIAMOND_PICKAXE || itemStack.getItem() == Items.NETHERITE_PICKAXE);
             if (!pickaxe.found()) {
                 error("No pickaxe found, disabling.");
+                toggle();
+                return;
+            }
+        }
+
+        if (gapToggle.get()) {
+            FindItemResult gapple = InvUtils.find(itemStack -> itemStack.getItem() == Items.ENCHANTED_GOLDEN_APPLE);
+            if (!gapple.found()) {
+                error("No gap found, disabling.");
                 toggle();
             }
         }

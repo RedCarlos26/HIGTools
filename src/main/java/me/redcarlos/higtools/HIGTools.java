@@ -39,14 +39,13 @@ public class HIGTools extends MeteorAddon {
         Commands.add(new Center());
         Commands.add(new Coordinates());
 
-        // HUD
+        // Hud
         Hud hud = Systems.get(Hud.class);
         hud.register(BindsHud.INFO);
         hud.register(WelcomeHudHig.INFO);
 
         // Modules
         Modules modules = Modules.get();
-
         modules.add(new AfkLogout());
         modules.add(new AutoCenter());
         modules.add(new AutoWalkHig());
@@ -59,7 +58,7 @@ public class HIGTools extends MeteorAddon {
         modules.add(new HotbarManager());
         modules.add(new RotationHig());
         modules.add(new ScaffoldPlus());
-
+        // Borers
         modules.add(new AxisBorer());
         modules.add(new NegNegBorer());
         modules.add(new NegPosBorer());
