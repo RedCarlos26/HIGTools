@@ -36,7 +36,7 @@ public class HighwayTools extends Module {
 
     private final Setting<Double> radius = sgGeneral.add(new DoubleSetting.Builder()
         .name("axis-radius")
-        .description("The radius from the axis to toggle HighwayTools.")
+        .description("The radius from the axis to toggle HighwayTools at.")
         .defaultValue(3)
         .min(0)
         .sliderRange(0, 15)
@@ -86,7 +86,7 @@ public class HighwayTools extends Module {
                 modules.get(HighwayBuilderPlus.class).toggle();
                 commonClasses.forEach(moduleClass -> modules.get(moduleClass).toggle());
             }
-            case AxisDigging -> {
+            case AxisDigging, RingRoadDigging -> {
                 modules.get(AxisBorer.class).toggle();
                 commonClasses.forEach(moduleClass -> modules.get(moduleClass).toggle());
             }
@@ -124,7 +124,7 @@ public class HighwayTools extends Module {
                     .filter(moduleClass -> modules.get(moduleClass).isActive())
                     .forEach(moduleClass -> modules.get(moduleClass).toggle());
             }
-            case AxisDigging -> {
+            case AxisDigging, RingRoadDigging -> {
                 if (modules.get(AxisBorer.class).isActive()) modules.get(AxisBorer.class).toggle();
                 commonClasses.stream()
                     .filter(moduleClass -> modules.get(moduleClass).isActive())
@@ -193,6 +193,7 @@ public class HighwayTools extends Module {
         NegNegDigging,
         NegPosDigging,
         PosNegDigging,
-        PosPosDigging
+        PosPosDigging,
+        RingRoadDigging
     }
 }

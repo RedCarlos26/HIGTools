@@ -8,7 +8,7 @@ import net.minecraft.util.math.MathHelper;
 
 public class AxisBorer extends BorerModule {
     public AxisBorer() {
-        super("AxisBorer", "Bore holes in the X and Z axis.", 4, 4, 0, 0);
+        super("AxisBorer", "Automatically digs any axis highway and ring road.", 4, 4, 0, 0);
     }
 
     @Override
