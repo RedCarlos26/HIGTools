@@ -335,6 +335,8 @@ public class HighwayBuilderPlus extends Module {
 
     @Override
     public void onActivate() {
+        if (mc.player == null || mc.world == null) return;
+
         dir = HorizontalDirection.get(mc.player.getYaw());
         leftDir = dir.rotateLeftSkipOne();
         rightDir = leftDir.opposite();
@@ -358,13 +360,14 @@ public class HighwayBuilderPlus extends Module {
         if (blocksPerTick.get() > 1 && rotation.get().mine) warning("With rotations enabled, you can break at most 1 block per tick.");
         if (placementsPerTick.get() > 1 && rotation.get().place) warning("With rotations enabled, you can place at most 1 block per tick.");
 
-        if (Modules.get().get(InstaMine.class).isActive()) warning("It's recommended to disable the InstaMine module and instead use 'instamine-echests' to avoid errors.");
+        if (Modules.get().get(InstaMine.class).isActive()) Modules.get().get(InstaMine.class).toggle();
     }
 
     @Override
     public void onDeactivate() {
-        mc.player.input = prevInput;
+        if (mc.player == null || mc.world == null) return;
 
+        mc.player.input = prevInput;
         mc.player.setYaw(dir.yaw);
 
         if (displayInfo) {
@@ -393,6 +396,8 @@ public class HighwayBuilderPlus extends Module {
 
     @EventHandler
     private void onTick(TickEvent.Pre event) {
+        if (mc.player == null || mc.world == null) return;
+
         if (width.get() < 3 && dir.diagonal) {
             errorEarly("Diagonal highways less than 3 blocks wide are not supported, disabling HighwayTools & HighwayBuilder.");
             if (Modules.get().get(HighwayTools.class).isActive()) {
@@ -405,7 +410,7 @@ public class HighwayBuilderPlus extends Module {
         if (Modules.get().get(AutoGap.class).isEating()) return;
         if (Modules.get().get(HandManager.class).isEating()) return;
 
-        if (pauseOnLag.get() && TickRate.INSTANCE.getTimeSinceLastTick() >= 2.0f) return;
+        if (pauseOnLag.get() && TickRate.INSTANCE.getTimeSinceLastTick() >= 1.4f) return;
 
         count = 0;
 

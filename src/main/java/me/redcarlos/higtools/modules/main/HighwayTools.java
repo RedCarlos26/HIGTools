@@ -8,6 +8,7 @@ import meteordevelopment.meteorclient.systems.modules.Module;
 import meteordevelopment.meteorclient.systems.modules.Modules;
 import meteordevelopment.meteorclient.systems.modules.misc.AutoLog;
 import meteordevelopment.meteorclient.systems.modules.movement.SafeWalk;
+import meteordevelopment.meteorclient.systems.modules.player.InstaMine;
 import meteordevelopment.meteorclient.systems.modules.render.FreeLook;
 import meteordevelopment.meteorclient.systems.modules.world.LiquidFiller;
 import meteordevelopment.meteorclient.utils.player.FindItemResult;
@@ -80,6 +81,8 @@ public class HighwayTools extends Module {
         originRatio = Math.abs(originX - originZ);
 
         Modules modules = Modules.get();
+
+        if (modules.get(InstaMine.class).isActive()) modules.get(InstaMine.class).toggle();
 
         switch (mode.get()) {
             case HighwayBuilding -> {

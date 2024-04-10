@@ -31,7 +31,7 @@ public class HIGTools extends MeteorAddon {
 
     @Override
     public void onInitialize() {
-        LOG.info("Initializing HIGTools " + HIGTools.VERSION);
+        LOG.info("Initializing HIGTools {}", HIGTools.VERSION);
 
         BetterChat.registerCustomHead("[HIGTools]", new Identifier("higtools", "chat/icon.png"));
 
