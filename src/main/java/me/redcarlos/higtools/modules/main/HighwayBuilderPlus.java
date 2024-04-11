@@ -399,7 +399,7 @@ public class HighwayBuilderPlus extends Module {
         if (mc.player == null || mc.world == null) return;
 
         if (width.get() < 3 && dir.diagonal) {
-            errorEarly("Diagonal highways less than 3 blocks wide are not supported, disabling HighwayTools & HighwayBuilder.");
+            errorEarly("Diagonal highways less than 3 blocks wide are not supported, disabling HighwayTools & HighwayBuilder+.");
             if (Modules.get().get(HighwayTools.class).isActive()) {
                 Modules.get().get(HighwayTools.class).toggle();
             }
