@@ -476,6 +476,7 @@ public class HighwayBuilderPlus extends Module {
             default -> 0;
             case 2, 3 -> 1;
             case 4, 5 -> 2;
+            case 6 -> 3;
         };
     }
 
