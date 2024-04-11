@@ -24,24 +24,24 @@
 
 ## Modules
 - AfkLogout
-- ArmorNotify
 - AutoCenter
-- AutoWalk+
+- AutoWalkHIG
 - AxisViewer
 - DiscordRPC
 - HandManager
+- HighwayBorers
 - HighwayBuilder+
 - HighwayTools
 - HIGPrefix
+- HIGRotation
 - HotbarManager
-- NetherBorers
 - Scaffold+
 
 ## HUD
 - Binds HUD
-- Greetings HUD
+- Welcome HUD
 
 ## Commands
+- `.center`
 - `.coords`
-- `.disconnect`
 - `.toggle higtools`
