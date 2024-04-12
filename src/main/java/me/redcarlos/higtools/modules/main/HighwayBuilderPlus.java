@@ -147,6 +147,16 @@ public class HighwayBuilderPlus extends Module {
         .build()
     );
 
+    private final Setting<Integer> resumeTPS = sgGeneral.add(new IntSetting.Builder()
+        .name("resume-tps")
+        .description("Server tick speed at which to resume building.")
+        .defaultValue(18)
+        .range(1, 19)
+        .sliderRange(1, 19)
+        .visible(pauseOnLag::get)
+        .build()
+    );
+
     // Digging
 
     private final Setting<Boolean> dontBreakTools = sgDigging.add(new BoolSetting.Builder()
@@ -323,7 +333,7 @@ public class HighwayBuilderPlus extends Module {
     public Vec3d start;
     public int blocksBroken, blocksPlaced;
     private final MBlockPos lastBreakingPos = new MBlockPos();
-    private boolean displayInfo;
+    private boolean displayInfo, sentLagMessage;
     private int placeTimer, breakTimer, count;
 
     private final MBlockPos posRender2 = new MBlockPos();
@@ -356,6 +366,8 @@ public class HighwayBuilderPlus extends Module {
         placeTimer = 0;
         breakTimer = 0;
         count = 0;
+
+        sentLagMessage = false;
 
         if (blocksPerTick.get() > 1 && rotation.get().mine) warning("With rotations enabled, you can break at most 1 block per tick.");
         if (placementsPerTick.get() > 1 && rotation.get().place) warning("With rotations enabled, you can place at most 1 block per tick.");
@@ -410,10 +422,21 @@ public class HighwayBuilderPlus extends Module {
         if (Modules.get().get(AutoGap.class).isEating()) return;
         if (Modules.get().get(HandManager.class).isEating()) return;
 
-        if (pauseOnLag.get() && TickRate.INSTANCE.getTimeSinceLastTick() >= 1.4f) return;
+        if (pauseOnLag.get()) {
+            if (TickRate.INSTANCE.getTimeSinceLastTick() > 1.4f) {
+                if (!sentLagMessage) error("Server isn't responding, pausing.");
+                sentLagMessage = true;
+                return;
+            }
+
+            if (sentLagMessage) {
+                if (TickRate.INSTANCE.getTickRate() > resumeTPS.get()) {
+                    sentLagMessage = false;
+                } else return;
+            }
+        }
 
         count = 0;
-
         state.tick(this);
 
         if (breakTimer > 0) breakTimer--;

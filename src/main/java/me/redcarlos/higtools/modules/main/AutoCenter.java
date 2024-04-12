@@ -16,9 +16,10 @@ public class AutoCenter extends Module {
     private final Setting<Double> comp = sgGeneral.add(new DoubleSetting.Builder()
         .name("offset")
         .defaultValue(1.0)
-        .description("How much to offset the player's position.")
+        .description("How much to offset the player's position. Do not change unless you know what you're doing.")
         .range(-2.5, 2.5)
         .sliderRange(-2.5, 2.5)
+        .onChanged(b -> warning("Do not change this value unless you know what you're doing."))
         .build()
     );
 
@@ -34,7 +35,7 @@ public class AutoCenter extends Module {
     private int highway = -1;
 
     public AutoCenter() {
-        super(HIGTools.MAIN, "auto-center", "Automatically centers the player so that NetherBorer mines on axis.");
+        super(HIGTools.MAIN, "auto-center", "Automatically centers the player so that HighwayBorers mine on axis.");
     }
 
     @Override

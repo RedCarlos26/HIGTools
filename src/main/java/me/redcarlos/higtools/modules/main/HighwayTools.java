@@ -30,7 +30,7 @@ public class HighwayTools extends Module {
 
     private final Setting<Boolean> axisToggle = sgGeneral.add(new BoolSetting.Builder()
         .name("axis-toggle")
-        .description("Automatically disables HighwayTools when you reach an axis. Useful when digging ring roads.")
+        .description("Toggles itself when you reach an axis. Useful when digging ring roads.")
         .defaultValue(true)
         .build()
     );
@@ -47,14 +47,14 @@ public class HighwayTools extends Module {
 
     private final Setting<Boolean> pickToggle = sgGeneral.add(new BoolSetting.Builder()
         .name("pickaxe-toggle")
-        .description("Automatically disables HighwayTools when you run out of pickaxes.")
+        .description("Toggles itself when you run out of pickaxes.")
         .defaultValue(true)
         .build()
     );
 
     private final Setting<Boolean> keepY = sgGeneral.add(new BoolSetting.Builder()
         .name("y-value-toggle")
-        .description("Automatically disables HighwayTools when you fall below your original height.")
+        .description("Toggles itself when you fall below your original height.")
         .defaultValue(true)
         .build()
     );
@@ -201,7 +201,7 @@ public class HighwayTools extends Module {
 
         if (keepY.get()) {
             if (mc.player.getY() < originY) {
-                info("Dropped below original height, disabling.");
+                info("Fell below original height, disabling.");
                 toggle();
             }
         }

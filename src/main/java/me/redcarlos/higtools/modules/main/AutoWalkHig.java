@@ -24,30 +24,38 @@ import net.minecraft.item.Items;
 public class AutoWalkHig extends Module {
     private final SettingGroup sgGeneral = settings.getDefaultGroup();
 
+    private final Setting<Boolean> pauseOnLag = sgGeneral.add(new BoolSetting.Builder()
+        .name("pause-on-lag")
+        .description("Pauses walking while the server stops responding.")
+        .defaultValue(true)
+        .build()
+    );
+
     private final Setting<Integer> resumeTPS = sgGeneral.add(new IntSetting.Builder()
         .name("resume-tps")
-        .description("TPS at which to resume walking.")
+        .description("Server tick speed at which to resume walking.")
         .defaultValue(18)
-        .range(1, 20)
-        .sliderRange(1, 20)
+        .range(1, 19)
+        .sliderRange(1, 19)
+        .visible(pauseOnLag::get)
         .build()
     );
 
     private final Setting<Boolean> pickToggle = sgGeneral.add(new BoolSetting.Builder()
         .name("pickaxe-toggle")
-        .description("Automatically disables AutoWalk-HIG when you run out of pickaxes.")
+        .description("Toggles itself when you run out of pickaxes.")
         .defaultValue(true)
         .build()
     );
 
     private final Setting<Boolean> gapToggle = sgGeneral.add(new BoolSetting.Builder()
         .name("gap-toggle")
-        .description("Automatically disables AutoWalk-HIG when you run out of enchanted golden apples.")
+        .description("Toggles itself when you run out of enchanted golden apples.")
         .defaultValue(true)
         .build()
     );
 
-    private boolean sentMessage;
+    private boolean sentLagMessage;
 
     public AutoWalkHig() {
         super(HIGTools.MAIN, "auto-walk-HIG", "Automatically walks forward (optimized for highway digging).");
@@ -55,7 +63,7 @@ public class AutoWalkHig extends Module {
 
     @Override
     public void onActivate() {
-        sentMessage = false;
+        sentLagMessage = false;
     }
 
     @Override
@@ -65,22 +73,21 @@ public class AutoWalkHig extends Module {
 
     @EventHandler
     private void onTick(TickEvent.Pre event) {
-        float timeSinceLastTick = TickRate.INSTANCE.getTimeSinceLastTick();
+        if (pauseOnLag.get()) {
+            if (TickRate.INSTANCE.getTimeSinceLastTick() > 1.4f) {
+                if (!sentLagMessage) error("Server isn't responding, pausing.");
+                sentLagMessage = true;
+                unpress();
+                return;
+            }
 
-        if (timeSinceLastTick >= 1.4f) {
-            if (!sentMessage) error("Server is lagging, pausing.");
-            sentMessage = true;
-            unpress();
-            return;
+            if (sentLagMessage) {
+                if (TickRate.INSTANCE.getTickRate() > resumeTPS.get()) {
+                    setPressed(mc.options.forwardKey, true);
+                    sentLagMessage = false;
+                } else return;
+            }
         }
-
-        float TPS = (TickRate.INSTANCE.getTickRate());
-        float i = (resumeTPS.get());
-
-        if (TPS > i) {
-            setPressed(mc.options.forwardKey, true);
-        } else return;
-        sentMessage = false;
 
         if (pickToggle.get()) {
             FindItemResult pickaxe = InvUtils.find(itemStack -> itemStack.getItem() == Items.DIAMOND_PICKAXE || itemStack.getItem() == Items.NETHERITE_PICKAXE);
