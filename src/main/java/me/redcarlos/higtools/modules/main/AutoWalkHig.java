@@ -75,7 +75,9 @@ public class AutoWalkHig extends Module {
     private void onTick(TickEvent.Pre event) {
         if (pauseOnLag.get()) {
             if (TickRate.INSTANCE.getTimeSinceLastTick() > 1.4f) {
-                if (!sentLagMessage) error("Server isn't responding, pausing.");
+                if (!sentLagMessage) {
+                    error("Server isn't responding, pausing.");
+                }
                 sentLagMessage = true;
                 unpress();
                 return;
@@ -83,11 +85,12 @@ public class AutoWalkHig extends Module {
 
             if (sentLagMessage) {
                 if (TickRate.INSTANCE.getTickRate() > resumeTPS.get()) {
-                    setPressed(mc.options.forwardKey, true);
                     sentLagMessage = false;
                 } else return;
             }
         }
+
+        setPressed(mc.options.forwardKey, true);
 
         if (pickToggle.get()) {
             FindItemResult pickaxe = InvUtils.find(itemStack -> itemStack.getItem() == Items.DIAMOND_PICKAXE || itemStack.getItem() == Items.NETHERITE_PICKAXE);
