@@ -18,7 +18,7 @@ public class AutoCenter extends Module {
         .defaultValue(1.0)
         .description("How much to offset the player's position. Do not change unless you know what you're doing.")
         .range(-2.5, 2.5)
-        .sliderRange(-2.5, 2.5)
+        .noSlider()
         .onChanged(b -> warning("Do not change this value unless you know what you're doing."))
         .build()
     );
