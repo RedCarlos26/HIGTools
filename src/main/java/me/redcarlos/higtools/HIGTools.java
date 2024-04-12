@@ -56,6 +56,7 @@ public class HIGTools extends MeteorAddon {
         modules.add(new HighwayBuilderPlus());
         modules.add(new HighwayTools());
         modules.add(new HotbarManager());
+        modules.add(new LiquidFillerHig());
         modules.add(new RotationHig());
         modules.add(new ScaffoldPlus());
         // Borers

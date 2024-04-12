@@ -57,7 +57,7 @@ public class HighwayTools extends Module {
         FreeLook.class,
         HandManager.class,
         HotbarManager.class,
-        LiquidFiller.class,
+        LiquidFillerHig.class,
         RotationHig.class,
         SafeWalk.class,
         ScaffoldPlus.class
