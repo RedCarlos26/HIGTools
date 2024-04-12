@@ -13,7 +13,7 @@
 </div>
 
 <div align="center">
-  <a href="https://discord.gg/a4jkKGJNdJ"><img src="https://invidget.switchblade.xyz/a4jkKGJNdJ"></a>
+  <a href="https://discord.gg/a4jkKGJNdJ"><img src="https://invidget.switchblade.xyz/a4jkKGJNdJ" alt="HIGTools Logo"></a>
 </div>
 
 ## Needed mods

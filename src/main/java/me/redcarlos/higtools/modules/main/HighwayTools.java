@@ -52,10 +52,20 @@ public class HighwayTools extends Module {
         .build()
     );
 
+    private final Setting<Boolean> keepY = sgGeneral.add(new BoolSetting.Builder()
+        .name("y-value-toggle")
+        .description("Automatically disables HighwayTools when you fall below your original height.")
+        .defaultValue(true)
+        .build()
+    );
+
     private final List<Class<? extends Module>> commonClasses = List.of(
         AutoLog.class,
         FreeLook.class,
-        HandManager.class,
+        HandManager.class
+    );
+
+    private final List<Class<? extends Module>> diggingClasses = List.of(
         HotbarManager.class,
         LiquidFillerHig.class,
         RotationHig.class,
@@ -64,8 +74,9 @@ public class HighwayTools extends Module {
     );
 
     private double originX;
+    private double originY;
     private double originZ;
-    private double originRatio;
+    private double originXZRatio;
 
     public HighwayTools() {
         super(HIGTools.MAIN, "highway-tools", "Digs, builds and repairs highways automatically.");
@@ -76,9 +87,10 @@ public class HighwayTools extends Module {
         if (mc.player == null || mc.world == null) return;
 
         originX = Math.abs(mc.player.getX());
+        originY = Math.abs(mc.player.getY());
         originZ = Math.abs(mc.player.getZ());
         // This is to know if a player is on a diagonal axis
-        originRatio = Math.abs(originX - originZ);
+        originXZRatio = Math.abs(originX - originZ);
 
         Modules modules = Modules.get();
 
@@ -92,26 +104,31 @@ public class HighwayTools extends Module {
             case AxisDigging, RingRoadDigging -> {
                 modules.get(AxisBorer.class).toggle();
                 commonClasses.forEach(moduleClass -> modules.get(moduleClass).toggle());
+                diggingClasses.forEach(moduleClass -> modules.get(moduleClass).toggle());
             }
             case NegNegDigging -> {
                 modules.get(NegNegBorer.class).toggle();
                 modules.get(AutoCenter.class).toggle();
                 commonClasses.forEach(moduleClass -> modules.get(moduleClass).toggle());
+                diggingClasses.forEach(moduleClass -> modules.get(moduleClass).toggle());
             }
             case NegPosDigging -> {
                 modules.get(NegPosBorer.class).toggle();
                 modules.get(AutoCenter.class).toggle();
                 commonClasses.forEach(moduleClass -> modules.get(moduleClass).toggle());
+                diggingClasses.forEach(moduleClass -> modules.get(moduleClass).toggle());
             }
             case PosNegDigging -> {
                 modules.get(PosNegBorer.class).toggle();
                 modules.get(AutoCenter.class).toggle();
                 commonClasses.forEach(moduleClass -> modules.get(moduleClass).toggle());
+                diggingClasses.forEach(moduleClass -> modules.get(moduleClass).toggle());
             }
             case PosPosDigging -> {
                 modules.get(PosPosBorer.class).toggle();
                 modules.get(AutoCenter.class).toggle();
                 commonClasses.forEach(moduleClass -> modules.get(moduleClass).toggle());
+                diggingClasses.forEach(moduleClass -> modules.get(moduleClass).toggle());
             }
         }
     }
@@ -123,43 +140,36 @@ public class HighwayTools extends Module {
         switch (mode.get()) {
             case HighwayBuilding -> {
                 if (modules.get(HighwayBuilderPlus.class).isActive()) modules.get(HighwayBuilderPlus.class).toggle();
-                commonClasses.stream()
-                    .filter(moduleClass -> modules.get(moduleClass).isActive())
-                    .forEach(moduleClass -> modules.get(moduleClass).toggle());
+                commonClasses.stream().filter(moduleClass -> modules.get(moduleClass).isActive()).forEach(moduleClass -> modules.get(moduleClass).toggle());
             }
             case AxisDigging, RingRoadDigging -> {
                 if (modules.get(AxisBorer.class).isActive()) modules.get(AxisBorer.class).toggle();
-                commonClasses.stream()
-                    .filter(moduleClass -> modules.get(moduleClass).isActive())
-                    .forEach(moduleClass -> modules.get(moduleClass).toggle());
+                commonClasses.stream().filter(moduleClass -> modules.get(moduleClass).isActive()).forEach(moduleClass -> modules.get(moduleClass).toggle());
+                diggingClasses.stream().filter(moduleClass -> modules.get(moduleClass).isActive()).forEach(moduleClass -> modules.get(moduleClass).toggle());
             }
             case NegNegDigging -> {
                 if (modules.get(NegNegBorer.class).isActive()) modules.get(NegNegBorer.class).toggle();
                 if (modules.get(AutoCenter.class).isActive()) modules.get(AutoCenter.class).toggle();
-                commonClasses.stream()
-                    .filter(moduleClass -> modules.get(moduleClass).isActive())
-                    .forEach(moduleClass -> modules.get(moduleClass).toggle());
+                commonClasses.stream().filter(moduleClass -> modules.get(moduleClass).isActive()).forEach(moduleClass -> modules.get(moduleClass).toggle());
+                diggingClasses.stream().filter(moduleClass -> modules.get(moduleClass).isActive()).forEach(moduleClass -> modules.get(moduleClass).toggle());
             }
             case NegPosDigging -> {
                 if (modules.get(NegPosBorer.class).isActive()) modules.get(NegPosBorer.class).toggle();
                 if (modules.get(AutoCenter.class).isActive()) modules.get(AutoCenter.class).toggle();
-                commonClasses.stream()
-                    .filter(moduleClass -> modules.get(moduleClass).isActive())
-                    .forEach(moduleClass -> modules.get(moduleClass).toggle());
+                commonClasses.stream().filter(moduleClass -> modules.get(moduleClass).isActive()).forEach(moduleClass -> modules.get(moduleClass).toggle());
+                diggingClasses.stream().filter(moduleClass -> modules.get(moduleClass).isActive()).forEach(moduleClass -> modules.get(moduleClass).toggle());
             }
             case PosNegDigging -> {
                 if (modules.get(PosNegBorer.class).isActive()) modules.get(PosNegBorer.class).toggle();
                 if (modules.get(AutoCenter.class).isActive()) modules.get(AutoCenter.class).toggle();
-                commonClasses.stream()
-                    .filter(moduleClass -> modules.get(moduleClass).isActive())
-                    .forEach(moduleClass -> modules.get(moduleClass).toggle());
+                commonClasses.stream().filter(moduleClass -> modules.get(moduleClass).isActive()).forEach(moduleClass -> modules.get(moduleClass).toggle());
+                diggingClasses.stream().filter(moduleClass -> modules.get(moduleClass).isActive()).forEach(moduleClass -> modules.get(moduleClass).toggle());
             }
             case PosPosDigging -> {
                 if (modules.get(PosPosBorer.class).isActive()) modules.get(PosPosBorer.class).toggle();
                 if (modules.get(AutoCenter.class).isActive()) modules.get(AutoCenter.class).toggle();
-                commonClasses.stream()
-                    .filter(moduleClass -> modules.get(moduleClass).isActive())
-                    .forEach(moduleClass -> modules.get(moduleClass).toggle());
+                commonClasses.stream().filter(moduleClass -> modules.get(moduleClass).isActive()).forEach(moduleClass -> modules.get(moduleClass).toggle());
+                diggingClasses.stream().filter(moduleClass -> modules.get(moduleClass).isActive()).forEach(moduleClass -> modules.get(moduleClass).toggle());
             }
         }
     }
@@ -167,6 +177,18 @@ public class HighwayTools extends Module {
     @EventHandler
     private void onTick(TickEvent.Pre event) {
         if (mc.player == null || mc.world == null) return;
+
+        if (axisToggle.get()) {
+            if (originX >= radius.get() && originZ >= radius.get() && originXZRatio >= 4) {
+                // Only run expensive checks if requirements above are met
+                if (Math.abs(mc.player.getX()) <= radius.get() || Math.abs(mc.player.getZ()) <= radius.get()
+                    || Math.abs(Math.abs(mc.player.getX()) - Math.abs(mc.player.getZ())) <= radius.get() + 4) {
+
+                    info("Reached axis, disabling.");
+                    toggle();
+                }
+            }
+        }
 
         if (pickToggle.get()) {
             FindItemResult pickaxe = InvUtils.find(itemStack -> itemStack.getItem() == Items.DIAMOND_PICKAXE || itemStack.getItem() == Items.NETHERITE_PICKAXE);
@@ -177,15 +199,10 @@ public class HighwayTools extends Module {
             }
         }
 
-        if (axisToggle.get()) {
-            if (originX >= radius.get() && originZ >= radius.get() && originRatio >= 4) {
-                // Only run expensive checks if requirements above are met
-                if (Math.abs(mc.player.getX()) <= radius.get() || Math.abs(mc.player.getZ()) <= radius.get()
-                    || Math.abs(Math.abs(mc.player.getX()) - Math.abs(mc.player.getZ())) <= radius.get() + 4) {
-
-                    info("Reached axis, disabling.");
-                    toggle();
-                }
+        if (keepY.get()) {
+            if (mc.player.getY() < originY) {
+                info("Dropped below original height, disabling.");
+                toggle();
             }
         }
     }
