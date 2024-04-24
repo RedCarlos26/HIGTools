@@ -97,6 +97,11 @@ public class HandManager extends Module {
         currentItem = Item.Totem;
     }
 
+    @Override
+    public void onDeactivate() {
+        if (eating) stopEating();
+    }
+
     @EventHandler
     public void onRender(Render3DEvent event) {
         if (mc.player == null || mc.world == null) return;
@@ -131,15 +136,21 @@ public class HandManager extends Module {
             }
         }
 
-        // Checking if needed to eat
-        if (mc.player.getOffHandStack().getItem().isFood()) {
-            if (eating) {
-                if (shouldEat()) {
-                    startEating();
-                } else {
+        if (eating) {
+            // If we are eating check if we should still be eating
+            if (shouldEat()) {
+                // Check if the item in current slot is not an egap
+                if (!mc.player.getOffHandStack().getItem().isFood()) {
                     stopEating();
+                } else {
+                    startEating();
                 }
-            } else if (shouldEat()) {
+            } else {
+                stopEating(); // If we shouldn't be eating anymore then stop
+            }
+        } else {
+            // If we are not eating check if we should start eating
+            if (shouldEat() && mc.player.getOffHandStack().getItem().isFood()) {
                 startEating();
             }
         }
@@ -184,7 +195,7 @@ public class HandManager extends Module {
     }
 
     public boolean isEating() {
-        return eating;
+        return isActive() && eating;
     }
 
     public enum Item {
