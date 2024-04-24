@@ -592,7 +592,7 @@ public class HighwayBuilderPlus extends Module {
             @Override
             protected void tick(HighwayBuilderPlus b) {
                 checkTasks(b);
-                b.mc.player.setPitch(0);
+                b.mc.player.setPitch(20);
 
                 if (b.state == Forward) b.input.pressingForward = true; // Move
             }
