@@ -135,6 +135,11 @@ public class HandManager extends Module {
                 sentMsg = false;
             }
         }
+    }
+
+    @EventHandler
+    private void onTick(TickEvent.Pre event) {
+        if (mc.player == null) return;
 
         if (eating) {
             // If we are eating check if we should still be eating
@@ -143,7 +148,7 @@ public class HandManager extends Module {
                 if (!mc.player.getOffHandStack().getItem().isFood()) {
                     stopEating();
                 } else {
-                    startEating();
+                    eat();
                 }
             } else {
                 stopEating(); // If we shouldn't be eating anymore then stop
@@ -156,7 +161,6 @@ public class HandManager extends Module {
         }
     }
 
-    // Variables
     @EventHandler
     private void onTick(TickEvent.Post event) {
         if (mc.player == null || mc.world == null) return;
@@ -177,16 +181,25 @@ public class HandManager extends Module {
     }
 
     private void startEating() {
-        if (mc.player == null || mc.world == null || mc.interactionManager == null) return;
+        if (mc.player == null || mc.interactionManager == null) return;
 
-        mc.options.useKey.setPressed(true);
         if (mc.player.isUsingItem()) return;
-        mc.interactionManager.interactItem(mc.player, Hand.OFF_HAND);
+
         eating = true;
+        mc.options.useKey.setPressed(true);
+        mc.interactionManager.interactItem(mc.player, Hand.OFF_HAND);
+    }
+
+    private void eat() {
+        if (mc.player == null || mc.interactionManager == null) return;
+
+        eating = true;
+        mc.options.useKey.setPressed(true);
+        mc.interactionManager.interactItem(mc.player, Hand.OFF_HAND);
     }
 
     private void stopEating() {
-        if (mc.player == null || mc.world == null) return;
+        if (mc.player == null) return;
 
         mc.options.useKey.setPressed(false);
         mc.player.stopUsingItem();

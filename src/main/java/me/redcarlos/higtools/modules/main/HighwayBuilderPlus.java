@@ -13,6 +13,7 @@ import meteordevelopment.meteorclient.renderer.ShapeMode;
 import meteordevelopment.meteorclient.settings.*;
 import meteordevelopment.meteorclient.systems.modules.Module;
 import meteordevelopment.meteorclient.systems.modules.Modules;
+import meteordevelopment.meteorclient.systems.modules.combat.KillAura;
 import meteordevelopment.meteorclient.systems.modules.player.AutoEat;
 import meteordevelopment.meteorclient.systems.modules.player.AutoGap;
 import meteordevelopment.meteorclient.systems.modules.player.AutoTool;
@@ -220,11 +221,14 @@ public class HighwayBuilderPlus extends Module {
     );
 
     // Inventory
-
     private final Setting<List<Item>> trashItems = sgInventory.add(new ItemListSetting.Builder()
         .name("trash-items")
         .description("Items that are considered trash and can be thrown out.")
-        .defaultValue(Items.NETHERRACK, Items.QUARTZ, Items.GOLD_NUGGET, Items.GOLDEN_SWORD, Items.GLOWSTONE_DUST, Items.GLOWSTONE, Items.BLACKSTONE, Items.BASALT, Items.GHAST_TEAR, Items.SOUL_SAND, Items.SOUL_SOIL)
+        .defaultValue(
+            Items.NETHERRACK, Items.QUARTZ, Items.GOLD_NUGGET, Items.GOLDEN_SWORD, Items.GLOWSTONE_DUST,
+            Items.GLOWSTONE, Items.BLACKSTONE, Items.BASALT, Items.GHAST_TEAR, Items.SOUL_SAND, Items.SOUL_SOIL,
+            Items.ROTTEN_FLESH
+        )
         .build()
     );
 
@@ -333,7 +337,7 @@ public class HighwayBuilderPlus extends Module {
     public Vec3d start;
     public int blocksBroken, blocksPlaced;
     private final MBlockPos lastBreakingPos = new MBlockPos();
-    private boolean displayInfo, sentLagMessage;
+    private boolean displayInfo, sentLagMessage, moduleAttacking, moduleEating;
     private int placeTimer, breakTimer, count;
 
     private final MBlockPos posRender2 = new MBlockPos();
@@ -368,6 +372,8 @@ public class HighwayBuilderPlus extends Module {
         count = 0;
 
         sentLagMessage = false;
+        moduleEating = false;
+        moduleAttacking = false;
 
         if (blocksPerTick.get() > 1 && rotation.get().mine) warning("With rotations enabled, you can break at most 1 block per tick.");
         if (placementsPerTick.get() > 1 && rotation.get().place) warning("With rotations enabled, you can place at most 1 block per tick.");
@@ -389,16 +395,6 @@ public class HighwayBuilderPlus extends Module {
         }
     }
 
-    @Override
-    public void error(String message, Object... args) {
-        super.error(message, args);
-        toggle();
-
-        if (disconnectOnToggle.get()) {
-            disconnect(message, args);
-        }
-    }
-
     private void errorEarly(String message, Object... args) {
         super.error(message, args);
 
@@ -411,29 +407,47 @@ public class HighwayBuilderPlus extends Module {
         if (mc.player == null || mc.world == null) return;
 
         if (width.get() < 3 && dir.diagonal) {
-            errorEarly("Diagonal highways less than 3 blocks wide are not supported, disabling HighwayTools & HighwayBuilder+.");
-            if (Modules.get().get(HighwayTools.class).isActive()) {
-                Modules.get().get(HighwayTools.class).toggle();
-            }
+            errorEarly("Diagonal highways less than 3 blocks wide are not supported, please change the width setting.");
             return;
         }
 
-        if (Modules.get().get(AutoEat.class).eating) return;
-        if (Modules.get().get(AutoGap.class).isEating()) return;
-        if (Modules.get().get(HandManager.class).isEating()) return;
+        if (Modules.get().get(KillAura.class).attacking) return;
 
         if (pauseOnLag.get()) {
             if (TickRate.INSTANCE.getTimeSinceLastTick() > 1.4f) {
-                if (!sentLagMessage) error("Server isn't responding, pausing.");
+                if (!sentLagMessage) {
+                    error("Server isn't responding, pausing.");
+                    setState(State.Wait);
+                }
                 sentLagMessage = true;
-                return;
             }
 
             if (sentLagMessage) {
                 if (TickRate.INSTANCE.getTickRate() > resumeTPS.get()) {
+                    setState(lastState);
                     sentLagMessage = false;
-                } else return;
+                }
             }
+        }
+
+        if (!moduleEating && (Modules.get().get(AutoEat.class).eating || Modules.get().get(AutoGap.class).isEating() || Modules.get().get(HandManager.class).isEating())) {
+            setState(State.Wait);
+            moduleEating = true;
+        }
+
+        if (moduleEating && (!Modules.get().get(AutoEat.class).eating || !Modules.get().get(AutoGap.class).isEating() || !Modules.get().get(HandManager.class).isEating())) {
+            setState(lastState);
+            moduleEating = false;
+        }
+
+        if (!moduleAttacking && Modules.get().get(KillAura.class).attacking) {
+            setState(State.Wait);
+            moduleAttacking = true;
+        }
+
+        if (moduleAttacking && !Modules.get().get(KillAura.class).attacking) {
+            setState(lastState);
+            moduleAttacking = false;
         }
 
         count = 0;
@@ -518,13 +532,6 @@ public class HighwayBuilderPlus extends Module {
 
     private boolean canPlace(MBlockPos pos, boolean liquids) {
         return liquids ? !pos.getState().getFluidState().isEmpty() : BlockUtils.canPlace(pos.getBlockPos());
-    }
-
-    private void disconnect(String message, Object... args) {
-        MutableText text = Text.literal(String.format("%s[%s%s%s] %s", Formatting.GRAY, Formatting.BLUE, title, Formatting.GRAY, Formatting.RED) + String.format(message, args)).append("\n");
-        text.append(getStatsText());
-
-        mc.getNetworkHandler().getConnection().disconnect(text);
     }
 
     public MutableText getStatsText() {
@@ -801,6 +808,11 @@ public class HighwayBuilderPlus extends Module {
 
                 if (emptySlots == 0) {
                     b.error("No empty slots.");
+                    if (b.disconnectOnToggle.get()) {
+                        b.mc.getNetworkHandler().getConnection().disconnect(Text.of("No empty slots."));
+                        b.displayInfo = false;
+                    }
+                    b.toggle();
                     return;
                 }
 
@@ -870,6 +882,11 @@ public class HighwayBuilderPlus extends Module {
                     int slot = findAndMoveBestToolToHotbar(b, blockState, true);
                     if (slot == -1) {
                         b.error("Cannot find pickaxe without silk touch to mine ender chests.");
+                        if (b.disconnectOnToggle.get()) {
+                            b.mc.getNetworkHandler().getConnection().disconnect(Text.of("Cannot find pickaxe without silk touch to mine ender chests."));
+                            b.displayInfo = false;
+                        }
+                        b.toggle();
                         return;
                     }
 
@@ -906,6 +923,10 @@ public class HighwayBuilderPlus extends Module {
                     BlockUtils.place(bp, Hand.MAIN_HAND, slot, b.rotation.get().place, 0, true, true, false);
                 }
             }
+        },
+        Wait {
+            @Override
+            protected void tick(HighwayBuilderPlus b) {}
         };
 
         protected void start(HighwayBuilderPlus b) {}
@@ -990,8 +1011,8 @@ public class HighwayBuilderPlus extends Module {
         private int findHotbarSlot(HighwayBuilderPlus b, boolean replaceTools) {
             int thrashSlot = -1;
             int slotsWithBlocks = 0;
-            int slotWithLeastBlocks = 65;
-            int slotWithLeastBlocksCount = 0;
+            int slotWithLeastBlocks = -1;
+            int slotWithLeastBlocksCount = Integer.MAX_VALUE;
 
             // Loop hotbar
             for (int i = 0; i < 9; i++) {
@@ -1025,6 +1046,11 @@ public class HighwayBuilderPlus extends Module {
 
             // No space found in hotbar
             b.error("No empty space in hotbar.");
+            if (b.disconnectOnToggle.get()) {
+                b.mc.getNetworkHandler().getConnection().disconnect(Text.of("No empty space in hotbar."));
+                b.displayInfo = false;
+            }
+            b.toggle();
             return -1;
         }
 
@@ -1062,6 +1088,11 @@ public class HighwayBuilderPlus extends Module {
             if (slot == -1) {
                 if (required) {
                     b.error("Out of items.");
+                    if (b.disconnectOnToggle.get()) {
+                        b.mc.getNetworkHandler().getConnection().disconnect(Text.of("Out of items."));
+                        b.displayInfo = false;
+                    }
+                    b.toggle();
                 }
 
                 return -1;
@@ -1099,7 +1130,15 @@ public class HighwayBuilderPlus extends Module {
             if (b.mc.player.getInventory().getStack(bestSlot).getItem() instanceof PickaxeItem ){
                 int count = countItem(b, stack -> stack.getItem() instanceof PickaxeItem);
 
-                if (count <= b.savePickaxes.get()) b.error("Found less than the selected amount of pickaxes required: " + count + "/"  + (b.savePickaxes.get() + 1));
+                if (count <= b.savePickaxes.get()) {
+                    b.error("Found less than the selected amount of pickaxes required: " + count + "/" + (b.savePickaxes.get() + 1));
+                    if (b.disconnectOnToggle.get()) {
+                        b.mc.getNetworkHandler().getConnection().disconnect(Text.of("Found less than the selected amount of pickaxes required."));
+                        b.displayInfo = false;
+                    }
+                    b.toggle();
+                    return -1;
+                }
             }
 
             // Check if the tool is already in hotbar
@@ -1122,6 +1161,12 @@ public class HighwayBuilderPlus extends Module {
             if (slot == -1) {
                 if (!b.mineEnderChests.get() || !hasItem(b, Items.ENDER_CHEST) || countItem(b, stack -> stack.getItem().equals(Items.ENDER_CHEST)) <= b.saveEchests.get()) {
                     b.error("Out of blocks to place.");
+                    if (b.disconnectOnToggle.get()) {
+                        b.mc.getNetworkHandler().getConnection().disconnect(Text.of("Out of blocks to place."));
+                        b.displayInfo = false;
+                    }
+                    b.toggle();
+                    return -1;
                 }
                 else b.setState(MineEnderChests);
 
