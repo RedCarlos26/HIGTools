@@ -41,6 +41,13 @@ public class AutoWalkHig extends Module {
         .build()
     );
 
+    private final Setting<Boolean> keepY = sgGeneral.add(new BoolSetting.Builder()
+        .name("y-value-toggle")
+        .description("Toggles itself when you fall below your original height.")
+        .defaultValue(true)
+        .build()
+    );
+
     private final Setting<Boolean> pickToggle = sgGeneral.add(new BoolSetting.Builder()
         .name("pickaxe-toggle")
         .description("Toggles itself when you run out of pickaxes.")
@@ -55,6 +62,7 @@ public class AutoWalkHig extends Module {
         .build()
     );
 
+    private double originY;
     private boolean sentLagMessage;
 
     public AutoWalkHig() {
@@ -63,6 +71,9 @@ public class AutoWalkHig extends Module {
 
     @Override
     public void onActivate() {
+        if (mc.player == null) return;
+
+        originY = Math.abs(mc.player.getY());
         sentLagMessage = false;
     }
 
@@ -91,6 +102,16 @@ public class AutoWalkHig extends Module {
         }
 
         setPressed(mc.options.forwardKey, true);
+
+        if (keepY.get()) {
+            if (mc.player == null) return;
+            // -0.125 is so players can still walk on soul sand and similar blocks while digging
+            if (mc.player.getY() < originY - 0.125) {
+                info("Fell below original height, disabling.");
+                toggle();
+                return;
+            }
+        }
 
         if (pickToggle.get()) {
             FindItemResult pickaxe = InvUtils.find(itemStack -> itemStack.getItem() == Items.DIAMOND_PICKAXE || itemStack.getItem() == Items.NETHERITE_PICKAXE);

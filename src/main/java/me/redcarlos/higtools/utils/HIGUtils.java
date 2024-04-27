@@ -2,6 +2,7 @@ package me.redcarlos.higtools.utils;
 
 import it.unimi.dsi.fastutil.ints.Int2IntMap;
 import it.unimi.dsi.fastutil.ints.Int2IntOpenHashMap;
+import net.minecraft.client.MinecraftClient;
 import net.minecraft.util.math.BlockPos;
 
 import java.util.stream.IntStream;
@@ -97,4 +98,54 @@ public class HIGUtils {
         if (diag) return 8;
         return -1;
     }
+
+    // Desktop Notifications
+    /*
+     * This section of the file is part of Baritone
+     * Thanks to the Baritone team for the source code.
+     * Download Baritone here : https://github.com/cabaletta/baritonefile
+     */
+
+
+    /**
+     * Send a message as a desktop notification
+     * @param message The message to display in the notification
+     *
+    private void logNotification(String message) {
+        logNotification(message, false);
+    }
+    */
+    /**
+     * Send a message as a desktop notification
+     * @param message The message to display in the notification
+     * @param error   Whether to log as an error
+     */
+    /*
+    private void logNotification(String message, boolean error) {
+        if (-1) {
+            logNotificationDirect(message, error);
+        }
+    }
+
+    /**
+     * Send a message as a desktop notification regardless of desktopNotifications
+     * (should only be used for critically important messages)
+     * @param message The message to display in the notification
+     */
+        /*
+    private void logNotificationDirect(String message) {
+        logNotificationDirect(message, false);
+    }
+
+    /**
+     * Send a message as a desktop notification regardless of desktopNotifications
+     * (should only be used for critically important messages)
+     * @param message The message to display in the notification
+     * @param error   Whether to log as an error
+     */
+        /*
+    private void logNotificationDirect(String message, boolean error) {
+        MinecraftClient.getInstance().execute(() -> BaritoneAPI.getSettings().notifier.value.accept(message, error));
+    }
+    */
 }

@@ -200,7 +200,8 @@ public class HighwayTools extends Module {
         }
 
         if (keepY.get()) {
-            if (mc.player.getY() < originY) {
+            // -0.125 is so players can still walk on soul sand and similar blocks while digging
+            if (mc.player.getY() < originY - 0.125) {
                 info("Fell below original height, disabling.");
                 toggle();
             }
