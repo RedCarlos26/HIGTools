@@ -159,11 +159,11 @@ public class LiquidFillerHig extends Module {
 
         // Loop blocks around the player
         BlockIterator.register((int) Math.ceil(range.get() + 1), (int) Math.ceil(range.get()), (blockPos, blockState) -> {
-            boolean toofarSphere = Utils.squaredDistance(pX, pY, pZ, blockPos.getX() + 0.5, blockPos.getY() + 0.5, blockPos.getZ() + 0.5) > rangeSq;
-            boolean toofarUniformCube = maxDist(Math.floor(pX), Math.floor(pY), Math.floor(pZ), blockPos.getX(), blockPos.getY(), blockPos.getZ()) >= range.get();
+            boolean tooFarSphere = Utils.squaredDistance(pX, pY, pZ, blockPos.getX() + 0.5, blockPos.getY() + 0.5, blockPos.getZ() + 0.5) > rangeSq;
+            boolean tooFarUniformCube = maxDist(Math.floor(pX), Math.floor(pY), Math.floor(pZ), blockPos.getX(), blockPos.getY(), blockPos.getZ()) >= range.get();
 
             // Check distance
-            if ((toofarSphere && shape.get() == Shape.Sphere) || (toofarUniformCube && shape.get() == Shape.UniformCube)) return;
+            if ((tooFarSphere && shape.get() == Shape.Sphere) || (tooFarUniformCube && shape.get() == Shape.UniformCube)) return;
 
             // Check if the block is a source block and set to be filled
             Fluid fluid = blockState.getFluidState().getFluid();

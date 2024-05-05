@@ -146,10 +146,10 @@ public class HandManager extends Module {
             // If we are eating check if we should still be eating
             if (shouldEat()) {
                 // Check if the item in current slot is not an egap
-                if (mc.player.getOffHandStack().getComponents().get(DataComponentTypes.FOOD) != null) {
+                if (mc.player.getOffHandStack().getComponents().get(DataComponentTypes.FOOD) == null) {
                     stopEating();
                 } else {
-                    eat();
+                    startEating();
                 }
             } else {
                 stopEating(); // If we shouldn't be eating anymore then stop
@@ -185,14 +185,6 @@ public class HandManager extends Module {
         if (mc.player == null || mc.interactionManager == null) return;
 
         if (mc.player.isUsingItem()) return;
-
-        eating = true;
-        mc.options.useKey.setPressed(true);
-        mc.interactionManager.interactItem(mc.player, Hand.OFF_HAND);
-    }
-
-    private void eat() {
-        if (mc.player == null || mc.interactionManager == null) return;
 
         eating = true;
         mc.options.useKey.setPressed(true);

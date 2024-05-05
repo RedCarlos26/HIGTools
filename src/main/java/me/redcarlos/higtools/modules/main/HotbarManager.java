@@ -127,7 +127,7 @@ public class HotbarManager extends Module {
         if (mc.player.age % delay.get() != 0) return;
 
         for (int i = 0; i <= 8; i++) {
-            if (itemIds[i].toString().replace("minecraft:", "").equals("")) continue;
+            if (itemIds[i].toString().replace("minecraft:", "").isEmpty()) continue;
             if (!Registries.ITEM.getId(mc.player.getInventory().getStack(i).getItem()).equals(itemIds[i])) {
                 for (int j = 9; j <= 35; j++) {
                     if (Registries.ITEM.getId(mc.player.getInventory().getStack(j).getItem()).equals(itemIds[i])) {
