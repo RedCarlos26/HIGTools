@@ -22,8 +22,9 @@ public class RotationHig extends Module {
     private final SettingGroup sgYaw = settings.createGroup("Yaw");
     private final SettingGroup sgPitch = settings.createGroup("Pitch");
 
-    // Yaw
-
+    /**
+     * Yaw
+     */
     private final Setting<LockMode> yawLockMode = sgYaw.add(new EnumSetting.Builder<LockMode>()
         .name("yaw-lock-mode")
         .description("The way in which your yaw is locked.")
@@ -41,8 +42,9 @@ public class RotationHig extends Module {
         .build()
     );
 
-    // Pitch
-
+    /**
+     * Pitch
+     */
     private final Setting<LockMode> pitchLockMode = sgPitch.add(new EnumSetting.Builder<LockMode>()
         .name("pitch-lock-mode")
         .description("The way in which your pitch is locked.")
@@ -66,9 +68,7 @@ public class RotationHig extends Module {
 
     @EventHandler
     private void onScreenOpen(OpenScreenEvent event) {
-        if (event.screen instanceof DisconnectedScreen) {
-            toggle();
-        }
+        if (event.screen instanceof DisconnectedScreen) toggle();
     }
 
     @EventHandler
@@ -82,14 +82,12 @@ public class RotationHig extends Module {
 
         switch (yawLockMode.get()) {
             case Simple -> setYawAngle(yawAngle.get().floatValue());
-            case Smart  -> setYawAngle(Math.round((mc.player.getYaw() + 1f) / 45f) * 45f);
+            case Smart -> setYawAngle(Math.round((mc.player.getYaw() + 1f) / 45f) * 45f);
         }
 
         switch (pitchLockMode.get()) {
-            case Simple -> {
-                mc.player.setPitch(pitchAngle.get().floatValue());
-            }
-            case Smart  -> mc.player.setPitch(Math.round(((mc.player.getPitch() + 1f) / 30f) * 30f));
+            case Simple -> mc.player.setPitch(pitchAngle.get().floatValue());
+            case Smart -> mc.player.setPitch(Math.round(((mc.player.getPitch() + 1f) / 30f) * 30f));
         }
     }
 

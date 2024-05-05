@@ -17,7 +17,9 @@ import java.util.stream.IntStream;
 import static me.redcarlos.higtools.utils.HIGUtils.*;
 
 public abstract class BorerModule extends Module {
-    // Preserve 2 block tall tunnel for speed bypass
+    /**
+     * Preserve 2 block tall tunnel for speed bypass
+     */
     protected final ArrayList<BlockPos> blackList = new ArrayList<>();
     /**
      * Last time packets were sent

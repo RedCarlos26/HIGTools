@@ -35,7 +35,7 @@ public class PosNegBorer extends BorerModule {
             MathHelper.floor(mc.player.getZ())
         );
 
-        if (this.playerPos != prevBlockPos || Util.getMeasuringTimeMs() - this.lastUpdateTime > 800) {
+        if (playerPos != prevBlockPos || Util.getMeasuringTimeMs() - lastUpdateTime > 800) {
             getBlacklistedBlockPoses();
             switch (mode.get()) {
                 case THIN -> {
@@ -49,9 +49,9 @@ public class PosNegBorer extends BorerModule {
                 case HIGHWAY -> {
                     doHighway4(playerPos.add(xOffset.get(), 0, zOffset.get()));
                     if (jumping.get()) {
-                        this.doHighway4(playerPos.add(xOffset.get() * -1, 0, zOffset.get() * -1));
-                        this.doHighway4(playerPos.add(xOffset.get() * -3, 0, zOffset.get() * -3));
-                        this.doHighway4(playerPos.add(xOffset.get() * -7, 0, zOffset.get() * -7));
+                        doHighway4(playerPos.add(xOffset.get() * -1, 0, zOffset.get() * -1));
+                        doHighway4(playerPos.add(xOffset.get() * -3, 0, zOffset.get() * -3));
+                        doHighway4(playerPos.add(xOffset.get() * -7, 0, zOffset.get() * -7));
                     } else doHighway4(playerPos.add(xOffset.get() * -3, 0, zOffset.get() * -3));
                 }
             }

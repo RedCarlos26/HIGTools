@@ -46,9 +46,7 @@ public class ChatPrefixHig extends Module {
     }
 
     public void setPrefixes() {
-        if (isActive()) {
-            ChatUtils.registerCustomPrefix("me.redcarlos.higtools.modules", this::getHIGPrefix);
-        }
+        if (isActive()) ChatUtils.registerCustomPrefix("me.redcarlos.higtools.modules", this::getHIGPrefix);
     }
 
     public Text getHIGPrefix() {

@@ -12,7 +12,9 @@ import static meteordevelopment.meteorclient.MeteorClient.mc;
 public class HIGUtils {
     private HIGUtils() {}
 
-    // Packets
+    /**
+     * Packets
+     */
     private static final Int2IntMap packetToClient = new Int2IntOpenHashMap();
     private static final Int2IntMap clientToPacket = new Int2IntOpenHashMap();
 
@@ -41,7 +43,9 @@ public class HIGUtils {
         return clientToPacket.getOrDefault(clientSlot, -1);
     }
 
-    // Block pos
+    /**
+     * Block pos
+     */
     public static BlockPos forward(BlockPos pos, int distance) {
         return switch (mc.player.getHorizontalFacing()) {
             case SOUTH -> pos.south(distance);
@@ -78,7 +82,9 @@ public class HIGUtils {
         };
     }
 
-    // Highway axis
+    /**
+     * Highway Axis
+     */
     public static int getHighway() {
         double playerZ = mc.player.getZ();
         double playerX = mc.player.getX();
@@ -99,7 +105,10 @@ public class HIGUtils {
         return -1;
     }
 
-    // Desktop Notifications
+    /**
+     * Desktop notifications
+     */
+
     /*
      * This section of the file is part of Baritone
      * Thanks to the Baritone team for the source code.

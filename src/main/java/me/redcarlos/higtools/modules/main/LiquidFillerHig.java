@@ -28,11 +28,12 @@ import java.util.Comparator;
 import java.util.List;
 
 public class LiquidFillerHig extends Module {
-    private final SettingGroup sgGeneral  = settings.getDefaultGroup();
+    private final SettingGroup sgGeneral = settings.getDefaultGroup();
     private final SettingGroup sgBlocks = settings.createGroup("Blocks");
 
-    // General
-
+    /**
+     * General
+     */
     private final Setting<PlaceIn> placeInLiquids = sgGeneral.add(new EnumSetting.Builder<PlaceIn>()
         .name("place-in")
         .description("What type of liquids to place in.")
@@ -86,8 +87,9 @@ public class LiquidFillerHig extends Module {
         .build()
     );
 
-    // Blocks
-
+    /**
+     * Blocks
+     */
     private final Setting<ListMode> listMode = sgBlocks.add(new EnumSetting.Builder<ListMode>()
         .name("block-list-mode")
         .description("Block list selection mode.")
@@ -116,7 +118,7 @@ public class LiquidFillerHig extends Module {
 
     private int timer;
 
-    public LiquidFillerHig(){
+    public LiquidFillerHig() {
         super(HIGTools.MAIN, "liquid-filler-HIG", "Places blocks inside of liquid source blocks within range of you.");
     }
 

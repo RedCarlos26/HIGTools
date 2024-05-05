@@ -40,9 +40,7 @@ import net.minecraft.entity.Entity;
 import net.minecraft.entity.ItemEntity;
 import net.minecraft.item.*;
 import net.minecraft.network.packet.c2s.play.PlayerActionC2SPacket;
-import net.minecraft.text.MutableText;
 import net.minecraft.text.Text;
-import net.minecraft.util.Formatting;
 import net.minecraft.util.Hand;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Box;
@@ -85,8 +83,9 @@ public class HighwayBuilderPlus extends Module {
     private final SettingGroup sgRenderDigging = settings.createGroup("Render Digging");
     private final SettingGroup sgRenderPaving = settings.createGroup("Render Paving");
 
-    // General
-
+    /**
+     * General
+     */
     private final Setting<Integer> width = sgGeneral.add(new IntSetting.Builder()
         .name("width")
         .description("Width of the highway.")
@@ -158,8 +157,9 @@ public class HighwayBuilderPlus extends Module {
         .build()
     );
 
-    // Digging
-
+    /**
+     * Digging
+     */
     private final Setting<Boolean> dontBreakTools = sgDigging.add(new BoolSetting.Builder()
         .name("dont-break-tools")
         .description("Don't break tools.")
@@ -194,8 +194,9 @@ public class HighwayBuilderPlus extends Module {
         .build()
     );
 
-    // Paving
-
+    /**
+     * Paving
+     */
     private final Setting<List<Block>> blocksToPlace = sgPaving.add(new BlockListSetting.Builder()
         .name("blocks-to-place")
         .description("Blocks it is allowed to place.")
@@ -220,7 +221,9 @@ public class HighwayBuilderPlus extends Module {
         .build()
     );
 
-    // Inventory
+    /**
+     * Inventory
+     */
     private final Setting<List<Item>> trashItems = sgInventory.add(new ItemListSetting.Builder()
         .name("trash-items")
         .description("Items that are considered trash and can be thrown out.")
@@ -266,8 +269,9 @@ public class HighwayBuilderPlus extends Module {
         .build()
     );
 
-    // Render Digging
-
+    /**
+     * Render digging
+     */
     private final Setting<Boolean> renderMine = sgRenderDigging.add(new BoolSetting.Builder()
         .name("render-blocks-to-mine")
         .description("Render blocks to be mined.")
@@ -296,8 +300,9 @@ public class HighwayBuilderPlus extends Module {
         .build()
     );
 
-    // Render Paving
-
+    /**
+     * Render paving
+     */
     private final Setting<Boolean> renderPlace = sgRenderPaving.add(new BoolSetting.Builder()
         .name("render-blocks-to-place")
         .description("Render blocks to be placed.")
