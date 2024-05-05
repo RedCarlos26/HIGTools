@@ -10,7 +10,6 @@ import meteordevelopment.meteorclient.systems.modules.misc.AutoLog;
 import meteordevelopment.meteorclient.systems.modules.movement.SafeWalk;
 import meteordevelopment.meteorclient.systems.modules.player.InstaMine;
 import meteordevelopment.meteorclient.systems.modules.render.FreeLook;
-import meteordevelopment.meteorclient.systems.modules.world.LiquidFiller;
 import meteordevelopment.meteorclient.utils.player.FindItemResult;
 import meteordevelopment.meteorclient.utils.player.InvUtils;
 import meteordevelopment.orbit.EventHandler;

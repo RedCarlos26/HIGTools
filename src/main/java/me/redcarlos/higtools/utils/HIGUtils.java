@@ -2,7 +2,6 @@ package me.redcarlos.higtools.utils;
 
 import it.unimi.dsi.fastutil.ints.Int2IntMap;
 import it.unimi.dsi.fastutil.ints.Int2IntOpenHashMap;
-import net.minecraft.client.MinecraftClient;
 import net.minecraft.util.math.BlockPos;
 
 import java.util.stream.IntStream;

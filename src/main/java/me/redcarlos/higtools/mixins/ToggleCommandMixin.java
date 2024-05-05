@@ -10,7 +10,6 @@ import meteordevelopment.meteorclient.systems.modules.Modules;
 import meteordevelopment.meteorclient.systems.modules.misc.AutoLog;
 import meteordevelopment.meteorclient.systems.modules.movement.SafeWalk;
 import meteordevelopment.meteorclient.systems.modules.render.FreeLook;
-import meteordevelopment.meteorclient.systems.modules.world.LiquidFiller;
 import net.minecraft.command.CommandSource;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Unique;
