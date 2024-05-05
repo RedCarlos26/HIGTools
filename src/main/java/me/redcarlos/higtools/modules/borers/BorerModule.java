@@ -124,12 +124,12 @@ public abstract class BorerModule extends Module {
 
     protected void do2x3(BlockPos playerPos) {
         IntStream.rangeClosed(-extBackward.get(), extForward.get()).forEach(i -> {
-                breakBlock(forward(playerPos, i));
-                breakBlock(forward(playerPos, i).up());
-                breakBlock(forward(playerPos, i).up(2));
-                breakBlock(left(forward(playerPos, i), 1));
-                breakBlock(left(forward(playerPos, i), 1).up());
-                breakBlock(left(forward(playerPos, i), 1).up(2));
+            breakBlock(forward(playerPos, i));
+            breakBlock(forward(playerPos, i).up());
+            breakBlock(forward(playerPos, i).up(2));
+            breakBlock(left(forward(playerPos, i), 1));
+            breakBlock(left(forward(playerPos, i), 1).up());
+            breakBlock(left(forward(playerPos, i), 1).up(2));
         });
     }
 

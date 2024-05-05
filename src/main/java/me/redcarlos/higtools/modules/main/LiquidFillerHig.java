@@ -158,7 +158,7 @@ public class LiquidFillerHig extends Module {
         if (!item.found()) return;
 
         // Loop blocks around the player
-        BlockIterator.register((int) Math.ceil(range.get()+1), (int) Math.ceil(range.get()), (blockPos, blockState) -> {
+        BlockIterator.register((int) Math.ceil(range.get() + 1), (int) Math.ceil(range.get()), (blockPos, blockState) -> {
             boolean toofarSphere = Utils.squaredDistance(pX, pY, pZ, blockPos.getX() + 0.5, blockPos.getY() + 0.5, blockPos.getZ() + 0.5) > rangeSq;
             boolean toofarUniformCube = maxDist(Math.floor(pX), Math.floor(pY), Math.floor(pZ), blockPos.getX(), blockPos.getY(), blockPos.getZ()) >= range.get();
 
