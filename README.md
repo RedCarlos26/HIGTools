@@ -30,7 +30,7 @@
 - DiscordRPC
 - HandManager
 - HighwayBorers
-- HighwayBuilder+
+- HighwayBuilderHIG
 - HighwayTools
 - HIGPrefix
 - HIGRotation

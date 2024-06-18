@@ -54,11 +54,20 @@ import java.util.List;
 import java.util.function.Predicate;
 
 @SuppressWarnings("ConstantConditions")
-public class HighwayBuilderPlus extends Module {
+public class HighwayBuilderHIG extends Module {
+    private final SettingGroup sgGeneral = settings.getDefaultGroup();
+    private final SettingGroup sgDigging = settings.createGroup("Digging");
+    private final SettingGroup sgPaving = settings.createGroup("Paving");
+    private final SettingGroup sgInventory = settings.createGroup("Inventory");
+    private final SettingGroup sgRenderDigging = settings.createGroup("Render Digging");
+    private final SettingGroup sgRenderPaving = settings.createGroup("Render Paving");
+
     public enum Floor {
         Replace,
         PlaceMissing
     }
+
+    private static final BlockPos ZERO = new BlockPos(0, 0, 0);
 
     public enum Rotation {
         None(false, false),
@@ -74,18 +83,16 @@ public class HighwayBuilderPlus extends Module {
         }
     }
 
-    private static final BlockPos ZERO = new BlockPos(0, 0, 0);
-
-    private final SettingGroup sgGeneral = settings.getDefaultGroup();
-    private final SettingGroup sgDigging = settings.createGroup("Digging");
-    private final SettingGroup sgPaving = settings.createGroup("Paving");
-    private final SettingGroup sgInventory = settings.createGroup("Inventory");
-    private final SettingGroup sgRenderDigging = settings.createGroup("Render Digging");
-    private final SettingGroup sgRenderPaving = settings.createGroup("Render Paving");
-
     /**
      * General
      */
+    private final Setting<Boolean> grimMode = sgGeneral.add(new BoolSetting.Builder()
+        .name("grim-mode")
+        .description("Helps on servers that use Grim AC.")
+        .defaultValue(false)
+        .build()
+    );
+
     private final Setting<Integer> width = sgGeneral.add(new IntSetting.Builder()
         .name("width")
         .description("Width of the highway.")
@@ -253,16 +260,16 @@ public class HighwayBuilderPlus extends Module {
     );
 
     private final Setting<Boolean> instaMineEchests = sgInventory.add(new BoolSetting.Builder()
-        .name("instaMine-echests")
-        .description("Whether or not to use the instamine exploit to break echests.")
+        .name("instant-rebreak-echests")
+        .description("Uses the instaMine exploit to break echests.")
         .defaultValue(false)
         .visible(mineEnderChests::get)
         .build()
     );
 
     private final Setting<Integer> instaMineDelay = sgInventory.add(new IntSetting.Builder()
-        .name("instaMine-delay")
-        .description("Delay between instamine attempts.")
+        .name("rebreak-delay")
+        .description("Delay between instant rebreak attempts.")
         .defaultValue(0)
         .sliderMax(20)
         .visible(() -> mineEnderChests.get() && instaMineEchests.get())
@@ -343,13 +350,15 @@ public class HighwayBuilderPlus extends Module {
     public int blocksBroken, blocksPlaced;
     private final MBlockPos lastBreakingPos = new MBlockPos();
     private boolean displayInfo, sentLagMessage, moduleAttacking, moduleEating;
-    private int placeTimer, breakTimer, count;
+    private int placeTimer;
+    private int breakTimer;
+    private int count;
 
     private final MBlockPos posRender2 = new MBlockPos();
     private final MBlockPos posRender3 = new MBlockPos();
 
-    public HighwayBuilderPlus() {
-        super(HIGTools.MAIN, "highway-builder+", "Automatically builds highways.");
+    public HighwayBuilderHIG() {
+        super(HIGTools.MAIN, "highway-builder-HIG", "Automatically builds highways.");
     }
 
     @Override
@@ -532,7 +541,13 @@ public class HighwayBuilderPlus extends Module {
 
     private boolean canMine(MBlockPos pos, boolean ignoreBlocksToPlace) {
         BlockState state = pos.getState();
-        return BlockUtils.canBreak(pos.getBlockPos(), state) && (ignoreBlocksToPlace || !blocksToPlace.get().contains(state.getBlock()));
+        if (!BlockUtils.canBreak(pos.getBlockPos(), state)) {
+            return false;
+        }
+        if (mineAboveRailings.get() && pos.getBlockPos().getY() > mc.player.getY() && !state.isAir()) {
+            return true;
+        }
+        return ignoreBlocksToPlace || !blocksToPlace.get().contains(state.getBlock());
     }
 
     private boolean canPlace(MBlockPos pos, boolean liquids) {
@@ -540,9 +555,19 @@ public class HighwayBuilderPlus extends Module {
     }
 
     private enum State {
+        GrimWait {
+            private int waitTimer = 2; // Could be a boolean but maybe want to make this configurable
+            @Override
+            protected void tick(HighwayBuilderHIG b) {
+                if (waitTimer > 0) waitTimer--;
+                else b.setState(b.lastState);
+                return;
+            }
+        },
+
         Center {
             @Override
-            protected void tick(HighwayBuilderPlus b) {
+            protected void tick(HighwayBuilderHIG b) {
                 double x = Math.abs(b.mc.player.getX() - (int) b.mc.player.getX()) - 0.5;
                 double z = Math.abs(b.mc.player.getZ() - (int) b.mc.player.getZ()) - 0.5;
 
@@ -587,21 +612,21 @@ public class HighwayBuilderPlus extends Module {
 
         Forward {
             @Override
-            protected void start(HighwayBuilderPlus b) {
+            protected void start(HighwayBuilderHIG b) {
                 b.mc.player.setYaw(b.dir.yaw);
 
                 checkTasks(b);
             }
 
             @Override
-            protected void tick(HighwayBuilderPlus b) {
+            protected void tick(HighwayBuilderHIG b) {
                 checkTasks(b);
                 b.mc.player.setPitch(20);
 
                 if (b.state == Forward) b.input.pressingForward = true; // Move
             }
 
-            private void checkTasks(HighwayBuilderPlus b) {
+            private void checkTasks(HighwayBuilderHIG b) {
                 if (needsToPlace(b, b.blockPosProvider.getLiquids(), true)) b.setState(FillLiquids); // Fill Liquids
                 else if (needsToMine(b, b.blockPosProvider.getFront(), true)) b.setState(MineFront); // Mine Front
                 else if (b.floor.get() == Floor.Replace && needsToMine(b, b.blockPosProvider.getFloor(), false)) b.setState(MineFloor); // Mine Floor
@@ -610,7 +635,7 @@ public class HighwayBuilderPlus extends Module {
                 else if (needsToPlace(b, b.blockPosProvider.getFloor(), false)) b.setState(PlaceFloor); // Place Floor
             }
 
-            private boolean needsToMine(HighwayBuilderPlus b, MBPIterator it, boolean ignoreBlocksToPlace) {
+            private boolean needsToMine(HighwayBuilderHIG b, MBPIterator it, boolean ignoreBlocksToPlace) {
                 for (MBlockPos pos : it) {
                     if (b.canMine(pos, ignoreBlocksToPlace)) return true;
                 }
@@ -618,7 +643,7 @@ public class HighwayBuilderPlus extends Module {
                 return false;
             }
 
-            private boolean needsToPlace(HighwayBuilderPlus b, MBPIterator it, boolean liquids) {
+            private boolean needsToPlace(HighwayBuilderHIG b, MBPIterator it, boolean liquids) {
                 for (MBlockPos pos : it) {
                     if (b.canPlace(pos, liquids)) return true;
                 }
@@ -629,7 +654,7 @@ public class HighwayBuilderPlus extends Module {
 
         FillLiquids {
             @Override
-            protected void tick(HighwayBuilderPlus b) {
+            protected void tick(HighwayBuilderHIG b) {
                 int slot = findBlocksToPlacePrioritizeTrash(b);
                 if (slot == -1) return;
 
@@ -639,38 +664,38 @@ public class HighwayBuilderPlus extends Module {
 
         MineFront {
             @Override
-            protected void tick(HighwayBuilderPlus b) {
+            protected void tick(HighwayBuilderHIG b) {
                 mine(b, b.blockPosProvider.getFront(), true, MineFloor, this);
             }
         },
 
         MineFloor {
             @Override
-            protected void start(HighwayBuilderPlus b) {
+            protected void start(HighwayBuilderHIG b) {
                 mine(b, b.blockPosProvider.getFloor(), false, MineRailings, this);
             }
 
             @Override
-            protected void tick(HighwayBuilderPlus b) {
+            protected void tick(HighwayBuilderHIG b) {
                 mine(b, b.blockPosProvider.getFloor(), false, MineRailings, this);
             }
         },
 
         MineRailings {
             @Override
-            protected void start(HighwayBuilderPlus b) {
-                mine(b, b.blockPosProvider.getRailings(true), false, PlaceRailings, this);
+            protected void start(HighwayBuilderHIG b) {
+                mine(b, b.blockPosProvider.getRailings(true), false, PlaceRailings, this, true);
             }
 
             @Override
-            protected void tick(HighwayBuilderPlus b) {
-                mine(b, b.blockPosProvider.getRailings(true), false, PlaceRailings, this);
+            protected void tick(HighwayBuilderHIG b) {
+                mine(b, b.blockPosProvider.getRailings(true), false, PlaceRailings, this, true);
             }
         },
 
         PlaceRailings {
             @Override
-            protected void tick(HighwayBuilderPlus b) {
+            protected void tick(HighwayBuilderHIG b) {
                 int slot = findBlocksToPlace(b);
                 if (slot == -1) return;
 
@@ -680,7 +705,7 @@ public class HighwayBuilderPlus extends Module {
 
         PlaceFloor {
             @Override
-            protected void start(HighwayBuilderPlus b) {
+            protected void start(HighwayBuilderHIG b) {
                 int slot = findBlocksToPlace(b);
                 if (slot == -1) return;
 
@@ -688,7 +713,7 @@ public class HighwayBuilderPlus extends Module {
             }
 
             @Override
-            protected void tick(HighwayBuilderPlus b) {
+            protected void tick(HighwayBuilderHIG b) {
                 int slot = findBlocksToPlace(b);
                 if (slot == -1) return;
 
@@ -702,7 +727,7 @@ public class HighwayBuilderPlus extends Module {
             private int timer;
 
             @Override
-            protected void start(HighwayBuilderPlus b) {
+            protected void start(HighwayBuilderHIG b) {
                 int biggestCount = 0;
 
                 for (int i = 0; i < b.mc.player.getInventory().main.size(); i++) {
@@ -722,7 +747,7 @@ public class HighwayBuilderPlus extends Module {
             }
 
             @Override
-            protected void tick(HighwayBuilderPlus b) {
+            protected void tick(HighwayBuilderHIG b) {
                 if (timerEnabled) {
                     if (timer > 0) timer--;
                     else b.setState(b.lastState);
@@ -761,7 +786,7 @@ public class HighwayBuilderPlus extends Module {
 
         PlaceEChestBlockade {
             @Override
-            protected void tick(HighwayBuilderPlus b) {
+            protected void tick(HighwayBuilderHIG b) {
                 int slot = findBlocksToPlacePrioritizeTrash(b);
                 if (slot == -1) return;
 
@@ -771,7 +796,7 @@ public class HighwayBuilderPlus extends Module {
 
         MineEChestBlockade {
             @Override
-            protected void tick(HighwayBuilderPlus b) {
+            protected void tick(HighwayBuilderHIG b) {
                 mine(b, b.blockPosProvider.getEChestBlockade(true), true, Center, Forward);
             }
         },
@@ -784,7 +809,7 @@ public class HighwayBuilderPlus extends Module {
             private int stopTimer, moveTimer, instaMineTimer;
 
             @Override
-            protected void start(HighwayBuilderPlus b) {
+            protected void start(HighwayBuilderHIG b) {
                 if (b.lastState != Center && b.lastState != ThrowOutTrash && b.lastState != PlaceEChestBlockade) {
                     b.setState(Center);
                     return;
@@ -823,7 +848,7 @@ public class HighwayBuilderPlus extends Module {
             }
 
             @Override
-            protected void tick(HighwayBuilderPlus b) {
+            protected void tick(HighwayBuilderHIG b) {
                 if (stopTimerEnabled) {
                     if (stopTimer > 0) stopTimer--;
                     else b.setState(MineEChestBlockade);
@@ -921,16 +946,21 @@ public class HighwayBuilderPlus extends Module {
                 }
             }
         },
+
         Wait {
             @Override
-            protected void tick(HighwayBuilderPlus b) {}
+            protected void tick(HighwayBuilderHIG b) {}
         };
 
-        protected void start(HighwayBuilderPlus b) {}
+        protected void start(HighwayBuilderHIG b) {}
 
-        protected abstract void tick(HighwayBuilderPlus b);
+        protected abstract void tick(HighwayBuilderHIG b);
 
-        protected void mine(HighwayBuilderPlus b, MBPIterator it, boolean ignoreBlocksToPlace, State nextState, State lastState) {
+        protected void mine(HighwayBuilderHIG b, MBPIterator it, boolean ignoreBlocksToPlace, State nextState, State lastState) {
+            mine(b, it, ignoreBlocksToPlace, nextState, lastState, false);
+        }
+
+        protected void mine(HighwayBuilderHIG b, MBPIterator it, boolean ignoreBlocksToPlace, State nextState, State lastState, boolean railMode) {
             boolean breaking = false;
             boolean finishedBreaking = false; // If you can multi break this lets you mine blocks between tasks in a single tick
 
@@ -941,6 +971,15 @@ public class HighwayBuilderPlus extends Module {
                 BlockState state = pos.getState();
                 if (state.isAir() || (!ignoreBlocksToPlace && b.blocksToPlace.get().contains(state.getBlock()))) continue;
 
+                if (railMode && pos.getBlockPos().getY() > b.mc.player.getY()) {
+                    if (state.isAir()) {
+                        continue;
+                    }
+                    // (Normal Case)
+                } else if (state.isAir() || (!ignoreBlocksToPlace && b.blocksToPlace.get().contains(state.getBlock()))) {
+                    continue;
+                }
+
                 int slot = findAndMoveBestToolToHotbar(b, state, false);
                 if (slot == -1) return;
 
@@ -948,8 +987,25 @@ public class HighwayBuilderPlus extends Module {
 
                 BlockPos mcPos = pos.getBlockPos();
                 if (BlockUtils.canBreak(mcPos)) {
-                    if (b.rotation.get().mine) Rotations.rotate(Rotations.getYaw(mcPos), Rotations.getPitch(mcPos), () -> BlockUtils.breakBlock(mcPos, true));
-                    else BlockUtils.breakBlock(mcPos, true);
+                    if (b.grimMode.get()) {
+                        if (b.rotation.get().mine) {
+                            Rotations.rotate(Rotations.getYaw(mcPos), Rotations.getPitch(mcPos), () -> {
+                                if (b.lastState != State.GrimWait) {
+                                    b.setState(State.GrimWait);
+                                }
+                                BlockUtils.breakBlock(mcPos, true);
+                            });
+                        } else {
+                            if (b.lastState != State.GrimWait) {
+                                b.setState(State.GrimWait);
+                            }
+                            BlockUtils.breakBlock(mcPos, true);
+                        }
+                    } else {
+                        if (b.rotation.get().mine) Rotations.rotate(Rotations.getYaw(mcPos), Rotations.getPitch(mcPos), () -> BlockUtils.breakBlock(mcPos, true));
+                        else BlockUtils.breakBlock(mcPos, true);
+                    }
+
                     breaking = true;
 
                     b.breakTimer = b.breakDelay.get();
@@ -974,7 +1030,7 @@ public class HighwayBuilderPlus extends Module {
             }
         }
 
-        protected void place(HighwayBuilderPlus b, MBPIterator it, int slot, State nextState) {
+        protected void place(HighwayBuilderHIG b, MBPIterator it, int slot, State nextState) {
             boolean placed = false;
             boolean finishedPlacing = false;
 
@@ -997,7 +1053,7 @@ public class HighwayBuilderPlus extends Module {
             if (finishedPlacing || !placed) b.setState(nextState);
         }
 
-        private int findSlot(HighwayBuilderPlus b, Predicate<ItemStack> predicate, boolean hotbar) {
+        private int findSlot(HighwayBuilderHIG b, Predicate<ItemStack> predicate, boolean hotbar) {
             for (int i = hotbar ? 0 : 9; i < (hotbar ? 9 : b.mc.player.getInventory().main.size()); i++) {
                 if (predicate.test(b.mc.player.getInventory().getStack(i))) return i;
             }
@@ -1005,7 +1061,7 @@ public class HighwayBuilderPlus extends Module {
             return -1;
         }
 
-        private int findHotbarSlot(HighwayBuilderPlus b, boolean replaceTools) {
+        private int findHotbarSlot(HighwayBuilderHIG b, boolean replaceTools) {
             int thrashSlot = -1;
             int slotsWithBlocks = 0;
             int slotWithLeastBlocks = -1;
@@ -1051,7 +1107,7 @@ public class HighwayBuilderPlus extends Module {
             return -1;
         }
 
-        private boolean hasItem(HighwayBuilderPlus b, Item item) {
+        private boolean hasItem(HighwayBuilderHIG b, Item item) {
             for (int i = 0; i < b.mc.player.getInventory().main.size(); i++) {
                 if (b.mc.player.getInventory().getStack(i).getItem() == item) return true;
             }
@@ -1059,7 +1115,7 @@ public class HighwayBuilderPlus extends Module {
             return false;
         }
 
-        protected int countItem(HighwayBuilderPlus b, Predicate<ItemStack> predicate) {
+        protected int countItem(HighwayBuilderHIG b, Predicate<ItemStack> predicate) {
             int count = 0;
             for (int i = 0; i < b.mc.player.getInventory().main.size(); i++) {
                 ItemStack stack = b.mc.player.getInventory().getStack(i);
@@ -1069,7 +1125,7 @@ public class HighwayBuilderPlus extends Module {
             return count;
         }
 
-        protected int findAndMoveToHotbar(HighwayBuilderPlus b, Predicate<ItemStack> predicate, boolean required) {
+        protected int findAndMoveToHotbar(HighwayBuilderHIG b, Predicate<ItemStack> predicate, boolean required) {
             // Check hotbar
             int slot = findSlot(b, predicate, true);
             if (slot != -1) return slot;
@@ -1102,7 +1158,7 @@ public class HighwayBuilderPlus extends Module {
             return hotbarSlot;
         }
 
-        protected int findAndMoveBestToolToHotbar(HighwayBuilderPlus b, BlockState blockState, boolean noSilkTouch) {
+        protected int findAndMoveBestToolToHotbar(HighwayBuilderHIG b, BlockState blockState, boolean noSilkTouch) {
             // Check for creative
             if (b.mc.player.isCreative()) return b.mc.player.getInventory().selectedSlot;
 
@@ -1152,7 +1208,7 @@ public class HighwayBuilderPlus extends Module {
             return hotbarSlot;
         }
 
-        protected int findBlocksToPlace(HighwayBuilderPlus b) {
+        protected int findBlocksToPlace(HighwayBuilderHIG b) {
             int slot = findAndMoveToHotbar(b, itemStack -> itemStack.getItem() instanceof BlockItem blockItem && b.blocksToPlace.get().contains(blockItem.getBlock()), false);
 
             if (slot == -1) {
@@ -1173,7 +1229,7 @@ public class HighwayBuilderPlus extends Module {
             return slot;
         }
 
-        protected int findBlocksToPlacePrioritizeTrash(HighwayBuilderPlus b) {
+        protected int findBlocksToPlacePrioritizeTrash(HighwayBuilderHIG b) {
             int slot = findAndMoveToHotbar(b, itemStack -> {
                 if (!(itemStack.getItem() instanceof BlockItem)) return false;
                 return b.trashItems.get().contains(itemStack.getItem());
