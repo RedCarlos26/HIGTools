@@ -53,7 +53,7 @@ public class HIGTools extends MeteorAddon {
         modules.add(new ChatPrefixHig());
         modules.add(new DiscordRPC());
         modules.add(new HandManager());
-        modules.add(new HighwayBuilderPlus());
+        modules.add(new HighwayBuilderHIG());
         modules.add(new HighwayTools());
         modules.add(new HotbarManager());
         modules.add(new LiquidFillerHig());

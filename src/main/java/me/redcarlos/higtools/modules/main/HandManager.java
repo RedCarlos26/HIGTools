@@ -88,6 +88,7 @@ public class HandManager extends Module {
     private boolean eating;
     private boolean sentMsg;
     private boolean swapped;
+    private boolean justStarted;
 
     public HandManager() {
         super(HIGTools.MAIN, "hand-manager", "Automatically manages your offhand (optimized for highway work).");
@@ -98,6 +99,7 @@ public class HandManager extends Module {
         eating = false;
         sentMsg = false;
         swapped = false;
+        justStarted = true;
         currentItem = Item.Totem;
     }
 
@@ -170,7 +172,7 @@ public class HandManager extends Module {
         if (mc.player == null || mc.world == null) return;
 
         if (mc.player.getHealth() <= healthThreshold.get() || fallDamage.get() && !EntityUtils.isAboveWater(mc.player) && mc.player.fallDistance > 3) currentItem = Item.Totem;
-        else if (autoFireRes.get() && !mc.player.getActiveStatusEffects().containsKey(StatusEffects.FIRE_RESISTANCE)) currentItem = Item.EGap;
+        else if (autoFireRes.get() && !justStarted && !mc.player.getActiveStatusEffects().containsKey(StatusEffects.FIRE_RESISTANCE)) currentItem = Item.EGap;
         else if (mc.player.getHungerManager().getFoodLevel() < hungerThreshold.get() + 1) currentItem = Item.EGap;
         else currentItem = Item.Totem;
     }
@@ -190,6 +192,7 @@ public class HandManager extends Module {
         if (mc.player.isUsingItem()) return;
 
         eating = true;
+        justStarted = false;
         mc.options.useKey.setPressed(true);
         mc.interactionManager.interactItem(mc.player, Hand.OFF_HAND);
     }

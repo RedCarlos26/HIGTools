@@ -23,10 +23,10 @@ import java.util.stream.IntStream;
 import static me.redcarlos.higtools.utils.HIGUtils.csToPs;
 
 public class HotbarManager extends Module {
-    private final Identifier[] itemIds = IntStream.range(0, 9).mapToObj(i -> new Identifier("")).toArray(Identifier[]::new);
-
     private final SettingGroup sgGeneral = settings.getDefaultGroup();
     private final SettingGroup slotsGroup = settings.createGroup("Slots", false);
+
+    private final Identifier[] itemIds = IntStream.range(0, 9).mapToObj(i -> new Identifier("")).toArray(Identifier[]::new);
 
     private final Setting<String> slot0 = slotsGroup.add(new StringSetting.Builder()
         .name("slot0")
