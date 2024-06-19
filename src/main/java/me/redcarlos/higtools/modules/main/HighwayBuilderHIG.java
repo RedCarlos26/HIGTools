@@ -296,7 +296,7 @@ public class HighwayBuilderHIG extends Module {
     private final Setting<SettingColor> renderMineLineColor = sgRenderDigging.add(new ColorSetting.Builder()
         .name("blocks-to-mine-line-color")
         .description("Color of blocks to be mined.")
-        .defaultValue(new SettingColor(225, 25, 25))
+        .defaultValue(new SettingColor(225, 25, 25, 255))
         .build()
     );
 
@@ -327,7 +327,7 @@ public class HighwayBuilderHIG extends Module {
     private final Setting<SettingColor> renderPlaceLineColor = sgRenderPaving.add(new ColorSetting.Builder()
         .name("blocks-to-place-line-color")
         .description("Color of blocks to be placed.")
-        .defaultValue(new SettingColor(25, 25, 225))
+        .defaultValue(new SettingColor(25, 25, 225, 255))
         .build()
     );
 
