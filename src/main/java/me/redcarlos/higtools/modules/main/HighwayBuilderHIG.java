@@ -540,7 +540,7 @@ public class HighwayBuilderHIG extends Module {
 
     private boolean canMine(MBlockPos pos, boolean ignoreBlocksToPlace) {
         BlockState state = pos.getState();
-        if (!BlockUtils.canBreak(pos.getBlockPos(), state) || (ignoreSigns.get() && state.getBlock() instanceof SignBlock)) {
+        if (!BlockUtils.canBreak(pos.getBlockPos(), state) || (ignoreSigns.get() && state.getBlock() instanceof SignBlock && pos.getBlockPos().getY() >= (mc.player.getY()))) {
             return false;
         }
         if (pos.getBlockPos().getY() > mc.player.getY() && !state.isAir()) {
