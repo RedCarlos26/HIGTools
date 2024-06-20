@@ -31,7 +31,6 @@ import meteordevelopment.meteorclient.utils.world.Dir;
 import meteordevelopment.meteorclient.utils.world.TickRate;
 import meteordevelopment.orbit.EventHandler;
 import net.minecraft.block.*;
-import net.minecraft.block.entity.SignBlockEntity;
 import net.minecraft.client.input.Input;
 import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.enchantment.Enchantments;
@@ -540,7 +539,7 @@ public class HighwayBuilderHIG extends Module {
 
     private boolean canMine(MBlockPos pos, boolean ignoreBlocksToPlace) {
         BlockState state = pos.getState();
-        if (!BlockUtils.canBreak(pos.getBlockPos(), state) || (ignoreSigns.get() && state.getBlock() instanceof SignBlock && pos.getBlockPos().getY() >= (mc.player.getY()))) {
+        if (!BlockUtils.canBreak(pos.getBlockPos(), state) || (ignoreSigns.get() && state.getBlock() instanceof SignBlock && pos.getBlockPos().getY() + 0.5 >= (mc.player.getY()))) {
             return false;
         }
         if (pos.getBlockPos().getY() > mc.player.getY() && !state.isAir()) {
