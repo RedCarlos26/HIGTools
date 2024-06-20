@@ -78,7 +78,7 @@ public class HighwayTools extends Module {
     private double originXZRatio;
 
     public HighwayTools() {
-        super(HIGTools.MAIN, "highway-tools", "Digs, builds and repairs highways automatically.");
+        super(HIGTools.MAIN, "highwayTools", "Digs, builds and repairs highways automatically.");
     }
 
     @Override

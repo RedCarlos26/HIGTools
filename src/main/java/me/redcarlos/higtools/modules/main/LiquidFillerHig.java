@@ -119,7 +119,7 @@ public class LiquidFillerHig extends Module {
     private int timer;
 
     public LiquidFillerHig() {
-        super(HIGTools.MAIN, "liquid-filler-HIG", "Places blocks inside of liquid source blocks within range of you.");
+        super(HIGTools.MAIN, "liquidFillerHIG", "Places blocks inside of liquid source blocks within range of you.");
     }
 
     @Override
