@@ -30,9 +30,8 @@ import meteordevelopment.meteorclient.utils.world.BlockUtils;
 import meteordevelopment.meteorclient.utils.world.Dir;
 import meteordevelopment.meteorclient.utils.world.TickRate;
 import meteordevelopment.orbit.EventHandler;
-import net.minecraft.block.Block;
-import net.minecraft.block.BlockState;
-import net.minecraft.block.Blocks;
+import net.minecraft.block.*;
+import net.minecraft.block.entity.SignBlockEntity;
 import net.minecraft.client.input.Input;
 import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.enchantment.Enchantments;
@@ -160,6 +159,13 @@ public class HighwayBuilderHIG extends Module {
     /**
      * Digging
      */
+    private final Setting<Boolean> ignoreSigns = sgDigging.add(new BoolSetting.Builder()
+        .name("ignore-signs")
+        .description("Ignore breaking signs = preserving history (based).")
+        .defaultValue(true)
+        .build()
+    );
+
     private final Setting<Boolean> dontBreakTools = sgDigging.add(new BoolSetting.Builder()
         .name("dont-break-tools")
         .description("Don't break tools.")
@@ -534,7 +540,7 @@ public class HighwayBuilderHIG extends Module {
 
     private boolean canMine(MBlockPos pos, boolean ignoreBlocksToPlace) {
         BlockState state = pos.getState();
-        if (!BlockUtils.canBreak(pos.getBlockPos(), state)) {
+        if (!BlockUtils.canBreak(pos.getBlockPos(), state) || (ignoreSigns.get() && state.getBlock() instanceof SignBlock)) {
             return false;
         }
         if (pos.getBlockPos().getY() > mc.player.getY() && !state.isAir()) {
