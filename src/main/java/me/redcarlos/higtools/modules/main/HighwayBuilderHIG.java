@@ -1008,7 +1008,7 @@ public class HighwayBuilderHIG extends Module {
                 if (b.count >= b.placementsPerTick.get()) return;
                 if (b.placeTimer > 0) return;
 
-                if (BlockUtils.place(pos.getBlockPos(), Hand.MAIN_HAND, slot, b.rotation.get().place, 0, true, true, false)) {
+                if (BlockUtils.place(pos.getBlockPos(), Hand.MAIN_HAND, slot, b.rotation.get().place, 0, true, false, false)) {
                     placed = true;
                     b.blocksPlaced++;
                     b.placeTimer = b.placeDelay.get();
