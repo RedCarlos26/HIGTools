@@ -26,69 +26,69 @@ public class HotbarManager extends Module {
     private final SettingGroup sgGeneral = settings.getDefaultGroup();
     private final SettingGroup slotsGroup = settings.createGroup("Slots", false);
 
-    private final Identifier[] itemIds = IntStream.range(0, 9).mapToObj(i -> new Identifier("")).toArray(Identifier[]::new);
+    private final Identifier[] itemIds = IntStream.range(0, 9).mapToObj(i -> HIGTools.identifier("")).toArray(Identifier[]::new);
 
     private final Setting<String> slot0 = slotsGroup.add(new StringSetting.Builder()
         .name("slot0")
         .defaultValue("")
         .visible(() -> false)
-        .onChanged(cur -> itemIds[0] = new Identifier(cur))
+        .onChanged(cur -> itemIds[0] = HIGTools.identifier(cur))
         .build()
     );
     private final Setting<String> slot1 = slotsGroup.add(new StringSetting.Builder()
         .name("slot1")
         .defaultValue("")
         .visible(() -> false)
-        .onChanged(cur -> itemIds[1] = new Identifier(cur))
+        .onChanged(cur -> itemIds[1] = HIGTools.identifier(cur))
         .build()
     );
     private final Setting<String> slot2 = slotsGroup.add(new StringSetting.Builder()
         .name("slot2")
         .defaultValue("")
         .visible(() -> false)
-        .onChanged(cur -> itemIds[2] = new Identifier(cur))
+        .onChanged(cur -> itemIds[2] = HIGTools.identifier(cur))
         .build()
     );
     private final Setting<String> slot3 = slotsGroup.add(new StringSetting.Builder()
         .name("slot3")
         .defaultValue("")
         .visible(() -> false)
-        .onChanged(cur -> itemIds[3] = new Identifier(cur))
+        .onChanged(cur -> itemIds[3] = HIGTools.identifier(cur))
         .build()
     );
     private final Setting<String> slot4 = slotsGroup.add(new StringSetting.Builder()
         .name("slot4")
         .defaultValue("")
         .visible(() -> false)
-        .onChanged(cur -> itemIds[4] = new Identifier(cur))
+        .onChanged(cur -> itemIds[4] = HIGTools.identifier(cur))
         .build()
     );
     private final Setting<String> slot5 = slotsGroup.add(new StringSetting.Builder()
         .name("slot5")
         .defaultValue("")
         .visible(() -> false)
-        .onChanged(cur -> itemIds[5] = new Identifier(cur))
+        .onChanged(cur -> itemIds[5] = HIGTools.identifier(cur))
         .build()
     );
     private final Setting<String> slot6 = slotsGroup.add(new StringSetting.Builder()
         .name("slot6")
         .defaultValue("")
         .visible(() -> false)
-        .onChanged(cur -> itemIds[6] = new Identifier(cur))
+        .onChanged(cur -> itemIds[6] = HIGTools.identifier(cur))
         .build()
     );
     private final Setting<String> slot7 = slotsGroup.add(new StringSetting.Builder()
         .name("slot7")
         .defaultValue("")
         .visible(() -> false)
-        .onChanged(cur -> itemIds[7] = new Identifier(cur))
+        .onChanged(cur -> itemIds[7] = HIGTools.identifier(cur))
         .build()
     );
     private final Setting<String> slot8 = slotsGroup.add(new StringSetting.Builder()
         .name("slot8")
         .defaultValue("")
         .visible(() -> false)
-        .onChanged(cur -> itemIds[8] = new Identifier(cur))
+        .onChanged(cur -> itemIds[8] = HIGTools.identifier(cur))
         .build()
     );
 
