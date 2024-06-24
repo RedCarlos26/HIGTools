@@ -112,7 +112,7 @@ public class DiscordRPC extends Module {
     }
 
     public DiscordRPC() {
-        super(HIGTools.MAIN, "discord-RPC", "Displays HIGTools as an activity on discord.");
+        super(HIGTools.MAIN, "discord-RPC", "Displays HIG Tools as an activity on discord.");
 
         runInMainMenu = true;
     }
@@ -140,7 +140,7 @@ public class DiscordRPC extends Module {
 
         rpc.setStart(System.currentTimeMillis() / 1000L);
 
-        String largeText = "HIGTools " + HIGTools.VERSION;
+        String largeText = "HIG Tools " + HIGTools.VERSION;
         rpc.setLargeImage("higtools", largeText);
 
         recompileLine1();
@@ -233,7 +233,7 @@ public class DiscordRPC extends Module {
             } else line2Ticks++;
         } else {
             if (!lastWasInMainMenu) {
-                rpc.setDetails("HIGTools " + HIGTools.VERSION);
+                rpc.setDetails("HIG Tools " + HIGTools.VERSION);
 
                 if (mc.currentScreen instanceof TitleScreen) rpc.setState("In main menu");
                 else if (mc.currentScreen instanceof SelectWorldScreen) rpc.setState("Selecting world");
