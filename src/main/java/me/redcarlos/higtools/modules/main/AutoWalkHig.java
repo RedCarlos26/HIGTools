@@ -34,7 +34,7 @@ public class AutoWalkHig extends Module {
     private final Setting<Integer> resumeTPS = sgGeneral.add(new IntSetting.Builder()
         .name("resume-tps")
         .description("Server tick speed at which to resume walking.")
-        .defaultValue(18)
+        .defaultValue(16)
         .range(1, 19)
         .sliderRange(1, 19)
         .visible(pauseOnLag::get)

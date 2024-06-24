@@ -94,7 +94,7 @@ public class HotbarManager extends Module {
 
     private final Setting<Integer> delay = sgGeneral.add(new IntSetting.Builder()
         .name("delay")
-        .description("Delay between moving items.")
+        .description("Delay between moving actions.")
         .defaultValue(1)
         .range(1, 35)
         .sliderRange(1, 35)
@@ -153,7 +153,7 @@ public class HotbarManager extends Module {
         slot7.set("");
         slot8.set("");
 
-        mc.getToastManager().add(new MeteorToast(Items.ENDER_CHEST, "Hotbar Manager", "Cleared Saved Hotbar", 4000));
+        mc.getToastManager().add(new MeteorToast(Items.ENDER_CHEST, "Hotbar Manager", "Cleared Saved Hotbar", 3000));
     }
 
     private void save() {
@@ -169,6 +169,6 @@ public class HotbarManager extends Module {
         slot7.set(Registries.ITEM.getId(mc.player.getInventory().getStack(7).getItem()).toString());
         slot8.set(Registries.ITEM.getId(mc.player.getInventory().getStack(8).getItem()).toString());
 
-        mc.getToastManager().add(new MeteorToast(Items.ENDER_CHEST, "Hotbar Manager", "Saved Hotbar", 4000));
+        mc.getToastManager().add(new MeteorToast(Items.ENDER_CHEST, "Hotbar Manager", "Saved Hotbar", 3000));
     }
 }

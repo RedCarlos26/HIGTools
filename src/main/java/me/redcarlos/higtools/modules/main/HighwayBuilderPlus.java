@@ -148,7 +148,7 @@ public class HighwayBuilderPlus extends Module {
     private final Setting<Integer> resumeTPS = sgGeneral.add(new IntSetting.Builder()
         .name("resume-tps")
         .description("Server tick speed at which to resume building.")
-        .defaultValue(18)
+        .defaultValue(16)
         .range(1, 19)
         .sliderRange(1, 19)
         .visible(pauseOnLag::get)
@@ -185,7 +185,7 @@ public class HighwayBuilderPlus extends Module {
     private final Setting<Integer> breakDelay = sgDigging.add(new IntSetting.Builder()
         .name("break-delay")
         .description("The delay between breaking blocks.")
-        .defaultValue(0)
+        .defaultValue(1)
         .min(0)
         .build()
     );
@@ -213,7 +213,7 @@ public class HighwayBuilderPlus extends Module {
     private final Setting<Integer> placeDelay = sgPaving.add(new IntSetting.Builder()
         .name("place-delay")
         .description("The delay between placing blocks.")
-        .defaultValue(0)
+        .defaultValue(1)
         .min(0)
         .build()
     );
