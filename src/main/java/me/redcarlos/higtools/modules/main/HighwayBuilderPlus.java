@@ -447,7 +447,7 @@ public class HighwayBuilderPlus extends Module {
             moduleEating = true;
         }
 
-        if (moduleEating && (!Modules.get().get(AutoEat.class).eating || !Modules.get().get(AutoGap.class).isEating() || !Modules.get().get(OffhandManager.class).isEating())) {
+        if (moduleEating && (!Modules.get().get(AutoEat.class).eating && !Modules.get().get(AutoGap.class).isEating() && !Modules.get().get(OffhandManager.class).isEating())) {
             setState(lastState);
             moduleEating = false;
         }
