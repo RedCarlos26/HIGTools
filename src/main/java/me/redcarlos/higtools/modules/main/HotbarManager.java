@@ -26,69 +26,69 @@ public class HotbarManager extends Module {
     private final SettingGroup sgGeneral = settings.getDefaultGroup();
     private final SettingGroup slotsGroup = settings.createGroup("Slots", false);
 
-    private final Identifier[] itemIds = IntStream.range(0, 9).mapToObj(i -> HIGTools.identifier("")).toArray(Identifier[]::new);
+    private final Identifier[] itemIds = IntStream.range(0, 9).mapToObj(i -> HotbarManager.identifier("")).toArray(Identifier[]::new);
 
     private final Setting<String> slot0 = slotsGroup.add(new StringSetting.Builder()
         .name("slot0")
         .defaultValue("")
         .visible(() -> false)
-        .onChanged(cur -> itemIds[0] = HIGTools.identifier(cur))
+        .onChanged(cur -> itemIds[0] = HotbarManager.identifier(cur))
         .build()
     );
     private final Setting<String> slot1 = slotsGroup.add(new StringSetting.Builder()
         .name("slot1")
         .defaultValue("")
         .visible(() -> false)
-        .onChanged(cur -> itemIds[1] = HIGTools.identifier(cur))
+        .onChanged(cur -> itemIds[1] = HotbarManager.identifier(cur))
         .build()
     );
     private final Setting<String> slot2 = slotsGroup.add(new StringSetting.Builder()
         .name("slot2")
         .defaultValue("")
         .visible(() -> false)
-        .onChanged(cur -> itemIds[2] = HIGTools.identifier(cur))
+        .onChanged(cur -> itemIds[2] = HotbarManager.identifier(cur))
         .build()
     );
     private final Setting<String> slot3 = slotsGroup.add(new StringSetting.Builder()
         .name("slot3")
         .defaultValue("")
         .visible(() -> false)
-        .onChanged(cur -> itemIds[3] = HIGTools.identifier(cur))
+        .onChanged(cur -> itemIds[3] = HotbarManager.identifier(cur))
         .build()
     );
     private final Setting<String> slot4 = slotsGroup.add(new StringSetting.Builder()
         .name("slot4")
         .defaultValue("")
         .visible(() -> false)
-        .onChanged(cur -> itemIds[4] = HIGTools.identifier(cur))
+        .onChanged(cur -> itemIds[4] = HotbarManager.identifier(cur))
         .build()
     );
     private final Setting<String> slot5 = slotsGroup.add(new StringSetting.Builder()
         .name("slot5")
         .defaultValue("")
         .visible(() -> false)
-        .onChanged(cur -> itemIds[5] = HIGTools.identifier(cur))
+        .onChanged(cur -> itemIds[5] = HotbarManager.identifier(cur))
         .build()
     );
     private final Setting<String> slot6 = slotsGroup.add(new StringSetting.Builder()
         .name("slot6")
         .defaultValue("")
         .visible(() -> false)
-        .onChanged(cur -> itemIds[6] = HIGTools.identifier(cur))
+        .onChanged(cur -> itemIds[6] = HotbarManager.identifier(cur))
         .build()
     );
     private final Setting<String> slot7 = slotsGroup.add(new StringSetting.Builder()
         .name("slot7")
         .defaultValue("")
         .visible(() -> false)
-        .onChanged(cur -> itemIds[7] = HIGTools.identifier(cur))
+        .onChanged(cur -> itemIds[7] = HotbarManager.identifier(cur))
         .build()
     );
     private final Setting<String> slot8 = slotsGroup.add(new StringSetting.Builder()
         .name("slot8")
         .defaultValue("")
         .visible(() -> false)
-        .onChanged(cur -> itemIds[8] = HIGTools.identifier(cur))
+        .onChanged(cur -> itemIds[8] = HotbarManager.identifier(cur))
         .build()
     );
 
@@ -170,5 +170,9 @@ public class HotbarManager extends Module {
         slot8.set(Registries.ITEM.getId(mc.player.getInventory().getStack(8).getItem()).toString());
 
         mc.getToastManager().add(new MeteorToast(Items.ENDER_CHEST, "Hotbar Manager", "Saved Hotbar", 3000));
+    }
+
+    public static Identifier identifier(String path) {
+        return Identifier.of(path);
     }
 }
