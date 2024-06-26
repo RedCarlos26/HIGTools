@@ -102,7 +102,6 @@ public class ScaffoldPlus extends Module {
 
         float f = MathHelper.sin(mc.player.getYaw() * 0.017453292f);
         float g = MathHelper.cos(mc.player.getYaw() * 0.017453292f);
-        int prevSlot = mc.player.getInventory().selectedSlot;
 
         for (int i = 0; i <= (mc.player.getVelocity().x == 0.0 && mc.player.getVelocity().z == 0.0 ? 0 : ext.get()); i++) {
             // Loop body
@@ -127,7 +126,7 @@ public class ScaffoldPlus extends Module {
             if (!item.found()) {
                 return;
             } else {
-                mc.player.networkHandler.sendPacket(new UpdateSelectedSlotC2SPacket(item.slot()));
+                InvUtils.swap(item.slot(), true);
             }
 
             if (tower.get() && mc.options.jumpKey.isPressed() && mc.player.getVelocity().x == 0.0 && mc.player.getVelocity().z == 0.0) {
@@ -143,11 +142,8 @@ public class ScaffoldPlus extends Module {
             mc.player.networkHandler.sendPacket(
                 new PlayerInteractBlockC2SPacket(Hand.MAIN_HAND, new BlockHitResult(pos, Direction.getFacing(pos).getOpposite(), bPos, true), 0)
             );
-        }
 
-        if (mc.player.getInventory().selectedSlot != prevSlot) {
-            mc.player.getInventory().selectedSlot = prevSlot;
-            mc.player.networkHandler.sendPacket(new UpdateSelectedSlotC2SPacket(prevSlot));
+            InvUtils.swapBack();
         }
     }
 
