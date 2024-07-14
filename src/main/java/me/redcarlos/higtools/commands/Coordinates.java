@@ -7,7 +7,6 @@ import net.minecraft.command.CommandSource;
 import net.minecraft.item.Items;
 
 public class Coordinates extends Command {
-
     public Coordinates() {
         super("coordinates", "Copies your coordinates to the clipboard.", "coords");
     }
