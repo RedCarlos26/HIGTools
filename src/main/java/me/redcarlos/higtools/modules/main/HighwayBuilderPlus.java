@@ -7,6 +7,7 @@
 package me.redcarlos.higtools.modules.main;
 
 import me.redcarlos.higtools.HIGTools;
+import me.redcarlos.higtools.utils.HIGUtils;
 import meteordevelopment.meteorclient.events.render.Render3DEvent;
 import meteordevelopment.meteorclient.events.world.TickEvent;
 import meteordevelopment.meteorclient.renderer.ShapeMode;
@@ -560,7 +561,7 @@ public class HighwayBuilderPlus extends Module {
     }
 
     private boolean canPlace(MBlockPos pos, boolean liquids) {
-        return liquids ? !pos.getState().getFluidState().isEmpty() : BlockUtils.canPlace(pos.getBlockPos());
+        return liquids ? !pos.getState().getFluidState().isEmpty() : HIGUtils.canPlaceHIG(pos.getBlockPos());
     }
 
     private enum State {
