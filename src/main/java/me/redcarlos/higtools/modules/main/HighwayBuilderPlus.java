@@ -62,27 +62,6 @@ public class HighwayBuilderPlus extends Module {
     private final SettingGroup sgRenderPaving = settings.createGroup("Render Paving");
     private final SettingGroup sgStatistics = settings.createGroup("Statistics");
 
-    public enum Floor {
-        Replace,
-        PlaceMissing
-    }
-
-    private static final BlockPos ZERO = new BlockPos(0, 0, 0);
-
-    public enum Rotation {
-        None(false, false),
-        Mine(true, false),
-        Place(false, true),
-        Both(true, true);
-
-        public final boolean mine, place;
-
-        Rotation(boolean mine, boolean place) {
-            this.mine = mine;
-            this.place = place;
-        }
-    }
-
     private final Setting<Integer> width = sgGeneral.add(new IntSetting.Builder()
         .name("width")
         .description("Width of the highway.")
@@ -203,7 +182,7 @@ public class HighwayBuilderPlus extends Module {
         .name("blocks-to-place")
         .description("Blocks it is allowed to place.")
         .defaultValue(Blocks.OBSIDIAN)
-        .filter(block -> Block.isShapeFullCube(block.getDefaultState().getCollisionShape(EmptyBlockView.INSTANCE, ZERO)))
+        .filter(block -> Block.isShapeFullCube(block.getDefaultState().getCollisionShape(EmptyBlockView.INSTANCE, BlockPos.ORIGIN)))
         .build()
     );
 
@@ -1790,5 +1769,24 @@ public class HighwayBuilderPlus extends Module {
                 }
             };
         }
+    }
+
+    public enum Rotation {
+        None(false, false),
+        Mine(true, false),
+        Place(false, true),
+        Both(true, true);
+
+        public final boolean mine, place;
+
+        Rotation(boolean mine, boolean place) {
+            this.mine = mine;
+            this.place = place;
+        }
+    }
+
+    public enum Floor {
+        Replace,
+        PlaceMissing
     }
 }
