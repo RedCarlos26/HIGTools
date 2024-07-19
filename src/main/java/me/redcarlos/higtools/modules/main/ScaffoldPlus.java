@@ -96,7 +96,7 @@ public class ScaffoldPlus extends Module {
     }
 
     @EventHandler
-    public void tick(TickEvent.Pre event) {
+    public void onTick(TickEvent.Pre event) {
         if (mc.player == null || mc.world == null) return;
 
         float f = MathHelper.sin(mc.player.getYaw() * 0.017453292f);

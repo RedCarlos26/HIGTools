@@ -104,7 +104,7 @@ public class OffhandManager extends Module {
     }
 
     @EventHandler
-    public void onRender(Render3DEvent event) {
+    public void onRender3D(Render3DEvent event) {
         if (mc.player == null || mc.world == null) return;
         if (!Utils.canUpdate()) return;
 
@@ -139,7 +139,7 @@ public class OffhandManager extends Module {
     }
 
     @EventHandler
-    private void onTick(TickEvent.Pre event) {
+    private void onPreTick(TickEvent.Pre event) {
         if (mc.player == null) return;
 
         if (eating) {
@@ -163,7 +163,7 @@ public class OffhandManager extends Module {
     }
 
     @EventHandler
-    private void onTick(TickEvent.Post event) {
+    private void onPostTick(TickEvent.Post event) {
         if (mc.player == null || mc.world == null) return;
 
         if (mc.player.getHealth() <= healthThreshold.get() || fallDamage.get() && !EntityUtils.isAboveWater(mc.player) && mc.player.fallDistance > 3) currentItem = Item.Totem;
@@ -173,7 +173,7 @@ public class OffhandManager extends Module {
     }
 
     @EventHandler
-    public void sendPacket(PacketEvent.Receive event) {
+    public void onReceivePacket(PacketEvent.Receive event) {
         if (event.packet instanceof PlayerInteractBlockC2SPacket) stopEating();
     }
 

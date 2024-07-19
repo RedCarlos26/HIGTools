@@ -101,7 +101,7 @@ public abstract class BorerModule extends Module {
     }
 
     @EventHandler
-    public abstract void tick(TickEvent.Pre event);
+    public abstract void onTick(TickEvent.Pre event);
 
     protected void getBlacklistedBlockPoses() {
         if (mc.player == null) return;

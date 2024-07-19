@@ -75,7 +75,7 @@ public class RotationLock extends Module {
     }
 
     @EventHandler
-    private void onRender(Render3DEvent event) {
+    private void onRender3D(Render3DEvent event) {
         if (mc.player == null || mc.world == null) return;
 
         switch (yawLockMode.get()) {
