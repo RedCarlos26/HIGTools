@@ -83,8 +83,6 @@ public class HighwayBuilderPlus extends Module {
         }
     }
 
-    // General
-
     private final Setting<Integer> width = sgGeneral.add(new IntSetting.Builder()
         .name("width")
         .description("Width of the highway.")

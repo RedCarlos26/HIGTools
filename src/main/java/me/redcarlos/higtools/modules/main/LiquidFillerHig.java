@@ -32,8 +32,6 @@ public class LiquidFillerHig extends Module {
     private final SettingGroup sgGeneral = settings.getDefaultGroup();
     private final SettingGroup sgBlocks = settings.createGroup("Blocks");
 
-    // General
-
     private final Setting<PlaceIn> placeInLiquids = sgGeneral.add(new EnumSetting.Builder<PlaceIn>()
         .name("place-in")
         .description("What type of liquids to place in.")

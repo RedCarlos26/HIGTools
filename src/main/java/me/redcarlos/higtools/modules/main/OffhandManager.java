@@ -29,8 +29,6 @@ public class OffhandManager extends Module {
     private final SettingGroup sgAutoGap = settings.createGroup("Auto Gap");
     private final SettingGroup sgAutoTotem = settings.createGroup("Auto Totem");
 
-    // General
-
     private final Setting<Boolean> hotbar = sgGeneral.add(new BoolSetting.Builder()
         .name("hotbar")
         .description("Whether to use items from your hotbar.")
