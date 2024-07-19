@@ -13,9 +13,8 @@ public class AxisViewer extends Module {
     private final SettingGroup sgNether = settings.createGroup("Nether");
     private final SettingGroup sgEnd = settings.createGroup("End");
 
-    /**
-     * Overworld
-     */
+    // Overworld
+    
     private final Setting<AxisType> overworldAxisTypes = sgOverworld.add(new EnumSetting.Builder<AxisType>()
         .name("render")
         .description("Which axis to display.")
@@ -41,9 +40,8 @@ public class AxisViewer extends Module {
         .build()
     );
 
-    /**
-     * Nether
-     */
+    // Nether
+
     private final Setting<AxisType> netherAxisTypes = sgNether.add(new EnumSetting.Builder<AxisType>()
         .name("render")
         .description("Which axis to display.")
@@ -69,9 +67,8 @@ public class AxisViewer extends Module {
         .build()
     );
 
-    /**
-     * End
-     */
+    // End
+
     private final Setting<AxisType> endAxisTypes = sgEnd.add(new EnumSetting.Builder<AxisType>()
         .name("render")
         .description("Which axis to display.")

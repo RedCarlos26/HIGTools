@@ -29,9 +29,8 @@ public class OffhandManager extends Module {
     private final SettingGroup sgAutoGap = settings.createGroup("Auto Gap");
     private final SettingGroup sgAutoTotem = settings.createGroup("Auto Totem");
 
-    /**
-     * General
-     */
+    // General
+
     private final Setting<Boolean> hotbar = sgGeneral.add(new BoolSetting.Builder()
         .name("hotbar")
         .description("Whether to use items from your hotbar.")
@@ -46,9 +45,8 @@ public class OffhandManager extends Module {
         .build()
     );
 
-    /**
-     * Auto Gap
-     */
+    // Auto Gap
+
     private final Setting<Integer> hungerThreshold = sgAutoGap.add(new IntSetting.Builder()
         .name("hunger")
         .description("Hunger to gap at.")
@@ -65,9 +63,8 @@ public class OffhandManager extends Module {
         .build()
     );
 
-    /**
-     * Auto Totem
-     */
+    // Auto Totem
+
     private final Setting<Integer> healthThreshold = sgAutoTotem.add(new IntSetting.Builder()
         .name("min-health")
         .description("The minimum health to hold a totem at.")
