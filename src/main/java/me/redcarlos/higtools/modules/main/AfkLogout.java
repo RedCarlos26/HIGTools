@@ -27,7 +27,7 @@ public class AfkLogout extends Module {
         .description("The X coordinate at which to log out.")
         .defaultValue(1000)
         .range(-29999983, 29999983)
-        .sliderRange(-29999983, 29999983)
+        .noSlider()
         .build()
     );
 
@@ -36,7 +36,7 @@ public class AfkLogout extends Module {
         .description("The Z coordinate at which to log out.")
         .defaultValue(1000)
         .range(-29999983, 29999983)
-        .sliderRange(-29999983, 29999983)
+        .noSlider()
         .build()
     );
 
