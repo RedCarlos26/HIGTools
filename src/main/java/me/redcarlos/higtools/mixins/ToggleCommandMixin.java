@@ -18,7 +18,6 @@ import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 import java.util.Arrays;
-import java.util.List;
 
 @SuppressWarnings("unchecked")
 @Mixin(value = ToggleCommand.class, remap = false)
@@ -28,7 +27,16 @@ public abstract class ToggleCommandMixin extends Command {
     }
 
     @Unique
-    private final Class<? extends Module>[] higToolsModules = new Class[]{
+    private final Class<? extends Module>[] borerModules = new Class[]{
+        AxisBorer.class,
+        NegNegBorer.class,
+        NegPosBorer.class,
+        PosNegBorer.class,
+        PosPosBorer.class
+    };
+
+    @Unique
+    private final Class<? extends Module>[] otherModules = new Class[]{
         HighwayTools.class,
         AutoCenter.class,
         AutoLog.class,
@@ -40,12 +48,7 @@ public abstract class ToggleCommandMixin extends Command {
         RotationLock.class,
         SafeWalk.class,
         ScaffoldPlus.class,
-        HighwayBuilderPlus.class,
-        AxisBorer.class,
-        NegNegBorer.class,
-        NegPosBorer.class,
-        PosNegBorer.class,
-        PosPosBorer.class
+        HighwayBuilderPlus.class
     };
 
     @Inject(method = "build", at = @At("HEAD"))
@@ -53,7 +56,12 @@ public abstract class ToggleCommandMixin extends Command {
         builder.then(literal("higtools").then(literal("off").executes(context -> {
             Modules modules = Modules.get();
 
-            Arrays.stream(higToolsModules).forEach(module -> {
+            Arrays.stream(borerModules).forEach(module -> {
+                if (!modules.get(module).isActive()) return;
+                modules.get(module).toggle();
+            });
+
+            Arrays.stream(otherModules).forEach(module -> {
                 if (!modules.get(module).isActive()) return;
                 modules.get(module).toggle();
             });
