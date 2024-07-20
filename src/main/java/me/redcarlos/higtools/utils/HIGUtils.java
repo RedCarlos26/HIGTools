@@ -12,9 +12,8 @@ import static meteordevelopment.meteorclient.utils.world.BlockUtils.canPlace;
 public class HIGUtils {
     private HIGUtils() {}
 
-    /**
-     * Packets
-     */
+    // Packets
+
     private static final Int2IntMap packetToClient = new Int2IntOpenHashMap();
     private static final Int2IntMap clientToPacket = new Int2IntOpenHashMap();
 
@@ -29,10 +28,12 @@ public class HIGUtils {
         clientToPacket.put(36, 8);
         packetToClient.put(45, 40);
         clientToPacket.put(40, 45);
+
         IntStream.rangeClosed(9, 35).forEach(i -> {
             packetToClient.put(i, i);
             clientToPacket.put(i, i);
         });
+
         IntStream.rangeClosed(0, 8).forEach(i -> {
             packetToClient.put(i + 36, i);
             clientToPacket.put(i, i + 36);
@@ -43,9 +44,8 @@ public class HIGUtils {
         return clientToPacket.getOrDefault(clientSlot, -1);
     }
 
-    /**
-     * Block pos
-     */
+    // Blockpos
+
     public static boolean canPlaceHIG(BlockPos blockPos) {
         return canPlace(blockPos, false);
     }
@@ -86,9 +86,8 @@ public class HIGUtils {
         };
     }
 
-    /**
-     * Highway Axis
-     */
+    // Highway Axes
+
     public static int getHighway() {
         double playerZ = mc.player.getZ();
         double playerX = mc.player.getX();
@@ -107,58 +106,7 @@ public class HIGUtils {
         if (diag && xp) return 7;
         if (diag) return 8;
         return -1;
+
+        // TODO: Add toast notifications system (reference Baritone?)
     }
-
-    /**
-     * Desktop notifications (soon:tm:)
-     */
-
-    /*
-     * This section of the file is part of Baritone
-     * Thanks to the Baritone team for the source code.
-     * Download Baritone here : https://github.com/cabaletta/baritonefile
-     */
-
-
-    /**
-     * Send a message as a desktop notification
-     * @param message The message to display in the notification
-     *
-    private void logNotification(String message) {
-        logNotification(message, false);
-    }
-    */
-    /**
-     * Send a message as a desktop notification
-     * @param message The message to display in the notification
-     * @param error   Whether to log as an error
-     */
-    /*
-    private void logNotification(String message, boolean error) {
-        if (-1) {
-            logNotificationDirect(message, error);
-        }
-    }
-
-    /**
-     * Send a message as a desktop notification regardless of desktopNotifications
-     * (should only be used for critically important messages)
-     * @param message The message to display in the notification
-     */
-        /*
-    private void logNotificationDirect(String message) {
-        logNotificationDirect(message, false);
-    }
-
-    /**
-     * Send a message as a desktop notification regardless of desktopNotifications
-     * (should only be used for critically important messages)
-     * @param message The message to display in the notification
-     * @param error   Whether to log as an error
-     */
-        /*
-    private void logNotificationDirect(String message, boolean error) {
-        MinecraftClient.getInstance().execute(() -> BaritoneAPI.getSettings().notifier.value.accept(message, error));
-    }
-    */
 }
