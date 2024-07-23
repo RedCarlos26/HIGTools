@@ -4,6 +4,7 @@ import com.mojang.logging.LogUtils;
 import me.redcarlos.higtools.commands.Center;
 import me.redcarlos.higtools.commands.Coordinates;
 import me.redcarlos.higtools.modules.highwayborers.*;
+import me.redcarlos.higtools.modules.hud.TextPresets;
 import me.redcarlos.higtools.modules.hud.WelcomeHudHig;
 import me.redcarlos.higtools.modules.itemrefill.TestModule;
 import me.redcarlos.higtools.modules.main.*;
@@ -49,6 +50,7 @@ public class HIGTools extends MeteorAddon {
 
         // Hud
         Hud hud = Systems.get(Hud.class);
+        hud.register(TextPresets.INFO);
         hud.register(WelcomeHudHig.INFO);
 
         // Modules
