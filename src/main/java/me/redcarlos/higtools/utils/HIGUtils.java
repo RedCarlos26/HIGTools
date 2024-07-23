@@ -44,7 +44,7 @@ public class HIGUtils {
         return clientToPacket.getOrDefault(clientSlot, -1);
     }
 
-    // Blockpos
+    // Block Pos
 
     public static boolean canPlaceHIG(BlockPos blockPos) {
         return canPlace(blockPos, false);
@@ -106,7 +106,7 @@ public class HIGUtils {
         if (diag && xp) return 7;
         if (diag) return 8;
         return -1;
-
-        // TODO: Add toast notifications system (reference Baritone?)
     }
+
+    // TODO: Add toast notifications system (reference Baritone?)
 }
