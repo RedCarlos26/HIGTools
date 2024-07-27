@@ -2,6 +2,9 @@ package me.redcarlos.higtools.modules.main;
 
 import me.redcarlos.higtools.HIGTools;
 import meteordevelopment.meteorclient.events.world.TickEvent;
+import meteordevelopment.meteorclient.gui.GuiTheme;
+import meteordevelopment.meteorclient.gui.widgets.WWidget;
+import meteordevelopment.meteorclient.gui.widgets.pressable.WButton;
 import meteordevelopment.meteorclient.settings.*;
 import meteordevelopment.meteorclient.systems.modules.Module;
 import meteordevelopment.meteorclient.utils.player.FindItemResult;
@@ -10,6 +13,7 @@ import meteordevelopment.meteorclient.utils.world.TickRate;
 import meteordevelopment.orbit.EventHandler;
 import net.minecraft.item.Item;
 import net.minecraft.item.Items;
+import net.minecraft.util.Util;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -39,6 +43,14 @@ public class HotbarManager extends Module {
         .defaultValue(true)
         .build()
     );
+
+    @Override
+    public WWidget getWidget(GuiTheme theme) {
+        WButton reset = theme.button("Reset");
+        reset.action = () -> itemSettings.forEach(Setting::reset);
+
+        return reset;
+    }
 
     private final List<Setting<Item>> itemSettings = new ArrayList<>();
     private double ticksLeft;
