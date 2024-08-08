@@ -6,7 +6,6 @@ import me.redcarlos.higtools.commands.Coordinates;
 import me.redcarlos.higtools.modules.highwayborers.*;
 import me.redcarlos.higtools.modules.hud.TextPresets;
 import me.redcarlos.higtools.modules.hud.WelcomeHudHig;
-import me.redcarlos.higtools.modules.itemrefill.TestModule;
 import me.redcarlos.higtools.modules.main.*;
 import meteordevelopment.meteorclient.addons.MeteorAddon;
 import meteordevelopment.meteorclient.commands.Commands;
@@ -55,7 +54,6 @@ public class HIGTools extends MeteorAddon {
 
         // Modules
         Modules modules = Modules.get();
-        modules.add(new TestModule()); // WARNING : Do not touch this is for uncommitted code
 
         modules.add(new AfkLogout());
         modules.add(new AutoCenter());

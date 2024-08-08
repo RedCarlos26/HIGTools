@@ -40,27 +40,9 @@ public abstract class BorerModule extends Module {
         .build()
     );
 
-    protected final Setting<Boolean> jumping = sgGeneral.add(new BoolSetting.Builder()
-        .name("jumping")
-        .description("Send more or less packs.")
-        .defaultValue(false)
-        .build()
-    );
-
-    /**
-     * Preserve 2 block tall tunnel for speed bypass
-     */
-    protected final ArrayList<BlockPos> blackList = new ArrayList<>();
-    /**
-     * Last time packets were sent
-     */
-    protected long lastUpdateTime = 0;
-    /**
-     * Floored block position of player
-     */
-    protected BlockPos playerPos = BlockPos.ORIGIN;
-
     protected int packets = 0;
+    protected long lastUpdateTime = 0; // Last time packets were sent
+    protected BlockPos playerPos = BlockPos.ORIGIN; // Floored block position of player
 
     protected BorerModule(String name, String description, int extForwards, int extBackwards, int xOffset, int zOffset) {
         super(HIGTools.BORERS, name, description);
@@ -102,31 +84,6 @@ public abstract class BorerModule extends Module {
 
     @EventHandler
     public abstract void onTick(TickEvent.Pre event);
-
-    protected void getBlacklistedBlockPoses() {
-        if (mc.player == null) return;
-        blackList.clear();
-        if (getHighway() >= 1 && getHighway() <= 4) {
-            blackList.add(playerPos.up(2));
-            blackList.add(backward(playerPos.up(2), 1));
-            blackList.add(backward(playerPos.up(2), 2));
-            blackList.add(forward(playerPos, 1).up(2));
-            blackList.add(forward(playerPos, 2).up(2));
-            blackList.add(forward(playerPos, 3).up(2));
-            blackList.add(forward(playerPos, 4).up(2));
-            blackList.add(forward(playerPos, 5).up(2));
-        } else {
-            float f = MathHelper.sin(mc.player.getYaw() * 0.017453292f);
-            float g = MathHelper.cos(mc.player.getYaw() * 0.017453292f);
-            IntStream.rangeClosed(-2, 5).forEach(i -> {
-                Vec3d pos = mc.player.getPos().add(-f * i, 2.0, g * i);
-                blackList.add(BlockPos.ofFloored(pos));
-                blackList.add(left(BlockPos.ofFloored(pos), 1));
-                blackList.add(left(BlockPos.ofFloored(pos), 2));
-                blackList.add(right(BlockPos.ofFloored(pos), 1));
-            });
-        }
-    }
 
     protected void do2x3(BlockPos playerPos) {
         IntStream.rangeClosed(-extBackward.get(), extForward.get()).forEach(i -> {
@@ -173,7 +130,8 @@ public abstract class BorerModule extends Module {
 
     protected void breakBlock(BlockPos blockPos) {
         if (mc.player == null || mc.world == null) return;
-        if (packets >= 130 || mc.world.getBlockState(blockPos).isReplaceable() || (blackList.contains(blockPos) && jumping.get())) {
+
+        if (packets >= 130 || mc.world.getBlockState(blockPos).isReplaceable()) {
             return;
         }
 
