@@ -32,7 +32,8 @@ tasks {
     processResources {
         val projectProperties = mapOf(
             "version" to project.version,
-            "mc_version" to project.property("minecraft_version")
+            "mc_version" to project.property("minecraft_version"),
+            "loader_version" to project.property("loader_version")
         )
 
         inputs.properties(projectProperties)
