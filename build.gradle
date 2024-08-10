@@ -20,7 +20,7 @@ dependencies {
     mappings "net.fabricmc:yarn:${project.yarn_mappings}:v2"
     modImplementation "net.fabricmc:fabric-loader:${project.loader_version}"
 
-    modImplementation "meteordevelopment:meteor-client:${project.meteor_version}-SNAPSHOT"
+    modImplementation "meteordevelopment:meteor-client:${project.meteor_version}"
 }
 
 loom {
