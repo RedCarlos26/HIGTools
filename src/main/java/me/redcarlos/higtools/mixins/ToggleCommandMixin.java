@@ -45,7 +45,6 @@ public abstract class ToggleCommandMixin extends Command {
         OffhandManager.class,
         HotbarManager.class,
         LiquidFillerHig.class,
-        RotationLock.class,
         SafeWalk.class,
         ScaffoldPlus.class,
         HighwayBuilderPlus.class

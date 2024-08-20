@@ -67,7 +67,6 @@ public class HighwayTools extends Module {
     private final List<Class<? extends Module>> diggingClasses = List.of(
         HotbarManager.class,
         LiquidFillerHig.class,
-        RotationLock.class,
         SafeWalk.class,
         ScaffoldPlus.class
     );
