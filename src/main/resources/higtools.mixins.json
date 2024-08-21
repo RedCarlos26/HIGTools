@@ -2,14 +2,12 @@
   "required": true,
   "package": "me.redcarlos.higtools.mixins",
   "compatibilityLevel": "JAVA_21",
-  "client": [
-    "RotationMixin",
-    "ToggleCommandMixin"
-  ],
   "injectors": {
     "defaultRequire": 1
   },
   "mixins": [
-    "RotationMixin"
+    "RotationMixin",
+    "ToggleCommandMixin",
+    "SystemsMixin"
   ]
 }

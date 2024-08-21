@@ -7,8 +7,10 @@ import me.redcarlos.higtools.modules.highwayborers.*;
 import me.redcarlos.higtools.modules.hud.TextPresets;
 import me.redcarlos.higtools.modules.hud.WelcomeHudHig;
 import me.redcarlos.higtools.modules.main.*;
+import me.redcarlos.higtools.system.HIGTab;
 import meteordevelopment.meteorclient.addons.MeteorAddon;
 import meteordevelopment.meteorclient.commands.Commands;
+import meteordevelopment.meteorclient.gui.tabs.Tabs;
 import meteordevelopment.meteorclient.systems.Systems;
 import meteordevelopment.meteorclient.systems.hud.Hud;
 import meteordevelopment.meteorclient.systems.hud.HudGroup;
@@ -41,7 +43,8 @@ public class HIGTools extends MeteorAddon {
     public void onInitialize() {
         LogUtils.getLogger().info("Initializing HIGTools {}", HIGTools.VERSION);
 
-        BetterChat.registerCustomHead("[HIGTools]", HIGTools.identifier("chat/icon.png"));
+        BetterChat.registerCustomHead("[HIGTools]", Identifier.of(HIGTools.MOD_ID, "chat/icon.png"));
+        Tabs.add(new HIGTab());
 
         // Commands
         Commands.add(new Center());
