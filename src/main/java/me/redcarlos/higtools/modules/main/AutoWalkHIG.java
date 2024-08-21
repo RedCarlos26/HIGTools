@@ -1,9 +1,3 @@
-/*
- * This file is part of the Meteor Client distribution (https://github.com/MeteorDevelopment/meteor-client).
- * Copyright (c) Meteor Development.
- * Enhanced by RedCarlos26
- */
-
 package me.redcarlos.higtools.modules.main;
 
 import me.redcarlos.higtools.HIGTools;
@@ -21,7 +15,7 @@ import meteordevelopment.orbit.EventHandler;
 import net.minecraft.client.option.KeyBinding;
 import net.minecraft.item.Items;
 
-public class AutoWalkHig extends Module {
+public class AutoWalkHIG extends Module {
     private final SettingGroup sgGeneral = settings.getDefaultGroup();
 
     private final Setting<Boolean> pauseOnLag = sgGeneral.add(new BoolSetting.Builder()
@@ -65,7 +59,7 @@ public class AutoWalkHig extends Module {
     private double originY;
     private boolean sentLagMessage;
 
-    public AutoWalkHig() {
+    public AutoWalkHIG() {
         super(HIGTools.MAIN, "auto-walk-HIG", "Automatically walks forward (optimized for highway digging).");
     }
 

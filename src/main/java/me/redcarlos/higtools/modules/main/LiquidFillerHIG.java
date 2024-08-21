@@ -1,9 +1,3 @@
-/*
- * This file is part of the Meteor Client distribution (https://github.com/MeteorDevelopment/meteor-client).
- * Copyright (c) Meteor Development.
- * Enhanced by RedCarlos26
- */
-
 package me.redcarlos.higtools.modules.main;
 
 import me.redcarlos.higtools.HIGTools;
@@ -28,7 +22,7 @@ import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
 
-public class LiquidFillerHig extends Module {
+public class LiquidFillerHIG extends Module {
     private final SettingGroup sgGeneral = settings.getDefaultGroup();
     private final SettingGroup sgBlocks = settings.createGroup("Blocks");
 
@@ -115,7 +109,7 @@ public class LiquidFillerHig extends Module {
 
     private int timer;
 
-    public LiquidFillerHig() {
+    public LiquidFillerHIG() {
         super(HIGTools.MAIN, "liquid-filler-HIG", "Places blocks inside of liquid source blocks within range of you.");
     }
 

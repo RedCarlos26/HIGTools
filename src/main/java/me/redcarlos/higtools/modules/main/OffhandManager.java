@@ -110,7 +110,7 @@ public class OffhandManager extends Module {
 
         Modules modules = Modules.get();
         AutoTotem autoTotem = modules.get(AutoTotem.class);
-        if (Modules.get().get(ScaffoldPlus.class).hasWorked()) return;
+        if (Modules.get().get(ScaffoldHIG.class).hasWorked()) return;
 
         if (mc.options.swapHandsKey.isPressed() && !swapped && mc.player.getOffHandStack().getItem() == currentItem.item) swapped = true;
         else if (mc.options.swapHandsKey.isPressed() && swapped && mc.player.getMainHandStack().getItem() == currentItem.item) swapped = false;
@@ -178,7 +178,7 @@ public class OffhandManager extends Module {
     }
 
     private boolean shouldEat() {
-        return (mc.player.getHungerManager().getFoodLevel() <= hungerThreshold.get() || autoFireRes.get() && !mc.player.getActiveStatusEffects().containsKey(StatusEffects.FIRE_RESISTANCE)) && !Modules.get().get(ScaffoldPlus.class).hasWorked();
+        return (mc.player.getHungerManager().getFoodLevel() <= hungerThreshold.get() || autoFireRes.get() && !mc.player.getActiveStatusEffects().containsKey(StatusEffects.FIRE_RESISTANCE)) && !Modules.get().get(ScaffoldHIG.class).hasWorked();
     }
 
     private void startEating() {

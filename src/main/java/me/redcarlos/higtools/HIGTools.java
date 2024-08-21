@@ -7,8 +7,10 @@ import me.redcarlos.higtools.modules.highwayborers.*;
 import me.redcarlos.higtools.modules.hud.TextPresets;
 import me.redcarlos.higtools.modules.hud.WelcomeHudHig;
 import me.redcarlos.higtools.modules.main.*;
+import me.redcarlos.higtools.system.HIGTab;
 import meteordevelopment.meteorclient.addons.MeteorAddon;
 import meteordevelopment.meteorclient.commands.Commands;
+import meteordevelopment.meteorclient.gui.tabs.Tabs;
 import meteordevelopment.meteorclient.systems.Systems;
 import meteordevelopment.meteorclient.systems.hud.Hud;
 import meteordevelopment.meteorclient.systems.hud.HudGroup;
@@ -29,11 +31,11 @@ public class HIGTools extends MeteorAddon {
     public static final HudGroup HUD;
 
     static {
-        METADATA = FabricLoader.getInstance().getModContainer("higtools").orElseThrow(() -> new RuntimeException("HIGTools mod container not found!")).getMetadata();
-        VERSION = METADATA.getVersion().toString();
+        METADATA = FabricLoader.getInstance().getModContainer("higtools").orElseThrow().getMetadata();
+        VERSION = METADATA.getVersion().getFriendlyString();
 
         MAIN = new Category("HIG Tools", Items.NETHERITE_PICKAXE.getDefaultStack());
-        BORERS = new Category(" Borers ", Items.NETHERITE_PICKAXE.getDefaultStack());
+        BORERS = new Category("  Borers  ", Items.NETHERITE_PICKAXE.getDefaultStack());
         HUD = new HudGroup("HIG Tools");
     }
 
@@ -41,7 +43,8 @@ public class HIGTools extends MeteorAddon {
     public void onInitialize() {
         LogUtils.getLogger().info("Initializing HIGTools {}", HIGTools.VERSION);
 
-        BetterChat.registerCustomHead("[HIGTools]", HIGTools.identifier("chat/icon.png"));
+        BetterChat.registerCustomHead("[HIGTools]", identifier("chat/icon.png"));
+        Tabs.add(new HIGTab());
 
         // Commands
         Commands.add(new Center());
@@ -57,16 +60,16 @@ public class HIGTools extends MeteorAddon {
 
         modules.add(new AfkLogout());
         modules.add(new AutoCenter());
-        modules.add(new AutoWalkHig());
+        modules.add(new AutoWalkHIG());
         modules.add(new AxisViewer());
-        modules.add(new HIGPrefix());
         modules.add(new DiscordRPC());
-        modules.add(new OffhandManager());
-        modules.add(new HighwayBuilderPlus());
+        modules.add(new HighwayBuilderHIG());
         modules.add(new HighwayTools());
         modules.add(new HotbarManager());
-        modules.add(new LiquidFillerHig());
-        modules.add(new ScaffoldPlus());
+        modules.add(new LiquidFillerHIG());
+        modules.add(new OffhandManager());
+        modules.add(new ScaffoldHIG());
+
         // Borers
         modules.add(new AxisBorer());
         modules.add(new NegNegBorer());
@@ -87,6 +90,6 @@ public class HIGTools extends MeteorAddon {
     }
 
     public static Identifier identifier(String path) {
-        return Identifier.of(HIGTools.MOD_ID, path);
+        return Identifier.of(MOD_ID, path);
     }
 }

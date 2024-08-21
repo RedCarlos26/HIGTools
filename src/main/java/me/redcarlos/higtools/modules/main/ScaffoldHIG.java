@@ -22,7 +22,7 @@ import net.minecraft.util.math.Vec3d;
 
 import java.util.List;
 
-public class ScaffoldPlus extends Module {
+public class ScaffoldHIG extends Module {
     private final SettingGroup sgGeneral = settings.getDefaultGroup();
 
     private final Setting<ListMode> listMode = sgGeneral.add(new EnumSetting.Builder<ListMode>()
@@ -91,8 +91,8 @@ public class ScaffoldPlus extends Module {
 
     private boolean worked = false;
 
-    public ScaffoldPlus() {
-        super(HIGTools.MAIN, "scaffold+", "Scaffolds blocks under you.");
+    public ScaffoldHIG() {
+        super(HIGTools.MAIN, "scaffold-HIG", "Scaffolds blocks under you.");
     }
 
     @EventHandler
