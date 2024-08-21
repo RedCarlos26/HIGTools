@@ -37,17 +37,17 @@ public abstract class ToggleCommandMixin extends Command {
 
     @Unique
     private final Class<? extends Module>[] otherModules = new Class[]{
-        HighwayTools.class,
         AutoCenter.class,
         AutoLog.class,
         AutoWalkHIG.class,
         FreeLook.class,
-        OffhandManager.class,
+        HighwayBuilderHIG.class,
+        HighwayTools.class,
         HotbarManager.class,
         LiquidFillerHIG.class,
+        OffhandManager.class,
         SafeWalk.class,
         ScaffoldHIG.class,
-        HighwayBuilderHIG.class
     };
 
     @Inject(method = "build", at = @At("HEAD"))
