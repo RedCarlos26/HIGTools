@@ -40,14 +40,14 @@ public abstract class ToggleCommandMixin extends Command {
         HighwayTools.class,
         AutoCenter.class,
         AutoLog.class,
-        AutoWalkHig.class,
+        AutoWalkHIG.class,
         FreeLook.class,
         OffhandManager.class,
         HotbarManager.class,
-        LiquidFillerHig.class,
+        LiquidFillerHIG.class,
         SafeWalk.class,
-        ScaffoldPlus.class,
-        HighwayBuilderPlus.class
+        ScaffoldHIG.class,
+        HighwayBuilderHIG.class
     };
 
     @Inject(method = "build", at = @At("HEAD"))

@@ -28,7 +28,7 @@ import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
 
-public class LiquidFillerHig extends Module {
+public class LiquidFillerHIG extends Module {
     private final SettingGroup sgGeneral = settings.getDefaultGroup();
     private final SettingGroup sgBlocks = settings.createGroup("Blocks");
 
@@ -115,7 +115,7 @@ public class LiquidFillerHig extends Module {
 
     private int timer;
 
-    public LiquidFillerHig() {
+    public LiquidFillerHIG() {
         super(HIGTools.MAIN, "liquid-filler-HIG", "Places blocks inside of liquid source blocks within range of you.");
     }
 

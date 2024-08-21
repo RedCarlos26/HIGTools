@@ -66,9 +66,9 @@ public class HighwayTools extends Module {
 
     private final List<Class<? extends Module>> diggingClasses = List.of(
         HotbarManager.class,
-        LiquidFillerHig.class,
+        LiquidFillerHIG.class,
         SafeWalk.class,
-        ScaffoldPlus.class
+        ScaffoldHIG.class
     );
 
     private double originX;
@@ -96,7 +96,7 @@ public class HighwayTools extends Module {
 
         switch (mode.get()) {
             case HighwayBuilding -> {
-                modules.get(HighwayBuilderPlus.class).toggle();
+                modules.get(HighwayBuilderHIG.class).toggle();
                 commonClasses.forEach(moduleClass -> modules.get(moduleClass).toggle());
             }
             case AxisDigging, RingRoadDigging -> {
@@ -137,7 +137,7 @@ public class HighwayTools extends Module {
 
         switch (mode.get()) {
             case HighwayBuilding -> {
-                if (modules.get(HighwayBuilderPlus.class).isActive()) modules.get(HighwayBuilderPlus.class).toggle();
+                if (modules.get(HighwayBuilderHIG.class).isActive()) modules.get(HighwayBuilderHIG.class).toggle();
                 commonClasses.stream().filter(moduleClass -> modules.get(moduleClass).isActive()).forEach(moduleClass -> modules.get(moduleClass).toggle());
             }
             case AxisDigging, RingRoadDigging -> {

@@ -31,11 +31,11 @@ public class HIGTools extends MeteorAddon {
     public static final HudGroup HUD;
 
     static {
-        METADATA = FabricLoader.getInstance().getModContainer("higtools").orElseThrow(() -> new RuntimeException("HIGTools mod container not found!")).getMetadata();
-        VERSION = METADATA.getVersion().toString();
+        METADATA = FabricLoader.getInstance().getModContainer("higtools").orElseThrow().getMetadata();
+        VERSION = METADATA.getVersion().getFriendlyString();
 
         MAIN = new Category("HIG Tools", Items.NETHERITE_PICKAXE.getDefaultStack());
-        BORERS = new Category(" Borers ", Items.NETHERITE_PICKAXE.getDefaultStack());
+        BORERS = new Category("Borers ", Items.NETHERITE_PICKAXE.getDefaultStack());
         HUD = new HudGroup("HIG Tools");
     }
 
@@ -60,15 +60,16 @@ public class HIGTools extends MeteorAddon {
 
         modules.add(new AfkLogout());
         modules.add(new AutoCenter());
-        modules.add(new AutoWalkHig());
+        modules.add(new AutoWalkHIG());
         modules.add(new AxisViewer());
         modules.add(new DiscordRPC());
-        modules.add(new OffhandManager());
-        modules.add(new HighwayBuilderPlus());
+        modules.add(new HighwayBuilderHIG());
         modules.add(new HighwayTools());
         modules.add(new HotbarManager());
-        modules.add(new LiquidFillerHig());
-        modules.add(new ScaffoldPlus());
+        modules.add(new LiquidFillerHIG());
+        modules.add(new OffhandManager());
+        modules.add(new ScaffoldHIG());
+
         // Borers
         modules.add(new AxisBorer());
         modules.add(new NegNegBorer());
@@ -86,9 +87,5 @@ public class HIGTools extends MeteorAddon {
     public void onRegisterCategories() {
         Modules.registerCategory(MAIN);
         Modules.registerCategory(BORERS);
-    }
-
-    public static Identifier identifier(String path) {
-        return Identifier.of(HIGTools.MOD_ID, path);
     }
 }
