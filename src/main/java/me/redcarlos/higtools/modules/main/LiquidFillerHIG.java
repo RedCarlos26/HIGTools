@@ -1,9 +1,3 @@
-/*
- * This file is part of the Meteor Client distribution (https://github.com/MeteorDevelopment/meteor-client).
- * Copyright (c) Meteor Development.
- * Enhanced by RedCarlos26
- */
-
 package me.redcarlos.higtools.modules.main;
 
 import me.redcarlos.higtools.HIGTools;
