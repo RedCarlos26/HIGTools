@@ -35,7 +35,7 @@ public class HIGTools extends MeteorAddon {
         VERSION = METADATA.getVersion().getFriendlyString();
 
         MAIN = new Category("HIG Tools", Items.NETHERITE_PICKAXE.getDefaultStack());
-        BORERS = new Category("Borers ", Items.NETHERITE_PICKAXE.getDefaultStack());
+        BORERS = new Category("  Borers  ", Items.NETHERITE_PICKAXE.getDefaultStack());
         HUD = new HudGroup("HIG Tools");
     }
 
