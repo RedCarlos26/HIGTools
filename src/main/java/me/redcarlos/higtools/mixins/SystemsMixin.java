@@ -17,7 +17,7 @@ public abstract class SystemsMixin {
     }
 
     @Inject(method = "init", at = @At("HEAD"))
-    private static void injectBananaSystem(CallbackInfo ci) {
+    private static void injectSystem(CallbackInfo ci) {
         System<?> higSystem = add(new HIGSystem());
         higSystem.init();
         higSystem.load();
