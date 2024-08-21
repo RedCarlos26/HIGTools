@@ -59,7 +59,6 @@ public class HIGTools extends MeteorAddon {
         modules.add(new AutoCenter());
         modules.add(new AutoWalkHig());
         modules.add(new AxisViewer());
-        modules.add(new HIGPrefix());
         modules.add(new DiscordRPC());
         modules.add(new OffhandManager());
         modules.add(new HighwayBuilderPlus());
