@@ -12,7 +12,9 @@ public class TextPresets {
     }
 
     static {
-        addPreset("KM/H Speed", "Speed: #1{roundToString(player.speed*3.6, 1)} km/h");
+
+        addPreset("Welcome Hud", "Welcome to HIG Tools, #1{meteor.is_module_active(\"name-protect\") ?  meteor.get_module_setting(\"name-protect\", \"name\") : player._toString}");
+        addPreset("KM/H Speed", "Speed: #1{roundToString(player.speed * 3.6, 1)} km/h");
     }
 
     private static void addPreset(String title, String text) {
