@@ -30,7 +30,7 @@ public class HIGTools extends MeteorAddon {
     public static final HudGroup HUD;
 
     static {
-        METADATA = FabricLoader.getInstance().getModContainer("higtools").orElseThrow().getMetadata();
+        METADATA = FabricLoader.getInstance().getModContainer(MOD_ID).orElseThrow().getMetadata();
         VERSION = METADATA.getVersion().getFriendlyString();
 
         MAIN = new Category("HIG Tools", Items.NETHERITE_PICKAXE.getDefaultStack());
