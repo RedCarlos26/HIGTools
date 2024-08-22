@@ -5,7 +5,6 @@ import me.redcarlos.higtools.commands.Center;
 import me.redcarlos.higtools.commands.Coordinates;
 import me.redcarlos.higtools.modules.highwayborers.*;
 import me.redcarlos.higtools.modules.hud.TextPresets;
-import me.redcarlos.higtools.modules.hud.WelcomeHudHig;
 import me.redcarlos.higtools.modules.main.*;
 import me.redcarlos.higtools.system.HIGTab;
 import meteordevelopment.meteorclient.addons.MeteorAddon;
@@ -31,7 +30,7 @@ public class HIGTools extends MeteorAddon {
     public static final HudGroup HUD;
 
     static {
-        METADATA = FabricLoader.getInstance().getModContainer("higtools").orElseThrow().getMetadata();
+        METADATA = FabricLoader.getInstance().getModContainer(MOD_ID).orElseThrow().getMetadata();
         VERSION = METADATA.getVersion().getFriendlyString();
 
         MAIN = new Category("HIG Tools", Items.NETHERITE_PICKAXE.getDefaultStack());
@@ -43,7 +42,8 @@ public class HIGTools extends MeteorAddon {
     public void onInitialize() {
         LogUtils.getLogger().info("Initializing HIGTools {}", HIGTools.VERSION);
 
-        BetterChat.registerCustomHead("[HIGTools]", identifier("chat/icon.png"));
+        // Systems
+        BetterChat.registerCustomHead("[HIG Tools]", identifier("icon.png"));
         Tabs.add(new HIGTab());
 
         // Commands
@@ -53,7 +53,6 @@ public class HIGTools extends MeteorAddon {
         // Hud
         Hud hud = Systems.get(Hud.class);
         hud.register(TextPresets.INFO);
-        hud.register(WelcomeHudHig.INFO);
 
         // Modules
         Modules modules = Modules.get();

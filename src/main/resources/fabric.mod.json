@@ -9,13 +9,12 @@
     "Ethius"
   ],
   "contact": {
-    "homepage": "https://discord.gg/a4jkKGJNdJ",
     "issues": "https://github.com/RedCarlos26/HIGTools/issues",
     "sources": "https://github.com/RedCarlos26/HIGTools",
     "discord": "https://discord.gg/a4jkKGJNdJ"
   },
   "license": "GPL-3.0",
-  "icon": "assets/higtools/chat/icon.png",
+  "icon": "assets/higtools/icon.png",
   "environment": "client",
   "entrypoints": {
     "meteor": [
