@@ -1,5 +1,5 @@
 <div align="center">
-  <img src="/src/main/resources/assets/higtools/chat/icon.png" alt="logo" width="20%"/>
+  <img src="/src/main/resources/assets/higtools/icon.png" alt="logo" width="20%"/>
   <h1>HIG Tools</h1>
   <p>HIG Tools is a utility addon for Meteor Client, specifically designed to dig, pave and maintain highways on anarchy servers.</p>
 
