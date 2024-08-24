@@ -28,23 +28,23 @@
 <br>**For Minecraft 1.20.4: Use *[v0.5.7 build #2071](https://meteorclient.com/download?devBuild=2071)* of Meteor.**
 
 ## Modules
-- `Afk Logout`
-- `Auto Center`
-- `Auto Walk HIG`
-- `Axis Viewer`
-- `Discord RPC`
-- `Highway Borers`
-- `Highway Builder HIG`
-- `Highway Tools`
-- `Hotbar Manager`
-- `Liquid Filler HIG`
-- `Offhand Manager`
-- `Scaffold HIG`
+- Afk Logout
+- Auto Center
+- Auto Walk HIG
+- Axis Viewer
+- Discord RPC
+- Highway Borers
+- Highway Builder HIG
+- Highway Tools
+- Hotbar Manager
+- Liquid Filler HIG
+- Offhand Manager
+- Scaffold HIG
 
 ## Hud & Commands
-- `Config tab`
-- `Welcome HUD`
-
+- Config tab
+- Welcome HUD
+<p>
 
 - `.center`
 - `.coordinates`
