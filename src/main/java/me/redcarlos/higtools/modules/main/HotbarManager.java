@@ -13,7 +13,6 @@ import meteordevelopment.meteorclient.utils.world.TickRate;
 import meteordevelopment.orbit.EventHandler;
 import net.minecraft.item.Item;
 import net.minecraft.item.Items;
-import net.minecraft.util.Util;
 
 import java.util.ArrayList;
 import java.util.List;

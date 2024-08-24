@@ -7,7 +7,7 @@
   },
   "mixins": [
     "RotationMixin",
-    "ToggleCommandMixin",
-    "SystemsMixin"
+    "SystemsMixin",
+    "ToggleCommandMixin"
   ]
 }
