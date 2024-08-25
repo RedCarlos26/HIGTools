@@ -8,6 +8,7 @@ import meteordevelopment.meteorclient.utils.player.PlayerUtils;
 import meteordevelopment.meteorclient.utils.render.color.Color;
 import meteordevelopment.meteorclient.utils.render.color.SettingColor;
 import meteordevelopment.orbit.EventHandler;
+import net.minecraft.util.math.Vec3d;
 
 public class AxisViewer extends Module {
     private final SettingGroup sgOverworld = settings.createGroup("Overworld");
@@ -18,7 +19,7 @@ public class AxisViewer extends Module {
 
     private final Setting<AxisType> overworldAxisTypes = sgOverworld.add(new EnumSetting.Builder<AxisType>()
         .name("render")
-        .description("Which axis to display.")
+        .description("Which axes to display.")
         .defaultValue(AxisType.Both)
         .build()
     );
@@ -26,7 +27,7 @@ public class AxisViewer extends Module {
     private final Setting<Integer> overworldY = sgOverworld.add(new IntSetting.Builder()
         .name("height")
         .description("Y position of the line.")
-        .defaultValue(64)
+        .defaultValue(63)
         .sliderMin(-64)
         .sliderMax(319)
         .visible(() -> overworldAxisTypes.get() != AxisType.None)
@@ -45,7 +46,7 @@ public class AxisViewer extends Module {
 
     private final Setting<AxisType> netherAxisTypes = sgNether.add(new EnumSetting.Builder<AxisType>()
         .name("render")
-        .description("Which axis to display.")
+        .description("Which axes to display.")
         .defaultValue(AxisType.Both)
         .build()
     );
@@ -72,7 +73,7 @@ public class AxisViewer extends Module {
 
     private final Setting<AxisType> endAxisTypes = sgEnd.add(new EnumSetting.Builder<AxisType>()
         .name("render")
-        .description("Which axis to display.")
+        .description("Which axes to display.")
         .defaultValue(AxisType.Both)
         .build()
     );
@@ -96,7 +97,7 @@ public class AxisViewer extends Module {
     );
 
     public AxisViewer() {
-        super(HIGTools.MAIN, "axis-viewer-(WIP)", "Render culling fucks it up :skull:");
+        super(HIGTools.MAIN, "axis-viewer", "Displays world axes.");
     }
 
     @EventHandler
@@ -126,22 +127,46 @@ public class AxisViewer extends Module {
             default -> throw new IllegalStateException("Unexpected value: " + PlayerUtils.getDimension());
         }
 
-        // TODO: Fix to be unaffected by render culling
+        if (axisType == AxisType.None) return;
 
+        double renderY = y;
+
+        // Render cardinal lines
         if (axisType.cardinals()) {
-            event.renderer.line(0, y, 0, 0, y, 30_000_000, lineColor); // Z+
-            event.renderer.line(0, y, 0, 30_000_000, y, 0, lineColor); // X+
-            event.renderer.line(0, y, 0, 0, y, -30_000_000, lineColor); // -Z
-            event.renderer.line(0, y, 0, -30_000_000, y, 0, lineColor); // -X
+            drawSegmentedLine(event, new Vec3d(0, renderY, 0), new Vec3d(30_000_000, renderY, 0), lineColor); // X+
+            drawSegmentedLine(event, new Vec3d(0, renderY, 0), new Vec3d(-30_000_000, renderY, 0), lineColor); // -X
+            drawSegmentedLine(event, new Vec3d(0, renderY, 0), new Vec3d(0, renderY, 30_000_000), lineColor); // Z+
+            drawSegmentedLine(event, new Vec3d(0, renderY, 0), new Vec3d(0, renderY, -30_000_000), lineColor); // -Z
         }
 
+        // Render diagonal lines
         if (axisType.diagonals()) {
-            event.renderer.line(0, y, 0, 30_000_000, y, 30_000_000, lineColor); // ++
-            event.renderer.line(0, y, 0, 30_000_000, y, -30_000_000, lineColor); // +-
-            event.renderer.line(0, y, 0, -30_000_000, y, 30_000_000, lineColor); // -+
-            event.renderer.line(0, y, 0, -30_000_000, y, -30_000_000, lineColor); // --
+            drawSegmentedLine(event, new Vec3d(0, renderY, 0), new Vec3d(30_000_000, renderY, 30_000_000), lineColor); // ++
+            drawSegmentedLine(event, new Vec3d(0, renderY, 0), new Vec3d(30_000_000, renderY, -30_000_000), lineColor); // +-
+            drawSegmentedLine(event, new Vec3d(0, renderY, 0), new Vec3d(-30_000_000, renderY, 30_000_000), lineColor); // -+
+            drawSegmentedLine(event, new Vec3d(0, renderY, 0), new Vec3d(-30_000_000, renderY, -30_000_000), lineColor); // --
         }
+    }
 
+    private void drawSegmentedLine(Render3DEvent event, Vec3d start, Vec3d end, Color color) {
+        double segmentLength = 100_000; // Length of each segment to avoid rendering issues
+        Vec3d direction = end.subtract(start).normalize();
+        double totalLength = start.distanceTo(end);
+        int segments = (int) (totalLength / segmentLength);
+
+        Vec3d currentStart = start;
+        for (int i = 0; i < segments; i++) {
+            Vec3d currentEnd = currentStart.add(direction.multiply(segmentLength));
+            drawLine(event, currentStart, currentEnd, color);
+            currentStart = currentEnd;
+        }
+        // Draw remaining part
+        drawLine(event, currentStart, end, color);
+    }
+
+    private void drawLine(Render3DEvent event, Vec3d start, Vec3d end, Color color) {
+        event.renderer.line(start.getX(), start.getY(), start.getZ(),
+            end.getX(), end.getY(), end.getZ(), color);
     }
 
     public enum AxisType {
