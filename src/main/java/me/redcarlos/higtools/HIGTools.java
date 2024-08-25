@@ -16,6 +16,8 @@ import meteordevelopment.meteorclient.systems.hud.HudGroup;
 import meteordevelopment.meteorclient.systems.modules.Category;
 import meteordevelopment.meteorclient.systems.modules.Modules;
 import meteordevelopment.meteorclient.systems.modules.misc.BetterChat;
+import meteordevelopment.meteorclient.utils.misc.MeteorStarscript;
+import meteordevelopment.starscript.value.ValueMap;
 import net.fabricmc.loader.api.FabricLoader;
 import net.fabricmc.loader.api.metadata.ModMetadata;
 import net.minecraft.item.Items;
@@ -44,6 +46,7 @@ public class HIGTools extends MeteorAddon {
 
         // Systems
         BetterChat.registerCustomHead("[HIG Tools]", identifier("icon.png"));
+        MeteorStarscript.ss.set("higtools", new ValueMap().set("version", VERSION));
         Tabs.add(new HIGTab());
 
         // Commands
