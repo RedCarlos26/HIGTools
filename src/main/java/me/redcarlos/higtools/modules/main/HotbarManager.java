@@ -39,7 +39,7 @@ public class HotbarManager extends Module {
     private final Setting<Boolean> toggle = sgGeneral.add(new BoolSetting.Builder()
         .name("toggle")
         .description("Toggle off automatically after one pass through the hotbar.")
-        .defaultValue(true)
+        .defaultValue(false)
         .build()
     );
 
