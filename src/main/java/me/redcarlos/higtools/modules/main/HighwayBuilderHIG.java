@@ -149,6 +149,16 @@ public class HighwayBuilderHIG extends Module {
         .build()
     );
 
+    private final Setting<Integer> endDurability = sgDigging.add(new IntSetting.Builder()
+        .name("end-durability")
+        .description("What durability do you want your tools to end up at?")
+        .defaultValue(3)
+        .range(1, 2031)
+        .sliderRange(1, 100)
+        .visible(() -> dontBreakTools.get())
+        .build()
+    );
+
     private final Setting<Integer> savePickaxes = sgDigging.add(new IntSetting.Builder()
         .name("save-pickaxes")
         .description("How many pickaxes to ensure are saved.")
@@ -1121,7 +1131,7 @@ public class HighwayBuilderHIG extends Module {
             for (int i = 0; i < b.mc.player.getInventory().main.size(); i++) {
                 double score = AutoTool.getScore(b.mc.player.getInventory().getStack(i), blockState, false, false, AutoTool.EnchantPreference.None, itemStack -> {
                     if (noSilkTouch && Utils.hasEnchantment(itemStack, Enchantments.SILK_TOUCH)) return false;
-                    return !b.dontBreakTools.get() || itemStack.getMaxDamage() - itemStack.getDamage() > 1;
+                    return !b.dontBreakTools.get() || itemStack.getMaxDamage() - itemStack.getDamage() > b.endDurability.get();
                 });
 
                 if (score > bestScore) {
