@@ -513,9 +513,9 @@ public class HighwayBuilderHIG extends Module {
 
     private int getWidthRight() {
         return switch (width.get()) {
-            default -> 0;
             case 3, 4 -> 1;
             case 5, 6 -> 2;
+            default -> 0;
         };
     }
 
@@ -1436,10 +1436,10 @@ public class HighwayBuilderHIG extends Module {
 
                     return switch (i) {
                         case -1 -> pos;
-                        default -> pos.offset(dir.opposite());
                         case 1 -> pos.offset(leftDir);
                         case 2 -> pos.offset(rightDir);
                         case 3 -> pos.offset(dir, 2);
+                        default -> pos.offset(dir.opposite());
                     };
                 }
 
@@ -1730,10 +1730,10 @@ public class HighwayBuilderHIG extends Module {
 
                     return switch (i) {
                         case -1 -> pos;
-                        default -> pos.offset(dir2);
                         case 1 -> pos.offset(dir2.rotateLeftSkipOne());
                         case 2 -> pos.offset(dir2.rotateLeftSkipOne().opposite());
                         case 3 -> pos.offset(dir2.opposite(), 2);
+                        default -> pos.offset(dir2);
                     };
                 }
 

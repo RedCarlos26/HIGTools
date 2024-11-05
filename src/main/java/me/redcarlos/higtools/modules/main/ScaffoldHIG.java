@@ -34,7 +34,7 @@ public class ScaffoldHIG extends Module {
 
     private final Setting<List<Block>> whitelist = sgGeneral.add(new BlockListSetting.Builder()
         .name("whitelist")
-        .description("Blocks allowed to fill up liquids.")
+        .description("Blocks allowed to scaffold.")
         .defaultValue(Blocks.NETHERRACK)
         .visible(() -> listMode.get() == ListMode.Whitelist)
         .build()
@@ -42,7 +42,7 @@ public class ScaffoldHIG extends Module {
 
     private final Setting<List<Block>> blacklist = sgGeneral.add(new BlockListSetting.Builder()
         .name("blacklist")
-        .description("Blocks denied to fill up liquids.")
+        .description("Blocks denied to scaffold.")
         .defaultValue(Blocks.OBSIDIAN)
         .visible(() -> listMode.get() == ListMode.Blacklist)
         .build()
@@ -66,26 +66,10 @@ public class ScaffoldHIG extends Module {
     private final Setting<Integer> height = sgGeneral.add(new IntSetting.Builder()
         .name("height")
         .description("Y value to scaffold at.")
-        .defaultValue(120)
+        .defaultValue(119)
         .range(-64, 320)
         .sliderRange(-64, 320)
         .visible(keepY::get)
-        .build()
-    );
-
-    private final Setting<Boolean> tower = sgGeneral.add(new BoolSetting.Builder()
-        .name("tower")
-        .description("Makes towering easier.")
-        .defaultValue(false)
-        .build()
-    );
-
-    private final Setting<Double> towerMulti = sgGeneral.add(new DoubleSetting.Builder()
-        .name("multi")
-        .description("Makes tower potentially bypass stricter anti-cheats.")
-        .defaultValue(0.7454)
-        .range(0.0, 2.0)
-        .visible(tower::get)
         .build()
     );
 
@@ -128,19 +112,7 @@ public class ScaffoldHIG extends Module {
                 InvUtils.swap(item.slot(), true);
             }
 
-            if (tower.get() && mc.options.jumpKey.isPressed() && mc.player.getVelocity().x == 0.0 && mc.player.getVelocity().z == 0.0) {
-                if (mc.world.getBlockState(mc.player.getBlockPos().down()).isReplaceable() &&
-                    !mc.world.getBlockState(mc.player.getBlockPos().down(2)).isReplaceable() &&
-                    mc.player.getVelocity().y > 0) {
-                    mc.player.setVelocity(mc.player.getVelocity().x, -0.6, mc.player.getVelocity().z);
-                    mc.player.jump();
-                    mc.player.setVelocity(mc.player.getVelocity().x, mc.player.getVelocity().y * towerMulti.get(), mc.player.getVelocity().z);
-                }
-            }
-
-            mc.player.networkHandler.sendPacket(
-                new PlayerInteractBlockC2SPacket(Hand.MAIN_HAND, new BlockHitResult(pos, Direction.getFacing(pos).getOpposite(), bPos, true), 0)
-            );
+            mc.player.networkHandler.sendPacket(new PlayerInteractBlockC2SPacket(Hand.MAIN_HAND, new BlockHitResult(pos, Direction.getFacing(pos).getOpposite(), bPos, true), 0));
 
             InvUtils.swapBack();
         }

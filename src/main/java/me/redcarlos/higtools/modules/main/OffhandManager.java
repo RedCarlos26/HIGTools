@@ -81,9 +81,10 @@ public class OffhandManager extends Module {
 
     private Item currentItem;
     private boolean eating;
+    private boolean justStarted;
+    private boolean moved;
     private boolean sentMsg;
     private boolean swapped;
-    private boolean justStarted;
 
     public OffhandManager() {
         super(HIGTools.MAIN, "offhand-manager", "Automatically manages your offhand (optimized for highway work).");
@@ -92,9 +93,10 @@ public class OffhandManager extends Module {
     @Override
     public void onActivate() {
         eating = false;
-        sentMsg = false;
-        swapped = false;
         justStarted = true;
+        moved = false;
+        sentMsg = false;
+        swapped = true;
         currentItem = Item.Totem;
     }
 
@@ -108,10 +110,17 @@ public class OffhandManager extends Module {
         if (mc.player == null || mc.world == null) return;
         if (!Utils.canUpdate()) return;
 
+        // Anti cursor stack
+        if (moved) {
+            InvUtils.dropHand();
+            moved = false;
+        }
+
         Modules modules = Modules.get();
         AutoTotem autoTotem = modules.get(AutoTotem.class);
         if (Modules.get().get(ScaffoldHIG.class).hasWorked()) return;
 
+        // Switch back if swap key has been used
         if (mc.options.swapHandsKey.isPressed() && !swapped && mc.player.getOffHandStack().getItem() == currentItem.item) swapped = true;
         else if (mc.options.swapHandsKey.isPressed() && swapped && mc.player.getMainHandStack().getItem() == currentItem.item) swapped = false;
         else swapped = false;
@@ -120,20 +129,19 @@ public class OffhandManager extends Module {
         if (mc.player.getOffHandStack().getItem() != currentItem.item && !swapped) {
             FindItemResult item = InvUtils.find(itemStack -> itemStack.getItem() == currentItem.item, hotbar.get() ? 0 : 9, 35);
 
-            if (!item.found()) item = InvUtils.find(itemStack -> itemStack.getItem() == null, hotbar.get() ? 0 : 9, 35);
-
             if (!item.found()) {
                 if (!sentMsg) {
                     if (warningMsg.get()) warning("Chosen item not found.");
                     sentMsg = true;
+                    moved = false;
                 }
             }
 
             // Swap to offhand
             else if (!autoTotem.isLocked() && !item.isOffhand()) {
                 InvUtils.move().from(item.slot()).toOffhand();
-                InvUtils.dropHand();
                 sentMsg = false;
+                moved = true;
             }
         }
     }
