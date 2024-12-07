@@ -43,7 +43,7 @@ public class DiscordRPC extends Module {
     private final Setting<List<String>> line1Strings = sgLine1.add(new StringListSetting.Builder()
         .name("1st-line-messages")
         .description("Messages used for the first line.")
-        .defaultValue("{server}")
+        .defaultValue("Playing {server}")
         .onChanged(strings -> recompileLine1())
         .renderer(StarscriptTextBoxRenderer.class)
         .build()

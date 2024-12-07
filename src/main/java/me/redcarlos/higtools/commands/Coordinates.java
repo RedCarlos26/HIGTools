@@ -15,7 +15,7 @@ public class Coordinates extends Command {
     public void build(LiteralArgumentBuilder<CommandSource> builder) {
         builder.executes(context -> {
             mc.keyboard.setClipboard("%d, %d, %d".formatted(mc.player.getBlockPos().getX(), mc.player.getBlockPos().getY(), mc.player.getBlockPos().getZ()));
-            mc.getToastManager().add(new MeteorToast(Items.NETHERITE_PICKAXE, "Coordinates", "Copied to clipboard."));
+            mc.getToastManager().add(new MeteorToast(Items.NETHERITE_PICKAXE, "Coordinates", "Copied to clipboard.", 5000L));
             return SINGLE_SUCCESS;
         });
     }

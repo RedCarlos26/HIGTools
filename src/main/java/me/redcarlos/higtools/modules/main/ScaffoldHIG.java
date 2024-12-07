@@ -57,7 +57,7 @@ public class ScaffoldHIG extends Module {
     );
 
     private final Setting<Boolean> keepY = sgGeneral.add(new BoolSetting.Builder()
-        .name("keepY")
+        .name("keep-y")
         .description("Places blocks only at a specific Y value.")
         .defaultValue(false)
         .build()
@@ -89,7 +89,7 @@ public class ScaffoldHIG extends Module {
         for (int i = 0; i <= (mc.player.getVelocity().x == 0.0 && mc.player.getVelocity().z == 0.0 ? 0 : ext.get()); i++) {
             // Loop body
             Vec3d pos = mc.player.getPos().add(-f * i, -0.5, g * i);
-            if (keepY.get()) ((IVec3d) pos).setY(height.get() - 1.0);
+            if (keepY.get()) ((IVec3d) pos).meteor$setY(height.get() - 1.0);
 
             BlockPos bPos = BlockPos.ofFloored(pos);
 

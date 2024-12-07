@@ -35,8 +35,8 @@
   },
   "depends": {
     "java": ">=21",
-    "minecraft": "${minecraft_version}",
+    "minecraft": ["1.21.2", "${minecraft_version}"],
     "fabricloader": ">=${loader_version}",
-    "meteor-client": ">0.5.7"
+    "meteor-client": ">0.5.8"
   }
 }

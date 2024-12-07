@@ -27,6 +27,30 @@ public class HighwayTools extends Module {
         .build()
     );
 
+    /**
+    private final Setting<Boolean> toggleModules = sgGeneral.add(new BoolSetting.Builder()
+        .name("toggle-modules")
+        .description("Turn on these modules when HighwayTools is activated.")
+        .defaultValue(true)
+        .build()
+    );
+
+    private final Setting<Boolean> toggleBack = sgGeneral.add(new BoolSetting.Builder()
+        .name("toggle-back-off")
+        .description("Turn the other modules back on when HighwayTools is deactivated.")
+        .defaultValue(true)
+        .visible(toggleModules::get)
+        .build()
+    );
+
+    private final Setting<List<Module>> moduleList = sgGeneral.add(new ModuleListSetting.Builder()
+        .name("modules")
+        .description("Which modules to enable.")
+        .visible(toggleModules::get)
+        .build()
+    );
+     */
+
     private final Setting<Boolean> axisToggle = sgGeneral.add(new BoolSetting.Builder()
         .name("axis-toggle")
         .description("Toggles itself when you reach an axis. Useful when digging ring roads.")
@@ -84,15 +108,15 @@ public class HighwayTools extends Module {
     public void onActivate() {
         if (mc.player == null || mc.world == null) return;
 
+        // Get coords of the player from an axis (for axis toggle)
         originX = Math.abs(mc.player.getX());
         originY = Math.abs(mc.player.getY());
         originZ = Math.abs(mc.player.getZ());
-        // This is to know if a player is on a diagonal axis
-        originXZRatio = Math.abs(originX - originZ);
+        originXZRatio = Math.abs(originX - originZ); // Is the player on a diagonal axis from the start
 
         Modules modules = Modules.get();
 
-        if (modules.get(InstantRebreak.class).isActive()) modules.get(InstantRebreak.class).toggle();
+        if (modules.get(InstantRebreak.class).isActive()) modules.get(InstantRebreak.class).toggle(); // Prevents issues when mining
 
         switch (mode.get()) {
             case HighwayBuilding -> {
@@ -176,7 +200,7 @@ public class HighwayTools extends Module {
     private void onTick(TickEvent.Pre event) {
         if (mc.player == null || mc.world == null) return;
 
-        // Toggle events
+        // If player isn't on axis from the start, check if player reached axis
         if (axisToggle.get()) {
             if (originX >= radius.get() && originZ >= radius.get() && originXZRatio >= 4) {
                 // Only run expensive checks if requirements above are met
@@ -199,7 +223,7 @@ public class HighwayTools extends Module {
         }
 
         if (keepY.get()) {
-            // -0.125 is so players can still walk on soul sand and similar blocks while digging
+            // -0.125 so players can still walk on soul sand and similar blocks while digging
             if (mc.player.getY() < originY - 0.125) {
                 info("Fell below original height, disabling.");
                 toggle();
@@ -208,7 +232,6 @@ public class HighwayTools extends Module {
 
         // TODO :
         // Liquid filler + nuker for mushrooms and stuff (soon)
-        // Inventory integration?
         // Grim mode
     }
 
