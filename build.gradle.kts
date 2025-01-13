@@ -25,7 +25,7 @@ dependencies {
     modImplementation("net.fabricmc:fabric-loader:${project.property("loader_version")}")
 
     // Meteor
-    modImplementation("meteordevelopment:meteor-client:${project.property("meteor_version")}")
+    modImplementation("meteordevelopment:meteor-client:${project.property("minecraft_version")}-SNAPSHOT")
 }
 
 tasks {

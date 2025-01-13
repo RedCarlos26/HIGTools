@@ -29,7 +29,7 @@ public class HIGSystem extends System<HIGSystem> {
     public final Setting<SettingColor> prefixColor = sgPrefix.add(new ColorSetting.Builder()
         .name("prefix-color")
         .description("Color display for the prefix.")
-        .defaultValue(new SettingColor(145,61,226, 255))
+        .defaultValue(new SettingColor(145, 61, 226, 255))
         .onChanged(p -> ChatUtils.registerCustomPrefix("me.redcarlos.higtools", this::getPrefix))
         .build()
     );

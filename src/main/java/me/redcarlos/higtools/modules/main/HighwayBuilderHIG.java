@@ -1203,6 +1203,7 @@ public class HighwayBuilderHIG extends Module {
 
     private interface MBPIterator extends Iterator<MBlockPos>, Iterable<MBlockPos> {
         void save();
+
         void restore();
 
         @NotNull
@@ -1265,9 +1266,13 @@ public class HighwayBuilderHIG extends Module {
 
     private interface IBlockPosProvider {
         MBPIterator getFront();
+
         MBPIterator getFloor();
+
         MBPIterator getRailings(boolean mine);
+
         MBPIterator getLiquids();
+
         MBPIterator getEChestBlockade(boolean mine);
     }
 

@@ -18,13 +18,14 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 @Mixin(value = Rotation.class, remap = false)
 public abstract class RotationMixin extends Module {
-    @Unique private Setting<Boolean> toggleOnLeave;
+    @Unique
+    private Setting<Boolean> toggleOnLeave;
 
-    @Inject(method = "<init>", at=@At("TAIL"))
+    @Inject(method = "<init>", at = @At("TAIL"))
     private void onInit(CallbackInfo ci) {
         SettingGroup sgGeneral = settings.getDefaultGroup();
 
-        toggleOnLeave  = sgGeneral.add(new BoolSetting.Builder()
+        toggleOnLeave = sgGeneral.add(new BoolSetting.Builder()
             .name("toggle-on-leave")
             .description("Toggle the module off when you leave a world.")
             .defaultValue(false)

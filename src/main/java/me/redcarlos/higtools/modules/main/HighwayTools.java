@@ -28,27 +28,27 @@ public class HighwayTools extends Module {
     );
 
     /**
-    private final Setting<Boolean> toggleModules = sgGeneral.add(new BoolSetting.Builder()
-        .name("toggle-modules")
-        .description("Turn on these modules when HighwayTools is activated.")
-        .defaultValue(true)
-        .build()
-    );
-
-    private final Setting<Boolean> toggleBack = sgGeneral.add(new BoolSetting.Builder()
-        .name("toggle-back-off")
-        .description("Turn the other modules back on when HighwayTools is deactivated.")
-        .defaultValue(true)
-        .visible(toggleModules::get)
-        .build()
-    );
-
-    private final Setting<List<Module>> moduleList = sgGeneral.add(new ModuleListSetting.Builder()
-        .name("modules")
-        .description("Which modules to enable.")
-        .visible(toggleModules::get)
-        .build()
-    );
+     * private final Setting<Boolean> toggleModules = sgGeneral.add(new BoolSetting.Builder()
+     * .name("toggle-modules")
+     * .description("Turn on these modules when HighwayTools is activated.")
+     * .defaultValue(true)
+     * .build()
+     * );
+     * <p>
+     * private final Setting<Boolean> toggleBack = sgGeneral.add(new BoolSetting.Builder()
+     * .name("toggle-back-off")
+     * .description("Turn the other modules back on when HighwayTools is deactivated.")
+     * .defaultValue(true)
+     * .visible(toggleModules::get)
+     * .build()
+     * );
+     * <p>
+     * private final Setting<List<Module>> moduleList = sgGeneral.add(new ModuleListSetting.Builder()
+     * .name("modules")
+     * .description("Which modules to enable.")
+     * .visible(toggleModules::get)
+     * .build()
+     * );
      */
 
     private final Setting<Boolean> axisToggle = sgGeneral.add(new BoolSetting.Builder()
