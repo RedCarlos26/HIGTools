@@ -2,7 +2,7 @@
   "schemaVersion": 1,
   "name": "HIGTools",
   "id": "higtools",
-  "version": "2.9.2",
+  "version": "2.10.0",
   "description": "Highway Tools for Meteor Client.",
   "authors": [
     "RedCarlos26",
@@ -37,6 +37,6 @@
     "java": ">=21",
     "minecraft": "${minecraft_version}",
     "fabricloader": ">=${loader_version}",
-    "meteor-client": ">0.5.8"
+    "meteor-client": ">=${minecraft_version}-1"
   }
 }
