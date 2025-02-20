@@ -37,6 +37,6 @@
     "java": ">=21",
     "minecraft": "${minecraft_version}",
     "fabricloader": ">=${loader_version}",
-    "meteor-client": ">=${minecraft_version}-1"
+    "meteor-client": ">=${minecraft_version}-9"
   }
 }
