@@ -390,7 +390,6 @@ public class HighwayBuilderHIG extends Module {
         if (mc.player == null || mc.world == null) return;
 
         mc.player.input = prevInput;
-        mc.player.setYaw(dir.yaw);
 
         if (displayInfo && printStatistics.get()) {
             info("Distance: (highlight)%.0f", PlayerUtils.distanceTo(start));
@@ -593,17 +592,17 @@ public class HighwayBuilderHIG extends Module {
         Forward {
             @Override
             protected void start(HighwayBuilderHIG b) {
-                b.mc.player.setYaw(b.dir.yaw);
-
                 checkTasks(b);
             }
 
             @Override
             protected void tick(HighwayBuilderHIG b) {
                 checkTasks(b);
-                b.mc.player.setPitch(20);
 
-                if (b.state == Forward) b.input.forward(true); // Move
+                if (b.state == Forward) {
+                    b.mc.player.setYaw(b.dir.yaw);
+                    b.input.forward(true);
+                }
             }
 
             private void checkTasks(HighwayBuilderHIG b) {
@@ -645,19 +644,19 @@ public class HighwayBuilderHIG extends Module {
         MineFront {
             @Override
             protected void tick(HighwayBuilderHIG b) {
-                mine(b, b.blockPosProvider.getFront(), true, MineFloor, this);
+                mine(b, b.blockPosProvider.getFront(), true, MineFloor, this, false);
             }
         },
 
         MineFloor {
             @Override
             protected void start(HighwayBuilderHIG b) {
-                mine(b, b.blockPosProvider.getFloor(), false, MineRailings, this);
+                mine(b, b.blockPosProvider.getFloor(), false, MineRailings, this, false);
             }
 
             @Override
             protected void tick(HighwayBuilderHIG b) {
-                mine(b, b.blockPosProvider.getFloor(), false, MineRailings, this);
+                mine(b, b.blockPosProvider.getFloor(), false, MineRailings, this, false);
             }
         },
 
@@ -777,7 +776,7 @@ public class HighwayBuilderHIG extends Module {
         MineEChestBlockade {
             @Override
             protected void tick(HighwayBuilderHIG b) {
-                mine(b, b.blockPosProvider.getEChestBlockade(true), true, Center, Forward);
+                mine(b, b.blockPosProvider.getEChestBlockade(true), true, Center, Forward, false);
             }
         },
 
@@ -935,10 +934,6 @@ public class HighwayBuilderHIG extends Module {
         protected void start(HighwayBuilderHIG b) {}
 
         protected abstract void tick(HighwayBuilderHIG b);
-
-        protected void mine(HighwayBuilderHIG b, MBPIterator it, boolean ignoreBlocksToPlace, State nextState, State lastState) {
-            mine(b, it, ignoreBlocksToPlace, nextState, lastState, false);
-        }
 
         protected void mine(HighwayBuilderHIG b, MBPIterator it, boolean ignoreBlocksToPlace, State nextState, State lastState, boolean railMode) {
             boolean breaking = false;
