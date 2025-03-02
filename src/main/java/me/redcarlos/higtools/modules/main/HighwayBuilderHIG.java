@@ -592,7 +592,8 @@ public class HighwayBuilderHIG extends Module {
         Forward {
             @Override
             protected void start(HighwayBuilderHIG b) {
-                checkTasks(b);
+                b.mc.player.setYaw(b.dir.yaw);
+                b.state.tick(b);
             }
 
             @Override
@@ -643,6 +644,11 @@ public class HighwayBuilderHIG extends Module {
 
         MineFront {
             @Override
+            protected void start(HighwayBuilderHIG b) {
+                b.state.tick(b);
+            }
+
+            @Override
             protected void tick(HighwayBuilderHIG b) {
                 mine(b, b.blockPosProvider.getFront(), true, MineFloor, this, false);
             }
@@ -651,19 +657,22 @@ public class HighwayBuilderHIG extends Module {
         MineFloor {
             @Override
             protected void start(HighwayBuilderHIG b) {
-                mine(b, b.blockPosProvider.getFloor(), false, MineRailings, this, false);
+                b.state.tick(b);
             }
 
             @Override
             protected void tick(HighwayBuilderHIG b) {
-                mine(b, b.blockPosProvider.getFloor(), false, MineRailings, this, false);
+                if (b.railings.get())
+                    mine(b, b.blockPosProvider.getFloor(), false, MineRailings, this, false);
+                else
+                    mine(b, b.blockPosProvider.getFloor(), false, PlaceFloor, this, false);
             }
         },
 
         MineRailings {
             @Override
             protected void start(HighwayBuilderHIG b) {
-                mine(b, b.blockPosProvider.getRailings(true), false, PlaceRailings, this, true);
+                b.state.tick(b);
             }
 
             @Override
@@ -674,21 +683,23 @@ public class HighwayBuilderHIG extends Module {
 
         PlaceRailings {
             @Override
+            protected void start(HighwayBuilderHIG b) {
+                b.state.tick(b);
+            }
+
+            @Override
             protected void tick(HighwayBuilderHIG b) {
                 int slot = findBlocksToPlace(b);
                 if (slot == -1) return;
 
-                place(b, b.blockPosProvider.getRailings(false), slot, Forward);
+                place(b, b.blockPosProvider.getRailings(false), slot, PlaceFloor);
             }
         },
 
         PlaceFloor {
             @Override
             protected void start(HighwayBuilderHIG b) {
-                int slot = findBlocksToPlace(b);
-                if (slot == -1) return;
-
-                place(b, b.blockPosProvider.getFloor(), slot, Forward);
+                b.state.tick(b);
             }
 
             @Override
