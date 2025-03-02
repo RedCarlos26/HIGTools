@@ -713,7 +713,7 @@ public class HighwayBuilderHIG extends Module {
 
         ThrowOutTrash {
             private int skipSlot;
-            private boolean timerEnabled, firstTick;
+            private boolean first;
             private int timer;
 
             @Override
@@ -732,24 +732,22 @@ public class HighwayBuilderHIG extends Module {
                 }
 
                 if (biggestCount == 0) skipSlot = -1;
-                timerEnabled = false;
-                firstTick = true;
+                first = true;
+                timer = 4;
             }
 
             @Override
             protected void tick(HighwayBuilderHIG b) {
-                if (timerEnabled) {
-                    if (timer > 0) timer--;
-                    else b.setState(b.lastState);
-
+                if (timer-- == 0) {
+                    b.setState(b.lastState);
                     return;
                 }
 
                 b.mc.player.setYaw(b.dir.opposite().yaw);
-                b.mc.player.setPitch(-25);
+                b.mc.player.setPitch(0);
 
-                if (firstTick) {
-                    firstTick = false;
+                if (first) {
+                    first = false;
                     return;
                 }
 
@@ -765,12 +763,10 @@ public class HighwayBuilderHIG extends Module {
 
                     if (b.trashItems.get().contains(itemStack.getItem())) {
                         InvUtils.drop().slot(i);
+                        timer = 4;
                         return;
                     }
                 }
-
-                timerEnabled = true;
-                timer = 10;
             }
         },
 
@@ -852,7 +848,7 @@ public class HighwayBuilderHIG extends Module {
                 // Move
                 if (moveTimer > 0) {
                     b.mc.player.setYaw(dir.yaw);
-                    b.input.forward(moveTimer > 2);
+                    b.input.forward(moveTimer > 1);
 
                     moveTimer--;
                     return;
@@ -885,7 +881,7 @@ public class HighwayBuilderHIG extends Module {
 
                 if (blockState.getBlock() == Blocks.ENDER_CHEST) {
                     if (first) {
-                        moveTimer = 8;
+                        moveTimer = 3;
                         first = false;
                         return;
                     }
@@ -1459,8 +1455,8 @@ public class HighwayBuilderHIG extends Module {
                         case -1 -> pos;
                         case 1 -> pos.offset(leftDir);
                         case 2 -> pos.offset(rightDir);
-                        case 3 -> pos.offset(dir, 2);
-                        default -> pos.offset(dir.opposite());
+                        case 3 -> pos.offset(dir.opposite());
+                        default -> pos.offset(dir, 2);
                     };
                 }
 
@@ -1753,8 +1749,8 @@ public class HighwayBuilderHIG extends Module {
                         case -1 -> pos;
                         case 1 -> pos.offset(dir2.rotateLeftSkipOne());
                         case 2 -> pos.offset(dir2.rotateLeftSkipOne().opposite());
-                        case 3 -> pos.offset(dir2.opposite(), 2);
-                        default -> pos.offset(dir2);
+                        case 3 -> pos.offset(dir2);
+                        default -> pos.offset(dir2.opposite(), 2);
                     };
                 }
 
