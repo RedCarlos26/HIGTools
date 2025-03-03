@@ -379,7 +379,6 @@ public class HighwayBuilderHIG extends Module {
         blockPosProvider = dir.diagonal ? new DiagonalBlockPosProvider() : new StraightBlockPosProvider();
 
         start = mc.player.getPos();
-        startTime = Instant.now().getEpochSecond();
         blocksBroken = blocksPlaced = 0;
         lastBreakingPos.set(0, 0, 0);
         displayInfo = true;
@@ -387,6 +386,7 @@ public class HighwayBuilderHIG extends Module {
         placeTimer = 0;
         breakTimer = 0;
         count = 0;
+        startTime = Instant.now().getEpochSecond();
 
         sentLagMessage = false;
         moduleEating = false;
@@ -552,13 +552,17 @@ public class HighwayBuilderHIG extends Module {
 
     private void exit(String reason) {
         if (disconnectOnToggle.get() && Instant.now().getEpochSecond() - startTime > disconnectDelay.get()) {
-            mc.getNetworkHandler().getConnection().disconnect(Text.of(String.format(
-                reason +
-                "\nDistance: %.0f" +
-                "\nBlocks broken: %d" +
-                "\nBlocks placed: %d",
-                PlayerUtils.distanceTo(start), blocksBroken, blocksPlaced
-            )));
+            if (printStatistics.get()) {
+                mc.getNetworkHandler().getConnection().disconnect(Text.of(String.format(
+                    reason +
+                        "\nDistance: %.0f" +
+                        "\nBlocks broken: %d" +
+                        "\nBlocks placed: %d",
+                    PlayerUtils.distanceTo(start), blocksBroken, blocksPlaced
+                )));
+            } else {
+                mc.getNetworkHandler().getConnection().disconnect(Text.of(reason));
+            }
             displayInfo = false;
         } else {
             error(reason);
@@ -757,15 +761,16 @@ public class HighwayBuilderHIG extends Module {
 
                 if (biggestCount == 0) skipSlot = -1;
                 first = true;
-                timer = 4;
+                timer = 10;
             }
 
             @Override
             protected void tick(HighwayBuilderHIG b) {
-                if (timer-- == 0) {
+                if (timer == 0) {
                     b.setState(b.lastState);
                     return;
                 }
+                timer--;
 
                 b.mc.player.setYaw(b.dir.opposite().yaw);
                 b.mc.player.setPitch(0);
@@ -787,7 +792,8 @@ public class HighwayBuilderHIG extends Module {
 
                     if (b.trashItems.get().contains(itemStack.getItem())) {
                         InvUtils.drop().slot(i);
-                        timer = 4;
+                        if (timer < 5)
+                            timer = 5;
                         return;
                     }
                 }
@@ -814,7 +820,7 @@ public class HighwayBuilderHIG extends Module {
 
         MineEnderChests {
             private static final MBlockPos pos = new MBlockPos();
-            private int minimumObsidian;
+            private int counter;
             private boolean first, primed;
             private boolean stopTimerEnabled;
             private int stopTimer, moveTimer, instaMineTimer;
@@ -845,7 +851,7 @@ public class HighwayBuilderHIG extends Module {
                 }
 
                 int minimumSlots = Math.max(emptySlots - 4, 1);
-                minimumObsidian = minimumSlots * 64;
+                counter = minimumSlots * 8;
                 first = true;
                 moveTimer = 0;
 
@@ -871,27 +877,6 @@ public class HighwayBuilderHIG extends Module {
                     b.input.forward(moveTimer > 1);
 
                     moveTimer--;
-                    return;
-                }
-
-                // Check for obsidian count
-                int obsidianCount = 0;
-
-                for (Entity entity : b.mc.world.getOtherEntities(b.mc.player, new Box(pos.x, pos.y, pos.z, pos.x + 1, pos.y + 2, pos.z + 1))) {
-                    if (entity instanceof ItemEntity itemEntity && itemEntity.getStack().getItem() == Items.OBSIDIAN) {
-                        obsidianCount += itemEntity.getStack().getCount();
-                    }
-                }
-
-                for (int i = 0; i < b.mc.player.getInventory().main.size(); i++) {
-                    ItemStack itemStack = b.mc.player.getInventory().getStack(i);
-                    if (itemStack.getItem() == Items.OBSIDIAN) obsidianCount += itemStack.getCount();
-                }
-
-                if (obsidianCount >= minimumObsidian) {
-                    stopTimerEnabled = true;
-                    stopTimer = 8;
-                    return;
                 }
 
                 BlockPos bp = pos.getBlockPos();
@@ -901,7 +886,7 @@ public class HighwayBuilderHIG extends Module {
 
                 if (blockState.getBlock() == Blocks.ENDER_CHEST) {
                     if (first) {
-                        moveTimer = 3;
+                        moveTimer = 4;
                         first = false;
                         return;
                     }
@@ -935,11 +920,12 @@ public class HighwayBuilderHIG extends Module {
                 else {
                     // Place ender chest
                     int slot = findAndMoveToHotbar(b, itemStack -> itemStack.getItem() == Items.ENDER_CHEST, false);
-                    if (slot == -1 || countItem(b, stack -> stack.getItem().equals(Items.ENDER_CHEST)) <= b.saveEchests.get()) {
+                    if (slot == -1 || countItem(b, stack -> stack.getItem().equals(Items.ENDER_CHEST)) <= b.saveEchests.get() || counter == 0) {
                         stopTimerEnabled = true;
-                        stopTimer = 4;
+                        stopTimer = 8;
                         return;
                     }
+                    counter--;
 
                     if (!first) primed = true;
 
