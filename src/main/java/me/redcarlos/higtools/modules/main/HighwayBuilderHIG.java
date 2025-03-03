@@ -48,6 +48,7 @@ import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.EmptyBlockView;
 import org.jetbrains.annotations.NotNull;
 
+import java.time.Instant;
 import java.util.Iterator;
 import java.util.List;
 import java.util.function.Predicate;
@@ -113,6 +114,16 @@ public class HighwayBuilderHIG extends Module {
         .name("disconnect-on-toggle")
         .description("Automatically disconnects when the module is turned off, for example for not having enough blocks.")
         .defaultValue(false)
+        .build()
+    );
+
+    private final Setting<Integer> disconnectDelay = sgGeneral.add(new IntSetting.Builder()
+        .name("disconnect-delay")
+        .description("Not disconnect if has been running for less than this many seconds.")
+        .defaultValue(60)
+        .range(1, 3600)
+        .sliderRange(1, 60)
+        .visible(disconnectOnToggle::get)
         .build()
     );
 
@@ -323,7 +334,7 @@ public class HighwayBuilderHIG extends Module {
 
     private final Setting<Boolean> printStatistics = sgStatistics.add(new BoolSetting.Builder()
         .name("print-statistics")
-        .description("Prints statistics in chat when disabling Highway Builder+.")
+        .description("Prints statistics in chat or disconnect screen when disabling Highway Builder.")
         .defaultValue(true)
         .build()
     );
@@ -343,6 +354,7 @@ public class HighwayBuilderHIG extends Module {
     private int placeTimer;
     private int breakTimer;
     private int count;
+    private long startTime;
 
     private final MBlockPos posRender2 = new MBlockPos();
     private final MBlockPos posRender3 = new MBlockPos();
@@ -367,6 +379,7 @@ public class HighwayBuilderHIG extends Module {
         blockPosProvider = dir.diagonal ? new DiagonalBlockPosProvider() : new StraightBlockPosProvider();
 
         start = mc.player.getPos();
+        startTime = Instant.now().getEpochSecond();
         blocksBroken = blocksPlaced = 0;
         lastBreakingPos.set(0, 0, 0);
         displayInfo = true;
@@ -398,19 +411,13 @@ public class HighwayBuilderHIG extends Module {
         }
     }
 
-    private void errorEarly(String message, Object... args) {
-        super.error(message, args);
-
-        displayInfo = false;
-        toggle();
-    }
-
     @EventHandler
     private void onTick(TickEvent.Pre event) {
         if (mc.player == null || mc.world == null) return;
 
         if (width.get() < 3 && dir.diagonal) {
-            errorEarly("Diagonal highways less than 3 blocks wide are not supported, please change the width setting.");
+            displayInfo = false;
+            exit("Diagonal highways less than 3 blocks wide are not supported, please change the width setting");
             return;
         }
 
@@ -541,6 +548,22 @@ public class HighwayBuilderHIG extends Module {
 
     private boolean canPlace(MBlockPos pos, boolean liquids) {
         return liquids ? !pos.getState().getFluidState().isEmpty() : HIGUtils.canPlaceHIG(pos.getBlockPos());
+    }
+
+    private void exit(String reason) {
+        if (disconnectOnToggle.get() && Instant.now().getEpochSecond() - startTime > disconnectDelay.get()) {
+            mc.getNetworkHandler().getConnection().disconnect(Text.of(String.format(
+                reason +
+                "\nDistance: %.0f" +
+                "\nBlocks broken: %d" +
+                "\nBlocks placed: %d",
+                PlayerUtils.distanceTo(start), blocksBroken, blocksPlaced
+            )));
+            displayInfo = false;
+        } else {
+            error(reason);
+        }
+        toggle();
     }
 
     private enum State {
@@ -815,12 +838,7 @@ public class HighwayBuilderHIG extends Module {
                 }
 
                 if (emptySlots == 0) {
-                    b.error("No empty slots.");
-                    if (b.disconnectOnToggle.get()) {
-                        b.mc.getNetworkHandler().getConnection().disconnect(Text.of("No empty slots."));
-                        b.displayInfo = false;
-                    }
-                    b.toggle();
+                    b.exit("No empty slots");
                     return;
                 }
 
@@ -889,12 +907,7 @@ public class HighwayBuilderHIG extends Module {
                     // Mine ender chest
                     int slot = findAndMoveBestToolToHotbar(b, blockState, true);
                     if (slot == -1) {
-                        b.error("Cannot find pickaxe without silk touch to mine ender chests.");
-                        if (b.disconnectOnToggle.get()) {
-                            b.mc.getNetworkHandler().getConnection().disconnect(Text.of("Cannot find pickaxe without silk touch to mine ender chests."));
-                            b.displayInfo = false;
-                        }
-                        b.toggle();
+                        b.exit("Cannot find pickaxe without silk touch to mine ender chests");
                         return;
                     }
 
@@ -1062,12 +1075,7 @@ public class HighwayBuilderHIG extends Module {
             if (slotsWithBlocks > 1) return slotWithLeastBlocks;
 
             // No space found in hotbar
-            b.error("No empty space in hotbar.");
-            if (b.disconnectOnToggle.get()) {
-                b.mc.getNetworkHandler().getConnection().disconnect(Text.of("No empty space in hotbar."));
-                b.displayInfo = false;
-            }
-            b.toggle();
+            b.exit("No empty space in hotbar");
             return -1;
         }
 
@@ -1104,12 +1112,7 @@ public class HighwayBuilderHIG extends Module {
             // Stop if no items were found and are required
             if (slot == -1) {
                 if (required) {
-                    b.error("Out of items.");
-                    if (b.disconnectOnToggle.get()) {
-                        b.mc.getNetworkHandler().getConnection().disconnect(Text.of("Out of items."));
-                        b.displayInfo = false;
-                    }
-                    b.toggle();
+                    b.exit("Out of items");
                 }
 
                 return -1;
@@ -1148,12 +1151,7 @@ public class HighwayBuilderHIG extends Module {
                 int count = countItem(b, stack -> stack.getItem() instanceof PickaxeItem);
 
                 if (count <= b.savePickaxes.get()) {
-                    b.error("Found less than the selected amount of pickaxes required: " + count + "/" + (b.savePickaxes.get() + 1));
-                    if (b.disconnectOnToggle.get()) {
-                        b.mc.getNetworkHandler().getConnection().disconnect(Text.of("Found less than the selected amount of pickaxes required."));
-                        b.displayInfo = false;
-                    }
-                    b.toggle();
+                    b.exit("Found less than the selected amount of pickaxes required: " + count + "/" + (b.savePickaxes.get() + 1));
                     return -1;
                 }
             }
@@ -1177,12 +1175,7 @@ public class HighwayBuilderHIG extends Module {
 
             if (slot == -1) {
                 if (!b.mineEnderChests.get() || !hasItem(b, Items.ENDER_CHEST) || countItem(b, stack -> stack.getItem().equals(Items.ENDER_CHEST)) <= b.saveEchests.get()) {
-                    b.error("Out of blocks to place.");
-                    if (b.disconnectOnToggle.get()) {
-                        b.mc.getNetworkHandler().getConnection().disconnect(Text.of("Out of blocks to place."));
-                        b.displayInfo = false;
-                    }
-                    b.toggle();
+                    b.exit("Out of blocks to place");
                     return -1;
                 }
                 else b.setState(MineEnderChests);
