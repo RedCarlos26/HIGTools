@@ -353,7 +353,6 @@ public class HighwayBuilderHIG extends Module {
     private boolean sentLagMessage;
     private boolean moduleAttacking;
     private boolean moduleEating;
-    private boolean btExit;
 
     private int blocksBroken;
     private int blocksPlaced;
@@ -392,7 +391,6 @@ public class HighwayBuilderHIG extends Module {
         sentLagMessage = false;
         moduleEating = false;
         moduleAttacking = false;
-        btExit = false;
 
         blocksBroken = 0;
         blocksPlaced = 0;
@@ -421,7 +419,6 @@ public class HighwayBuilderHIG extends Module {
     public void onDeactivate() {
         if (mc.player == null || mc.world == null) return;
 
-        btExit = true;
         BaritoneAPI.getSettings().allowBreak.value = btSettingAllowBreak;
         BaritoneAPI.getSettings().allowInventory.value = btSettingAllowInventory;
         BaritoneAPI.getSettings().allowPlace.value = btSettingAllowPlace;
@@ -642,7 +639,7 @@ public class HighwayBuilderHIG extends Module {
 
         @Override
         public PathingCommand onTick(boolean b1, boolean b2) {
-            if (!btExit) {
+            if (Modules.get().get(HighwayBuilderHIG.class).isActive()) {
                 BlockPos goal = new BlockPos(movePos.x, movePos.y, movePos.z);
                 return new PathingCommand(new GoalNear(goal, 0), PathingCommandType.SET_GOAL_AND_PATH);
             } else {
@@ -846,7 +843,7 @@ public class HighwayBuilderHIG extends Module {
         },
 
         MineEnderChests {
-            private static final MBlockPos pos = new MBlockPos();
+            private final MBlockPos pos = new MBlockPos();
             private int counter;
             private boolean first, primed;
             private int instaMineTimer;
@@ -919,8 +916,8 @@ public class HighwayBuilderHIG extends Module {
                     }
                 } else {
                     // Place ender chest
-                    int slot = findAndMoveToHotbar(b, itemStack -> itemStack.getItem() == Items.ENDER_CHEST, false);
-                    if (slot == -1 || countItem(b, stack -> stack.getItem().equals(Items.ENDER_CHEST)) <= b.saveEchests.get() || counter == 0) {
+                    int slot = findAndMoveToHotbar(b, Items.ENDER_CHEST, false);
+                    if (slot == -1 || countItem(b, Items.ENDER_CHEST) <= b.saveEchests.get() || counter == 0) {
                         b.setState(CollectObsidian);
                         return;
                     }
@@ -1018,9 +1015,10 @@ public class HighwayBuilderHIG extends Module {
             if (finishedPlacing || !placed) b.setState(nextState);
         }
 
-        private int findSlot(HighwayBuilderHIG b, Predicate<ItemStack> predicate, boolean hotbar) {
+        private int findSlot(HighwayBuilderHIG b, Item item, boolean hotbar) {
             for (int i = hotbar ? 0 : 9; i < (hotbar ? 9 : b.mc.player.getInventory().main.size()); i++) {
-                if (predicate.test(b.mc.player.getInventory().getStack(i))) return i;
+                if (b.mc.player.getInventory().getStack(i).getItem() == item)
+                    return i;
             }
 
             return -1;
@@ -1067,27 +1065,20 @@ public class HighwayBuilderHIG extends Module {
             return -1;
         }
 
-        private boolean hasItem(HighwayBuilderHIG b, Item item) {
-            for (int i = 0; i < b.mc.player.getInventory().main.size(); i++) {
-                if (b.mc.player.getInventory().getStack(i).getItem() == item) return true;
-            }
-
-            return false;
-        }
-
-        protected int countItem(HighwayBuilderHIG b, Predicate<ItemStack> predicate) {
+        protected int countItem(HighwayBuilderHIG b, Item item) {
             int count = 0;
             for (int i = 0; i < b.mc.player.getInventory().main.size(); i++) {
                 ItemStack stack = b.mc.player.getInventory().getStack(i);
-                if (predicate.test(stack)) count += stack.getCount();
+                if (stack.getItem() == item)
+                    count += stack.getCount();
             }
 
             return count;
         }
 
-        protected int findAndMoveToHotbar(HighwayBuilderHIG b, Predicate<ItemStack> predicate, boolean required) {
+        protected int findAndMoveToHotbar(HighwayBuilderHIG b, Item item, boolean required) {
             // Check hotbar
-            int slot = findSlot(b, predicate, true);
+            int slot = findSlot(b, item, true);
             if (slot != -1) return slot;
 
             // Find hotbar slot to move to
@@ -1095,7 +1086,7 @@ public class HighwayBuilderHIG extends Module {
             if (hotbarSlot == -1) return -1;
 
             // Check inventory
-            slot = findSlot(b, predicate, false);
+            slot = findSlot(b, item, false);
 
             // Stop if no items were found and are required
             if (slot == -1) {
@@ -1135,8 +1126,9 @@ public class HighwayBuilderHIG extends Module {
 
             if (bestSlot == -1) return b.mc.player.getInventory().selectedSlot;
 
-            if (b.mc.player.getInventory().getStack(bestSlot).getItem() instanceof PickaxeItem ){
-                int count = countItem(b, stack -> stack.getItem() instanceof PickaxeItem);
+            Item item = b.mc.player.getInventory().getStack(bestSlot).getItem();
+            if (item instanceof PickaxeItem) {
+                int count = countItem(b, item);
 
                 if (count <= b.savePickaxes.get()) {
                     b.exit("Found less than the selected amount of pickaxes required: " + count + "/" + (b.savePickaxes.get() + 1));
@@ -1159,28 +1151,37 @@ public class HighwayBuilderHIG extends Module {
         }
 
         protected int findBlocksToPlace(HighwayBuilderHIG b) {
-            int slot = findAndMoveToHotbar(b, itemStack -> itemStack.getItem() instanceof BlockItem blockItem && b.blocksToPlace.get().contains(blockItem.getBlock()), false);
+            int slot = -1;
+            for (Block block : b.blocksToPlace.get()) {
+                slot = findAndMoveToHotbar(b, block.asItem(), false);
+                if (slot != -1)
+                    break;
+            }
 
             if (slot == -1) {
-                if (!b.mineEnderChests.get() || !hasItem(b, Items.ENDER_CHEST) || countItem(b, stack -> stack.getItem().equals(Items.ENDER_CHEST)) <= b.saveEchests.get()) {
+                if (!b.mineEnderChests.get() || countItem(b, Items.ENDER_CHEST) <= b.saveEchests.get())
                     b.exit("Out of blocks to place");
-                    return -1;
-                }
-                else b.setState(MineEnderChests);
-
-                return -1;
+                else
+                    b.setState(MineEnderChests);
             }
 
             return slot;
         }
 
         protected int findBlocksToPlacePrioritizeTrash(HighwayBuilderHIG b) {
-            int slot = findAndMoveToHotbar(b, itemStack -> {
-                if (!(itemStack.getItem() instanceof BlockItem)) return false;
-                return b.trashItems.get().contains(itemStack.getItem());
-            }, false);
+            int slot = -1;
+            for (Item item : b.trashItems.get()) {
+                if (!(item instanceof BlockItem))
+                    continue;
+                slot = findAndMoveToHotbar(b, item, false);
+                if (slot != -1)
+                    break;
+            }
 
-            return slot != -1 ? slot : findBlocksToPlace(b);
+            if (slot == -1)
+                slot = findBlocksToPlace(b);
+
+            return slot;
         }
     }
 
