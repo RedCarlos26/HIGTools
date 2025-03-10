@@ -1428,7 +1428,6 @@ public class HighwayBuilderHIG extends Module {
 
                 // next search your ender chest for raw items and shulkers containing items
                 if (slot == -1 && b.searchEnderChest.get() && countItem(b, stack -> stack.getItem().equals(Items.ENDER_CHEST)) > 0) {
-                    // todo handle pulling ecs from shulker boxes so we can search through them
 
                     boolean stop = EChestMemory.isKnown();
                     if (EChestMemory.isKnown()) {
