@@ -167,7 +167,7 @@ public class HighwayBuilderHIG extends Module {
         .defaultValue(3)
         .range(1, 2031)
         .sliderRange(1, 100)
-        .visible(() -> dontBreakTools.get())
+        .visible(dontBreakTools::get)
         .build()
     );
 
@@ -546,6 +546,7 @@ public class HighwayBuilderHIG extends Module {
         lastState = this.state;
         this.state = state;
         state.start(this);
+        state.tick(this);
     }
 
     private int getWidthLeft() {
@@ -606,9 +607,9 @@ public class HighwayBuilderHIG extends Module {
     }
 
     private MBlockPos playerPos() {
-        int x = (int)Math.floor(mc.player.getX());
-        int y = (int)Math.floor(mc.player.getY());
-        int z = (int)Math.floor(mc.player.getZ());
+        int x = mc.player.getBlockX();
+        int y = mc.player.getBlockY();
+        int z = mc.player.getBlockZ();
         return new MBlockPos().set(x, y, z);
     }
 
@@ -664,11 +665,6 @@ public class HighwayBuilderHIG extends Module {
     private enum State {
         CheckTasks {
             @Override
-            protected void start(HighwayBuilderHIG b) {
-                b.state.tick(b);
-            }
-
-            @Override
             protected void tick(HighwayBuilderHIG b) {
                 if (needsToPlace(b, b.blockPosProvider.getLiquids(), true)) b.setState(FillLiquids); // Fill Liquids
                 else if (needsToMine(b, b.blockPosProvider.getFront(), true)) b.setState(MineFront); // Mine Front
@@ -712,22 +708,12 @@ public class HighwayBuilderHIG extends Module {
 
         MineFront {
             @Override
-            protected void start(HighwayBuilderHIG b) {
-                b.state.tick(b);
-            }
-
-            @Override
             protected void tick(HighwayBuilderHIG b) {
                 mine(b, b.blockPosProvider.getFront(), true, MineFloor, false);
             }
         },
 
         MineFloor {
-            @Override
-            protected void start(HighwayBuilderHIG b) {
-                b.state.tick(b);
-            }
-
             @Override
             protected void tick(HighwayBuilderHIG b) {
                 if (b.railings.get())
@@ -739,22 +725,12 @@ public class HighwayBuilderHIG extends Module {
 
         MineRailings {
             @Override
-            protected void start(HighwayBuilderHIG b) {
-                b.state.tick(b);
-            }
-
-            @Override
             protected void tick(HighwayBuilderHIG b) {
                 mine(b, b.blockPosProvider.getRailings(true), false, PlaceRailings, true);
             }
         },
 
         PlaceRailings {
-            @Override
-            protected void start(HighwayBuilderHIG b) {
-                b.state.tick(b);
-            }
-
             @Override
             protected void tick(HighwayBuilderHIG b) {
                 int slot = findBlocksToPlace(b);
@@ -765,11 +741,6 @@ public class HighwayBuilderHIG extends Module {
         },
 
         PlaceFloor {
-            @Override
-            protected void start(HighwayBuilderHIG b) {
-                b.state.tick(b);
-            }
-
             @Override
             protected void tick(HighwayBuilderHIG b) {
                 int slot = findBlocksToPlace(b);
@@ -782,11 +753,11 @@ public class HighwayBuilderHIG extends Module {
         CollectObsidian {
             private final MBlockPos pos = new MBlockPos();
             private int timer;
+
             @Override
             protected void start(HighwayBuilderHIG b) {
                 pos.set(b.mc.player);
                 timer = 100;
-                b.state.tick(b);
             }
 
             @Override
@@ -843,11 +814,10 @@ public class HighwayBuilderHIG extends Module {
         },
 
         MineEnderChests {
-            private final MBlockPos pos = new MBlockPos();
             private int counter;
-            private boolean first, primed;
             private int instaMineTimer;
-            private double prevPlayerX, prevPlayerZ;
+            private boolean first;
+            private boolean primed;
 
             @Override
             protected void start(HighwayBuilderHIG b) {
@@ -873,18 +843,10 @@ public class HighwayBuilderHIG extends Module {
 
             @Override
             protected void tick(HighwayBuilderHIG b) {
-                if (b.mc.player.getX() != prevPlayerX || b.mc.player.getZ() != prevPlayerZ) {
-                    prevPlayerX = b.mc.player.getX();
-                    prevPlayerZ = b.mc.player.getZ();
-                    first = true;
-                    primed = false;
+                if (b.distance(b.currentPos, b.playerPos()) >= 1)
                     return;
-                }
 
-                HorizontalDirection dir = b.dir.diagonal ? b.dir.rotateLeft().rotateLeftSkipOne() : b.dir.opposite();
-                pos.set(b.mc.player).offset(dir, 2);
-
-                BlockPos bp = pos.getBlockPos();
+                BlockPos bp = b.currentPos.getBlockPos().add(-b.dir.offsetX * 2, 0, -b.dir.offsetZ * 2);
 
                 // Check block state
                 BlockState blockState = b.mc.world.getBlockState(bp);
