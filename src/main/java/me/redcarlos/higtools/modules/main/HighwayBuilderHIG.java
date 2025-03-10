@@ -875,7 +875,7 @@ public class HighwayBuilderHIG extends Module {
                 if (b.destroyCrystalTraps.get() && isCrystalTrap(b)) b.setState(DefuseCrystalTraps); // Destroy crystal traps
                 else if (needsToPlace(b, b.blockPosProvider.getLiquids(), true)) b.setState(FillLiquids); // Fill Liquids
                 else if (needsToMine(b, b.blockPosProvider.getFront(), true)) b.setState(MineFront); // Mine Front
-                else if (b.floor.get() == HighwayBuilderHIG.Floor.Replace && needsToMine(b, b.blockPosProvider.getFloor(), false)) b.setState(MineFloor); // Mine Floor
+                else if (b.floor.get() == Floor.Replace && needsToMine(b, b.blockPosProvider.getFloor(), false)) b.setState(MineFloor); // Mine Floor
                 else if (b.railings.get() && needsToMine(b, b.blockPosProvider.getRailings(0), false)) b.setState(MineRailings); // Mine Railings
                 else if (b.mineAboveRailings.get() && needsToMine(b, b.blockPosProvider.getRailings(1), true)) b.setState(MineAboveRailings); // Mine above railings
                 else if (b.railings.get() && needsToPlace(b, b.blockPosProvider.getRailings(0), false)) {
@@ -1005,7 +1005,7 @@ public class HighwayBuilderHIG extends Module {
                 int slot = findBlocksToPlacePrioritizeTrash(b);
                 if (slot == -1) return;
 
-                place(b, new HighwayBuilderHIG.MBPIteratorFilter(b.blockPosProvider.getLiquids(), pos -> !pos.getState().getFluidState().isEmpty()), slot, Forward);
+                place(b, new MBPIteratorFilter(b.blockPosProvider.getLiquids(), pos -> !pos.getState().getFluidState().isEmpty()), slot, Forward);
             }
         },
 
@@ -1483,7 +1483,6 @@ public class HighwayBuilderHIG extends Module {
                     return;
                 }
 
-                // todo when we add a digging only mode, make pickaxes fill all empty slots
                 minimumSlots = b.restockTask.materials ? restockSlots : 1;
 
                 HorizontalDirection dir = b.dir.diagonal ? b.dir.rotateLeft().rotateLeftSkipOne() : b.dir.opposite();
@@ -1727,7 +1726,7 @@ public class HighwayBuilderHIG extends Module {
                 int slot = findBlocksToPlacePrioritizeTrash(b);
                 if (slot == -1) return;
 
-                place(b, b.blockPosProvider.getBlockade(false, HighwayBuilderHIG.BlockadeType.Shulker), slot, Restock);
+                place(b, b.blockPosProvider.getBlockade(false, BlockadeType.Shulker), slot, Restock);
             }
         },
 
@@ -1892,7 +1891,6 @@ public class HighwayBuilderHIG extends Module {
             // extract all candidates for double mining and enqueue them to be mined. After those we can break the remaining
             // blocks normally
             if (b.doubleMine.get()) {
-
                 ArrayDeque<BlockPos> toDoubleMine = new ArrayDeque<>();
 
                 it.save();
@@ -1978,17 +1976,17 @@ public class HighwayBuilderHIG extends Module {
             if (b.breakTimer > 0) return;
 
             if (b.normalMining == null) {
-                HighwayBuilderHIG.DoubleMineBlock block = new HighwayBuilderHIG.DoubleMineBlock(b, blocks.pop());
+                DoubleMineBlock block = new DoubleMineBlock(b, blocks.pop());
                 b.normalMining = block.startDestroying();
 
                 b.breakTimer = b.breakDelay.get();
                 if (b.breakTimer > 0) return;
             }
 
-            if (HighwayBuilderHIG.DoubleMineBlock.rateLimited) return;
+            if (DoubleMineBlock.rateLimited) return;
 
             if (b.packetMining == null && !blocks.isEmpty()) {
-                HighwayBuilderHIG.DoubleMineBlock block = new HighwayBuilderHIG.DoubleMineBlock(b, blocks.pop());
+                DoubleMineBlock block = new DoubleMineBlock(b, blocks.pop());
 
                 if (block != null) {
                     b.packetMining = b.normalMining.packetMine();
@@ -1999,7 +1997,7 @@ public class HighwayBuilderHIG extends Module {
             }
         }
 
-        protected void place(HighwayBuilderHIG b, HighwayBuilderHIG.MBPIterator it, int slot, HighwayBuilderHIG.State nextState) {
+        protected void place(HighwayBuilderHIG b, MBPIterator it, int slot, State nextState) {
             boolean placed = false;
             boolean finishedPlacing = false;
 
@@ -2009,6 +2007,7 @@ public class HighwayBuilderHIG extends Module {
 
                 if (pos.getBlockPos().getSquaredDistance(b.mc.player.getEyePos()) > b.placeRange.get() * b.placeRange.get()) continue;
 
+                // CheckEntities & SwapBack are disabled for waiting for better accuracy and speed of the builder
                 if (BlockUtils.place(pos.getBlockPos(), Hand.MAIN_HAND, slot, b.rotation.get().place, 0, true, false, false)) {
                     placed = true;
                     b.blocksPlaced++;
@@ -2070,11 +2069,6 @@ public class HighwayBuilderHIG extends Module {
 
             // No space found in hotbar
             b.error("No empty space in hotbar.");
-            if (b.disconnectOnToggle.get()) {
-                b.mc.getNetworkHandler().getConnection().disconnect(Text.of("No empty space in hotbar."));
-                b.displayInfo = false;
-                b.toggle();
-            }
             return -1;
         }
 
