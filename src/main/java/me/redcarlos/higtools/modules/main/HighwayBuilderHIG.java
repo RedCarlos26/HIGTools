@@ -335,7 +335,7 @@ public class HighwayBuilderHIG extends Module {
 
     private final Setting<Boolean> printStatistics = sgStatistics.add(new BoolSetting.Builder()
         .name("print-statistics")
-        .description("Prints statistics in chat or disconnect screen when disabling Highway Builder.")
+        .description("Prints statistics in chat or disconnect screen when disabling Highway Builder+.")
         .defaultValue(true)
         .build()
     );
@@ -431,19 +431,19 @@ public class HighwayBuilderHIG extends Module {
 
         if (width.get() < 3 && dir.diagonal) {
             displayInfo = false;
-            exit("Diagonal highways less than 3 blocks wide are not supported, please change the width setting");
+            exit("Diagonal highways less than 3 blocks wide are not supported, please change the width setting.");
             return;
         }
 
         if (blocksPerTick.get() > 1 && rotation.get().mine) {
             displayInfo = false;
-            exit("With rotations enabled, you can break at most 1 block per tick");
+            exit("With rotations enabled, you can break at most 1 block per tick.");
             return;
         }
 
         if (placementsPerTick.get() > 1 && rotation.get().place) {
             displayInfo = false;
-            exit("With rotations enabled, you can place at most 1 block per tick");
+            exit("With rotations enabled, you can place at most 1 block per tick.");
             return;
         }
 
@@ -830,7 +830,7 @@ public class HighwayBuilderHIG extends Module {
                 }
 
                 if (emptySlots == 0) {
-                    b.exit("No empty slots");
+                    b.exit("No empty slots.");
                     return;
                 }
 
@@ -855,7 +855,7 @@ public class HighwayBuilderHIG extends Module {
                     // Mine ender chest
                     int slot = findAndMoveBestToolToHotbar(b, blockState, true);
                     if (slot == -1) {
-                        b.exit("Cannot find pickaxe without silk touch to mine ender chests");
+                        b.exit("Cannot find pickaxe without silk touch to mine ender chests.");
                         return;
                     }
 
@@ -1023,7 +1023,7 @@ public class HighwayBuilderHIG extends Module {
             if (slotsWithBlocks > 1) return slotWithLeastBlocks;
 
             // No space found in hotbar
-            b.exit("No empty space in hotbar");
+            b.exit("No empty space in hotbar.");
             return -1;
         }
 
@@ -1053,7 +1053,7 @@ public class HighwayBuilderHIG extends Module {
             // Stop if no items were found and are required
             if (slot == -1) {
                 if (required) {
-                    b.exit("Out of items");
+                    b.exit("Out of items.");
                 }
 
                 return -1;
@@ -1122,7 +1122,7 @@ public class HighwayBuilderHIG extends Module {
 
             if (slot == -1) {
                 if (!b.mineEnderChests.get() || countItem(b, Items.ENDER_CHEST) <= b.saveEchests.get())
-                    b.exit("Out of blocks to place");
+                    b.exit("Out of blocks to place.");
                 else
                     b.setState(MineEnderChests);
             }
