@@ -515,6 +515,7 @@ public class HighwayBuilderHIG extends Module {
         lastBreakingPos.set(0, 0, 0);
 
         displayInfo = true;
+        sentLagMessage = false;
         suspended = true;
         inventory = true;
 
@@ -581,18 +582,6 @@ public class HighwayBuilderHIG extends Module {
 
     @EventHandler
     private void onTick(TickEvent.Pre event) {
-        if (dir == null) {
-            onActivate();
-            return;
-        }
-
-        if (suspended) {
-            if (inventory && Utils.canUpdate()) {
-                updateVariables();
-                suspended = false;
-            } else return;
-        }
-
         if (dir == null) {
             onActivate();
             return;
@@ -806,6 +795,7 @@ public class HighwayBuilderHIG extends Module {
         MutableText text = Text.literal(String.format("%sDistance: %s%.0f\n", Formatting.GRAY, Formatting.WHITE, mc.player == null ? 0.0f : distance(start, currentPos)));
         text.append(String.format("%sBlocks broken: %s%d\n", Formatting.GRAY, Formatting.WHITE, blocksBroken));
         text.append(String.format("%sBlocks placed: %s%d", Formatting.GRAY, Formatting.WHITE, blocksPlaced));
+
         return text;
     }
 
@@ -1535,6 +1525,7 @@ public class HighwayBuilderHIG extends Module {
                 if (b.restockTask.food) {
                     return grabFromInventory(inv, itemStack -> itemStack.contains(DataComponentTypes.FOOD) && !Modules.get().get(AutoEat.class).blacklist.get().contains(itemStack.getItem()));
                 }
+
                 return false;
             }
 
@@ -2633,7 +2624,7 @@ public class HighwayBuilderHIG extends Module {
             }
 
             setState(State.Restock);
-            b.info("Starting new restock task for " + item());
+            b.info("Starting new restock task for " + item() + ".");
         }
 
         public void complete() {
