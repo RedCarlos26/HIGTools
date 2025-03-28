@@ -13,6 +13,7 @@ import baritone.api.process.IBaritoneProcess;
 import baritone.api.process.PathingCommand;
 import baritone.api.process.PathingCommandType;
 import me.redcarlos.higtools.HIGTools;
+import me.redcarlos.higtools.utils.HIGUtils;
 import meteordevelopment.meteorclient.events.game.GameLeftEvent;
 import meteordevelopment.meteorclient.events.packets.PacketEvent;
 import meteordevelopment.meteorclient.events.render.Render2DEvent;
@@ -589,8 +590,7 @@ public class HighwayBuilderHIG extends Module {
             if (inventory && Utils.canUpdate()) {
                 updateVariables();
                 suspended = false;
-            }
-            else return;
+            } else return;
         }
 
         if (dir == null) {
@@ -602,8 +602,7 @@ public class HighwayBuilderHIG extends Module {
             if (inventory && Utils.canUpdate()) {
                 updateVariables();
                 suspended = false;
-            }
-            else return;
+            } else return;
         }
 
         if (width.get() < 3 && dir.diagonal) {
@@ -651,17 +650,12 @@ public class HighwayBuilderHIG extends Module {
             if (mc.player.getY() < start.y - 0.5)
                 setState(State.ReLevel);
         }
-    }
 
         tickDoubleMine();
         state.tick(this);
 
-    @EventHandler
-    private void onRender2d(Render2DEvent event) {
-        if (suspended || !renderMine.get()) return;
-
-        if (normalMining != null) normalMining.renderLetter();
-        if (packetMining != null) packetMining.renderLetter();
+        if (breakTimer > 0) breakTimer--;
+        if (placeTimer > 0) placeTimer--;
     }
 
     @EventHandler
@@ -681,7 +675,7 @@ public class HighwayBuilderHIG extends Module {
     }
 
     @EventHandler
-    private void onRender2d(Render2DEvent event) {
+    private void onRender2D(Render2DEvent event) {
         if (suspended || !renderMine.get()) return;
 
         if (normalMining != null) normalMining.renderLetter();
@@ -797,7 +791,8 @@ public class HighwayBuilderHIG extends Module {
 
     private boolean canPlace(MBlockPos pos, boolean liquids) {
         if (pos.getBlockPos().getSquaredDistance(mc.player.getEyePos()) > placeRange.get() * placeRange.get()) return false;
-        return liquids ? !pos.getState().getFluidState().isEmpty() : BlockUtils.canPlace(pos.getBlockPos());
+        // Modify canPlace method to wait for entities to move before filling in liquids
+        return liquids ? !pos.getState().getFluidState().isEmpty() : HIGUtils.canPlaceHIG(pos.getBlockPos());
     }
 
     private void disconnect(String message, Object... args) {
@@ -895,7 +890,7 @@ public class HighwayBuilderHIG extends Module {
 
         @Override
         public String displayName0() {
-            return "HIGTools";
+            return "HighwayToolsHIG";
         }
 
         @Override
@@ -1045,14 +1040,6 @@ public class HighwayBuilderHIG extends Module {
             }
 
             @Override
-            protected void start(HighwayBuilderHIG b) {
-                int slot = findBlocksToPlace(b);
-                if (slot == -1) return;
-
-                place(b, b.blockPosProvider.getRailings(0), slot, Forward);
-            }
-
-            @Override
             protected void tick(HighwayBuilderHIG b) {
                 mine(b, b.blockPosProvider.getRailings(1), true, CheckTasks, this);
             }
@@ -1106,7 +1093,6 @@ public class HighwayBuilderHIG extends Module {
         Collect {
             private final MBlockPos pos = new MBlockPos();
             private int timer;
-            private static final ItemStack[] ITEMS = new ItemStack[27];
 
             @Override
             protected void start(HighwayBuilderHIG b) {
@@ -1148,12 +1134,11 @@ public class HighwayBuilderHIG extends Module {
                     return;
                 }
 
-                    delayTimer = b.inventoryDelay.get();
+                if (!b.mc.player.currentScreenHandler.getCursorStack().isEmpty()) {
+                    InvUtils.dropHand();
+                    return;
                 }
-            }
 
-            private int countSlots(HighwayBuilderHIG b, Predicate<ItemStack> predicate) {
-                int count = 0;
                 for (int i = 0; i < b.mc.player.getInventory().main.size(); i++) {
                     ItemStack itemStack = b.mc.player.getInventory().getStack(i);
 
@@ -1550,7 +1535,6 @@ public class HighwayBuilderHIG extends Module {
                 if (b.restockTask.food) {
                     return grabFromInventory(inv, itemStack -> itemStack.contains(DataComponentTypes.FOOD) && !Modules.get().get(AutoEat.class).blacklist.get().contains(itemStack.getItem()));
                 }
-            }
                 return false;
             }
 
@@ -1565,7 +1549,6 @@ public class HighwayBuilderHIG extends Module {
 
                 return false;
             }
-        },
 
             private void setShulkerPredicate(HighwayBuilderHIG b) {
                 shulkerPredicate = itemStack -> {
@@ -1659,7 +1642,7 @@ public class HighwayBuilderHIG extends Module {
                         b.drawingBow = false;
                         return;
                     }
-                }
+
                     InvUtils.swap(slot, false);
                 }
 
