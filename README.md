@@ -9,7 +9,7 @@
 
 <div align="center">
     <a href="https://anticope.pages.dev/addons"><img src="https://img.shields.io/badge/Verified%20Addon-Yes-blueviolet" alt="Verified Addon"></a>
-    <a href="https://github.com/RedCarlos26/higtools/releases"><img src="https://img.shields.io/badge/Version-v2.9.2-blueviolet" alt="Version"></a>
+    <a href="https://github.com/RedCarlos26/higtools/releases"><img src="https://img.shields.io/badge/Version-v2.10.0-blueviolet" alt="Version"></a>
     <img src="https://img.shields.io/badge/MC%20Version-1.21.4-blueviolet" alt="Minecraft Version"> 
     <img src="https://img.shields.io/github/downloads/RedCarlos26/higtools/total?color=blueviolet&label=Total Downloads" alt="Total Downloads">
     <br>
