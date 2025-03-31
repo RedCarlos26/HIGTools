@@ -16,6 +16,10 @@ repositories {
     maven("https://maven.meteordev.org/snapshots") {
         name = "meteor-maven-snapshots"
     }
+
+    maven("https://babbaj.github.io/maven/") {
+        name = "babbaj-maven"
+    }
 }
 
 dependencies {
@@ -26,6 +30,10 @@ dependencies {
 
     // Meteor
     modImplementation("meteordevelopment:meteor-client:${project.property("minecraft_version")}-SNAPSHOT")
+
+    // Baritone
+    modImplementation("dev.babbaj:nether-pathfinder:1.4.1")
+    modImplementation("meteordevelopment:baritone:${project.property("minecraft_version")}-SNAPSHOT")
 }
 
 tasks {

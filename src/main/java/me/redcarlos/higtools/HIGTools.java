@@ -10,6 +10,7 @@ import me.redcarlos.higtools.system.HIGTab;
 import meteordevelopment.meteorclient.addons.MeteorAddon;
 import meteordevelopment.meteorclient.commands.Commands;
 import meteordevelopment.meteorclient.gui.tabs.Tabs;
+import meteordevelopment.meteorclient.pathing.BaritoneUtils;
 import meteordevelopment.meteorclient.systems.Systems;
 import meteordevelopment.meteorclient.systems.hud.Hud;
 import meteordevelopment.meteorclient.systems.hud.HudGroup;
@@ -65,7 +66,6 @@ public class HIGTools extends MeteorAddon {
         modules.add(new AutoWalkHIG());
         modules.add(new AxisViewer());
         modules.add(new DiscordRPC());
-        modules.add(new HighwayBuilderHIG());
         modules.add(new HighwayTools());
         modules.add(new HotbarManager());
         modules.add(new LiquidFillerHIG());
@@ -78,6 +78,11 @@ public class HIGTools extends MeteorAddon {
         modules.add(new NegPosBorer());
         modules.add(new PosNegBorer());
         modules.add(new PosPosBorer());
+
+
+        if (BaritoneUtils.IS_AVAILABLE) {
+            modules.add(new HighwayBuilderHIG());
+        }
     }
 
     @Override
