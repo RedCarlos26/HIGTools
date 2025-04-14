@@ -16,6 +16,7 @@ repositories {
     maven("https://maven.meteordev.org/snapshots") {
         name = "meteor-maven-snapshots"
     }
+    mavenCentral()
 }
 
 dependencies {
@@ -26,6 +27,10 @@ dependencies {
 
     // Meteor
     modImplementation("meteordevelopment:meteor-client:${project.property("minecraft_version")}-SNAPSHOT")
+}
+
+loom {
+    accessWidenerPath = file("src/main/resources/higtools.accesswidener")
 }
 
 tasks {
@@ -42,17 +47,22 @@ tasks {
         }
     }
 
-    withType<JavaCompile> {
-        options.encoding = "UTF-8"
-        options.release = 21
-    }
-
     java {
         sourceCompatibility = JavaVersion.VERSION_21
         targetCompatibility = JavaVersion.VERSION_21
     }
-}
 
-loom {
-    accessWidenerPath = file("src/main/resources/higtools.accesswidener")
+    withType<JavaCompile> {
+        options.release = 21
+        options.compilerArgs.add("-Xlint:deprecation")
+        options.compilerArgs.add("-Xlint:unchecked")
+    }
+
+    javadoc {
+        with(options as StandardJavadocDocletOptions) {
+            addStringOption("Xdoclint:none", "-quiet")
+            addStringOption("encoding", "UTF-8")
+            addStringOption("charSet", "UTF-8")
+        }
+    }
 }
