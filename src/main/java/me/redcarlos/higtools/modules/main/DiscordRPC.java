@@ -115,6 +115,7 @@ public class DiscordRPC extends Module {
         runInMainMenu = true;
     }
 
+    /** Registers a custom state to be used when the current screen is a class in the specified package. */
     public static void registerCustomState(String packageName, String state) {
         for (var pair : customStates) {
             if (pair.getLeft().equals(packageName)) {
@@ -126,6 +127,7 @@ public class DiscordRPC extends Module {
         customStates.add(new Pair<>(packageName, state));
     }
 
+    /** The package name must match exactly to the one provided through {@link #registerCustomState(String, String)}. */
     public static void unregisterCustomState(String packageName) {
         customStates.removeIf(pair -> pair.getLeft().equals(packageName));
     }
@@ -138,7 +140,7 @@ public class DiscordRPC extends Module {
 
         rpc.setStart(System.currentTimeMillis() / 1000L);
 
-        String largeText = "HIGTools " + HIGTools.VERSION;
+        String largeText = "%s".formatted(HIGTools.VERSION);
         rpc.setLargeImage("higtools", largeText);
 
         recompileLine1();
