@@ -17,11 +17,11 @@ import meteordevelopment.meteorclient.systems.modules.Category;
 import meteordevelopment.meteorclient.systems.modules.Modules;
 import meteordevelopment.meteorclient.systems.modules.misc.BetterChat;
 import meteordevelopment.meteorclient.utils.misc.MeteorStarscript;
-import meteordevelopment.starscript.value.ValueMap;
 import net.fabricmc.loader.api.FabricLoader;
 import net.fabricmc.loader.api.metadata.ModMetadata;
 import net.minecraft.item.Items;
 import net.minecraft.util.Identifier;
+import org.meteordev.starscript.value.ValueMap;
 
 public class HIGTools extends MeteorAddon {
     public static final String MOD_ID = "higtools";
