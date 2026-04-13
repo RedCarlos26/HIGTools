@@ -88,7 +88,7 @@ public class ScaffoldHIG extends Module {
 
         for (int i = 0; i <= (mc.player.getVelocity().x == 0.0 && mc.player.getVelocity().z == 0.0 ? 0 : ext.get()); i++) {
             // Loop body
-            Vec3d pos = mc.player.getPos().add(-f * i, -0.5, g * i);
+            Vec3d pos = mc.player.getEntityPos().add(-f * i, -0.5, g * i);
             if (keepY.get()) ((IVec3d) pos).meteor$setY(height.get() - 1.0);
 
             BlockPos bPos = BlockPos.ofFloored(pos);
